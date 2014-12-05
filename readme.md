@@ -1,12 +1,12 @@
 # WP Front End Profile
 
-Contributors: wpmarkuk
-Donate link: http://markwilkinson.me/saythanks
-Tags: profile, users, user meta
-Requires at least: 4.0.1
-Tested up to: 4.0.1
-Stable tag: 0.1
-License: GPLv2 or later
+Contributors: wpmarkuk<br />
+Donate link: http://markwilkinson.me/saythanks<br />
+Tags: profile, users, user meta<br />
+Requires at least: 4.0.1<br />
+Tested up to: 4.0.1<br />
+Stable tag: 0.1<br />
+License: GPLv2 or later<br />
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WP Front End Profile allows users to edit their profile without going into the dashboard to do so.
