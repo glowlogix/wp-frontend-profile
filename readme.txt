@@ -41,15 +41,13 @@ wpfep_show_profile();
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Place `<?php wpfep_show_profile(); ?>` in your templates where you want the front end profile to display
 
 == Frequently Asked Questions ==
+
+For more information and more extensive documentation about this plugin checkou the [WP Front End Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
 
 = How do I add my own tab to the profile output? =
 
