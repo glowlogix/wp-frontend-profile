@@ -47,7 +47,7 @@ wpfep_show_profile();
 
 == Frequently Asked Questions ==
 
-For more information and more extensive documentation about this plugin checkou the [WP Front End Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
+For more information and more extensive documentation about this plugin checkout the [WP Front End Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
 
 = How do I add my own tab to the profile output? =
 
