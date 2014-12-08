@@ -7,14 +7,25 @@
  */
 function wpfep_save_fields( $tabs, $user_id ) {
 	
+	/* check the nonce */
+	if( ! isset( $_POST[ 'wpfep_nonce_name' ] ) || ! wp_verify_nonce( $_POST[ 'wpfep_nonce_name' ], 'wpfep_nonce_action' ) )
+		return;
+	
 	/* set an array to store messages in */
 	$messages = array();
 	
 	/* get the POST data */
 	$tabs_data = $_POST;
 	
-	/* remove the password tab from the data */
+	/**
+	 * remove the following array elements from the data
+	 * password
+	 * nonce name
+	 * wp refere - sent with nonce
+	 */
 	unset( $tabs_data[ 'password' ] );
+	unset( $tabs_data[ 'wpfep_nonce_name' ] );
+	unset( $tabs_data[ '_wp_http_referer' ] );
 	
 	/* lets check we have some data to save */
 	if( empty( $tabs_data ) )
@@ -30,15 +41,12 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		'wpfep_reserved_ids',
 		array(
 			'user_email',
-			'user_url'
+			'user_url',
 		)
 	);
-	
+
 	/* loop through the data array - each element of this will be a tabs data */
 	foreach( $tabs_data as $tab_data ) {
-		
-		/* remove the save field from this array - nothing to update there */
-		unset( $tab_data[ 'wpfep_save' ] );
 		
 		/**
 		 * loop through this tabs array
@@ -46,6 +54,10 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		 * the value is the value we want to actually save
 		 */
 		foreach( $tab_data as $key => $value ) {
+			
+			/* if the key is the save sumbit - move to next in array */
+			if( $key == 'wpfep_save' || $key == 'wpfep_nonce_action' )
+				continue;
 			
 			/* check whether the key is reserved - handled with wp_update_user */
 			if( in_array( $key, $reserved_ids ) ) {
