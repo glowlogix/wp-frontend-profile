@@ -17,6 +17,7 @@ require_once dirname( __FILE__ ) . '/functions/default-fields.php';
 require_once dirname( __FILE__ ) . '/functions/tabs.php';
 require_once dirname( __FILE__ ) . '/functions/wpfep-functions.php';
 require_once dirname( __FILE__ ) . '/functions/save-fields.php';
+require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 
 /**
  * function wp_frontend_profile_output()
