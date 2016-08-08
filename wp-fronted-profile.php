@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Front End Profile
 Description: This plugin allows users to easily edit their profile information on the front end rather than having to go into the dashboard to make changes to password, email address and other user meta data.
-Version:     0.2
+Version:     0.2.1
 Author:      Mark Wilkinson
 Author URI:  http://markwilkinson.me
 Text Domain: wpptm
@@ -17,6 +17,7 @@ require_once dirname( __FILE__ ) . '/functions/default-fields.php';
 require_once dirname( __FILE__ ) . '/functions/tabs.php';
 require_once dirname( __FILE__ ) . '/functions/wpfep-functions.php';
 require_once dirname( __FILE__ ) . '/functions/save-fields.php';
+require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 
 /**
  * function wp_frontend_profile_output()
