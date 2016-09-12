@@ -45,6 +45,15 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		)
 	);
 
+	// blacklisted ids - prevent escalation of user levels
+	$blacklisted_ids = apply_filters(
+		'wpfep_blacklisted_ids',
+		array(
+			'wp_capabilities',
+			'wp_user_level'
+		)
+	);
+
 	/* loop through the data array - each element of this will be a tabs data */
 	foreach( $tabs_data as $tab_data ) {
 		
@@ -58,6 +67,11 @@ function wpfep_save_fields( $tabs, $user_id ) {
 			/* if the key is the save sumbit - move to next in array */
 			if( $key == 'wpfep_save' || $key == 'wpfep_nonce_action' )
 				continue;
+
+			// if this meta key is blacklisted
+			if( in_array( $key, $blacklisted_ids ) ) {
+				continue;
+			}
 			
 			/* check whether the key is reserved - handled with wp_update_user */
 			if( in_array( $key, $reserved_ids ) ) {
