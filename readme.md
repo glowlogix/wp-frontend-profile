@@ -5,7 +5,7 @@ Donate link: http://markwilkinson.me/saythanks<br />
 Tags: profile, users, user meta<br />
 Requires at least: 4.0.1<br />
 Tested up to: 4.0.1<br />
-Stable tag: 0.2.1<br />
+Stable tag: 0.2.2<br />
 License: GPLv2 or later<br />
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,9 @@ add_filter( 'wpfep_fields_wpmark_tab', 'wpmark_add_tab_fields', 10 );
 Yes there are two field IDs reserved which are `user_email` and `user_url`. This is because you should not save new meta data with these keys are they already exist, but not in the `user_meta` table.
 
 ## Changelog
+
+### 0.2.2
+* Security: Fix privilege escalation and XSS vulnerabilities.
 
 ### 0.2.1
 * Added ability to display form via shortcode.
