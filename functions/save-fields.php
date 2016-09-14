@@ -45,14 +45,21 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		)
 	);
 
-	// blacklisted ids - prevent escalation of user levels
-	$blacklisted_ids = apply_filters(
-		'wpfep_blacklisted_ids',
-		array(
-			'wp_capabilities',
-			'wp_user_level'
-		)
-	);
+	/**
+	 * set an array of registered fields
+	 */
+	$registered_fields = array();
+	foreach( $tabs as $tab ) {
+		$tab_fields = apply_filters(
+			'wpfep_fields_' . $tab[ 'id' ],
+			array(),
+			$user_id
+		);
+		$registered_fields = array_merge( $registered_fields, $tab_fields );
+	}
+
+	/* set an array of registered keys */
+	$registered_keys = wp_list_pluck( $registered_fields, 'id' );
 
 	/* loop through the data array - each element of this will be a tabs data */
 	foreach( $tabs_data as $tab_data ) {
@@ -68,11 +75,10 @@ function wpfep_save_fields( $tabs, $user_id ) {
 			if( $key == 'wpfep_save' || $key == 'wpfep_nonce_action' )
 				continue;
 
-			// if this meta key is blacklisted
-			if( in_array( $key, $blacklisted_ids ) ) {
+			/* if the key is not in our list of registered keys - move to next in array */
+			if ( ! in_array( $key, $registered_keys ) )
 				continue;
-			}
-			
+
 			/* check whether the key is reserved - handled with wp_update_user */
 			if( in_array( $key, $reserved_ids ) ) {
 				
@@ -93,7 +99,31 @@ function wpfep_save_fields( $tabs, $user_id ) {
 			
 			/* just standard user meta - handle with update_user_meta */
 			} else {
-				
+
+				/* lookup field options by key */
+				$registered_field_key = array_search( $key, array_column( $registered_fields, 'id' ) );
+
+				/* sanitize user input based on field type */
+				switch ( $registered_fields[$registered_field_key]['type'] ) {
+					case 'wysiwyg':
+						$value = wp_filter_post_kses( $value );
+						break;
+					case 'select':
+						$value = sanitize_text_field( $value );
+						break;
+					case 'textarea':
+						$value = wp_filter_nohtml_kses( $value );
+						break;
+					case 'checkbox':
+						$value = isset( $value ) && '1' === $value ? true : false;
+						break;
+					case 'email':
+						$value = sanitize_email( $value );
+						break;
+					default:
+						$value = sanitize_text_field( $value );
+				}
+
 				/* update the user meta data */
 				$meta = update_user_meta( $user_id, $key, $value );
 				

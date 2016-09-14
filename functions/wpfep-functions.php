@@ -210,7 +210,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			        /* loop through each option */
 			        foreach( $options as $option ) {
 				        ?>
-				        <option value="<?php echo esc_attr( $option[ 'value' ] ); ?>" <?php selected( $current_field_value, $option[ 'value' ] ); ?>><?php echo $option[ 'name' ]; ?></option>
+						<option value="<?php echo esc_attr( $option[ 'value' ] ); ?>" <?php selected( $current_field_value, $option[ 'value' ] ); ?>><?php echo esc_html( $option[ 'name' ] ); ?></option>
 						<?php
 			        }
 			        ?>
@@ -223,8 +223,8 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			    case 'textarea':
 			    	
 			    	?>
-			    	
-			        <textarea name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" rows="<?php echo apply_filters( 'wpfep_textarea_rows', '5', $field[ 'id' ] ); ?>" cols="50" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" class="regular-text"><?php echo $current_field_value; ?></textarea>
+
+					<textarea name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" rows="<?php echo apply_filters( 'wpfep_textarea_rows', '5', $field[ 'id' ] ); ?>" cols="50" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" class="regular-text"><?php echo esc_textarea( $current_field_value ); ?></textarea>
 			        
 			        <?php
 				        
@@ -245,7 +245,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			    case 'email':
 			    
 			    	?>
-					<input type="email" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" class="regular-text" value="<?php echo $current_field_value ?>" />
+					<input type="email" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" class="regular-text" value="<?php echo esc_attr( $current_field_value ); ?>" />
 
 					<?php
 			    	
@@ -269,7 +269,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 				default:
 				
 					?>
-					<input type="text" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" class="regular-text" value="<?php echo $current_field_value ?>" />
+					<input type="text" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" class="regular-text" value="<?php echo esc_attr( $current_field_value ); ?>" />
 					<?php	
 				
 			}
