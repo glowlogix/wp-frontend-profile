@@ -5,7 +5,7 @@ Donate link: http://markwilkinson.me/saythanks
 Tags: profile, users, user meta
 Requires at least: 4.0.1
 Tested up to: 4.0.1
-Stable tag: 0.2
+Stable tag: 0.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -110,11 +110,17 @@ Yes there are two field IDs reserved which are `user_email` and `user_url`. This
 
 == Changelog ==
 
+= 0.2.2 =
+* Security: Fix privilege escalation and XSS vulnerabilities.
+
+= 0.2.1 =
+* Added ability to display form via shortcode.
+
 = 0.2 =
 * Include a nonce in the front end editing form for security.
 
 = 0.1 =
-* Initial launch
+* Initial launch.
 
 == Upgrade notice ==
 
