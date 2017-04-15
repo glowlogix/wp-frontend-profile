@@ -122,7 +122,7 @@ function wpfep_show_profile() {
 						<?php
 							
 							/* check if callback function exists */
-							if( function_exists( $wpfep_tab[ 'callback' ] ) ) {
+							if( ! empty( $wpfep_tab[ 'callback' ] ) && function_exists( $wpfep_tab[ 'callback' ] ) ) {
 								
 								/* use custom callback function */
 								$wpfep_tab[ 'callback' ]( $wpfep_tab );
