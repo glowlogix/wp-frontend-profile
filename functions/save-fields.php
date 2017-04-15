@@ -186,6 +186,10 @@ function wpfep_save_password( $tabs, $user_id ) {
 	/* set an array to store messages in */
 	$messages = array();
 	
+	/* check to see if there is a password to set */
+        if ( empty( $_POST[ 'password' ] ) )
+                return;
+	
 	/* get the posted data from the password tab */
 	$data = $_POST[ 'password' ];
 	
