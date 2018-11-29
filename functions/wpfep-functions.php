@@ -158,7 +158,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			if( in_array( $field[ 'id' ], $reserved_ids ) ) {
 				
 				$userdata = get_userdata( $user_id );
-				$current_field_value = $userdata->$field[ 'id' ];
+				$current_field_value = $userdata->{$field[ 'id' ]};
 			
 			/* not a reserved id - treat normally */
 			} else {
