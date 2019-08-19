@@ -235,6 +235,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			    case 'checkbox':
 			    
 			    	?>
+			    	<input type="hidden" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" value="0" <?php checked( $current_field_value, '0' ); ?> />
 					<input type="checkbox" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" value="1" <?php checked( $current_field_value, '1' ); ?> />
 					<?php
 			    	
