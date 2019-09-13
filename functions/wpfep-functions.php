@@ -158,7 +158,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			if( in_array( $field[ 'id' ], $reserved_ids ) ) {
 				
 				$userdata = get_userdata( $user_id );
-				$current_field_value = $userdata->$field[ 'id' ];
+				$current_field_value = $userdata->{$field[ 'id' ]};
 			
 			/* not a reserved id - treat normally */
 			} else {
@@ -231,10 +231,11 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			        /* break out of the switch statement */
 			        break;
 				
-				/* if the type is set to a textarea input */  
+				/* if the type is set to a textarea input */
 			    case 'checkbox':
 			    
 			    	?>
+			    	<input type="hidden" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" value="0" <?php checked( $current_field_value, '0' ); ?> />
 					<input type="checkbox" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo $field[ 'id' ]; ?>]" id="<?php echo esc_attr( $field[ 'id' ] ); ?>" value="1" <?php checked( $current_field_value, '1' ); ?> />
 					<?php
 			    	
@@ -308,3 +309,148 @@ function wpfep_tab_content_save( $tab, $user_id ) {
 }
 
 add_action( 'wpfep_after_tab_fields', 'wpfep_tab_content_save', 10, 2 );
+
+/**
+ * Displays a multi select dropdown for a settings field
+ *
+ * @param array   $args settings field args
+ */
+
+function wpfep_settings_multiselect( $args ) {
+
+        $settings = new WPFEP_Settings_API();
+        $value = $settings->get_option( $args['id'], $args['section'], $args['std'] );
+        $value = is_array($value) ? (array)$value : array();
+        $size  = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
+        $html  = sprintf( '<select multiple="multiple" class="%1$s" name="%2$s[%3$s][]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
+
+        foreach ( $args['options'] as $key => $label ) {
+            $checked = in_array($key, $value) ? $key : '0';
+            $html   .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $checked, $key, false ), $label );
+        }
+
+        $html .= sprintf( '</select>' );
+        $html .= $settings->get_field_description( $args );
+
+        echo $html;
+}
+
+/**
+ * Retrieve or display list of posts as a dropdown (select list).
+ *
+ * @return string HTML content, if not displaying.
+ */
+function wpfep_get_pages( $post_type = 'page' ) {
+    global $wpdb;
+
+    $array = array( '' => __( '-- select --', 'wpptm' ) );
+    $pages = get_posts( array('post_type' => $post_type, 'numberposts' => -1) );
+    if ( $pages ) {
+        foreach ($pages as $page) {
+            $array[$page->ID] = esc_attr( $page->post_title );
+        }
+    }
+
+    return $array;
+}
+
+/**
+ * Include a template file
+ *
+ * Looks up first on the theme directory, if not found
+ * lods from plugins folder
+ *
+ * @param string $file file name or path to file
+ */
+function wpfep_load_template( $file, $args = array() ) {
+    if ( $args && is_array( $args ) ) {
+        extract( $args );
+    }
+
+    $child_theme_dir 	= get_stylesheet_directory() . '/wpfep/';
+    $parent_theme_dir 	= get_template_directory() . '/wpfep/';
+    $wpfep_dir 			= plugin_dir_path( __DIR__ ) . 'views/';
+
+    if ( file_exists( $child_theme_dir . $file ) ) {
+
+        include $child_theme_dir . $file;
+
+    } else if ( file_exists( $parent_theme_dir . $file ) ) {
+
+        include $parent_theme_dir . $file;
+
+    } else {
+        include $wpfep_dir . $file;
+    }
+}
+/**
+ * Get the value of a settings field
+ *
+ * @param string $option settings field name
+ * @param string $section the section name this field belongs to
+ * @param string $default default text if it's not found
+ * @return mixed
+ */
+function wpfep_get_option( $option, $section, $default = '' ) {
+
+    $options = get_option( $section );
+
+    if ( isset( $options[$option] ) ) {
+        return $options[$option];
+    }
+
+    return $default;
+}
+
+/**
+ * Encryption function for various usage
+ *
+ * @param  string  $id
+ *
+ * @return string $encoded_id
+ */
+function wpfep_encryption ( $id ) {
+
+    $secret_key     = AUTH_KEY;
+    $secret_iv      = AUTH_SALT;
+
+    $encrypt_method = "AES-256-CBC";
+    $key            = hash( 'sha256', $secret_key );
+    $iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+    $encoded_id     = base64_encode( openssl_encrypt( $id, $encrypt_method, $key, 0, $iv ) );
+
+    return $encoded_id;
+}
+
+/**
+ * Decryption function for various usage
+ *
+ * @param  string  $id
+ *
+ * @return string $encoded_id
+ */
+function wpfep_decryption ( $id ) {
+
+    $secret_key     = AUTH_KEY;
+    $secret_iv      = AUTH_SALT;
+
+    $encrypt_method = "AES-256-CBC";
+    $key            = hash( 'sha256', $secret_key );
+    $iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+    $decoded_id     = openssl_decrypt( base64_decode( $id ), $encrypt_method, $key, 0, $iv );
+
+    return $decoded_id;
+}
+
+/**
+     * Get a posted value for showing in the form field
+     *
+     * @param string $key
+     * @return string
+*/
+function get_post_value( $key ) {
+    if ( isset( $_POST[$key] ) ) {
+        return esc_attr( $_POST[$key] );
+    }
+    return '';
+}

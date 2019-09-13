@@ -48,6 +48,9 @@ ul.wpfep-tabs li.highlight a.active {
 	background-color: #C95874;
 	color: #FFFFFF;
 }
+p.forgetmenot label {
+    display: inline;
+}
 
 /* field styles
 -------------------------------------------------------------- */
@@ -130,7 +133,6 @@ label.wpfep_save_description {
 .wpfep-save input[type="submit"]:hover {
 	border: 1px solid #666666;
 }
-
 p.error,
 p.updated {
 	background-color: #F2F2F2;
@@ -140,4 +142,87 @@ p.updated {
 }
 p.error {
 	border-left: 3px solid #990000;
+}
+.wpfep-login-alert,.wpfep-message {
+    background: #fcf8e3;
+    border: 1px solid #faebcc;
+    color: #8a6d3b;
+    margin: 10px 0 20px 0;
+    padding: 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+.wpfep-success{
+	padding: 6px 9px;
+    margin: 0 auto 25px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: #e7f7d3;
+    border: 1px solid #6c3;
+}
+.wpfep-error {
+    padding: 6px 9px;
+    margin: 0 auto 25px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: #ffebe8;
+    border: 1px solid #C00;
+}
+.wpfep-required {
+	color :red;
+}
+.wpfep-registration-form ul li {
+    margin: 0;
+    padding-bottom: 14px;
+    list-style: none;
+}
+.wpfep-form-field label, .wpfep-login-form label, #lostpasswordform label{
+    display: block;
+    min-height: 1px;
+}
+.wpfep-form-field input, .wpfep-form-field input[type="text"], .wpfep-form-field input[type="number"], .wpfep-form-field input[type="email"], .wpfep-form-field input[type="url"], .wpfep-form-field input[type="password"], .wpfep-form-field input[type="search"], .wpfep-form-field select, .wpfep-form-field textarea, .wpfep-checkboxes,input#wpfep-user_login,input#wpfep-user_pass, input#wpfep-user_login{
+	width: 68%;
+	color: #666;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3px;
+}
+li.wpfep-form-field.wpfep-default-user-bio label {
+    vertical-align: top;
+}
+.wpfep-avatar img {
+    width: 20%;
+    height: auto;
+    border-radius: 50%;
+}
+.wpfep-profile-card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+.title {
+  color: grey;
+  font-size: 18px;
+}
+.wpfep_user_details{
+	padding-bottom: 5px;
+}
+.wpfep_label_user_bio{
+	padding-bottom: 10px;
+}
+@media screen and (max-width: 400px){
+	.wpfep-form-field label, .wpfep-login-form label, #lostpasswordform label{
+	    width: 100%;
+	    display: block;
+	    float: none;
+	}
+	.wpfep-form-field input, .wpfep-form-field input[type="text"], .wpfep-form-field input[type="number"], .wpfep-form-field input[type="email"], .wpfep-form-field input[type="url"], .wpfep-form-field input[type="password"], .wpfep-form-field input[type="search"], .wpfep-form-field select, .wpfep-form-field textarea, .wpfep-checkboxes,input#wpfep-user_login,input#wpfep-user_pass, input#wpfep-user_login{
+		width: 100%;
+	}
 }

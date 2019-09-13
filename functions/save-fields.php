@@ -167,7 +167,6 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		<?php
 		
 	}
-	
 }
 
 add_action( 'wpfep_before_tabs', 'wpfep_save_fields', 5, 2 );

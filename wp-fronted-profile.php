@@ -9,15 +9,108 @@ Text Domain: wpptm
 License:     GPL v2 or later
 */
 
-/***************************************************************
-* include the necessary functions files for the plugin
-***************************************************************/
-require_once dirname( __FILE__ ) . '/functions/scripts.php';
-require_once dirname( __FILE__ ) . '/functions/default-fields.php';
-require_once dirname( __FILE__ ) . '/functions/tabs.php';
-require_once dirname( __FILE__ ) . '/functions/wpfep-functions.php';
-require_once dirname( __FILE__ ) . '/functions/save-fields.php';
-require_once dirname( __FILE__ ) . '/functions/shortcode.php';
+/**
+ * Main class for WP Front End Profile
+ *
+ * @package WP Front End Profile
+ */
+
+final class WP_Frontend_Profile {
+	/**
+     * Holds various class instances
+     *
+     * @var array
+     */
+    private $container = array();
+
+     /**
+     * The singleton instance
+     *
+     * @var WP_Frontend_Profile
+     */
+    private static $_instance;
+
+    /**
+     * Fire up the plugin
+     */
+    public function __construct() {
+    	$this->includes();
+        $this->init_hooks();
+        do_action( 'wfep_loaded' );
+    }
+
+    /**
+     * Initialize the hooks
+     *
+     * @return void
+     */
+    public function init_hooks() {
+    	add_action( 'plugins_loaded', array( $this, 'instantiate' ) );
+    	add_action( 'init', array( $this, 'load_textdomain' ) );
+    }
+     /**
+     * Include the required files
+     *
+     * @return void
+     */
+    public function includes() {
+    	require_once dirname( __FILE__ ) . '/functions/scripts.php';
+		require_once dirname( __FILE__ ) . '/functions/default-fields.php';
+		require_once dirname( __FILE__ ) . '/functions/tabs.php';
+		require_once dirname( __FILE__ ) . '/functions/wpfep-functions.php';
+		require_once dirname( __FILE__ ) . '/functions/save-fields.php';
+		require_once dirname( __FILE__ ) . '/functions/shortcode.php';
+		require_once  dirname( __FILE__ ) . '/inc/class-user.php';
+
+
+            require_once dirname( __FILE__ ) . '/inc/class-registration.php';
+            require_once dirname( __FILE__ ) . '/inc/class-login.php';
+            require_once dirname( __FILE__ ) . '/inc/class-profile.php';
+    }
+
+    /**
+     * Instantiate the classes
+     *
+     * @return void
+     */
+    function instantiate() {
+      	$this->container['registration']    = WPFEP_Registration::init();
+      	$this->container['login']    = WPFEP_Login::init();
+      	$this->container['profile']    = WPFEP_Profile::init();
+    }
+
+     /**
+     * Load the translation file for current language.
+     */
+    function load_textdomain() {
+        load_plugin_textdomain( 'wpptm', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+    }
+
+    /**
+     * Singleton Instance
+     *
+     * @return \self
+     */
+    public static function init() {
+
+        if ( ! self::$_instance ) {
+            self::$_instance = new WP_Frontend_Profile();
+        }
+
+        return self::$_instance;
+    }
+}
+/**
+ * Returns the singleton instance
+ *
+ * @return \WP_Frontend_Profile
+ */
+function wpfep() {
+    return WP_Frontend_Profile::init();
+}
+
+// kickoff
+wpfep();
 
 /**
  * function wp_frontend_profile_output()
@@ -27,8 +120,12 @@ require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 function wpfep_show_profile() {
 	
 	/* first things first - if no are not logged in move on! */
-	if( ! is_user_logged_in() )
+	if( ! is_user_logged_in() ){
+		echo "<div class='wpfep-login-alert'>";
+		printf( __( "This page is restricted. Please %s to view this page.", 'wpptm' ), wp_loginout( '', false ) );
+		echo "</div>";
 		return;
+	}
 	
 	/* if you're an admin - too risky to allow front end editing */
 	if( current_user_can( 'manage_options' ) )
