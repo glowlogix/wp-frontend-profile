@@ -54,7 +54,31 @@ class WPFEP_Admin_Settings {
             'previous_page' => __( 'Previous Page', 'wpptm' )
         ) + $pages;
         $settings_fields = array(
-           
+            'wpfep_general' => apply_filters( 'wpfep_options_others', array(
+                array(
+                    'name'  => 'recaptcha_public',
+                    'label' => __( 'reCAPTCHA Site Key', 'wpptm' ),
+                ),
+                array(
+                    'name'  => 'recaptcha_private',
+                    'label' => __( 'reCAPTCHA Secret Key', 'wpptm' ),
+                    'desc'  => __( '<a target="_blank" href="https://www.google.com/recaptcha/">Register here</a> to get reCaptcha Site and Secret keys.', 'wpptm' ),
+                ),
+                array(
+                    'name'    => 'enable_captcha_login',
+                    'label'   => __( 'reCAPTCHA Login Form', 'wpptm' ),
+                    'desc'    => __( 'Check to enable reCAPTCHA in login form.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'off'
+                ),
+                array(
+                    'name'    => 'enable_captcha_registration',
+                    'label'   => __( 'reCAPTCHA Registration Form', 'wpptm' ),
+                    'desc'    => __( 'Check to enable reCAPTCHA in registration form', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'off'
+                ),
+            ) ),
             'wpfep_profile' => apply_filters( 'wpfep_options_profile', array(
                 array(
                     'name'    => 'autologin_after_registration',
@@ -85,6 +109,11 @@ class WPFEP_Admin_Settings {
 
     public function wpfep_settings_sections() {
         $sections = array(
+            array(
+                'id'    => 'wpfep_general',
+                'title' => __( 'General Options', 'wpptm' ),
+                'icon' => 'dashicons-admin-generic'
+            ),
             array(
                 'id'    => 'wpfep_profile',
                 'title' => __( 'Login / Registration', 'wpptm' ),

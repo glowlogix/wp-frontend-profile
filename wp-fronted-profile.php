@@ -61,6 +61,7 @@ final class WP_Frontend_Profile {
 		require_once dirname( __FILE__ ) . '/functions/save-fields.php';
 		require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 		require_once  dirname( __FILE__ ) . '/inc/class-user.php';
+		require_once  dirname( __FILE__ ) . '/inc/class-captcha.php';
 
 		if (is_admin()) {
 			require_once dirname( __FILE__ ) . '/admin/installer.php';
@@ -89,6 +90,7 @@ final class WP_Frontend_Profile {
       		$this->container['registration']    = WPFEP_Registration::init();
       		$this->container['login']    = WPFEP_Login::init();
       		$this->container['profile']    = WPFEP_Profile::init();
+      		$this->container['captcha']    = WPFEP_Captcha_Recaptcha::initialize();
       	}
     }
 

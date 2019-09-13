@@ -45,7 +45,6 @@ class WPFEP_Profile {
     /**
      * Add Error message
      *
-     *
      * @param $message
      */
     public function add_error( $message ) {
@@ -54,7 +53,6 @@ class WPFEP_Profile {
 
     /**
      * Add info message
-     *
      *
      * @param $message
      */

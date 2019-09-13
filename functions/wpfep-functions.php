@@ -360,7 +360,6 @@ function wpfep_get_pages( $post_type = 'page' ) {
  * Looks up first on the theme directory, if not found
  * lods from plugins folder
  *
- *
  * @param string $file file name or path to file
  */
 function wpfep_load_template( $file, $args = array() ) {

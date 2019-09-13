@@ -2,7 +2,6 @@
 
 /**
  * The User Class
- *
  */
 class WPFEP_User {
 
@@ -69,7 +68,6 @@ class WPFEP_User {
 
     /**
      * Mark user as unverified
-     *
      *
      * @return void
      */
