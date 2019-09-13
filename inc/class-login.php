@@ -61,6 +61,8 @@ class wpfep_Login {
 
     /**
      * Add custom fields to WordPress default login form
+     *
+     * @since 2.9.0
      */
     public function add_custom_fields() {
         $recaptcha = wpfep_get_option( 'enable_captcha_login', 'wpfep_profile');
@@ -224,8 +226,7 @@ class wpfep_Login {
 
                     if ( isset( $_GET['reset'] ) && $_GET['reset'] == 'true' ) {
 
-                        printf( '<div class="wpfep-message">' . __( 'Your password has been reset. Login now with new password', 'wpptm' ) . '</div>' );
-                         wpfep_load_template( 'login.php', $args );
+                        printf( '<div class="wpfep-message">' . __( 'Your password has been reset.', 'wpptm' ) . '</div>' );
                         return;
                     } else {
 
@@ -623,6 +624,8 @@ class wpfep_Login {
 
     /**
      * Check in activation of user registration
+     *
+     * 
      */
     function activation_user_registration() {
 
@@ -725,6 +728,8 @@ class wpfep_Login {
 
     /**
      * Shows activation message on success to wp-login.php
+     *
+     * 
      * @return \WP_Error
      */
     function user_activation_message() {
@@ -798,6 +803,8 @@ class wpfep_Login {
     /**
      * Add Error message
      *
+     * @since 2.8.8
+     *
      * @param $message
      */
     public function add_error( $message ) {
@@ -806,6 +813,8 @@ class wpfep_Login {
 
     /**
      * Add info message
+     *
+     * @since 2.8.8
      *
      * @param $message
      */

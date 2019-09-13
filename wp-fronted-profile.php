@@ -62,10 +62,15 @@ final class WP_Frontend_Profile {
 		require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 		require_once  dirname( __FILE__ ) . '/inc/class-user.php';
 
+		if (is_admin()) {
+			require_once dirname( __FILE__ ) . '/admin/installer.php';
+			require_once dirname( __FILE__ ) . '/admin/class-admin-settings.php';
+		} else {
 
             require_once dirname( __FILE__ ) . '/inc/class-registration.php';
             require_once dirname( __FILE__ ) . '/inc/class-login.php';
             require_once dirname( __FILE__ ) . '/inc/class-profile.php';
+        }
     }
 
     /**
@@ -74,9 +79,17 @@ final class WP_Frontend_Profile {
      * @return void
      */
     function instantiate() {
-      	$this->container['registration']    = WPFEP_Registration::init();
-      	$this->container['login']    = WPFEP_Login::init();
-      	$this->container['profile']    = WPFEP_Profile::init();
+  
+    	if ( is_admin() ) {
+      		$this->container['settings']           = WPFEP_Admin_Settings::init();
+      		$this->container['admin_installer']    = new WPFEP_Admin_Installer();
+      	}
+      	else {
+      		
+      		$this->container['registration']    = WPFEP_Registration::init();
+      		$this->container['login']    = WPFEP_Login::init();
+      		$this->container['profile']    = WPFEP_Profile::init();
+      	}
     }
 
      /**

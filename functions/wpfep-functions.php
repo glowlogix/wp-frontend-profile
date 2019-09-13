@@ -343,7 +343,7 @@ function wpfep_settings_multiselect( $args ) {
 function wpfep_get_pages( $post_type = 'page' ) {
     global $wpdb;
 
-    $array = array( '' => __( '-- select --', 'wpptm' ) );
+    $array = array( '' => __( '-- select --', 'wp-user-frontend' ) );
     $pages = get_posts( array('post_type' => $post_type, 'numberposts' => -1) );
     if ( $pages ) {
         foreach ($pages as $page) {
@@ -359,6 +359,7 @@ function wpfep_get_pages( $post_type = 'page' ) {
  *
  * Looks up first on the theme directory, if not found
  * lods from plugins folder
+ *
  *
  * @param string $file file name or path to file
  */
