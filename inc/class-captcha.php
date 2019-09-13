@@ -42,6 +42,8 @@ class WPFEP_Captcha_Recaptcha {
 
 	/**
 	* Enqueue the Google ReCAPTCHA script using the WP system.
+	*
+	* @since 1.0.3
 	*/
 	public static function enqueue_header_script() {
 

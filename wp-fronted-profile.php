@@ -62,10 +62,10 @@ final class WP_Frontend_Profile {
 		require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 		require_once  dirname( __FILE__ ) . '/inc/class-user.php';
 		require_once  dirname( __FILE__ ) . '/inc/class-captcha.php';
-
 		if (is_admin()) {
 			require_once dirname( __FILE__ ) . '/admin/installer.php';
 			require_once dirname( __FILE__ ) . '/admin/class-admin-settings.php';
+			require_once dirname( __FILE__ ) . '/admin/class-shortcode-button.php';
 		} else {
 
             require_once dirname( __FILE__ ) . '/inc/class-registration.php';

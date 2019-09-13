@@ -192,6 +192,7 @@ class wpfep_Login {
      */
     function login_form() {
         global $wp;
+        
         $login_page = home_url( $wp->request );
 
         ob_start();
@@ -205,6 +206,7 @@ class wpfep_Login {
         } else {
 
             $action = isset( $_GET['action'] ) ? $_GET['action'] : 'login';
+
             $args = array(
                 'action_url' => $login_page,
             );
@@ -775,7 +777,7 @@ class wpfep_Login {
         $message .= sprintf(__('Username: %s', 'wpptm' ), $user_login) . "\r\n\r\n";
         $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'wpptm') . "\r\n\r\n";
         $message .= __('To reset your password, visit the following address:', 'wpptm') . "\r\n\r\n";
-        $message .= ' ' . $reset_url . " \r\n";
+        $message .= network_home_url( $reset_url ) . " \r\n";
 
         $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
