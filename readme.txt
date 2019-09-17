@@ -1,7 +1,7 @@
 === WP Front End Profile ===
 
-Contributors: wpmarkuk
-Donate link: http://markwilkinson.me/saythanks
+Contributors: glowlogix
+Donate link: https://www.glowlogix.com
 Tags: profile, users, user meta
 Requires at least: 4.0.1
 Tested up to: 4.5.4
