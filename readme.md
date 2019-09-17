@@ -1,6 +1,6 @@
 # WP Front End Profile
 
-Contributors: wpmarkuk<br />
+Contributors: glowlogix<br />
 Donate link: http://markwilkinson.me/saythanks<br />
 Tags: profile, users, user meta<br />
 Requires at least: 4.0.1<br />
@@ -23,7 +23,7 @@ You can add the following field types:
 
 *	WYSIWYG
 *	Select
-* Text Area
+*       Text Area
 *	Checkbox
 *	Password
 *	Email
