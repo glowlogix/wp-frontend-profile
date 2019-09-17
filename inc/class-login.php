@@ -61,6 +61,8 @@ class wpfep_Login {
 
     /**
      * Add custom fields to WordPress default login form
+     *
+     * @since 1.0.0
      */
     public function add_custom_fields() {
         $recaptcha = wpfep_get_option( 'enable_captcha_login', 'wpfep_profile');
@@ -224,8 +226,7 @@ class wpfep_Login {
 
                     if ( isset( $_GET['reset'] ) && $_GET['reset'] == 'true' ) {
 
-                        printf( '<div class="wpfep-message">' . __( 'Your password has been reset. Login now with new password', 'wpptm' ) . '</div>' );
-                         wpfep_load_template( 'login.php', $args );
+                        printf( '<div class="wpfep-message">' . __( 'Your password has been reset.', 'wpptm' ) . '</div>' );
                         return;
                     } else {
 
@@ -623,6 +624,8 @@ class wpfep_Login {
 
     /**
      * Check in activation of user registration
+     *
+     * @since 1.0.0
      */
     function activation_user_registration() {
 
@@ -725,6 +728,8 @@ class wpfep_Login {
 
     /**
      * Shows activation message on success to wp-login.php
+     *
+     * @since 1.0.0
      * @return \WP_Error
      */
     function user_activation_message() {
@@ -777,7 +782,7 @@ class wpfep_Login {
         $message .= sprintf(__('Username: %s', 'wpptm' ), $user_login) . "\r\n\r\n";
         $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'wpptm') . "\r\n\r\n";
         $message .= __('To reset your password, visit the following address:', 'wpptm') . "\r\n\r\n";
-        $message .= network_home_url( $reset_url ) . " \r\n";
+        $message .= ' ' . $reset_url . " \r\n";
 
         $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
@@ -798,6 +803,8 @@ class wpfep_Login {
     /**
      * Add Error message
      *
+     * @since 1.0.0
+     *
      * @param $message
      */
     public function add_error( $message ) {
@@ -806,6 +813,8 @@ class wpfep_Login {
 
     /**
      * Add info message
+     *
+     * @since 1.0.0
      *
      * @param $message
      */

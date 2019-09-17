@@ -45,6 +45,8 @@ class WPFEP_Profile {
     /**
      * Add Error message
      *
+     * @since 1.0.0
+     *
      * @param $message
      */
     public function add_error( $message ) {
@@ -53,6 +55,8 @@ class WPFEP_Profile {
 
     /**
      * Add info message
+     *
+     * @since 1.0.0
      *
      * @param $message
      */
@@ -68,7 +72,7 @@ class WPFEP_Profile {
         if ( $this->login_errors ) {
             foreach ($this->login_errors as $error) {
                 echo '<div class="wpfep-error">';
-                _e( $error,'wp-user-frontend' );
+                _e( $error,'wpptm' );
                 echo '</div>';
             }
         }

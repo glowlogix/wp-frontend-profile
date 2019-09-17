@@ -18,7 +18,6 @@ class WPFEP_Captcha_Recaptcha {
 
 		self::$secret_key = wpfep_get_option( 'recaptcha_private', 'wpfep_general' );
 
-		// self::$error_message = isset( self::$plugin_options['error_message'] ) ? self::$plugin_options['error_message'] : wp_kses( __( '<strong>ERROR</strong>: Please retry CAPTCHA', 'ncr-catpcha' ), array(  'strong' => array() ) );
 		self::$script_handle = 'wpfep-recaptcha';
 
 		add_action( 'plugins_loaded', array( __CLASS__, 'load_plugin_textdomain' ) );
@@ -26,30 +25,23 @@ class WPFEP_Captcha_Recaptcha {
 		// initialize if login is activated
 		if (( wpfep_get_option( 'enable_captcha_login', 'wpfep_general' ) == 'on' ) || ( wpfep_get_option( 'enable_captcha_registration', 'wpfep_general' ) == 'on' )) {
 
-			add_action( 'wp_head', array( __CLASS__, 'header_script' ) );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_header_script' ) );
 
 		}
 
 	}
 
-	
-	/** reCAPTCHA header script */
-	public static function header_script() {
-
-		echo '<script src="https://www.google.com/recaptcha/api.js" async defer></script>' . "\r\n";
-	}
-
 	/**
 	* Enqueue the Google ReCAPTCHA script using the WP system.
 	*
-	* @since 1.0.3
+	* @since 1.0.0
 	*/
 	public static function enqueue_header_script() {
 
 		$src = 'https://www.google.com/recaptcha/api.js';
 
 		wp_enqueue_script( self::$script_handle, $src, false, false, true );
+		wp_enqueue_script( 'wpfep_google_recaptcha', 'https://www.google.com/recaptcha/api.js', false, false, false );
 	}
 
 	/** Output the reCAPTCHA form field. */

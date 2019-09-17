@@ -11,14 +11,14 @@ wpfep will always look in your theme's directory first, before using this defaul
 
 	<form name="lostpasswordform" id="lostpasswordform" action="" method="post">
 		<p>
-			<label for="wpfep-user_login"><?php _e( 'Username or E-mail:', 'wp-user-frontend' ); ?></label>
+			<label for="wpfep-user_login"><?php _e( 'Username or E-mail:', 'wpptm' ); ?></label>
 			<input type="text" name="user_login" id="wpfep-user_login" class="input" value="" size="20" />
 		</p>
 
 		<?php do_action( 'lostpassword_form' ); ?>
 
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e( 'Get New Password', 'wp-user-frontend' ); ?>" />
+			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e( 'Get New Password', 'wpptm' ); ?>" />
 			<input type="hidden" name="redirect_to" value="<?php echo get_post_value( 'redirect_to' ); ?>" />
 			<input type="hidden" name="wpfep_reset_password" value="true" />
 			<input type="hidden" name="action" value="lostpassword" />

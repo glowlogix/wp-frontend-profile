@@ -343,7 +343,7 @@ function wpfep_settings_multiselect( $args ) {
 function wpfep_get_pages( $post_type = 'page' ) {
     global $wpdb;
 
-    $array = array( '' => __( '-- select --', 'wp-user-frontend' ) );
+    $array = array( '' => __( '-- select --', 'wpptm' ) );
     $pages = get_posts( array('post_type' => $post_type, 'numberposts' => -1) );
     if ( $pages ) {
         foreach ($pages as $page) {
@@ -359,6 +359,8 @@ function wpfep_get_pages( $post_type = 'page' ) {
  *
  * Looks up first on the theme directory, if not found
  * lods from plugins folder
+ *
+ * @since 1.0.0
  *
  * @param string $file file name or path to file
  */
@@ -405,6 +407,8 @@ function wpfep_get_option( $option, $section, $default = '' ) {
 /**
  * Encryption function for various usage
  *
+ * @since 1.0.0
+ *
  * @param  string  $id
  *
  * @return string $encoded_id
@@ -424,6 +428,8 @@ function wpfep_encryption ( $id ) {
 
 /**
  * Decryption function for various usage
+ *
+ * @since 1.0.0
  *
  * @param  string  $id
  *

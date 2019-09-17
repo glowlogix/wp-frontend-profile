@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Front End Profile
 Description: This plugin allows users to easily edit their profile information on the front end rather than having to go into the dashboard to make changes to password, email address and other user meta data.
-Version:     0.2.2
+Version:     1.0.0
 Author:      Mark Wilkinson
 Author URI:  http://markwilkinson.me
 Text Domain: wpptm
@@ -61,16 +61,16 @@ final class WP_Frontend_Profile {
 		require_once dirname( __FILE__ ) . '/functions/save-fields.php';
 		require_once dirname( __FILE__ ) . '/functions/shortcode.php';
 		require_once  dirname( __FILE__ ) . '/inc/class-user.php';
-		require_once  dirname( __FILE__ ) . '/inc/class-captcha.php';
+
 		if (is_admin()) {
 			require_once dirname( __FILE__ ) . '/admin/installer.php';
 			require_once dirname( __FILE__ ) . '/admin/class-admin-settings.php';
-			require_once dirname( __FILE__ ) . '/admin/class-shortcode-button.php';
 		} else {
 
             require_once dirname( __FILE__ ) . '/inc/class-registration.php';
             require_once dirname( __FILE__ ) . '/inc/class-login.php';
             require_once dirname( __FILE__ ) . '/inc/class-profile.php';
+            require_once dirname( __FILE__ ) . '/inc/class-captcha.php';
         }
     }
 
@@ -88,9 +88,9 @@ final class WP_Frontend_Profile {
       	else {
       		
       		$this->container['registration']    = WPFEP_Registration::init();
-      		$this->container['login']    = WPFEP_Login::init();
-      		$this->container['profile']    = WPFEP_Profile::init();
-      		$this->container['captcha']    = WPFEP_Captcha_Recaptcha::initialize();
+      		$this->container['login']    		= WPFEP_Login::init();
+      		$this->container['profile']    		= WPFEP_Profile::init();
+      		$this->container['captcha']    		= WPFEP_Captcha_Recaptcha::initialize();
       	}
     }
 
@@ -202,7 +202,7 @@ function wpfep_show_profile() {
 		</ul><!-- // wpfep-tabs -->
 		
 		<?php
-									
+			global $wp;			
 			/* loop through each item */
 			foreach( $wpfep_tabs as $wpfep_tab ) {
 				
@@ -224,12 +224,12 @@ function wpfep_show_profile() {
 				 * @param (int) $current_user_id the user if of the current user to add things targetted to a specific user only.
 				 */
 				do_action( 'wpfep_before_tab_content', $wpfep_tab[ 'id' ], get_current_user_id() );
-				
+
 				?>
 				
 				<div class="tab-content<?php echo esc_attr( $content_class ); ?>" id="<?php echo esc_attr( $wpfep_tab[ 'id' ] ); ?>">
 					
-					<form method="post" action="#" class="wpfep-form-<?php echo esc_attr( $wpfep_tab[ 'id' ] ); ?>">
+					<form method="post" action="<?php echo home_url( $wp->request.'/#'.esc_attr( $wpfep_tab[ 'id' ] ) ); ?>" class="wpfep-form-<?php echo esc_attr( $wpfep_tab[ 'id' ] ); ?>">
 						
 						<?php
 							

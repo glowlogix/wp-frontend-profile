@@ -3,7 +3,7 @@
 /**
  * wpfep tinyMce Shortcode Button class
  *
- * @since 2.5.2
+ * @since 1.0.0
  */
 class WPFEP_Shortcodes_Button {
 
@@ -69,7 +69,7 @@ class WPFEP_Shortcodes_Button {
     /**
      * Add button on Post Editor
      *
-     * @since 2.5.2
+     * @since 1.0.0
      *
      * @param array $plugin_array
      *
@@ -85,7 +85,7 @@ class WPFEP_Shortcodes_Button {
     /**
      * Register tinyMce button
      *
-     * @since 2.5.2
+     * @since 1.0.0
      *
      * @param array $buttons
      *

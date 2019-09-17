@@ -2,6 +2,8 @@
 
 /**
  * The User Class
+ *
+ * @since 1.0.0
  */
 class WPFEP_User {
 
@@ -45,6 +47,8 @@ class WPFEP_User {
     /**
      * Check if user is verified
      *
+     * @since 1.0.0
+     *
      * @return bool
      */
     public function is_verified() {
@@ -60,6 +64,8 @@ class WPFEP_User {
     /**
      * Mark user as verified
      *
+     * @since 1.0.0
+     *
      * @return void
      */
     public function mark_verified() {
@@ -68,6 +74,8 @@ class WPFEP_User {
 
     /**
      * Mark user as unverified
+     *
+     * @since 1.0.0
      *
      * @return void
      */
@@ -78,6 +86,8 @@ class WPFEP_User {
     /**
      * Set user activation key
      *
+     * @since 1.0.0
+     *
      * @return void
      */
     public function set_activation_key( $key ) {
@@ -87,6 +97,8 @@ class WPFEP_User {
     /**
      * Get user activation key
      *
+     * @since 1.0.0
+     *
      * @return string
      */
     public function get_activation_key() {
@@ -95,6 +107,8 @@ class WPFEP_User {
 
     /**
      * Remove user activation key
+     *
+     * @since 1.0.0
      *
      * @return void
      */

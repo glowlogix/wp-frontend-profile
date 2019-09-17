@@ -2,7 +2,7 @@
 /**
  * Page installer
  *
- * @since 2.3
+ * @since 1.0.0
  */
 class WPFEP_Admin_Installer {
 
@@ -68,7 +68,7 @@ class WPFEP_Admin_Installer {
     /**
      * Initialize the plugin with some default page/settings
      *
-     * @since 2.2
+     * @since 1.0.0
      * @return void
      */
     function init_pages() {

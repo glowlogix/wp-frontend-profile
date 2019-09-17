@@ -120,7 +120,7 @@ class WPFEP_Registration {
             }
              if ( isset ( $_POST["g-recaptcha-response"] ) ) {
                 if ( empty( $_POST['g-recaptcha-response'] ) ) {
-                    $this->registration_errors[] = __( 'reCaptcha is required', 'wp-user-frontend' );
+                    $this->registration_errors[] = __( 'reCaptcha is required', 'wpptm' );
                     return;
                 } else {
                     $no_captcha = 1;
