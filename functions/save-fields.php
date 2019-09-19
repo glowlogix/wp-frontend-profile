@@ -16,7 +16,6 @@ function wpfep_save_fields( $tabs, $user_id ) {
 	
 	/* get the POST data */
 	$tabs_data = $_POST;
-	
 	/**
 	 * remove the following array elements from the data
 	 * password
@@ -26,6 +25,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 	unset( $tabs_data[ 'password' ] );
 	unset( $tabs_data[ 'wpfep_nonce_name' ] );
 	unset( $tabs_data[ '_wp_http_referer' ] );
+	unset( $tabs_data[ 'description' ] );
 	
 	/* lets check we have some data to save */
 	if( empty( $tabs_data ) )
@@ -44,7 +44,6 @@ function wpfep_save_fields( $tabs, $user_id ) {
 			'user_url',
 		)
 	);
-
 	/**
 	 * set an array of registered fields
 	 */
@@ -63,14 +62,12 @@ function wpfep_save_fields( $tabs, $user_id ) {
 
 	/* loop through the data array - each element of this will be a tabs data */
 	foreach( $tabs_data as $tab_data ) {
-		
 		/**
 		 * loop through this tabs array
 		 * the ket here is the meta key to save to
 		 * the value is the value we want to actually save
 		 */
 		foreach( $tab_data as $key => $value ) {
-			
 			/* if the key is the save sumbit - move to next in array */
 			if( $key == 'wpfep_save' || $key == 'wpfep_nonce_action' )
 				continue;
@@ -102,7 +99,6 @@ function wpfep_save_fields( $tabs, $user_id ) {
 
 				/* lookup field options by key */
 				$registered_field_key = array_search( $key, array_column( $registered_fields, 'id' ) );
-
 				/* sanitize user input based on field type */
 				switch ( $registered_fields[$registered_field_key]['type'] ) {
 					case 'wysiwyg':
@@ -125,6 +121,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 				}
 
 				/* update the user meta data */
+
 				$meta = update_user_meta( $user_id, $key, $value );
 				
 				/* check the update was succesfull */
@@ -140,6 +137,16 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		} // end tab loop
 		
 	} // end data loop
+	
+	// update user bio
+	if (isset($_POST['description'])) {
+		wp_update_user(
+			array(
+				'ID' => $user_id,
+				'description' => $_POST['description'],
+			)
+		);
+	}
 	
 	/* check if we have an messages to output */
 	if( empty( $messages ) ) {
@@ -186,15 +193,15 @@ function wpfep_save_password( $tabs, $user_id ) {
 	$messages = array();
 	
 	/* get the posted data from the password tab */
-	$data = $_POST[ 'password' ];
-	
+	$data = (isset($_POST[ 'password' ])) ? $_POST[ 'password' ] : '';
+	/* first lets check we have a password added to save */
+	if( empty( $data ) )
+		return;
 	/* store both password for ease of access */
 	$password = $data[ 'user_pass' ];
 	$password_check = $data[ 'user_pass_check' ];
 	
-	/* first lets check we have a password added to save */
-	if( empty( $password ) )
-		return;
+	
 	
 	/* now lets check the password match */
 	if( $password != $password_check ) {

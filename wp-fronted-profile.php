@@ -3,8 +3,8 @@
 Plugin Name: WP Front End Profile
 Description: This plugin allows users to easily edit their profile information on the front end rather than having to go into the dashboard to make changes to password, email address and other user meta data.
 Version:     1.0.0
-Author:      Mark Wilkinson
-Author URI:  http://markwilkinson.me
+Author:      Glowlogix
+Author URI:  https://glowlogix.com
 Text Domain: wpptm
 License:     GPL v2 or later
 */
@@ -47,6 +47,7 @@ final class WP_Frontend_Profile {
     public function init_hooks() {
     	add_action( 'plugins_loaded', array( $this, 'instantiate' ) );
     	add_action( 'init', array( $this, 'load_textdomain' ) );
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
     }
      /**
      * Include the required files
@@ -65,6 +66,7 @@ final class WP_Frontend_Profile {
 		if (is_admin()) {
 			require_once dirname( __FILE__ ) . '/admin/installer.php';
 			require_once dirname( __FILE__ ) . '/admin/class-admin-settings.php';
+			require_once dirname( __FILE__ ) . '/inc/class-help-tab.php';
 		} else {
 
             require_once dirname( __FILE__ ) . '/inc/class-registration.php';
@@ -114,6 +116,16 @@ final class WP_Frontend_Profile {
 
         return self::$_instance;
     }
+    /**
+     * @since  1.0.0
+     */
+    function plugin_action_links( $links ) {
+
+        $mylinks = array(
+		 '<a href="' . admin_url( 'admin.php?page=wpfep-settings' ) . '">Settings</a>',
+		 );
+		return array_merge( $links, $mylinks );
+	}
 }
 /**
  * Returns the singleton instance
@@ -234,7 +246,7 @@ function wpfep_show_profile() {
 						<?php
 							
 							/* check if callback function exists */
-							if( function_exists( $wpfep_tab[ 'callback' ] ) ) {
+							if(  isset($wpfep_tab[ 'callback' ]) && function_exists( $wpfep_tab[ 'callback' ] ) ) {
 								
 								/* use custom callback function */
 								$wpfep_tab[ 'callback' ]( $wpfep_tab );

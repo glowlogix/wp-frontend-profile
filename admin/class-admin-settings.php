@@ -33,6 +33,8 @@ class WPFEP_Admin_Settings {
         $this->settings_api = new WPFEP_Settings_API();
         add_action( 'admin_menu', array($this, 'admin_menu') );
         add_action( 'admin_init', array($this, 'admin_init') );
+       
+
     }
 
     public static function init() {
@@ -88,18 +90,18 @@ class WPFEP_Admin_Settings {
                     'default' => 'on'
                 ),
                 array(
-                    'name'    => 'redirect_after_login_page',
-                    'label'   => __( 'Redirect After Login', 'wpptm' ),
-                    'desc'    => __( 'After successfull login, where the page will redirect to', 'wpptm' ),
-                    'type'    => 'select',
-                    'options' => $login_redirect_pages
-                ),
-                array(
                     'name'    => 'wp_default_login_redirect',
                     'label'   => __( 'Default Login Redirect', 'wpptm' ),
                     'desc'    => __( 'If enabled, users who login using WordPress default login form will be redirected to the selected page.', 'wpptm' ),
                     'type'    => 'checkbox',
                     'default' => 'off'
+                ),
+                array(
+                    'name'    => 'redirect_after_login_page',
+                    'label'   => __( 'Redirect After Login', 'wpptm' ),
+                    'desc'    => __( 'After successfull login, where the page will redirect to', 'wpptm' ),
+                    'type'    => 'select',
+                    'options' => $login_redirect_pages
                 ),
 
             ) ), 
@@ -138,11 +140,11 @@ class WPFEP_Admin_Settings {
      */
     function admin_menu() {
         global $_registered_pages;
-
         // Translation issue: Hook name change due to translate menu title
-        $this->menu_pages[] = add_menu_page( __( 'WP User Frontend', 'wpfep-settings' ), __( 'WP User Frontend', 'wpfep-settings' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'), '', 55 );
+        $this->menu_pages[] = add_menu_page( __( 'WP Front End Profile', 'wpfep-settings' ), __( 'WP Front End Profile', 'wpfep-settings' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'),  plugins_url( '/icon/WP-front-end.png', dirname(__FILE__) ), 55 );
     }
 
+   
     /**
      * wpfep Settings sections
      * @return array

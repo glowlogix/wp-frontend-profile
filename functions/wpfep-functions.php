@@ -186,7 +186,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			    	);
 			    	
 			    	/* buld field name */
-			    	$wysiwyg_name = $tab_id . '[' . $field[ 'id' ] . ']';
+			    	$wysiwyg_name = $field[ 'id' ];
 			    						    	
 			    	/* display the wysiwyg editor */
 			    	wp_editor(

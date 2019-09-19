@@ -24,10 +24,10 @@ class WPFEP_Admin_Installer {
              ?>
              <div class="updated error">
                  <p>
-                     <?php _e( 'If you have not created <strong>WP User Frontend</strong> pages yet, you can do this by one click.', 'wpptm' ); ?>
+                     <?php _e( 'If you have not created <strong>WP Front End Profile</strong> pages yet, you can do this by one click.', 'wpptm' ); ?>
                </p>
              <p class="submit">
-                   <a class="button button-primary" href="<?php echo add_query_arg( array( 'install_wpfep_pages' => true ), admin_url( 'admin.php?page=wpfep-settings' ) ); ?>"><?php _e( 'Install wpfep Pages', 'wpptm' ); ?></a>
+                   <a class="button button-primary" href="<?php echo add_query_arg( array( 'install_wpfep_pages' => true ), admin_url( 'admin.php?page=wpfep-settings' ) ); ?>"><?php _e( 'Install WP Front End Profile Pages', 'wpptm' ); ?></a>
                   <?php _e( 'or', 'wpptm' ); ?>
                     <a class="button" href="<?php echo add_query_arg( array( 'wpfep_hide_page_nag' => true ) ); ?>"><?php _e( 'Skip Setup', 'wpptm' ); ?></a>
                </p>
@@ -39,7 +39,7 @@ class WPFEP_Admin_Installer {
             ?>
             <div class="updated">
                 <p>
-                    <strong><?php _e( 'Congratulations!', 'wpptm' ); ?></strong> <?php _e( 'Pages for <strong>WP User Frontend</strong> has been successfully installed and saved!', 'wpptm' ); ?>
+                    <strong><?php _e( 'Congratulations!', 'wpptm' ); ?></strong> <?php _e( 'Pages for <strong>WP Front End Profile</strong> has been successfully installed and saved!', 'wpptm' ); ?>
                 </p>
             </div>
             <?php
@@ -76,19 +76,11 @@ class WPFEP_Admin_Installer {
         // create a Registor page
         $register_page = $this->create_page( __( 'Register', 'wpptm' ), '[wpfep-register]' );
         // edit Account
-        $edit_page      = $this->create_page( __( 'Edit', 'wpptm' ), '[wpfep]' );
+        $edit_page      = $this->create_page( __( 'Profile Edit', 'wpptm' ), '[wpfep]' );
         // login page
         $login_page     = $this->create_page( __( 'Login', 'wpptm' ), '[wpfep-login]' );
         // profile page
         $profile_page     = $this->create_page( __( 'Profile', 'wpptm' ), '[wpfep-profile]' );
-
-        // save the settings
-        if ( $edit_page ) {
-            update_option( 'wpfep_frontend_posting', array(
-                'edit_page_id'      => $edit_page,
-                'default_post_form' => $post_form
-            ) );
-        }
 
         // profile pages
         $profile_options = array();

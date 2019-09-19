@@ -34,10 +34,13 @@ class WPFEP_Profile {
      * @return string
      */
     function user_profile() {
+        global $wp;
+        
+        $profile_page = home_url( $wp->request );
 
         ob_start();
 
-        wpfep_load_template( 'profile.php', $args );
+        wpfep_load_template( 'profile.php', $profile_page );
 
         return ob_get_clean();
     }
