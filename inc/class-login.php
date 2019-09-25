@@ -44,20 +44,6 @@ class wpfep_Login {
         return self::$_instance;
     }
 
-    /**
-     * Is override enabled
-     *
-     * @return boolean
-     */
-    function is_override_enabled() {
-        $override = wpfep_get_option( 'register_link_override', 'wpfep_profile', 'off' );
-
-        if ( $override !== 'on' ) {
-            return false;
-        }
-
-        return true;
-    }
 
     /**
      * Add custom fields to WordPress default login form
@@ -111,7 +97,7 @@ class wpfep_Login {
      * @return boolean|string
      */
     function get_login_url() {
-        $page_id = wpfep_get_option( 'login_page', 'wpfep_profile', false );
+        $page_id = wpfep_get_option( 'login_page', 'wpfep_pages', false );
 
         if ( !$page_id ) {
             return false;
@@ -132,10 +118,6 @@ class wpfep_Login {
      */
     function filter_login_url( $url, $redirect ) {
 
-        if ( !$this->is_override_enabled() ) {
-            return $url;
-        }
-
         return $this->get_action_url( 'login', $redirect );
     }
 
@@ -149,10 +131,6 @@ class wpfep_Login {
      */
     function filter_logout_url( $url, $redirect ) {
 
-        if ( !$this->is_override_enabled() ) {
-            return $url;
-        }
-
         return $this->get_action_url( 'logout', $redirect );
     }
 
@@ -165,10 +143,6 @@ class wpfep_Login {
      * @return string
      */
     function filter_lostpassword_url( $url, $redirect ) {
-
-        if ( !$this->is_override_enabled() ) {
-            return $url;
-        }
 
         return $this->get_action_url( 'lostpassword', $redirect );
     }
@@ -383,10 +357,6 @@ class wpfep_Login {
      */
     function process_logout() {
         if ( isset( $_GET['action'] ) && $_GET['action'] == 'logout' ) {
-
-            if ( !$this->is_override_enabled() ) {
-                return;
-            }
 
             check_admin_referer('log-out');
             wp_logout();
@@ -740,12 +710,7 @@ class wpfep_Login {
         global $pagenow;
 
         if ( ! is_admin() && $pagenow == 'wp-login.php' && isset( $_GET['action'] ) && $_GET['action'] == 'register' ) {
-
-            if ( wpfep_get_option( 'register_link_override', 'wpfep_profile' ) != 'on' ) {
-                return;
-            }
-
-            $reg_page = get_permalink( wpfep_get_option( 'reg_override_page', 'wpfep_profile' ) );
+            $reg_page = get_permalink( wpfep_get_option( 'register_page', 'wpfep_pages' ) );
             wp_redirect( $reg_page );
             exit;
         }

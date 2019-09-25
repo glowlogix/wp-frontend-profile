@@ -111,12 +111,13 @@ class WPFEP_Admin_Installer {
             }
         }
 
-        if ( $login_page && $reg_page ) {
-            $profile_options['register_link_override'] = 'on';
-        }
-
         update_option( 'wpfep_profile', $profile_options );
-
+        update_option( 'wpfep_pages', array(
+            'login_page'        => $login_page,
+            'register_page'     => $register_page,
+            'profile_edit_page' => $edit_page,
+            'profile_page'      => $profile_page,
+        ) );
         update_option( '_wpfep_page_created', '1' );
 
         wp_redirect( admin_url( 'admin.php?page=wpfep-settings&wpfep_page_installed=1' ) );

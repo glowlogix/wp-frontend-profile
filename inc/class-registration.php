@@ -201,17 +201,20 @@ class WPFEP_Registration {
                 wp_set_current_user( $user );
                 wp_set_auth_cookie( $user );
             }
-
+            $redirect_after_registration = wpfep_get_option( 'redirect_after_registration', 'wpfep_profile' );
+            $register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
             if ( is_wp_error( $user ) ) {
                 $this->registration_errors[] = $user->get_error_message();
                 return;
             } else {
 
-                if ( !empty( $_POST['redirect_to'] ) ) {
-                    $redirect = esc_url( $_POST['redirect_to'] );
+                if ( $autologin_after_registration == 'on' && $redirect_after_registration == '' ) {
+                    $redirect = home_url();
+                } elseif ( $redirect_after_registration != '' ) {
+                     $redirect = get_permalink( $redirect_after_registration );
                 } else {
                      global $wp;
-                    $redirect = home_url( $wp->request ) . '?success=yes';
+                    $redirect = get_permalink( $register_page ) . '?success=yes';
                 }
 
                 wp_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );

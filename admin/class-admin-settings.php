@@ -53,9 +53,6 @@ class WPFEP_Admin_Settings {
         foreach( $all_roles as $key=>$value ) {
             $user_roles[$key] = $value['name'];
         }
-        $login_redirect_pages =  array(
-            'previous_page' => __( 'Previous Page', 'wpptm' )
-        ) + $pages;
         $settings_fields = array(
             'wpfep_profile' => apply_filters( 'wpfep_options_profile', array(
                 array(
@@ -77,7 +74,14 @@ class WPFEP_Admin_Settings {
                     'label'   => __( 'Redirect After Login', 'wpptm' ),
                     'desc'    => __( 'After successfull login, where the page will redirect to', 'wpptm' ),
                     'type'    => 'select',
-                    'options' => $login_redirect_pages
+                    'options' => $pages
+                ),
+                 array(
+                    'name'    => 'redirect_after_registration',
+                    'label'   => __( 'Redirect After Registration', 'wpptm' ),
+                    'desc'    => __( 'After successfull registration, where the page will redirect to, Make sure you have checked auto login after registration.', 'wpptm' ),
+                    'type'    => 'select',
+                    'options' => $pages
                 ),
             ) ),
             'wpfep_general' => apply_filters( 'wpfep_options_others', array(
