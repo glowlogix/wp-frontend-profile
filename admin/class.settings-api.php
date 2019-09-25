@@ -29,12 +29,9 @@ class WPFEP_Settings_API {
      */
     function admin_enqueue_scripts() {
         wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'wpfep_admin_styles', plugins_url( '/assets/css/wpfep-admin-style.css', dirname( __FILE__ ) ) );
 
         wp_enqueue_media();
         wp_enqueue_script( 'wp-color-picker' );
-        wp_enqueue_script("jquery-ui-tooltip");
-        wp_enqueue_script( "wpfep_admin",  plugins_url( '/assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0.0', false );
         wp_enqueue_script( 'jquery' );
     }
 
@@ -154,21 +151,6 @@ class WPFEP_Settings_API {
     public function get_field_description( $args ) {
         if ( ! empty( $args['desc'] ) ) {
             $desc = sprintf( '<p class="description">%s</p>', $args['desc'] );
-        } else {
-            $desc = '';
-        }
-
-        return $desc;
-    }
-
-    /**
-     * Get field tooltip for display
-     *
-     * @param array   $args settings field args
-     */
-    public function get_field_tooltip( $args ) {
-        if ( ! empty( $args['desc'] ) ) {
-            $desc = sprintf( '<span class="wpfep-help-tip dashicons dashicons-editor-help" title="%s"></span>', $args['desc'] );
         } else {
             $desc = '';
         }
@@ -311,12 +293,14 @@ class WPFEP_Settings_API {
      function callback_select_page( $args ) {
 
         $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
+        // var_dump($value);
         $wpfep_options = get_option( 'wpfep_profile' );
+        // var_dump($wpfep_options['login_page']);
         $size  = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
-        $html = $this->get_field_tooltip( $args );
-        $html .= sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
+        $html  = sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
+      
         foreach ( $args['options'] as $key => $label ) {
-
+            
             $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $value, $key, false ), $label );
         }
 
@@ -325,6 +309,8 @@ class WPFEP_Settings_API {
             $html .= sprintf(' <a href='.get_edit_post_link( $value ).' class="button"> '.__("Edit Page","wpptm").'</a>');
             $html .= sprintf(' <a href='.get_permalink( $value ).' class="button"> '.__("View Page","wpptm").'</a>');
         }
+       
+        $html .= $this->get_field_description( $args );
 
         echo $html;
     }
