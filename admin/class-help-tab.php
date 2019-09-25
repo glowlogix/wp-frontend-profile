@@ -37,8 +37,8 @@ class WPFEP_Admin_Help {
 					'<h2>' . __( 'Help &amp; Support', 'wpptm' ) . '</h2>' .
 					'<p>' . sprintf(
 						/* translators: %s: Documentation URL */
-						__( 'Should you need help understanding, using, or extending WP Frontend Profile, <a href="%s">please read our documentation</a>. You will find all kinds of resources including snippets, tutorials and much more.', 'wpptm' ),
-						'https://docs.wpptm.com/documentation/plugins/wpptm/?utm_source=helptab&utm_medium=product&utm_content=docs&utm_campaign=wpptmplugin'
+						__( 'Should you need help understanding, using, or extending WP Frontend Profile, <a href="%s">please read our documentation</a>.', 'wpptm' ),
+						'https://github.com/glowlogix/wp-frontend-profile/wiki'
 					) . '</p>' .
 					'<p>' . sprintf(
 						/* translators: %s: Forum URL */

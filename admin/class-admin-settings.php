@@ -33,6 +33,7 @@ class WPFEP_Admin_Settings {
         $this->settings_api = new WPFEP_Settings_API();
         add_action( 'admin_menu', array($this, 'admin_menu') );
         add_action( 'admin_init', array($this, 'admin_init') );
+        add_action( 'admin_init', array($this, 'clear_settings') );
        
 
     }
@@ -56,6 +57,29 @@ class WPFEP_Admin_Settings {
             'previous_page' => __( 'Previous Page', 'wpptm' )
         ) + $pages;
         $settings_fields = array(
+            'wpfep_profile' => apply_filters( 'wpfep_options_profile', array(
+                array(
+                    'name'    => 'autologin_after_registration',
+                    'label'   => __( 'Auto Login After Registration', 'wpptm' ),
+                    'desc'    => __( 'If enabled, users after registration will be logged in to the system', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'on'
+                ),
+                array(
+                    'name'    => 'wp_default_login_redirect',
+                    'label'   => __( 'Default Login Redirect', 'wpptm' ),
+                    'desc'    => __( 'If enabled, users who login using WordPress default login form will be redirected to the selected page.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'off'
+                ),
+                array(
+                    'name'    => 'redirect_after_login_page',
+                    'label'   => __( 'Redirect After Login', 'wpptm' ),
+                    'desc'    => __( 'After successfull login, where the page will redirect to', 'wpptm' ),
+                    'type'    => 'select',
+                    'options' => $login_redirect_pages
+                ),
+            ) ),
             'wpfep_general' => apply_filters( 'wpfep_options_others', array(
                 array(
                     'name'  => 'recaptcha_public',
@@ -80,31 +104,44 @@ class WPFEP_Admin_Settings {
                     'type'    => 'checkbox',
                     'default' => 'off'
                 ),
-            ) ),
-            'wpfep_profile' => apply_filters( 'wpfep_options_profile', array(
-                array(
-                    'name'    => 'autologin_after_registration',
-                    'label'   => __( 'Auto Login After Registration', 'wpptm' ),
-                    'desc'    => __( 'If enabled, users after registration will be logged in to the system', 'wpptm' ),
+                 array(
+                    'name'    => 'wpfep_remove_data_on_uninstall',
+                    'label'   => __( 'Remove Data on Uninstall?', 'wpptm' ),
+                    'desc'    => __( 'Check this box if you would like WP Frontend Profile to completely remove all of its data when the plugin is deleted.', 'wpptm' ),
                     'type'    => 'checkbox',
-                    'default' => 'on'
+                    'options' => 'off'
                 ),
-                array(
-                    'name'    => 'wp_default_login_redirect',
-                    'label'   => __( 'Default Login Redirect', 'wpptm' ),
-                    'desc'    => __( 'If enabled, users who login using WordPress default login form will be redirected to the selected page.', 'wpptm' ),
-                    'type'    => 'checkbox',
-                    'default' => 'off'
-                ),
-                array(
-                    'name'    => 'redirect_after_login_page',
-                    'label'   => __( 'Redirect After Login', 'wpptm' ),
-                    'desc'    => __( 'After successfull login, where the page will redirect to', 'wpptm' ),
-                    'type'    => 'select',
-                    'options' => $login_redirect_pages
-                ),
-
             ) ), 
+            'wpfep_pages' => apply_filters( 'wpfep_options_pages', array(
+                array(
+                    'name'    => 'register_page',
+                    'label'   => __( 'Registration Page', 'wpptm' ),
+                    'desc'    => __( 'Select the page which contains [wpfep-register] shortcode', 'wpptm' ),
+                    'type'    => 'select_page',
+                    'options' => $pages
+                ),
+                array(
+                    'name'    => 'login_page',
+                    'label'   => __( 'Login Page', 'wpptm' ),
+                    'desc'    => __( 'Select the page which contains [wpfep-login] shortcode', 'wpptm' ),
+                    'type'    => 'select_page',
+                    'options' => $pages
+                ),
+               array(
+                    'name'    => 'profile_edit_page',
+                    'label'   => __( 'Profile Edit Page', 'wpptm' ),
+                    'desc'    => __( 'Select the page which contains [wpfep] shortcode', 'wpptm' ),
+                    'type'    => 'select_page',
+                    'options' => $pages
+                ),
+               array(
+                    'name'    => 'profile_page',
+                    'label'   => __( 'Profile Page', 'wpptm' ),
+                    'desc'    => __( 'Select the page which contains [wpfep-profile] shortcode', 'wpptm' ),
+                    'type'    => 'select_page',
+                    'options' => $pages
+                ),
+            ) ),
         );
         return apply_filters( 'wpfep_settings_fields', $settings_fields );
     }
@@ -112,14 +149,19 @@ class WPFEP_Admin_Settings {
     public function wpfep_settings_sections() {
         $sections = array(
             array(
-                'id'    => 'wpfep_general',
-                'title' => __( 'General Options', 'wpptm' ),
-                'icon' => 'dashicons-admin-generic'
-            ),
-            array(
                 'id'    => 'wpfep_profile',
                 'title' => __( 'Login / Registration', 'wpptm' ),
                 'icon' => 'dashicons-admin-users'
+            ),
+            array(
+                'id'    => 'wpfep_pages',
+                'title' => __( 'Pages', 'wpptm' ),
+                'icon' => 'dashicons-admin-page'
+            ),
+            array(
+                'id'    => 'wpfep_general',
+                'title' => __( 'Settings', 'wpptm' ),
+                'icon' => 'dashicons-admin-generic'
             ),
         );
         return apply_filters( 'wpfep_settings_sections', $sections );
@@ -141,7 +183,8 @@ class WPFEP_Admin_Settings {
     function admin_menu() {
         global $_registered_pages;
         // Translation issue: Hook name change due to translate menu title
-        $this->menu_pages[] = add_menu_page( __( 'WP Front End Profile', 'wpfep-settings' ), __( 'WP Front End Profile', 'wpfep-settings' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'),  plugins_url( '/icon/WP-front-end.png', dirname(__FILE__) ), 55 );
+        $this->menu_pages[] = add_menu_page( __( 'Frontend Profile', 'wpptm' ), __( 'Frontend Profile', 'wpptm' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'),  plugins_url( 'assets/icon/WP-front-end.png', dirname(__FILE__) ), 55 );
+         $this->menu_pages[] = add_submenu_page( 'wpfep-settings', __( 'Tools', 'wpptm' ), __( 'Tools', 'wpptm' ), 'manage_options', 'wpfep-tools', array($this, 'tool_page') );
     }
 
    
@@ -166,7 +209,7 @@ class WPFEP_Admin_Settings {
         ?>
         <div class="wrap">
 
-            <h2 style="margin-bottom: 15px;"><?php _e( 'Settings', 'wpptm' ) ?></h2>
+            <h2><?php _e( 'Settings', 'wpptm' ) ?></h2>
             <div class="wpfep-settings-wrap">
                  <div class="metabox-holder">
                     <form method="post" action="options.php">
@@ -180,5 +223,53 @@ class WPFEP_Admin_Settings {
             </div>
         </div>
         <?php
+    }
+
+    function tool_page() {
+        $confirmation_message  = __( 'Are you Sure?', 'wpptm' );
+
+        if (isset($_GET['wpfep_delete_settings']) && $_GET['wpfep_delete_settings'] == 1 ) {
+            ?>
+            <div class="updated">
+                <p>
+                    <?php echo __( 'Settings has been cleared!', 'wpptm' ); ?>
+                </p>
+            </div>
+
+        <?php } ?>
+
+
+        <div class="metabox-holder">
+            <h2>Frontend Profile Tool Page</h2>
+            <div class="postbox">
+                <h3><?php _e( 'Page Installation', 'wpptm' ); ?></h3>
+
+                <div class="inside">
+                    <p><?php _e( 'Clicking this button will create required pages for the plugin. Note: It\'ll not delete/replace existing pages.', 'wpptm' ); ?></p>
+                    <a class="button button-primary" href="<?php echo add_query_arg( array( 'install_wpfep_pages' => true ) ); ?>"><?php _e( 'Create Pages', 'wpptm' ); ?></a>
+                </div>
+            </div>
+
+            <div class="postbox">
+                <h3><?php _e( 'Reset Settings', 'wpptm' ); ?></h3>
+
+                <div class="inside">
+                    <p><?php _e( '<strong>Caution:</strong> This tool will delete all the plugin settings of WP Frontend Profile', 'wpptm' ); ?></p>
+                    <a class="button button-primary" href="<?php echo add_query_arg( array( 'wpfep_delete_settings' => true ) ); ?>" onclick="return confirm('Are you sure?');"><?php _e( 'Reset Settings', 'wpptm' ); ?></a>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
+    function clear_settings() {
+        if (isset($_GET['wpfep_delete_settings']) && $_GET['wpfep_delete_settings'] == 1 ) {
+            // Delete Options
+            delete_option( '_wpfep_page_created' );
+            delete_option( 'wpfep_general' );
+            delete_option( 'wpfep_profile' );
+            delete_option( 'wpfep_pages' );
+            delete_option( 'wpfep_uninstall' );
+        }
     }
 }

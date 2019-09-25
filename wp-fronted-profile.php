@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WP Front End Profile
+Plugin Name: WP Frontend Profile
 Description: This plugin allows users to easily edit their profile information on the front end rather than having to go into the dashboard to make changes to password, email address and other user meta data.
 Version:     1.0.0
 Author:      Glowlogix
@@ -10,9 +10,9 @@ License:     GPL v2 or later
 */
 
 /**
- * Main class for WP Front End Profile
+ * Main class for WP Frontend Profile
  *
- * @package WP Front End Profile
+ * @package WP Frontend Profile
  */
 
 final class WP_Frontend_Profile {
@@ -66,7 +66,8 @@ final class WP_Frontend_Profile {
 		if (is_admin()) {
 			require_once dirname( __FILE__ ) . '/admin/installer.php';
 			require_once dirname( __FILE__ ) . '/admin/class-admin-settings.php';
-			require_once dirname( __FILE__ ) . '/inc/class-help-tab.php';
+			require_once dirname( __FILE__ ) . '/admin/class-shortcode-button.php';
+			require_once dirname( __FILE__ ) . '/admin/class-help-tab.php';
 		} else {
 
             require_once dirname( __FILE__ ) . '/inc/class-registration.php';

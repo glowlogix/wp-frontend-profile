@@ -22,7 +22,7 @@ class WPFEP_Shortcodes_Button {
     function enqueue_scripts() {
         global $pagenow;
         if($pagenow == 'post.php'){
-            wp_enqueue_script( 'wpfep_shortcode_handle', plugins_url( '/js/wpfep-tmc-button.js', dirname(__FILE__) ),  array ('jquery') );
+            wp_enqueue_script( 'wpfep_shortcode_handle', plugins_url( '/assets/js/wpfep-tmc-button.js', dirname(__FILE__) ),  array ('jquery') );
         }
     }
 
@@ -77,7 +77,7 @@ class WPFEP_Shortcodes_Button {
      */
     function enqueue_plugin_scripts( $plugin_array ) {
         //enqueue TinyMCE plugin script with its ID.
-        $plugin_array["wpfep_button"] =  plugins_url( '/js/wpfep-tmc-button.js', dirname(__FILE__) );
+        $plugin_array["wpfep_button"] =  plugins_url( '/assets/js/wpfep-tmc-button.js', dirname(__FILE__) );
 
         return $plugin_array;
     }

@@ -280,12 +280,36 @@ class WPFEP_Settings_API {
         $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
         $size  = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
         $html  = sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
-
         foreach ( $args['options'] as $key => $label ) {
             $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $value, $key, false ), $label );
         }
 
         $html .= sprintf( '</select>' );
+        $html .= $this->get_field_description( $args );
+
+        echo $html;
+    }
+
+     function callback_select_page( $args ) {
+
+        $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
+        // var_dump($value);
+        $wpfep_options = get_option( 'wpfep_profile' );
+        // var_dump($wpfep_options['login_page']);
+        $size  = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
+        $html  = sprintf( '<select class="%1$s" name="%2$s[%3$s]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
+      
+        foreach ( $args['options'] as $key => $label ) {
+            
+            $html .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $value, $key, false ), $label );
+        }
+
+        $html .= sprintf( '</select>' );
+        if ($value != '') {
+            $html .= sprintf(' <a href='.get_edit_post_link( $value ).' class="button"> '.__("Edit Page","wpptm").'</a>');
+            $html .= sprintf(' <a href='.get_permalink( $value ).' class="button"> '.__("View Page","wpptm").'</a>');
+        }
+       
         $html .= $this->get_field_description( $args );
 
         echo $html;

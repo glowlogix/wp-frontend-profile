@@ -11,14 +11,25 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-/**
- * The code that runs during plugin delete.
- * This action is documented in includes/class-gl-tables-activator.php
- */
+
 function wpfep_delete_options() {
-	delete_option( '_wpfep_page_created' );
-	delete_option( 'wpfep_general' );
-	delete_option( 'wpfep_profile' );
+	$wpfep_uninstall = get_option('wpfep_general');
+    if ($wpfep_uninstall['wpfep_remove_data_on_uninstall'] == 'on') {
+	    // Delete Pages
+		$wpfep_options = get_option( 'wpfep_profile' );
+		wp_delete_post( $wpfep_options['login_page'], true );
+		wp_delete_post( $wpfep_options['register_page'], true );
+		wp_delete_post( $wpfep_options['edit_page'], true );
+		wp_delete_post( $wpfep_options['profile_page'], true );
+
+		// Delete Options
+		delete_option( '_wpfep_page_created' );
+		delete_option( 'wpfep_general' );
+		delete_option( 'wpfep_profile' );
+		delete_option( 'wpfep_pages' );
+		delete_option( 'wpfep_uninstall' );
+    }
+	
 }
 wpfep_delete_options();
 

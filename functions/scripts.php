@@ -13,14 +13,14 @@ function wpfep_register_scripts() {
 	
 	/* if we should output styles - enqueue them */
 	if( $style_output == true )
-		wp_enqueue_style( 'wpfep_styles', plugins_url( 'css/wpfep-style.css', dirname( __FILE__ ) ) );
+		wp_enqueue_style( 'wpfep_styles', plugins_url( '/assets/css/wpfep-style.css', dirname( __FILE__ ) ) );
 	
 	/* make a filter to allow turning off tab js */
 	$tab_js_output = apply_filters( 'wpfep_tabs_js', true );
 	
 	/* if we should output styles - enqueue them */
 	if( $tab_js_output == true )
-		wp_enqueue_script( 'wpfep_tabs_js', plugins_url( 'js/tabs.js', dirname( __FILE__ ) ), 'jquery', array(), true );
+		wp_enqueue_script( 'wpfep_tabs_js', plugins_url( '/assets/js/tabs.js', dirname( __FILE__ ) ), 'jquery', array(), true );
 	
 }
 

@@ -1,4 +1,4 @@
-# WP Front End Profile
+# WP Frontend Profile
 
 Contributors: glowlogix<br />
 Donate link: http://markwilkinson.me/saythanks<br />
@@ -9,11 +9,11 @@ Stable tag: 0.2.2<br />
 License: GPLv2 or later<br />
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WP Front End Profile allows users to edit their profile without going into the dashboard to do so.
+WP Frontend Profile allows users to edit their profile without going into the dashboard to do so.
 
 ## Description
 
-WP Front End Profile give you the ability to add a extensible user profile section to the front end of your WordPress website. By default the plugin adds two tabs to the front end profile. One of these titled profile allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
+WP Frontend Profile give you the ability to add a extensible user profile section to the front end of your WordPress website. By default the plugin adds two tabs to the front end profile. One of these titled profile allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
 
 ### Plugin Extensibility
 

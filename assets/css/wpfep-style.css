@@ -216,6 +216,15 @@ li.wpfep-form-field.wpfep-default-user-bio label {
 .wpfep_label_user_bio{
 	padding-bottom: 10px;
 }
+.wpfep-profile-card>img {
+    border-radius: 50%;
+    width: 140px !important;
+    height: 140px !important;
+}
+.wpfep-profile-card {
+    width: 320px;
+}
+
 @media screen and (max-width: 400px){
 	.wpfep-form-field label, .wpfep-login-form label, #lostpasswordform label{
 	    width: 100%;
