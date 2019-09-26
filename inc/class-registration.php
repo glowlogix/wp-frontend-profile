@@ -213,7 +213,6 @@ class WPFEP_Registration {
                 } elseif ( $redirect_after_registration != '' ) {
                      $redirect = get_permalink( $redirect_after_registration );
                 } else {
-                     global $wp;
                     $redirect = get_permalink( $register_page ) . '?success=yes';
                 }
 

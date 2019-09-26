@@ -17,3 +17,67 @@ span.wpfep-help-tip.dashicons.dashicons-editor-help {
     word-wrap: break-word;
     border-width: 1px;
 }
+/**************************
+* WP Dashboard Review Ask
+***************************/
+.wpfep-clear {
+  clear: both;
+}
+.wpfep-main-dashboard-review-ask {
+  border-left-color: #0586be;
+}
+.wpfep-review-ask-plugin-icon {
+  height: 100px;
+  width: 100px;
+  float: left;
+  margin: 12px 24px 16px 10px;
+  background-image: url(../icon/WP-front-end-color-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.wpfep-review-ask-text p {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+.wpfep-review-ask-action {
+  width: 90px;
+  padding: 6px;
+  margin-right: 18px;
+  text-align: center;
+  float: left;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.wpfep-review-ask-white {
+  color: #999999;
+  border: 1px solid #bbbbbb;
+}
+.wpfep-review-ask-blue {
+  color: #ffffff;
+  background: #0586be;
+  border: 1px solid #0586be;
+  font-weight: 600;
+}
+.wpfep-review-ask-blue a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.wpfep-review-ask-feedback-form {
+  position: relative;
+  float: left;
+}.wpfep-review-ask-feedback-explanation textarea {
+  height: 70px;
+  width: 480px;
+}
+.wpfep-review-ask-send-feedback {
+  margin: 10px 0px;
+}
+
+.wpfep-review-ask-review-text span {
+  font-size: .8em;
+  font-weight: normal;
+}
+.wpfep-hidden{
+    display: none;
+}

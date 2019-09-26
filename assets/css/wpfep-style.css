@@ -201,7 +201,7 @@ li.wpfep-form-field.wpfep-default-user-bio label {
 }
 .wpfep-profile-card{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
+    max-width: 400px;
     margin: auto;
     text-align: center;
     font-family: arial;
@@ -210,9 +210,7 @@ li.wpfep-form-field.wpfep-default-user-bio label {
   color: grey;
   font-size: 18px;
 }
-.wpfep_user_details{
-	padding-bottom: 5px;
-}
+
 .wpfep_label_user_bio{
 	padding-bottom: 10px;
 }
@@ -220,9 +218,6 @@ li.wpfep-form-field.wpfep-default-user-bio label {
     border-radius: 50%;
     width: 140px !important;
     height: 140px !important;
-}
-.wpfep-profile-card {
-    width: 320px;
 }
 
 @media screen and (max-width: 400px){

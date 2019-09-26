@@ -14,8 +14,8 @@
     if ( isset($_GET['success']) && "yes" == $_GET['success'] ) {
         echo "<div class='wpfep-success'>" . __( 'Registration has been successful!', 'wpptm' ) ."</div>";
     }
-    global $wp;
-    $action_url = home_url( $wp->request );
+    $register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+    $action_url = get_permalink( $register_page );
     $register_obj = WPFEP_Registration::init();
     $login_obj = WPFEP_Login::init();
     ?>
@@ -86,9 +86,6 @@
 
                 <?php wp_nonce_field( 'wpfep_registration_action' ); ?>
             </li>
-            <!-- <li> -->
-                <?php //echo $login_obj->get_action_links( array( 'register' => false ) ); ?>
-            <!-- </li> -->
             <?php do_action( 'wpfep_reg_form_bottom' ); ?>
         </ul>
     </form>

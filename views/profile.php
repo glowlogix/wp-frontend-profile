@@ -19,16 +19,16 @@
             $user = wp_get_current_user();
             if ( $user ) {
         ?>
+        <br>
         <img src="<?php echo esc_url( get_avatar_url( $user->ID ) ); ?>" alt="avatar" style="width:100%"/>
         <?php } ?>
     <div class="wpfep_user_details">
-        <h1>
             <?php 
-                if($user->display_name != '') { 
-                    echo $user->display_name;
+                if($user->display_name != '') {
+
+                    echo '<h2>' .$user->display_name. '</h2>';
                 }
             ?>
-        </h1>
         <p class="title"><?php echo implode(', ', $user->roles);?></p>
         <p><?php echo $user->user_email;?></p>
         <?php  if($user->user_url != '') {?>
@@ -39,8 +39,10 @@
             <p>
                 <?php echo  $user->description ;?>
             </p>
+
         </div>
         <?php }?>
+        <div class="wpfep_end_profile"></div>
     </div>
 </div>
 

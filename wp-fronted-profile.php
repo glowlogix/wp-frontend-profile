@@ -61,6 +61,7 @@ final class WP_Frontend_Profile {
 		require_once dirname( __FILE__ ) . '/functions/wpfep-functions.php';
 		require_once dirname( __FILE__ ) . '/functions/save-fields.php';
 		require_once dirname( __FILE__ ) . '/functions/shortcode.php';
+		require_once dirname( __FILE__ ) . '/functions/feedback.php';
 		require_once  dirname( __FILE__ ) . '/inc/class-user.php';
 
 		if (is_admin()) {
@@ -87,6 +88,7 @@ final class WP_Frontend_Profile {
     	if ( is_admin() ) {
       		$this->container['settings']           = WPFEP_Admin_Settings::init();
       		$this->container['admin_installer']    = new WPFEP_Admin_Installer();
+      		
       	}
       	else {
       		
@@ -139,6 +141,40 @@ function wpfep() {
 
 // kickoff
 wpfep();
+/* When plugin is activated */
+register_activation_hook(__FILE__,'Install_wpfep_time');
+
+function Install_wpfep_time() {
+	if (get_option("wpfep_Install_Time") == "") {
+		update_option("wpfep_Install_Time", time());
+	}
+}
+add_action('admin_notices', 'Wpfep_Error_Notices');
+
+//REVIEW ASK
+function Wpfep_Hide_Review_Ask(){   
+    $Ask_Review_Date = sanitize_text_field($_POST['Ask_Review_Date']);
+
+    if (get_option('wpfep_Ask_Review_Date') < time()+3600*24*$Ask_Review_Date) {
+    	update_option('wpfep_Ask_Review_Date', time()+3600*24*$Ask_Review_Date);
+    }
+
+    die();
+}
+add_action('wp_ajax_wpfep_hide_review_ask','Wpfep_Hide_Review_Ask');
+
+//feeback mail
+function Wpfep_Send_Feedback() {   
+	$headers = 'Content-type: text/html;charset=utf-8' . "\r\n";  
+    $Feedback = sanitize_text_field($_POST['Feedback']);
+    $Feedback .= '<br /><br />Email Address: ';
+    $Feedback .= sanitize_text_field($_POST['EmailAddress']);
+
+    wp_mail('info@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $Feedback, $headers);
+
+    die();
+}
+add_action('wp_ajax_wpfep_send_feedback','Wpfep_Send_Feedback');
 
 /**
  * function wp_frontend_profile_output()
