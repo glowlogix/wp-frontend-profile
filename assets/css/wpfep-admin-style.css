@@ -81,3 +81,59 @@ span.wpfep-help-tip.dashicons.dashicons-editor-help {
 .wpfep-hidden{
     display: none;
 }
+
+/**************************
+* System Status
+***************************/
+table.wpfep-status-table {
+    margin-bottom: 1em;
+}
+table.wpfep-status-table th {
+    font-weight: 700;
+    padding: 9px;
+}
+table.wpfep-status-table td,
+table.wpfep-status-table th {
+    font-size: 1.1em;
+    font-weight: 400;
+}
+table.wpfep-status-table h2 {
+    font-size: 14px;
+    margin: 0;
+}
+table.wpfep-status-table td:first-child {
+    width: 33%;
+}
+table.wpfep-status-table td mark,
+table.wpfep-status-table th mark {
+    background: transparent none;
+}
+table.wpfep-status-table td mark.yes,
+table.wpfep-status-table th mark.yes {
+    color: #7ad03a;
+}
+ p.submit {
+    margin: .5em 0;
+    padding: 2px;
+}
+#debug-report {
+    display: none;
+    margin: 10px 0;
+    padding: 0;
+    position: relative;
+}
+#debug-report textarea {
+    font-family: monospace;
+    width: 100%;
+    margin: 0;
+    height: 300px;
+    padding: 20px;
+    border-radius: 0;
+    resize: none;
+    font-size: 12px;
+    line-height: 20px;
+    outline: 0;
+}
+.notice_system_status_wpfep{
+    margin: 5px 0 15px;
+}

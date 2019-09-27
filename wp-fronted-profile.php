@@ -1,6 +1,7 @@
 <?php
 /*
 Plugin Name: WP Frontend Profile
+Plugin URI: https://wordpress.org/plugins/wp-front-end-profile/
 Description: This plugin allows users to easily edit their profile information on the front end rather than having to go into the dashboard to make changes to password, email address and other user meta data.
 Version:     1.0.0
 Author:      Glowlogix
@@ -14,6 +15,12 @@ License:     GPL v2 or later
  *
  * @package WP Frontend Profile
  */
+if ( ! defined( 'WPFEP_VERSION' ) ) {
+    define('WPFEP_VERSION', '1.0.0');
+}
+if ( ! defined( 'WPFEP_PATH' ) ) {
+    define('WPFEP_PATH', plugin_dir_path(__FILE__));
+}
 
 final class WP_Frontend_Profile {
 	/**
@@ -69,6 +76,7 @@ final class WP_Frontend_Profile {
 			require_once dirname( __FILE__ ) . '/admin/class-admin-settings.php';
 			require_once dirname( __FILE__ ) . '/admin/class-shortcode-button.php';
 			require_once dirname( __FILE__ ) . '/admin/class-help-tab.php';
+			require_once dirname( __FILE__ ) . '/admin/class-status.php';
 		} else {
 
             require_once dirname( __FILE__ ) . '/inc/class-registration.php';
@@ -88,6 +96,7 @@ final class WP_Frontend_Profile {
     	if ( is_admin() ) {
       		$this->container['settings']           = WPFEP_Admin_Settings::init();
       		$this->container['admin_installer']    = new WPFEP_Admin_Installer();
+      		$this->container['System_Status']    = new Wpfep_System_Status();
       		
       	}
       	else {
@@ -150,31 +159,6 @@ function Install_wpfep_time() {
 	}
 }
 add_action('admin_notices', 'Wpfep_Error_Notices');
-
-//REVIEW ASK
-function Wpfep_Hide_Review_Ask(){   
-    $Ask_Review_Date = sanitize_text_field($_POST['Ask_Review_Date']);
-
-    if (get_option('wpfep_Ask_Review_Date') < time()+3600*24*$Ask_Review_Date) {
-    	update_option('wpfep_Ask_Review_Date', time()+3600*24*$Ask_Review_Date);
-    }
-
-    die();
-}
-add_action('wp_ajax_wpfep_hide_review_ask','Wpfep_Hide_Review_Ask');
-
-//feeback mail
-function Wpfep_Send_Feedback() {   
-	$headers = 'Content-type: text/html;charset=utf-8' . "\r\n";  
-    $Feedback = sanitize_text_field($_POST['Feedback']);
-    $Feedback .= '<br /><br />Email Address: ';
-    $Feedback .= sanitize_text_field($_POST['EmailAddress']);
-
-    wp_mail('info@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $Feedback, $headers);
-
-    die();
-}
-add_action('wp_ajax_wpfep_send_feedback','Wpfep_Send_Feedback');
 
 /**
  * function wp_frontend_profile_output()

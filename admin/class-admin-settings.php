@@ -187,8 +187,9 @@ class WPFEP_Admin_Settings {
     function admin_menu() {
         global $_registered_pages;
         // Translation issue: Hook name change due to translate menu title
-        $this->menu_pages[] = add_menu_page( __( 'Frontend Profile', 'wpptm' ), __( 'Frontend Profile', 'wpptm' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'),  plugins_url( 'assets/icon/WP-front-end.png', dirname(__FILE__) ), 55 );
+        $this->menu_pages[] = add_menu_page( __( 'Frontend Profile', 'wpptm' ), __( 'Frontend Profile', 'wpptm' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'),  'dashicons-admin-users', 55 );
          $this->menu_pages[] = add_submenu_page( 'wpfep-settings', __( 'Tools', 'wpptm' ), __( 'Tools', 'wpptm' ), 'manage_options', 'wpfep-tools', array($this, 'tool_page') );
+         $this->menu_pages[] = add_submenu_page( 'wpfep-settings', __( 'System Status', 'wpptm' ), __( 'System Status', 'wpptm' ), 'manage_options', 'wpfep-status', array($this, 'system_status') );
     }
 
    
@@ -266,6 +267,10 @@ class WPFEP_Admin_Settings {
         <?php
     }
 
+    function system_status(){
+       $Wpfep_System_Status = new Wpfep_System_Status();
+       $Wpfep_System_Status->status_report();
+    }
     function clear_settings() {
         if (isset($_GET['wpfep_delete_settings']) && $_GET['wpfep_delete_settings'] == 1 ) {
             // Delete Options

@@ -460,3 +460,83 @@ function get_post_value( $key ) {
     }
     return '';
 }
+
+//REVIEW ASK
+function Wpfep_Hide_Review_Ask(){   
+    $Ask_Review_Date = sanitize_text_field($_POST['Ask_Review_Date']);
+
+    if (get_option('wpfep_Ask_Review_Date') < time()+3600*24*$Ask_Review_Date) {
+    	update_option('wpfep_Ask_Review_Date', time()+3600*24*$Ask_Review_Date);
+    }
+
+    die();
+}
+add_action('wp_ajax_wpfep_hide_review_ask','Wpfep_Hide_Review_Ask');
+
+//feeback mail
+function Wpfep_Send_Feedback() {   
+	$headers = 'Content-type: text/html;charset=utf-8' . "\r\n";  
+    $Feedback = sanitize_text_field($_POST['Feedback']);
+    $Feedback .= '<br /><br />Email Address: ';
+    $Feedback .= sanitize_text_field($_POST['EmailAddress']);
+
+    wp_mail('info@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $Feedback, $headers);
+
+    die();
+}
+add_action('wp_ajax_wpfep_send_feedback','Wpfep_Send_Feedback');
+
+/**
+ * let_to_num function.
+ *
+ * This function transforms the php.ini notation for numbers (like '2M') to an integer.
+ *
+ * @since 2.0.0
+ * @param $size
+ * @return int
+ */
+function wpfep_let_to_num( $size ) {
+    $l   = substr( $size, -1 );
+    $ret = substr( $size, 0, -1 );
+    switch ( strtoupper( $l ) ) {
+        case 'P':
+            $ret *= 1024;
+        case 'T':
+            $ret *= 1024;
+        case 'G':
+            $ret *= 1024;
+        case 'M':
+            $ret *= 1024;
+        case 'K':
+            $ret *= 1024;
+    }
+    return $ret;
+}
+
+function wpfep_format_decimal($number, $dp = false, $trim_zeros = false){
+    $locale   = localeconv();
+    $decimals = array( uwp_get_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'] );
+
+    // Remove locale from string.
+    if ( ! is_float( $number ) ) {
+        $number = str_replace( $decimals, '.', $number );
+        $number = preg_replace( '/[^0-9\.,-]/', '', uwp_clean( $number ) );
+    }
+
+    if ( false !== $dp ) {
+        $dp     = intval( '' == $dp ? uwp_get_decimal_separator() : $dp );
+        $number = number_format( floatval( $number ), $dp, '.', '' );
+        // DP is false - don't use number format, just return a string in our format
+    } elseif ( is_float( $number ) ) {
+        // DP is false - don't use number format, just return a string using whatever is given. Remove scientific notation using sprintf.
+        $number     = str_replace( $decimals, '.', sprintf( '%.' . uwp_get_rounding_precision() . 'f', $number ) );
+        // We already had a float, so trailing zeros are not needed.
+        $trim_zeros = true;
+    }
+
+    if ( $trim_zeros && strstr( $number, '.' ) ) {
+        $number = rtrim( rtrim( $number, '0' ), '.' );
+    }
+
+    return $number;
+}
