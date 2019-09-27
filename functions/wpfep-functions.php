@@ -515,21 +515,21 @@ function wpfep_let_to_num( $size ) {
 
 function wpfep_format_decimal($number, $dp = false, $trim_zeros = false){
     $locale   = localeconv();
-    $decimals = array( uwp_get_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'] );
+    $decimals = array( wpfep_get_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'] );
 
     // Remove locale from string.
     if ( ! is_float( $number ) ) {
         $number = str_replace( $decimals, '.', $number );
-        $number = preg_replace( '/[^0-9\.,-]/', '', uwp_clean( $number ) );
+        $number = preg_replace( '/[^0-9\.,-]/', '', wpfep_clean( $number ) );
     }
 
     if ( false !== $dp ) {
-        $dp     = intval( '' == $dp ? uwp_get_decimal_separator() : $dp );
+        $dp     = intval( '' == $dp ? wpfep_get_decimal_separator() : $dp );
         $number = number_format( floatval( $number ), $dp, '.', '' );
         // DP is false - don't use number format, just return a string in our format
     } elseif ( is_float( $number ) ) {
         // DP is false - don't use number format, just return a string using whatever is given. Remove scientific notation using sprintf.
-        $number     = str_replace( $decimals, '.', sprintf( '%.' . uwp_get_rounding_precision() . 'f', $number ) );
+        $number     = str_replace( $decimals, '.', sprintf( '%.' . wpfep_get_rounding_precision() . 'f', $number ) );
         // We already had a float, so trailing zeros are not needed.
         $trim_zeros = true;
     }
@@ -539,4 +539,47 @@ function wpfep_format_decimal($number, $dp = false, $trim_zeros = false){
     }
 
     return $number;
+}
+
+/**
+ * Return the decimal separator.
+ * @since  1.0.20
+ * @return string
+ */
+function wpfep_get_decimal_separator() {
+    $separator = apply_filters( 'wpfep_decimal_separator', '.' );
+    return $separator ? stripslashes( $separator ) : '.';
+}
+
+/**
+ * Get rounding precision for internal UWP calculations.
+ * Will increase the precision of uwp_get_decimal_separator by 2 decimals, unless WPFEP_ROUNDING_PRECISION is set to a higher number.
+ *
+ * @since 1.0.20
+ * @return int
+ */
+function wpfep_get_rounding_precision() {
+    $precision = wpfep_get_decimal_separator() + 2;
+    if ( absint( WPFEP_ROUNDING_PRECISION ) > $precision ) {
+        $precision = absint( WPFEP_ROUNDING_PRECISION );
+    }
+    return $precision;
+}
+
+/**
+ * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+ * Non-scalar values are ignored.
+ *
+ * @param string|array $var
+ *
+ * @return string|array
+ */
+function wpfep_clean( $var ) {
+
+    if ( is_array( $var ) ) {
+        return array_map( 'wpfep_clean', $var );
+    } else {
+        return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
+    }
+
 }
