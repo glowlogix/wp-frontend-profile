@@ -201,6 +201,7 @@ class wpfep_Login {
                     if ( isset( $_GET['reset'] ) && $_GET['reset'] == 'true' ) {
 
                         printf( '<div class="wpfep-message">' . __( 'Your password has been reset.', 'wpptm' ) . '</div>' );
+                        wpfep_load_template( 'login.php', $args );
                         return;
                     } else {
 
@@ -523,7 +524,11 @@ class wpfep_Login {
         }
 
         // Send email notification
-        $this->email_reset_pass( $user_login, $user_email, $key );
+        $reset_password_mail = wpfep_get_option( 'reset_password_mail', 'wpfep_emails_notification', 'on' );
+        if ($reset_password_mail == 'on') {
+            $this->email_reset_pass( $user_login, $user_email, $key );
+        }
+       
 
         return true;
     }
@@ -726,10 +731,21 @@ class wpfep_Login {
      */
     public function reset_password( $user, $new_pass ) {
         do_action( 'password_reset', $user, $new_pass );
-
+        $blogname   = wp_specialchars_decode( get_option('blogname'), ENT_QUOTES );
         wp_set_password( $new_pass, $user->ID );
-
-        wp_password_change_notification( $user );
+        // User password change email to admin
+        $change_password_admin_mail = wpfep_get_option( 'change_password_admin_mail', 'wpfep_emails_notification', 'on' );
+        if ($change_password_admin_mail == 'on') {
+           wp_password_change_notification( $user );
+        }
+        // User password change email to admin
+        $message = $user->user_login.' Your password has been changed.';
+        $subject = '[' .$blogname. '] Password changed';
+        $password_change_mail = wpfep_get_option( 'password_change_mail', 'wpfep_emails_notification', 'on' );
+        if ($password_change_mail == 'on') {
+            wp_mail( $user->user_email, $subject, $message );
+        }
+        
     }
 
     /**

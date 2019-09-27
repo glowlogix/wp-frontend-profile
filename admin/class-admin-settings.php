@@ -146,6 +146,43 @@ class WPFEP_Admin_Settings {
                     'options' => $pages
                 ),
             ) ),
+            'wpfep_emails_notification' => apply_filters( 'wpfep_options_emails_notification', array(
+                array(
+                    'name'    => 'register_mail',
+                    'label'   => __( 'Registration success email', 'wpptm' ),
+                    'desc'    => __( ' Send an email to user for when successfull registration.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'on'
+                ),
+                array(
+                    'name'    => 'password_change_mail',
+                    'label'   => __( 'Change password email', 'wpptm' ),
+                    'desc'    => __( ' Send an email to user for change password.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'on'
+                ),
+                array(
+                    'name'    => 'reset_password_mail',
+                    'label'   => __( 'Reset password email', 'wpptm' ),
+                    'desc'    => __( 'Send an email to user for reset password.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'on'
+                ),
+                array(
+                    'name'    => 'new_account_admin_mail',
+                    'label'   => __( 'New account registration admin mail', 'wpptm' ),
+                    'desc'    => __( 'Send an email to admin when user has created account on site.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'on'
+                ),
+                array(
+                    'name'    => 'change_password_admin_mail',
+                    'label'   => __( 'Change user password admin mail', 'wpptm' ),
+                    'desc'    => __( 'Send an email to admin when user has changed account password.', 'wpptm' ),
+                    'type'    => 'checkbox',
+                    'default' => 'on'
+                ),
+            ) ),
         );
         return apply_filters( 'wpfep_settings_fields', $settings_fields );
     }
@@ -166,6 +203,11 @@ class WPFEP_Admin_Settings {
                 'id'    => 'wpfep_general',
                 'title' => __( 'Settings', 'wpptm' ),
                 'icon' => 'dashicons-admin-generic'
+            ),
+            array(
+                'id'    => 'wpfep_emails_notification',
+                'title' => __( 'Emails', 'wpptm' ),
+                'icon' => 'dashicons-email'
             ),
         );
         return apply_filters( 'wpfep_settings_sections', $sections );

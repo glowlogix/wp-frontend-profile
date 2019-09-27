@@ -480,7 +480,7 @@ function Wpfep_Send_Feedback() {
     $Feedback .= '<br /><br />Email Address: ';
     $Feedback .= sanitize_text_field($_POST['EmailAddress']);
 
-    wp_mail('info@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $Feedback, $headers);
+    wp_mail('support@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $Feedback, $headers);
 
     die();
 }

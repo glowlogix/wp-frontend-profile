@@ -179,8 +179,10 @@ class WPFEP_Registration {
 
                 $subject = apply_filters( 'wpfep_default_reg_admin_mail_subject', $subject );
                 $message = apply_filters( 'wpfep_default_reg_admin_mail_body', $message );
-
-                wp_mail(get_option('admin_email'), sprintf(__('[%s] %s', 'wpptm'), $blogname, $subject ), $message);
+                $register_admin_mail = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
+                if ($register_admin_mail == 'on') {
+                    wp_mail(get_option('admin_email'), sprintf(__('[%s] %s', 'wpptm'), $blogname, $subject ), $message);
+                }
 
                 $message = sprintf(__('Hi, %s', 'wpptm'), $user_login) . "\r\n";
                 $message .= "Congrats! You are Successfully registered to ". $blogname ."\r\n\r\n";
@@ -189,8 +191,10 @@ class WPFEP_Registration {
 
                 $subject = apply_filters( 'wpfep_default_reg_mail_subject', $subject );
                 $message = apply_filters( 'wpfep_default_reg_mail_body', $message );
-
-                wp_mail( $user_email, sprintf(__('[%s] %s', 'wpptm'), $blogname, $subject ), $message );
+                $register_user_mail = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
+                if ($register_user_mail == 'on') {
+                    wp_mail( $user_email, sprintf(__('[%s] %s', 'wpptm'), $blogname, $subject ), $message );
+                }
 
             }
 
