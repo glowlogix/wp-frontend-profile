@@ -150,9 +150,16 @@ function wpfep() {
 
 // kickoff
 wpfep();
+
+
 /* When plugin is activated */
 register_activation_hook(__FILE__,'Install_wpfep_time');
 
+/**
+ * Update plugin install time if not set
+ *
+ * @return \self
+ */
 function Install_wpfep_time() {
 	if (get_option("wpfep_Install_Time") == "") {
 		update_option("wpfep_Install_Time", time());

@@ -25,9 +25,6 @@ class wpfep_Login {
         add_filter( 'login_url', array($this, 'filter_login_url'), 10, 2 );
         add_filter( 'logout_url', array($this, 'filter_logout_url'), 10, 2 );
         add_filter( 'lostpassword_url', array($this, 'filter_lostpassword_url'), 10, 2 );
-
-        add_filter( 'login_redirect', array( $this, 'default_login_redirect' ) );
-
         add_filter( 'authenticate', array($this, 'successfully_authenticate'), 30, 3 );
     }
 
@@ -332,23 +329,6 @@ class wpfep_Login {
         }
 
         return home_url();
-    }
-
-    /**
-     * Redirect user to a specific page after login using default WordPress login form
-     *
-     * @return  string $url
-     */
-    function default_login_redirect( $redirect ) {
-        $override    = wpfep_get_option( 'wp_default_login_redirect', 'wpfep_profile', false );
-        $redirect_to = wpfep_get_option( 'redirect_after_login_page', 'wpfep_profile', false );
-
-        $link = get_permalink( $redirect_to );
-        if ( $override != 'on' || 'previous_page' == $redirect_to || empty( $link ) ) {
-            return $redirect;
-        }
-
-        return $this->login_redirect();
     }
 
     /**

@@ -63,23 +63,16 @@ class WPFEP_Admin_Settings {
                     'default' => 'on'
                 ),
                 array(
-                    'name'    => 'wp_default_login_redirect',
-                    'label'   => __( 'Default Login Redirect', 'wpptm' ),
-                    'desc'    => __( 'If enabled, users who login using WordPress default login form will be redirected to the selected page.', 'wpptm' ),
-                    'type'    => 'checkbox',
-                    'default' => 'off'
-                ),
-                array(
                     'name'    => 'redirect_after_login_page',
                     'label'   => __( 'Redirect After Login', 'wpptm' ),
-                    'desc'    => __( 'After successfull login, where the page will redirect to', 'wpptm' ),
+                    'desc'    => __( 'After successful login, where the page will redirect to', 'wpptm' ),
                     'type'    => 'select',
                     'options' => $pages
                 ),
                  array(
                     'name'    => 'redirect_after_registration',
                     'label'   => __( 'Redirect After Registration', 'wpptm' ),
-                    'desc'    => __( 'After successfull registration, where the page will redirect to, Make sure you have checked auto login after registration.', 'wpptm' ),
+                    'desc'    => __( 'After successful registration, where the page will redirect to, Make sure you have checked auto login after registration.', 'wpptm' ),
                     'type'    => 'select',
                     'options' => $pages
                 ),
@@ -200,14 +193,14 @@ class WPFEP_Admin_Settings {
                 'icon' => 'dashicons-admin-page'
             ),
             array(
-                'id'    => 'wpfep_general',
-                'title' => __( 'Settings', 'wpptm' ),
-                'icon' => 'dashicons-admin-generic'
-            ),
-            array(
                 'id'    => 'wpfep_emails_notification',
                 'title' => __( 'Emails', 'wpptm' ),
                 'icon' => 'dashicons-email'
+            ),
+            array(
+                'id'    => 'wpfep_general',
+                'title' => __( 'Settings', 'wpptm' ),
+                'icon' => 'dashicons-admin-generic'
             ),
         );
         return apply_filters( 'wpfep_settings_sections', $sections );
@@ -229,9 +222,11 @@ class WPFEP_Admin_Settings {
     function admin_menu() {
         global $_registered_pages;
         // Translation issue: Hook name change due to translate menu title
-        $this->menu_pages[] = add_menu_page( __( 'Frontend Profile', 'wpptm' ), __( 'Frontend Profile', 'wpptm' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page'),  'dashicons-admin-users', 55 );
-         $this->menu_pages[] = add_submenu_page( 'wpfep-settings', __( 'Tools', 'wpptm' ), __( 'Tools', 'wpptm' ), 'manage_options', 'wpfep-tools', array($this, 'tool_page') );
-         $this->menu_pages[] = add_submenu_page( 'wpfep-settings', __( 'System Status', 'wpptm' ), __( 'System Status', 'wpptm' ), 'manage_options', 'wpfep-status', array($this, 'system_status') );
+        $this->menu_pages[] = add_menu_page( __( 'Frontend Profile', 'wpptm' ), __( 'Frontend Profile', 'wpptm' ), 'manage_options', 'wpfep-settings_dashboard', array($this, 'plugin_page'),  'dashicons-admin-users', 55 );
+        $this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'Settings', 'wpptm' ), __( 'Settings', 'wpptm' ), 'manage_options', 'wpfep-settings', array($this, 'plugin_page') );
+         $this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'Tools', 'wpptm' ), __( 'Tools', 'wpptm' ), 'manage_options', 'wpfep-tools', array($this, 'tool_page') );
+         $this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'System Status', 'wpptm' ), __( 'System Status', 'wpptm' ), 'manage_options', 'wpfep-status', array($this, 'system_status') );
+         remove_submenu_page( 'wpfep-settings_dashboard', 'wpfep-settings_dashboard' );
     }
 
    
@@ -277,7 +272,7 @@ class WPFEP_Admin_Settings {
 
         if (isset($_GET['wpfep_delete_settings']) && $_GET['wpfep_delete_settings'] == 1 ) {
             ?>
-            <div class="updated">
+            <div class="updated updated_wpfep">
                 <p>
                     <?php echo __( 'Settings has been cleared!', 'wpptm' ); ?>
                 </p>

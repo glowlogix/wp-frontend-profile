@@ -9,7 +9,7 @@
 class Wpfep_System_Status {
     public function __construct() {
     }
-
+    // Display Error message
     public function wpfep_status_wrap_error_message($message, $class) {
         ob_start();
         ?>
@@ -20,7 +20,7 @@ class Wpfep_System_Status {
         $html = ob_get_clean();
         return $html;
     }
-
+    // Display system status report
     public static function status_report() {
         global $wpdb;
 
@@ -642,7 +642,12 @@ class Wpfep_System_Status {
         );
     }
 
-
+    /**
+     * Get all activated plugins.
+     *
+     * @since 1.0.0
+     * @return active plugins .
+     */
     public static function wpfep_get_active_plugins(){
         require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
         require_once( ABSPATH . 'wp-admin/includes/update.php' );
@@ -680,7 +685,13 @@ class Wpfep_System_Status {
         return $active_plugins_data;
     }
 
-     public static function wpfep_get_database_info(){
+    /**
+     * Get all database info.
+     *
+     * @since 1.0.0
+     * @return database info.
+     */
+    public static function wpfep_get_database_info(){
         global $wpdb;
 
         $database_table_sizes = $wpdb->get_results( $wpdb->prepare( "
@@ -731,6 +742,12 @@ class Wpfep_System_Status {
         );
     }
 
+    /**
+     * Get all security info.
+     *
+     * @since 1.0.0
+     * @return security info.
+     */
     public static function wpfep_get_security_info(){
         $check_page = get_home_url();
         return array(
@@ -744,7 +761,7 @@ class Wpfep_System_Status {
     /**
      * Get latest version of a theme by slug.
      *
-     * @since 2.0.0
+     * @since 1.0.0
      *
      * @param  object $theme WP_Theme object.
      * @return string Version number if found.
@@ -799,7 +816,13 @@ class Wpfep_System_Status {
         }
         return $result;
     }
- public static function wpfep_get_theme_info(){
+
+    /**
+     * Get parent theme info if this theme is a child theme, otherwise pass empty info in the response.
+     *
+     * @return theme info
+     */
+    public static function wpfep_get_theme_info(){
         $active_theme = wp_get_theme();
 
         // Get parent theme info if this theme is a child theme, otherwise
@@ -865,10 +888,11 @@ class Wpfep_System_Status {
 
         return array_merge( $active_theme_info, $parent_theme_info );
     }
+
     /**
      * Retrieve metadata from a file. Based on WP Core's get_file_data function.
      *
-     * @since  1.0.20
+     * @since  1.0.0
      * @param  string $file Path to the file.
      * @return string
      */

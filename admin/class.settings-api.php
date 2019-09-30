@@ -307,7 +307,11 @@ class WPFEP_Settings_API {
 
         echo $html;
     }
-
+     /**
+     * Displays a selectbox for a settings field with view and edit page button
+     *
+     * @param array   $args settings field args
+     */
      function callback_select_page( $args ) {
 
         $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );

@@ -475,9 +475,10 @@ add_action('wp_ajax_wpfep_hide_review_ask','Wpfep_Hide_Review_Ask');
 
 //feeback mail
 function Wpfep_Send_Feedback() {   
-	$headers = 'Content-type: text/html;charset=utf-8' . "\r\n";  
-    $Feedback = sanitize_text_field($_POST['Feedback']);
-    $Feedback .= '<br /><br />Email Address: ';
+	$headers   = 'Content-type: text/html;charset=utf-8' . "\r\n";  
+    $Feedback  = 'Feedback: <br>'.sanitize_text_field($_POST['Feedback']);
+    $Feedback .= '<br /><br /> site url: <a href='.site_url().'>'.site_url().'</a>';
+    $Feedback .= '<br />Email Address: ';
     $Feedback .= sanitize_text_field($_POST['EmailAddress']);
 
     wp_mail('support@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $Feedback, $headers);
@@ -487,11 +488,11 @@ function Wpfep_Send_Feedback() {
 add_action('wp_ajax_wpfep_send_feedback','Wpfep_Send_Feedback');
 
 /**
- * let_to_num function.
+ * wpfep_let_to_num function.
  *
  * This function transforms the php.ini notation for numbers (like '2M') to an integer.
  *
- * @since 2.0.0
+ * @since 1.0.0
  * @param $size
  * @return int
  */
@@ -512,6 +513,7 @@ function wpfep_let_to_num( $size ) {
     }
     return $ret;
 }
+
 
 function wpfep_format_decimal($number, $dp = false, $trim_zeros = false){
     $locale   = localeconv();
@@ -543,7 +545,7 @@ function wpfep_format_decimal($number, $dp = false, $trim_zeros = false){
 
 /**
  * Return the decimal separator.
- * @since  1.0.20
+ * @since  1.0.0
  * @return string
  */
 function wpfep_get_decimal_separator() {
@@ -555,7 +557,7 @@ function wpfep_get_decimal_separator() {
  * Get rounding precision for internal UWP calculations.
  * Will increase the precision of uwp_get_decimal_separator by 2 decimals, unless WPFEP_ROUNDING_PRECISION is set to a higher number.
  *
- * @since 1.0.20
+ * @since 1.0.0
  * @return int
  */
 function wpfep_get_rounding_precision() {

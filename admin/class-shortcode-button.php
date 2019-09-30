@@ -18,7 +18,7 @@ class WPFEP_Shortcodes_Button {
         add_action( 'admin_enqueue_scripts', array($this, 'enqueue_scripts') );
         add_action( 'admin_enqueue_scripts', array( $this, 'localize_shortcodes_script' ));
     }
-
+    // enqueue scripts for shortcode of tiny mice 
     function enqueue_scripts() {
         global $pagenow;
         if($pagenow == 'post.php'){
@@ -26,8 +26,9 @@ class WPFEP_Shortcodes_Button {
         }
     }
 
+    // Localize the script with new data
     function localize_shortcodes_script() {
-        // Localize the script with new data
+        
         $shortcodes = array(
             'wpfep-register'  => array(
                 'title'   => __( 'Register', 'wpptm' ),

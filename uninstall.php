@@ -12,6 +12,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
+// Delete all pages and settings when plugin in uninstalled
 function wpfep_delete_options() {
 	$wpfep_uninstall = get_option('wpfep_general');
     if ($wpfep_uninstall['wpfep_remove_data_on_uninstall'] == 'on') {

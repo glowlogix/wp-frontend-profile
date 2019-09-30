@@ -26,7 +26,7 @@ class WPFEP_Admin_Help {
 	 */
 	public function add_tabs() {
 		$screen = get_current_screen();
-		if (  $screen->id != 'toplevel_page_wpfep-settings') {
+		if (  $screen->id != 'frontend-profile_page_wpfep-settings') {
 			return;
 		}
 		$screen->add_help_tab(

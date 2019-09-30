@@ -23,7 +23,7 @@ class WPFEP_Admin_Installer {
            <?php
         if ( $page_created == '0') {
              ?>
-             <div class="updated error">
+             <div class="updated error updated_wpfep">
                  <p>
                      <?php _e( 'WP Frontend Profile needs to create several pages (User Profile, Registration, Login, Profile Edit) to function correctly.', 'wpptm' ); ?>
                </p>
@@ -38,7 +38,7 @@ class WPFEP_Admin_Installer {
 
         if ( isset( $_GET['wpfep_page_installed'] ) && $_GET['wpfep_page_installed'] == '1' ) {
             ?>
-            <div class="updated">
+            <div class="updated wpfep_updated">
                 <p>
                     <strong><?php _e( 'Congratulations!', 'wpptm' ); ?></strong> <?php _e( 'Pages for <strong>WP Frontend Profile</strong> has been successfully installed and saved!', 'wpptm' ); ?>
                 </p>

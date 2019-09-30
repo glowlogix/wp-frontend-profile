@@ -1,6 +1,12 @@
 span.wpfep-help-tip.dashicons.dashicons-editor-help {
     margin: 2px 5px 0 0;
 }
+.wpfep-settings-wrap a#wpfep_profile-tab {
+    margin-left: 0px;
+}
+.updated_wpfep{
+  margin: 5px 0 15px !important;
+}
 .wpfep-ui-tooltip{
 	padding: 7px;
     position: absolute;
