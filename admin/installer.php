@@ -43,6 +43,7 @@ class WPFEP_Admin_Installer {
                     <strong><?php _e( 'Congratulations!', 'wpptm' ); ?></strong> <?php _e( 'Pages for <strong>WP Frontend Profile</strong> has been successfully installed and saved!', 'wpptm' ); ?>
                 </p>
             </div>
+           
             <?php
         }
     }
@@ -64,6 +65,7 @@ class WPFEP_Admin_Installer {
         if ( isset( $_GET['wpfep_hide_page_nag'] ) && $_GET['wpfep_hide_page_nag'] == '1' ) {
             update_option( '_wpfep_page_created', '1' );
         }
+
     }
 
     /**

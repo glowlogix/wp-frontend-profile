@@ -12,7 +12,7 @@ function Wpfep_Error_Notices(){
 
 		global $pagenow;
 		if($pagenow != 'post.php' && $pagenow != 'post-new.php' && current_user_can('administrator')){ ?>
-			<div class='notice notice-info is-dismissible wpfep-main-dashboard-review-ask' style="display: none;">
+			<div class='notice notice-info is-dismissible wpfep-main-dashboard-review-ask updated_wpfep' style="display: none;">
 				<div class='wpfep-review-ask-plugin-icon'></div>
 				<div class='wpfep-review-ask-text'>
 					<p class='wpfep-review-ask-starting-text'>Enjoying using the WP Frontend Profile plugin?</p>

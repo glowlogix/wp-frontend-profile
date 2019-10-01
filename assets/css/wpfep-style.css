@@ -180,17 +180,7 @@ p.error {
     padding-bottom: 14px;
     list-style: none;
 }
-/*.wpfep-form-field label, .wpfep-login-form label, #lostpasswordform label{
-    display: block;
-    min-height: 1px;
-}*/
-/*.wpfep-form-field input, .wpfep-form-field input[type="text"], .wpfep-form-field input[type="number"], .wpfep-form-field input[type="email"], .wpfep-form-field input[type="url"], .wpfep-form-field input[type="password"], .wpfep-form-field input[type="search"], .wpfep-form-field select, .wpfep-form-field textarea, .wpfep-checkboxes,input#wpfep-user_login,input#wpfep-user_pass, input#wpfep-user_login{
-	width: 68%;
-	color: #666;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 3px;
-}*/
+
 li.wpfep-form-field.wpfep-default-user-bio label {
     vertical-align: top;
 }
@@ -218,15 +208,4 @@ li.wpfep-form-field.wpfep-default-user-bio label {
     border-radius: 50%;
     width: 140px !important;
     height: 140px !important;
-}
-
-@media screen and (max-width: 400px){
-	/*.wpfep-form-field label, .wpfep-login-form label, #lostpasswordform label{
-	    width: 100%;
-	    display: block;
-	    float: none;
-	}
-	.wpfep-form-field input, .wpfep-form-field input[type="text"], .wpfep-form-field input[type="number"], .wpfep-form-field input[type="email"], .wpfep-form-field input[type="url"], .wpfep-form-field input[type="password"], .wpfep-form-field input[type="search"], .wpfep-form-field select, .wpfep-form-field textarea, .wpfep-checkboxes,input#wpfep-user_login,input#wpfep-user_pass, input#wpfep-user_login{
-		width: 100%;
-	}*/
 }

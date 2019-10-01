@@ -554,8 +554,8 @@ function wpfep_get_decimal_separator() {
 }
 
 /**
- * Get rounding precision for internal UWP calculations.
- * Will increase the precision of uwp_get_decimal_separator by 2 decimals, unless WPFEP_ROUNDING_PRECISION is set to a higher number.
+ * Get rounding precision for internal calculations.
+ * Will increase the precision of wpfep_get_decimal_separator by 2 decimals, unless WPFEP_ROUNDING_PRECISION is set to a higher number.
  *
  * @since 1.0.0
  * @return int

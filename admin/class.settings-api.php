@@ -572,17 +572,27 @@ class WPFEP_Settings_API {
     function script() {
         ?>
         <script>
+
             jQuery(document).ready(function($) {
                 //Initiate Color Picker
                 $('.wp-color-picker-field').wpColorPicker();
+                $.urlParam = function (name) {
+                    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.search);
 
+                    return (results !== null) ? results[1] || 0 : false;
+                }
+
+                var wpfep_page_installed = $.urlParam('wpfep_page_installed'); //wpfep_page_installed
                 // Switches option sections
                 $('.group').hide();
                 var activetab = '';
                 if (typeof(localStorage) != 'undefined' ) {
                     activetab = localStorage.getItem("activetab");
                 }
-                if (activetab != '' && $(activetab).length ) {
+                if (wpfep_page_installed == 1) {
+                    $('#wpfep_pages').fadeIn();
+                }
+                else if (activetab != '' && $(activetab).length ) {
                     $(activetab).fadeIn();
                 } else {
                     $('.group:first').fadeIn();
@@ -597,8 +607,10 @@ class WPFEP_Settings_API {
                         $(this).filter('.hidden').removeClass('hidden');
                     });
                 });
-
-                if (activetab != '' && $(activetab + '-tab').length ) {
+                if (wpfep_page_installed == 1) {
+                    $('#wpfep_pages-tab').addClass('nav-tab-active');
+                }
+                else if (activetab != '' && $(activetab + '-tab').length ) {
                     $(activetab + '-tab').addClass('nav-tab-active');
                 }
                 else {
@@ -614,30 +626,6 @@ class WPFEP_Settings_API {
                     $('.group').hide();
                     $(clicked_group).fadeIn();
                     evt.preventDefault();
-                });
-
-                $('.wpsa-browse').on('click', function (event) {
-                    event.preventDefault();
-
-                    var self = $(this);
-
-                    // Create the media frame.
-                    var file_frame = wp.media.frames.file_frame = wp.media({
-                        title: self.data('uploader_title'),
-                        button: {
-                            text: self.data('uploader_button_text'),
-                        },
-                        multiple: false
-                    });
-
-                    file_frame.on('select', function () {
-                        attachment = file_frame.state().get('selection').first().toJSON();
-
-                        self.prev('.wpsa-url').val(attachment.url);
-                    });
-
-                    // Finally, open the modal
-                    file_frame.open();
                 });
         });
         </script>

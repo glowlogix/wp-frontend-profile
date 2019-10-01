@@ -4,7 +4,7 @@
  *
  * All wpptm status related functions can be found here.
  *
- * @since      1.0.20
+ * @since      1.0.0
  */
 class Wpfep_System_Status {
     public function __construct() {
