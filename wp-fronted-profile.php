@@ -60,6 +60,7 @@ final class WP_Frontend_Profile {
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
          $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general');
         add_filter( 'show_admin_bar', array( $this, 'show_admin_bar' ) );
+        add_filter('plugin_row_meta', array($this, 'plugin_meta_links'), 10, 2);
     }
      /**
      * Include the required files
@@ -168,6 +169,26 @@ final class WP_Frontend_Profile {
 
         return $val;
     }
+
+   	/**
+	   * Add links to plugin's description in plugins table
+	   *
+	   * @param array  $links  Initial list of links.
+	   * @param string $file   Basename of current plugin.
+	   * @since 1.0.0
+	   * @return array
+   	*/
+  	function plugin_meta_links($links, $file) {
+	    if ($file !== plugin_basename(__FILE__)) {
+		     return $links;
+		}
+	    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="' . __('Get help', 'wpptm') . '">' . __('Support', 'wpptm') . '</a>';
+	    $rate_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="' . __('Rate the plugin', 'wpptm') . '">' . __('Rate the plugin ★★★★★', 'wpptm') . '</a>';
+
+	    $links[] = $support_link;
+	    $links[] = $rate_link;
+	    return $links;
+	} 
 }
 /**
  * Returns the singleton instance
