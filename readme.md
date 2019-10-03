@@ -13,11 +13,11 @@ WP Frontend Profile allows users to edit their profile without going into the da
 
 ## Description
 
-WP Frontend Profile give you the ability to add a extensible user profile section to the front end of your WordPress website. By default the plugin adds two tabs to the front end profile. One of these titled profile allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
+WP Frontend Profile give you the ability to add a extensible user profile section to the frontend of your WordPress website. By default the plugin adds two tabs to the frontend profile. One of these titled profile allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
 
 ### Plugin Extensibility
 
-As the front end profile is rendered with tabs you can easily add your own tabs with your own fields to store user meta data. Tabs and fields are added through filters and all the saving of the data is taken care of for you.
+As the frontend profile is rendered with tabs you can easily add your own tabs with your own fields to store user meta data. Tabs and fields are added through filters and all the saving of the data is taken care of for you.
 
 You can add the following field types:
 
@@ -33,7 +33,7 @@ See FAQs for how to add our own fields and tabs.
 
 ### Profile Output
 
-To output the front end profile you can use the following function in your template files:
+To output the frontend profile you can use the following function in your template files:
 
 ```
 wpfep_show_profile();
@@ -43,7 +43,7 @@ wpfep_show_profile();
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php wpfep_show_profile(); ?>` in your templates where you want the front end profile to display
+1. Place `<?php wpfep_show_profile(); ?>` in your templates where you want the frontend profile to display
 
 ## Frequently Asked Questions
 
@@ -111,7 +111,7 @@ Yes there are two field IDs reserved which are `user_email` and `user_url`. This
 * Added ability to display form via shortcode.
 
 ### 0.2
-* Include a nonce in the front end editing form for security.
+* Include a nonce in the frontend editing form for security.
 
 ### 0.1
 * Initial launch.

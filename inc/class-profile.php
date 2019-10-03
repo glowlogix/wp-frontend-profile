@@ -12,6 +12,7 @@ class WPFEP_Profile {
 
     function __construct() {
         add_shortcode( 'wpfep-profile', array($this, 'user_profile') );
+        add_action( 'wpfep_profile_pagination', array($this, 'get_profile_pagination'));
     }
 
     /**
@@ -36,7 +37,7 @@ class WPFEP_Profile {
     function user_profile() {
         global $wp;
         
-        $profile_page = home_url( $wp->request );
+        $profile_page = wpfep_get_option( 'profile_page', 'wpfep_pages', false );
 
         ob_start();
 
@@ -92,5 +93,50 @@ class WPFEP_Profile {
                 printf( '<div class="wpfep-message">%s</div>', $message );
             }
         }
+    }
+
+    /**
+     * Prints the tab content pagination section.
+     *
+     * @since       1.0.0
+     * @package     userswp
+     * @param       int         $total       Total items.
+     * @return      void
+     */
+    public function get_profile_pagination($total) {
+        ?>
+        <div class="wpfep-pagination">
+            <?php
+            $big = 999999999; // need an unlikely integer
+            $translated = __( 'Page', 'wpptm' ); // Supply translatable string
+
+            echo paginate_links( array(
+                'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                'format' => '?paged=%#%',
+                'current' => max( 1, get_query_var('paged') ),
+                'total' => $total,
+                'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
+                'type' => 'list'
+            ) );
+            ?>
+        </div>
+        <?php
+    }
+
+    /**
+     * Get User Profile page url
+     *
+     * @return boolean|string
+     */
+    function get_profile_url() {
+        $page_id = wpfep_get_option( 'profile_page', 'wpfep_pages', false );
+
+        if ( !$page_id ) {
+            return false;
+        }
+
+        $url = get_permalink( $page_id );
+
+        return apply_filters( 'wpfep_profile_url', $url, $page_id );
     }
 }

@@ -166,7 +166,7 @@ class wpfep_Login {
     function login_form() {
         global $wp;
         
-        $login_page = home_url( $wp->request );
+        $login_page = $this->get_login_url();
 
         ob_start();
 

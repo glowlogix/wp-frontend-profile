@@ -51,9 +51,20 @@ ul.wpfep-tabs li.highlight a.active {
 p.forgetmenot label {
     display: inline;
 }
-
+.wpfep_user_details h4:before{
+	content: none;
+}
+.wpfep-wrapper p.updated {
+    display: block !important;
+}
 /* field styles
 -------------------------------------------------------------- */
+.wpfep-registration-form input[type="text"], .wpfep-registration-form input[type="password"], .wpfep-login-form input[type="text"], .wpfep-login-form input[type="password"], #lostpasswordform input[type="text"], #resetpasswordform input[type="password"] {
+    width: 100%;
+}
+.wpfep_editing_disabled{
+	color: red;
+}
 .wpfep-field {
 	margin-bottom: 24px;
 }
@@ -108,18 +119,6 @@ label.wpfep_save_description {
 	font-size: 1.5rem;
 	margin-right: 10px;
 }
-.wpfep-save input[type="submit"] {
-	background-color: #f7f7f7;
-	border-radius: 5px;
-	border: 1px solid #CCCCCC;
-	font-size: 1.5rem;
-	text-align: center;
-	padding: 6px 12px;
-	display: block;
-	color: #555555;
-	box-shadow: inset 0 1px 0 #fff,0 1px 0 rgba(0,0,0,.08);
-	cursor: pointer;
-}
 .wpfep-field textarea.wp-editor-area,
 .wpfep-field .quicktags-toolbar {
 	border: 1px solid #CCCCCC;
@@ -129,9 +128,6 @@ label.wpfep_save_description {
 }
 .wpfep-field .quicktags-toolbar {
 	border-bottom: none;
-}
-.wpfep-save input[type="submit"]:hover {
-	border: 1px solid #666666;
 }
 p.error,
 p.updated {
@@ -189,23 +185,86 @@ li.wpfep-form-field.wpfep-default-user-bio label {
     height: auto;
     border-radius: 50%;
 }
-.wpfep-profile-card{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    margin: auto;
-    text-align: center;
-    font-family: arial;
-}
-.title {
-  color: grey;
-  font-size: 18px;
+.wpfep-registration-form label,.wpfep-login-form label, #lostpasswordform label {
+   display: block;
 }
 
-.wpfep_label_user_bio{
-	padding-bottom: 10px;
+/*Profile page*/
+.wpfep_user_details h4 {
+    font-size: 2.3rem;
+    text-align: center;
 }
-.wpfep-profile-card>img {
+.wpfep-profile-sidebar>img {
     border-radius: 50%;
-    width: 140px !important;
-    height: 140px !important;
+    margin: 0 auto;
+    display: block;
+    width: 75%;
+}
+.wpfep-profile-item-ul li {
+    list-style: none;
+}
+ul.wpfep-profile-item-ul {
+    border: 1px solid #e6e6e6;
+}
+.wpfep-lg-3{
+	box-shadow: 0px 0px 5px 0px #ddd;
+}
+.wpfep-pagination ul.page-numbers li{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+.wpfep-pagination {
+	padding-top: 20px;
+}
+.wpfep-profile-items, .wpfep-profile-sidebar{
+	margin-bottom: 10px;
+}
+@media screen and (min-width: 64em){
+	.wpfep-columns{
+		width: 100%;
+	    float: left;
+	    padding-left: .625rem;
+	    padding-right: .625rem;
+	}
+	.wpfep-lg-3{
+		width: 25%;
+		padding-left: .9375rem;
+    	padding-right: .9375rem;
+    	
+	}
+	.wpfep-lg-9 {
+    	width: 75%;
+	}
+	ul.wpfep-profile-item-ul {
+	    padding: 25px;
+	    margin: 0;
+	}
+	.wpfep-pagination ul.page-numbers li{
+		list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	    display: inline-block;
+	}
+	.wpfep-pagination {
+    	padding-top: 20px;
+	}
+}
+@media only screen and (max-width: 1024px) {
+	.wpfep-profile-sidebar>img {
+	    border-radius: 50%;
+	    margin: 0 auto;
+	    display: block;
+	    width: 200px !important;
+	}
+	ul.wpfep-profile-item-ul {
+	    margin-bottom: 0;
+	}
+	.wpfep_user_details {
+	    padding: 15px;
+	}
+	ul.wpfep-profile-item-ul {
+	    padding: 15px;
+	}
 }

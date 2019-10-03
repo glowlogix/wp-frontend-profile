@@ -2,10 +2,10 @@
 /*
 Plugin Name: WP Frontend Profile
 Plugin URI: https://wordpress.org/plugins/wp-front-end-profile/
-Description: This plugin allows users to easily edit their profile information on the front end rather than having to go into the dashboard to make changes to password, email address and other user meta data.
+Description: This plugin allows users to easily edit their profile information on the frontend rather than having to go into the dashboard to make changes to password, email address and other user meta data.
 Version:     1.0.0
 Author:      Glowlogix
-Author URI:  https://glowlogix.com
+Author URI:  https://www.glowlogix.com
 Text Domain: wpptm
 License:     GPL v2 or later
 */
@@ -20,6 +20,9 @@ if ( ! defined( 'WPFEP_VERSION' ) ) {
 }
 if ( ! defined( 'WPFEP_PATH' ) ) {
     define('WPFEP_PATH', plugin_dir_path(__FILE__));
+}
+if ( ! defined( 'WPFEP_PLUGIN_URL' ) ) {
+    define('WPFEP_PLUGIN_URL', plugin_dir_url(__FILE__));
 }
 
 final class WP_Frontend_Profile {
@@ -170,7 +173,7 @@ add_action('admin_notices', 'Wpfep_Error_Notices');
 /**
  * function wp_frontend_profile_output()
  *
- * provides the front end output for the front end profile editing
+ * provides the frontend output for the frontend profile editing
  */
 function wpfep_show_profile() {
 	
@@ -181,10 +184,17 @@ function wpfep_show_profile() {
 		echo "</div>";
 		return;
 	}
+	$user = wp_get_current_user();
+	if ( in_array( 'administrator', (array) $user->roles ) ) {
+    	if( current_user_can( 'manage_options' ) )
+    	ob_start();
+    	echo "<div class='wpfep_editing_disabled'>";
+		printf( __( "Frontend editing is disabled for administrators because of security risks.", 'wpptm' ));
+		echo "</div>";
+		return ob_get_clean();
+	}
+	/* if you're an admin - too risky to allow frontend editing */
 	
-	/* if you're an admin - too risky to allow front end editing */
-	if( current_user_can( 'manage_options' ) )
-		return;
 
 	?>
 	
@@ -265,11 +275,12 @@ function wpfep_show_profile() {
 				 */
 				do_action( 'wpfep_before_tab_content', $wpfep_tab[ 'id' ], get_current_user_id() );
 
+
 				?>
 				
 				<div class="tab-content<?php echo esc_attr( $content_class ); ?>" id="<?php echo esc_attr( $wpfep_tab[ 'id' ] ); ?>">
 					
-					<form method="post" action="<?php echo home_url( $wp->request.'/#'.esc_attr( $wpfep_tab[ 'id' ] ) ); ?>" class="wpfep-form-<?php echo esc_attr( $wpfep_tab[ 'id' ] ); ?>">
+					<form method="post" action="<?php echo get_edit_profile_page().'#'.esc_attr( $wpfep_tab[ 'id' ]); ?>" class="wpfep-form-<?php echo esc_attr( $wpfep_tab[ 'id' ] ); ?>">
 						
 						<?php
 							
@@ -320,4 +331,21 @@ function wpfep_show_profile() {
 		
 	<?php
 	
+}
+
+/**
+ * Get edit profile page url
+ *
+ * @return boolean|string
+ */
+function get_edit_profile_page() {
+    $page_id = wpfep_get_option( 'profile_edit_page', 'wpfep_pages', false );
+
+    if ( !$page_id ) {
+        return false;
+    }
+
+    $url = get_permalink( $page_id );
+
+    return apply_filters( 'wpfep_profile_edit_url', $url, $page_id );
 }

@@ -168,12 +168,22 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		<?php
 		
 	} else {
-		
+
 		?>
 		<div class="messages"><p class="updated">Your profile was updated successfully!</p></div>
+		
 		<?php
 		
 	}
+	?>
+	<script type="text/javascript">
+			jQuery(document).ready(function(){
+			    jQuery('html, body').animate({
+			    scrollTop: jQuery("div.wpfep-wrapper").offset().top
+			  }, 1000);
+			});
+	</script>
+	<?php
 }
 
 add_action( 'wpfep_before_tabs', 'wpfep_save_fields', 5, 2 );
@@ -238,18 +248,33 @@ function wpfep_save_password( $tabs, $user_id ) {
 	
 	/* check we have any messages in the messages array - if we have password failed at some point */
 	if( empty( $messages ) ) {
-		
 		/**
 		 * ok if we get this far we have passed all the checks above
 		 * the password can now be updated and redirect the user to the login page
 		 */
 		
 		wp_set_password( $password, $user_id );
+
 		echo '<div class="messages"><p class="updated">You\'re password was successfully changed and you have been logged out. Please <a href="' . esc_url( wp_login_url() ) . '">login again here</a>.</p></div>';
-	
+		 // User password change email to admin
+		$user = wp_get_current_user();
+		$blogname   = wp_specialchars_decode( get_option('blogname'), ENT_QUOTES );
+        $change_password_admin_mail = wpfep_get_option( 'change_password_admin_mail', 'wpfep_emails_notification', 'on' );
+        if ($change_password_admin_mail == 'on') {
+           wp_password_change_notification( $user );
+        }
+        // User password change email to admin
+        $message = $user->user_login.' Your password has been changed.';
+        $subject = '[' .$blogname. '] Password changed';
+        $password_change_mail = wpfep_get_option( 'password_change_mail', 'wpfep_emails_notification', 'on' );
+        if ($password_change_mail == 'on') {
+            wp_mail( $user->user_email, $subject, $message );
+        }
+		?>
+				<?php
 	/* messages not empty therefore password failed */
 	} else {
-		
+
 		?>
 		<div class="messages">
 		<?php
@@ -267,7 +292,15 @@ function wpfep_save_password( $tabs, $user_id ) {
 		<?php
 		
 	}
-	
+	?>
+	<script type="text/javascript">
+			jQuery(document).ready(function(){
+			    jQuery('html, body').animate({
+			    scrollTop: jQuery("div.wpfep-wrapper").offset().top
+			  }, 1000);
+			});
+	</script>
+	<?php
 }
 
 add_action( 'wpfep_before_tabs', 'wpfep_save_password', 10, 2 );

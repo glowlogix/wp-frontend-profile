@@ -47,7 +47,9 @@ class WPFEP_Shortcodes_Button {
                 'content' => '[wpfep-profile]'
             ),
         ) ;
+        $assets_url = WPFEP_PLUGIN_URL;
         wp_localize_script( 'wpfep_shortcode_handle', 'wpfep_shortcode', $shortcodes );
+        wp_localize_script( 'wpfep_shortcode_handle', 'wpfep_assets_url', $assets_url );
     }
 
     /**

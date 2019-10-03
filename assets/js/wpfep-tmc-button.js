@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
     tinymce.create('tinymce.plugins.wpfep_button', {
         init : function(editor, url) {
                 var menuItem = [];
+                 var ds_img = wpfep_assets_url +'/assets/icon/wpfep.png';
                 $.each( wpfep_shortcode, function( i, val ){
                     var tempObj = {
                             text : val.title,
@@ -18,8 +19,7 @@ jQuery(document).ready(function($) {
                     classes : 'wpfep-ss',
                     type  : 'menubutton',
                     menu  : menuItem,
-                    image : '../wp-includes/images/media/code.png',
-                    // style : ' background-size : 22px; background-repeat : no-repeat; background-image: url( '+ ds_img +' );'
+                    style : ' background-size : 22px; background-repeat : no-repeat; background-image: url( '+ ds_img +' );'
                 });
         },   
     });

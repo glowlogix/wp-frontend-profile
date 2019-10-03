@@ -62,7 +62,7 @@ class WPFEP_Registration {
             $action = isset( $_GET['action'] ) ? $_GET['action'] : 'register';
 
             $args = array(
-                'action_url' =>  home_url( $wp->request ),
+                'action_url' =>  wpfep_get_option( 'register_page', 'wpfep_pages', false ),
                 'userrole'   => $roleencoded
             );
             wpfep_load_template( 'registration.php', $args );
