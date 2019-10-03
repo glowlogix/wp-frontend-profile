@@ -86,7 +86,7 @@ class WPFEP_Registration {
             }
 
             $validation_error = new WP_Error();
-            $validation_error = apply_filters( 'wpfep_process_registration_errors', $validation_error, $_POST['wpfep_reg_email'],  $_POST['wpfep_reg_uname'], $_POST['pwd1'], $_POST['pwd2'] );
+            $validation_error = apply_filters( 'wpfep_process_registration_errors', $validation_error, sanitize_text_field($_POST['wpfep_reg_email']),  sanitize_text_field($_POST['wpfep_reg_uname']), $_POST['pwd1'], $_POST['pwd2'] );
 
             if ( $validation_error->get_error_code() ) {
                 $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . $validation_error->get_error_message();
@@ -99,7 +99,7 @@ class WPFEP_Registration {
                 return;
             }
 
-            if ( empty( $_POST['wpfep_reg_uname'] ) ) {
+            if ( empty( $_POST['wpfep_reg_uname']) ) {
                 $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Username is required.', 'wpptm' );
                 return;
             }
@@ -118,6 +118,10 @@ class WPFEP_Registration {
                 $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Passwords are not same.', 'wpptm' );
                 return;
             }
+            if ( $_POST['wpfep_reg_uname'] != sanitize_text_field($_POST['wpfep_reg_uname']) || $_POST['wpfep_reg_fname'] != sanitize_text_field($_POST['wpfep_reg_fname']) || $_POST['wpfep_reg_lname'] != sanitize_text_field($_POST['wpfep_reg_lname']) || $_POST['wpfep-description'] != sanitize_textarea_field($_POST['wpfep-description']) || $_POST['wpfep-website'] != sanitize_text_field($_POST['wpfep-website']) || $_POST['wpfep_reg_email'] != sanitize_email($_POST['wpfep_reg_email'])) {
+
+                return;
+            }
              if ( isset ( $_POST["g-recaptcha-response"] ) ) {
                 if ( empty( $_POST['g-recaptcha-response'] ) ) {
                     $this->registration_errors[] = __( 'reCaptcha is required', 'wpptm' );
@@ -130,7 +134,7 @@ class WPFEP_Registration {
                 }
             }
 
-            if ( get_user_by( 'login', $_POST['wpfep_reg_uname'] ) === $_POST['wpfep_reg_uname'] ) {
+            if ( get_user_by( 'login', sanitize_text_field($_POST['wpfep_reg_uname'] )) === sanitize_text_field($_POST['wpfep_reg_uname']) ) {
                 $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'A user with same username already exists.', 'wpptm' );
                 return;
             }
@@ -150,12 +154,12 @@ class WPFEP_Registration {
 
             $dec_role = wpfep_decryption( $_POST['urhidden'] );
 
-            $userdata['first_name']     = isset($_POST['wpfep_reg_fname']) ? $_POST['wpfep_reg_fname'] : '';
-            $userdata['last_name']      = isset($_POST['wpfep_reg_lname']) ? $_POST['wpfep_reg_lname'] : '';
-            $userdata['user_email']     = $_POST['wpfep_reg_email'];
+            $userdata['first_name']     = isset($_POST['wpfep_reg_fname']) ? sanitize_text_field($_POST['wpfep_reg_fname']) : '';
+            $userdata['last_name']      = isset($_POST['wpfep_reg_lname']) ? sanitize_text_field($_POST['wpfep_reg_lname']) : '';
+            $userdata['user_email']     = sanitize_text_field($_POST['wpfep_reg_email']);
             $userdata['user_pass']      = $_POST['pwd1'];
-            $userdata['description']    = isset($_POST['wpfep-description']) ? $_POST['wpfep-description'] : '';
-            $userdata['user_url']       = isset($_POST['wpfep-website']) ? $_POST['wpfep-website'] : '';
+            $userdata['description']    = isset($_POST['wpfep-description']) ? sanitize_text_field($_POST['wpfep-description']) : '';
+            $userdata['user_url']       = isset($_POST['wpfep-website']) ? sanitize_text_field($_POST['wpfep-website']) : '';
 
             if ( get_role( $dec_role ) ) {
                 $userdata['role'] = $dec_role;
