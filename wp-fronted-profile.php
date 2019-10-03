@@ -58,6 +58,8 @@ final class WP_Frontend_Profile {
     	add_action( 'plugins_loaded', array( $this, 'instantiate' ) );
     	add_action( 'init', array( $this, 'load_textdomain' ) );
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
+         $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general');
+        add_filter( 'show_admin_bar', array( $this, 'show_admin_bar' ) );
     }
      /**
      * Include the required files
@@ -141,6 +143,31 @@ final class WP_Frontend_Profile {
 		 );
 		return array_merge( $links, $mylinks );
 	}
+
+	/**
+     * Show/hide admin bar to the permitted user level
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    function show_admin_bar($val) {
+
+        if ( !is_user_logged_in() ) {
+            return false;
+        }
+
+        $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general');
+        $roles = $roles ? $roles : array();
+        $current_user = wp_get_current_user();
+
+        if ( isset( $current_user->roles[0] ) ) {
+            if ( !in_array( $current_user->roles[0], $roles ) ) {
+                return false;
+            }
+        }
+
+        return $val;
+    }
 }
 /**
  * Returns the singleton instance

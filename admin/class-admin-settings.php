@@ -78,6 +78,14 @@ class WPFEP_Admin_Settings {
                 ),
             ) ),
             'wpfep_general' => apply_filters( 'wpfep_options_others', array(
+                 array(
+                    'name'    => 'show_admin_bar_to_roles',
+                    'label'   => __( 'Show Admin Bar', 'wpptm' ),
+                    'desc'    => __( 'Select user by roles, who can view admin bar in frontend.', 'wpptm' ),
+                    'callback'=> 'wpfep_settings_multiselect',
+                    'options' => $user_roles,
+                    'default' => array( 'administrator', 'editor', 'author', 'contributor' ),
+                ),
                 array(
                     'name'  => 'recaptcha_public',
                     'label' => __( 'reCAPTCHA Site Key', 'wpptm' ),
