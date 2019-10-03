@@ -297,11 +297,13 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
  */
 function wpfep_tab_content_save( $tab, $user_id ) {
 	
+	$profile_page = new WPFEP_Profile();
+	$profile_page_obj = $profile_page->get_profile_url();
 	?>
-	
 	<div class="wpfep-save">
 		<label class="wpfep_save_description">Save this tabs updated fields.</label>
 		<input type="submit" class="wpfep_save" name="<?php echo esc_attr( $tab[ 'id' ] ); ?>[wpfep_save]" value="Update <?php echo esc_attr( $tab[ 'label' ] ); ?>" />
+		<a class="btn" href="<?php echo $profile_page_obj;?>"><?php echo __('View Profile', 'wpptm');?></a>
 	</div>
 	
 	<?php

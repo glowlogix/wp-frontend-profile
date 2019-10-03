@@ -34,6 +34,7 @@ class Wpfep_System_Status {
         <style type="text/css">
 
         </style>
+        <h2><?php _e( 'Frontend Profile System Status Page', 'wpptm' ); ?></h2>
         <div class="notice notice_system_status_wpfep">
             <p><?php _e( 'Please copy and paste this information in your ticket when contacting support:', 'wpptm' ); ?> </p>
             <p class="submit"><a href="javascript:void" class="button-primary debug-report"><?php _e( 'Get system report', 'wpptm' ); ?></a></p>
