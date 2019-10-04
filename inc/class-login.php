@@ -394,6 +394,35 @@ class wpfep_Login {
                     $this->login_errors[] = __( 'Passwords do not match.', 'wpptm' );
                     return;
                 }
+                $enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
+                if ($enable_strong_pwd != 'off') {
+                    /* get the length of the password entered */
+                    $password = $_POST['pass1'];
+                    $pass_length = strlen( $password );
+                    
+                    /* check the password match the correct length */
+                    if( $pass_length < 12 ) {
+                        
+                        /* add message indicating length issue!! */
+                        
+                       $this->login_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Please make sure your password is a minimum of 12  characters long', 'wpptm' );
+                        return;
+                    }
+                    
+                    /**
+                     * match the password against a regex of complexity
+                     * at least 1 upper, 1 lower case letter and 1 number
+                     */
+                    $pass_complexity = preg_match( '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/', $password );
+                    
+                    /* check whether the password passed the regex check of complexity */
+                    if( $pass_complexity == false ) {
+                        
+                        /* add message indicating complexity issue */
+                       $this->login_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpptm' );
+                        return;
+                    }
+                }
 
                 $errors = new WP_Error();
 

@@ -34,7 +34,7 @@
             <?php 
                 if($user->display_name != '') {
 
-                    echo '<h4>' .$user->display_name. '</h4>';
+                    echo '<h5>' .$user->display_name. '</h5>';
                 }
             ?>
             <p><strong><?php _e( 'Email', 'wpptm' ); ?>: </strong><?php echo $user->user_email;?></p>
@@ -48,8 +48,8 @@
                 </p>
 
             </div>
-           <a class="btn" href="<?php echo get_edit_profile_page();?>"><?php _e( 'Edit Profile', 'wpptm' ); ?></a>
             <?php }?>
+           <a class="btn" href="<?php echo get_edit_profile_page();?>"><?php _e( 'Edit Profile', 'wpptm' ); ?></a>
             <div class="wpfep_end_profile"></div>
         </div>
     </div>
@@ -101,7 +101,7 @@
                      do_action('wpfep_profile_pagination', $the_query->max_num_pages);
                 } else {
                     // no posts found
-                    echo "<p>".__('Post not '.$title.' Found', 'wpptm')."</p>";
+                    echo "<p>".__('Post not Found', 'wpptm')."</p>";
                 }
             echo '</ul>';
             ?>

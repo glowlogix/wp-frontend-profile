@@ -31,6 +31,7 @@ function wpfep_delete_options() {
 		delete_option( 'wpfep_uninstall' );
 		delete_option( 'wpfep_Install_Time' );
 		delete_option( 'wpfep_Ask_Review_Date' );
+		
     }
 	
 }

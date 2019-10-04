@@ -77,6 +77,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 				continue;
 
 			/* check whether the key is reserved - handled with wp_update_user */
+
 			if( in_array( $key, $reserved_ids ) ) {
 				
 				$user_id = wp_update_user(
@@ -149,6 +150,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 	}
 	
 	/* check if we have an messages to output */
+	
 	if( empty( $messages ) ) {
 		
 		?>
@@ -210,40 +212,43 @@ function wpfep_save_password( $tabs, $user_id ) {
 	/* store both password for ease of access */
 	$password = $data[ 'user_pass' ];
 	$password_check = $data[ 'user_pass_check' ];
-	
-	
-	
+
 	/* now lets check the password match */
 	if( $password != $password_check ) {
-		
+			
 		/* add message indicating no match */
-		$messages[ 'password_mismatch' ] = '<p class="error">Please make sure the passwords match.</p>';
-		
+		$messages[ 'password_mismatch' ] = '<p class="error">'.__('Please make sure the passwords match' ,'wpptm').'.</p>';
+			
 	}
 	
-	/* get the length of the password entered */
-	$pass_length = strlen( $password );
-	
-	/* check the password match the correct length */
-	if( $pass_length < apply_filters( 'wpfep_password_length', 12 ) ) {
+	$enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
+    if ($enable_strong_pwd != 'off') {
 		
-		/* add message indicating length issue!! */
-		$messages[ 'password_length' ] = '<p class="error">Please make sure your password is a minimum of ' . apply_filters( 'wpfep_password_length', 12 ) . ' characters long.</p>';
+		/* get the length of the password entered */
+		$pass_length = strlen( $password );
 		
-	}
-	
-	/**
-	 * match the password against a regex of complexity
-	 * at least 1 upper, 1 lower case letter and 1 number
-	 */
-	$pass_complexity = preg_match( apply_filters( 'wpfep_password_regex', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/' ), $password );
-	
-	/* check whether the password passed the regex check of complexity */
-	if( $pass_complexity == false ) {
+		/* check the password match the correct length */
+		if( $pass_length < apply_filters( 'wpfep_password_length', 12 ) ) {
+			
+			/* add message indicating length issue!! */
+
+			$messages[ 'password_length' ] = '<p class="error">'.sprintf( __( 'Please make sure your password is a minimum of %s characters long.', 'textdomain' ), apply_filters( 'wpfep_password_length', 12 ) ).'</p>';
+			
+		}
 		
-		/* add message indicating complexity issue */
-		$messages[ 'password_complexity' ] = '<p class="error">Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number</p>';
+		/**
+		 * match the password against a regex of complexity
+		 * at least 1 upper, 1 lower case letter and 1 number
+		 */
+		$pass_complexity = preg_match( apply_filters( 'wpfep_password_regex', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/' ), $password );
 		
+		/* check whether the password passed the regex check of complexity */
+		if( $pass_complexity == false ) {
+			
+			/* add message indicating complexity issue */
+			$messages[ 'password_complexity' ] = '<p class="error">'.__('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.' ,'wpptm').'.</p>';
+			
+		}
 	}
 	
 	/* check we have any messages in the messages array - if we have password failed at some point */
@@ -255,7 +260,9 @@ function wpfep_save_password( $tabs, $user_id ) {
 		
 		wp_set_password( $password, $user_id );
 
-		echo '<div class="messages"><p class="updated">You\'re password was successfully changed and you have been logged out. Please <a href="' . esc_url( wp_login_url() ) . '">login again here</a>.</p></div>';
+		
+		$successfully_msg = '<div class="messages"><p class="updated">'.sprintf( __( 'You\'re password was successfully changed and you have been logged out. Please <a href="%s">login again here</a>.', 'wpptm' ), esc_url( wp_login_url() )).'</p></div>';
+		echo $successfully_msg;
 		 // User password change email to admin
 		$user = wp_get_current_user();
 		$blogname   = wp_specialchars_decode( get_option('blogname'), ENT_QUOTES );
@@ -271,7 +278,12 @@ function wpfep_save_password( $tabs, $user_id ) {
             wp_mail( $user->user_email, $subject, $message );
         }
 		?>
-				<?php
+		<style type="text/css">
+			.wpfep-wrapper .tab-content, .wpfep-wrapper ul#wpfep-tabs {
+			    display: none !important;
+			}
+		</style>
+		<?php
 	/* messages not empty therefore password failed */
 	} else {
 

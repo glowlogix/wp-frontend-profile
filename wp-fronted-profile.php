@@ -58,7 +58,7 @@ final class WP_Frontend_Profile {
     	add_action( 'plugins_loaded', array( $this, 'instantiate' ) );
     	add_action( 'init', array( $this, 'load_textdomain' ) );
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
-         $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general');
+        $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general');
         add_filter( 'show_admin_bar', array( $this, 'show_admin_bar' ) );
         add_filter('plugin_row_meta', array($this, 'plugin_meta_links'), 10, 2);
     }
@@ -157,7 +157,7 @@ final class WP_Frontend_Profile {
             return false;
         }
 
-        $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general');
+        $roles = wpfep_get_option( 'show_admin_bar_to_roles', 'wpfep_general', array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ));
         $roles = $roles ? $roles : array();
         $current_user = wp_get_current_user();
 

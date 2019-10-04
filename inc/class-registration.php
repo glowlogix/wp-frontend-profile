@@ -13,7 +13,6 @@ class WPFEP_Registration {
     public $userrole = '';
 
     function __construct() {
-
         add_shortcode( 'wpfep-register', array($this, 'registration_form') );
 
         add_action( 'init', array($this, 'process_registration') );
@@ -118,6 +117,36 @@ class WPFEP_Registration {
                 $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Passwords are not same.', 'wpptm' );
                 return;
             }
+            $enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
+            if ($enable_strong_pwd != 'off') {
+                /* get the length of the password entered */
+                $password = $_POST['pwd1'];
+                $pass_length = strlen( $password );
+                
+                /* check the password match the correct length */
+                if( $pass_length < 12 ) {
+                    
+                    /* add message indicating length issue!! */
+                    
+                   $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Please make sure your password is a minimum of 12  characters long', 'wpptm' );
+                    return;
+                }
+                
+                /**
+                 * match the password against a regex of complexity
+                 * at least 1 upper, 1 lower case letter and 1 number
+                 */
+                $pass_complexity = preg_match( '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/', $password );
+                
+                /* check whether the password passed the regex check of complexity */
+                if( $pass_complexity == false ) {
+                    
+                    /* add message indicating complexity issue */
+                   $this->registration_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpptm' );
+                    return;
+                }
+            }
+            // sanitize fields
             if ( $_POST['wpfep_reg_uname'] != sanitize_text_field($_POST['wpfep_reg_uname']) || $_POST['wpfep_reg_fname'] != sanitize_text_field($_POST['wpfep_reg_fname']) || $_POST['wpfep_reg_lname'] != sanitize_text_field($_POST['wpfep_reg_lname']) || $_POST['wpfep-description'] != sanitize_textarea_field($_POST['wpfep-description']) || $_POST['wpfep-website'] != sanitize_text_field($_POST['wpfep-website']) || $_POST['wpfep_reg_email'] != sanitize_email($_POST['wpfep_reg_email'])) {
 
                 return;

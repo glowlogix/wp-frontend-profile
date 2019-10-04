@@ -585,5 +585,4 @@ function wpfep_clean( $var ) {
     } else {
         return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
     }
-
 }
