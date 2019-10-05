@@ -296,8 +296,8 @@ class WPFEP_Admin_Settings {
         <?php } ?>
 
          <div class="wrap">
+            <h2>Tools</h2>
             <div class="metabox-holder">
-                <h2>Frontend Profile Tool Page</h2>
                 <div class="postbox">
                     <h3><?php _e( 'Page Installation', 'wpptm' ); ?></h3>
 
