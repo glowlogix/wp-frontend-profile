@@ -295,24 +295,25 @@ class WPFEP_Admin_Settings {
 
         <?php } ?>
 
+         <div class="wrap">
+            <div class="metabox-holder">
+                <h2>Frontend Profile Tool Page</h2>
+                <div class="postbox">
+                    <h3><?php _e( 'Page Installation', 'wpptm' ); ?></h3>
 
-        <div class="metabox-holder">
-            <h2>Frontend Profile Tool Page</h2>
-            <div class="postbox">
-                <h3><?php _e( 'Page Installation', 'wpptm' ); ?></h3>
-
-                <div class="inside">
-                    <p><?php _e( 'Clicking this button will create required pages for the plugin. Note: It\'ll not delete/replace existing pages.', 'wpptm' ); ?></p>
-                    <a class="button button-primary" href="<?php echo add_query_arg( array( 'install_wpfep_pages' => true ) ); ?>"><?php _e( 'Create Pages', 'wpptm' ); ?></a>
+                    <div class="inside">
+                        <p><?php _e( 'Clicking this button will create required pages for the plugin. Note: It\'ll not delete/replace existing pages.', 'wpptm' ); ?></p>
+                        <a class="button button-primary" href="<?php echo add_query_arg( array( 'install_wpfep_pages' => true ) ); ?>"><?php _e( 'Create Pages', 'wpptm' ); ?></a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="postbox">
-                <h3><?php _e( 'Reset Settings', 'wpptm' ); ?></h3>
+                <div class="postbox">
+                    <h3><?php _e( 'Reset Settings', 'wpptm' ); ?></h3>
 
-                <div class="inside">
-                    <p><?php _e( '<strong>Caution:</strong> This tool will delete all the plugin settings of WP Frontend Profile', 'wpptm' ); ?></p>
-                    <a class="button button-primary" href="<?php echo add_query_arg( array( 'wpfep_delete_settings' => true ) ); ?>" onclick="return confirm('Are you sure?');"><?php _e( 'Reset Settings', 'wpptm' ); ?></a>
+                    <div class="inside">
+                        <p><?php _e( '<strong>Caution:</strong> This tool will delete all the plugin settings of WP Frontend Profile', 'wpptm' ); ?></p>
+                        <a class="button button-primary" href="<?php echo add_query_arg( array( 'wpfep_delete_settings' => true ) ); ?>" onclick="return confirm('Are you sure?');"><?php _e( 'Reset Settings', 'wpptm' ); ?></a>
+                    </div>
                 </div>
             </div>
         </div>

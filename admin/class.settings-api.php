@@ -552,9 +552,9 @@ class WPFEP_Settings_API {
                         do_action( 'wsa_form_bottom_' . $form['id'], $form );
                         if ( isset( $this->settings_fields[ $form['id'] ] ) ):
                         ?>
-                        <div style="padding-left: 10px">
+                        
                             <?php submit_button(); ?>
-                        </div>
+                        
                         <?php endif; ?>
                     </form>
                 </div>
@@ -630,11 +630,7 @@ class WPFEP_Settings_API {
         });
         </script>
 
-        <style type="text/css">
-            /** WordPress 3.8 Fix **/
-            .form-table th { padding: 20px 10px; }
-            #wpbody-content .metabox-holder { padding-top: 5px; }
-        </style>
+       
         <?php
     }
 
