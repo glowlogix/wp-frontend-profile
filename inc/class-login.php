@@ -534,7 +534,7 @@ class wpfep_Login {
 
         // Send email notification
         $reset_password_mail = wpfep_get_option( 'reset_password_mail', 'wpfep_emails_notification', 'on' );
-        if ($reset_password_mail == 'on') {
+        if ($reset_password_mail != 'off') {
             $this->email_reset_pass( $user_login, $user_email, $key );
         }
        

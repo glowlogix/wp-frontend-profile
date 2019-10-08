@@ -267,14 +267,14 @@ function wpfep_save_password( $tabs, $user_id ) {
 		$user = wp_get_current_user();
 		$blogname   = wp_specialchars_decode( get_option('blogname'), ENT_QUOTES );
         $change_password_admin_mail = wpfep_get_option( 'change_password_admin_mail', 'wpfep_emails_notification', 'on' );
-        if ($change_password_admin_mail == 'on') {
+        if ($change_password_admin_mail != 'off') {
            wp_password_change_notification( $user );
         }
         // User password change email to admin
         $message = $user->user_login.' Your password has been changed.';
         $subject = '[' .$blogname. '] Password changed';
         $password_change_mail = wpfep_get_option( 'password_change_mail', 'wpfep_emails_notification', 'on' );
-        if ($password_change_mail == 'on') {
+        if ($password_change_mail != 'off') {
             wp_mail( $user->user_email, $subject, $message );
         }
 		?>
