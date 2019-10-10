@@ -33,17 +33,17 @@ See FAQs for how to add our own fields and tabs.
 
 ### Profile Output
 
-To output the front end profile you can use the following function in your template files:
+To output the front end profile you can use the following shortcode in your template files or editor:
 
 ```
-wpfep_show_profile();
+[wpfep]
 ```
 
 ## Installation
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php wpfep_show_profile(); ?>` in your templates where you want the front end profile to display
+1. Place `[wpfep]` shortcode in your editor where you want the frontend profile to display
 
 ## Frequently Asked Questions
 
