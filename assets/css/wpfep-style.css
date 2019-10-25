@@ -59,7 +59,7 @@ p.forgetmenot label {
 }
 /* field styles
 -------------------------------------------------------------- */
-.wpfep-registration-form input[type="text"], .wpfep-registration-form input[type="password"], .wpfep-login-form input[type="text"], .wpfep-login-form input[type="password"], #lostpasswordform input[type="text"], #resetpasswordform input[type="password"] {
+.wpfep-registration-form input[type="text"], .wpfep-registration-form input[type="email"], .wpfep-registration-form input[type="password"], .wpfep-login-form input[type="text"], .wpfep-login-form input[type="password"], #lostpasswordform input[type="text"], #resetpasswordform input[type="password"] {
     width: 100%;
 }
 .wpfep_editing_disabled{

@@ -1,8 +1,11 @@
 <?php
-/*
-If you would like to edit this file, copy it to your current theme's directory and edit it there.
-wpfep will always look in your theme's directory first, before using this default template.
-*/
+/**
+ * If you would like to edit this file, copy it to your current theme's directory and edit it there.
+ * wpfep will always look in your theme's directory first, before using this default template.
+ *
+ * @package WP Frontend Profile
+ */
+
 ?>
 <div class="login" id="wpfep-login-form">
 
@@ -11,15 +14,15 @@ wpfep will always look in your theme's directory first, before using this defaul
 
 	<form name="lostpasswordform" id="lostpasswordform" action="" method="post">
 		<p>
-			<label for="wpfep-user_login"><?php _e( 'Username or E-mail:', 'wpptm' ); ?></label>
+			<label for="wpfep-user_login"><?php esc_attr_e( 'Username or E-mail:', 'wpfep' ); ?></label>
 			<input type="text" name="user_login" id="wpfep-user_login" class="input" value="" size="20" />
 		</p>
 
 		<?php do_action( 'lostpassword_form' ); ?>
 
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e( 'Get New Password', 'wpptm' ); ?>" />
-			<input type="hidden" name="redirect_to" value="<?php echo get_post_value( 'redirect_to' ); ?>" />
+			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e( 'Get New Password', 'wpfep' ); ?>" />
+			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( 'redirect_to' ); ?>" />
 			<input type="hidden" name="wpfep_reset_password" value="true" />
 			<input type="hidden" name="action" value="lostpassword" />
 
@@ -27,5 +30,5 @@ wpfep will always look in your theme's directory first, before using this defaul
 		</p>
 	</form>
 
-	<?php //echo WPFEP_Login::init()->get_action_links( array( 'lostpassword' => false ) ); ?>
+	<?php // echo WPFEP_Login::init()->get_action_links( array( 'lostpassword' => false ) );. ?>
 </div>

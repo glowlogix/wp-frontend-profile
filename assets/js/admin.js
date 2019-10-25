@@ -1,5 +1,5 @@
 jQuery( document ).ready(function() {
- jQuery('.wpfep-help-tip').tooltip().tooltip('destroy').tooltip({
+    jQuery('.wpfep-help-tip').tooltip().tooltip('destroy').tooltip({
         content: function () {
             return jQuery(this).prop('title');
         },
@@ -22,10 +22,8 @@ jQuery( document ).ready(function() {
                 });
         }
     });
-});
 
-/* Feedback*/
-jQuery(document).ready(function($) {
+    /* Feedback*/
     jQuery('.wpfep-main-dashboard-review-ask').css('display', 'block');
 
     jQuery('.wpfep-main-dashboard-review-ask').on('click', function(event) {
@@ -92,7 +90,6 @@ jQuery(document).ready(function($) {
 });
 
 /* System Status*/
-
 jQuery( function ( $ ) {
 
     var wpfepSystemStatus = {
