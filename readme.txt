@@ -114,10 +114,13 @@ Yes there are two field IDs reserved which are `user_email` and `user_url`. This
 
 == Screenshots ==
 
-1. The frontend profile output.
-2. The frontend profile setting page. 
-3. The frontend profile tool page. 
-4. The frontend profile system status page.
+1. WP frontend profile edit page.
+2. WP frontend profile view page. 
+3. WP frontend profile register page. 
+4. WP frontend profile login page. 
+5. WP frontend profile setting area.
+6. WP frontend profile tool area. 
+7. WP frontend profile system status area.
 
 == Changelog ==
 
