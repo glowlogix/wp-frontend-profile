@@ -1,15 +1,16 @@
 === WP FrontEnd Profile ===
 
-Contributors: glowlogix
+Contributors: glowlogix, wpmarkuk
 Donate link: https://www.glowlogix.com
-Tags: profile, users, user meta
+Tags: profile, users, user meta, register, login
 Requires at least: 4.0.1
-Tested up to: 4.5.4
-Stable tag: 0.2.2
+Tested up to: 5.2.4
+Stable tag: 1.0.0
+Requires PHP: 5.2.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WP frontend Profile allows users to edit their profile without going into the dashboard to do so.
+WP Frontend Profile allows users to edit/view their profile and register/login without going into the dashboard to do so.
 
 == Description ==
 
@@ -33,21 +34,28 @@ See FAQs for how to add our own fields and tabs.
 
 = Profile Output =
 
-To output the frontend profile you can use the following function in your template files:
+To output the frontend profile feature you can use the following shortcodes in editor:
 
-`
-wpfep_show_profile();
-`
+*	Profile page `[wpfep-profile]`
+*	Edit profile `[wpfep]`
+*	Registor page `[wpfep-register]`
+*	Login page `[wpfep-login]`
 
 == Installation ==
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php wpfep_show_profile(); ?>` in your templates where you want the frontend profile to display
+
+After having installed the plugin:
+1. Create a new Page “Profile” for profile and insert shortcode [wpfep-profile]
+1. Create a new Page “Edit Profile” for editing profile and insert shortcode [wpfep]
+1. Create a new Page “Login” for login form and insert shortcode [wpfep-login]
+1. Create a new Page “Register” for registration form and insert shortcode [wpfep-register]
+1. Set the Edit Page option from Pages tab on settings page.
 
 == Frequently Asked Questions ==
 
-For more information and more extensive documentation about this plugin checkout the [WP frontend Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
+For more information and more extensive documentation about this plugin checkout the [WP Frontend Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
 
 = How do I add my own tab to the profile output? =
 
@@ -107,21 +115,10 @@ Yes there are two field IDs reserved which are `user_email` and `user_url`. This
 == Screenshots ==
 
 1. The frontend profile output.
+2. The frontend profile setting page. 
+3. The frontend profile tool page. 
+4. The frontend profile system status page.
 
 == Changelog ==
 
-= 0.2.2 =
-* Security: Fix privilege escalation and XSS vulnerabilities. Many thanks to @mustardBees for reporting this issue repsonsobilty and offering a fix.
-
-= 0.2.1 =
-* Added ability to display form via shortcode.
-
-= 0.2 =
-* Include a nonce in the frontend editing form for security.
-
-= 0.1 =
-* Initial launch.
-
-== Upgrade notice ==
-
-Upgrade through the WordPress dashboard.
+For the plugin’s changelog, please see [the changelog page on GitHub](https://github.com/glowlogix/wp-frontend-profile/CHANGELOG.md).
