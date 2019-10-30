@@ -84,7 +84,7 @@ add_filter( 'wpfep_tabs', 'wpmark_add_tab', 30 );
 
 Note here the priority of 30 which means after the Profile tab (10) and the Password tab (20).
 
-= How do I add fields to tab? =
+= How do I add fields to a tab? =
 
 Fields can be added to a tab using a dynamic filter named `wpfep_fields_$tab_id`. The tab ID is the id of tab as declared when adding the tab (see FAQ above). This means that you can add fields to any tab even the default tabs. Below is an example of how you would add fields to a tab with the ID of `wpmark_tab`:
 
