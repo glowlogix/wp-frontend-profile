@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		 *
 		 * @var \self
 		 */
-		private static $_instance;
+		private static $instance;
 
 		/**
 		 * Settings API
@@ -57,11 +57,11 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		 * Initialize WPFEP_Admin_Settings class
 		 */
 		public static function init() {
-			if ( ! self::$_instance ) {
-				self::$_instance = new self();
+			if ( ! self::$instance ) {
+				self::$instance = new self();
 			}
 
-			return self::$_instance;
+			return self::$instance;
 		}
 
 		/**

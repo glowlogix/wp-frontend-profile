@@ -60,7 +60,7 @@ if ( ! class_exists( 'WPFEP_Captcha_Recaptcha' ) ) :
 			add_action( 'plugins_loaded', array( __CLASS__, 'load_plugin_textdomain' ) );
 
 			// initialize if login is activated.
-			if ( ( wpfep_get_option( 'enable_captcha_login', 'wpfep_general' ) == 'on' ) || ( wpfep_get_option( 'enable_captcha_registration', 'wpfep_general' ) == 'on' ) ) {
+			if ( ( wpfep_get_option( 'enable_captcha_login', 'wpfep_general' ) === 'on' ) || ( wpfep_get_option( 'enable_captcha_registration', 'wpfep_general' ) === 'on' ) ) {
 				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_header_script' ) );
 			}
 		}
@@ -80,7 +80,6 @@ if ( ! class_exists( 'WPFEP_Captcha_Recaptcha' ) ) :
 
 		/** Output the reCAPTCHA form field. */
 		public static function display_captcha() {
-
 			if ( 'failed' == isset( $_GET['captcha'] ) && sanitize_text_field( wp_unslash( $_GET['captcha'] ) ) ) {
 				esc_attr( self::$error_message );
 			}

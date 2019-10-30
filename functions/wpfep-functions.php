@@ -374,7 +374,7 @@ function wpfep_settings_multiselect( $args ) {
 function wpfep_get_pages( $post_type = 'page' ) {
 	global $wpdb;
 
-	$array = array( '' => __( '-- select --', 'wpptm' ) );
+	$array = array( '' => __( '-- select --', 'wpfep' ) );
 	$pages = get_posts(
 		array(
 			'post_type'   => $post_type,
@@ -490,14 +490,13 @@ function wpfep_decryption( $id ) {
 function wpfep_hide_review_ask() {
 	if ( isset( $_POST['_wpnonce'] ) ) {
 			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_feedback_action' );
-			$ask_review_date = isset( $_POST['Ask_Review_Date'] ) ? sanitize_text_field( wp_unslash( $_POST['Ask_Review_Date'] ) ) : '';
 	}
-
+			$ask_review_date = isset( $_POST['Ask_Review_Date'] ) ? sanitize_text_field( wp_unslash( $_POST['Ask_Review_Date'] ) ) : '';
 	if ( get_option( 'wpfep_Ask_Review_Date' ) < time() + 3600 * 24 * $ask_review_date ) {
 		update_option( 'wpfep_Ask_Review_Date', time() + 3600 * 24 * $ask_review_date );
 	}
+		   die();
 
-	die();
 }
 add_action( 'wp_ajax_wpfep_hide_review_ask', 'wpfep_hide_review_ask' );
 
@@ -506,7 +505,7 @@ add_action( 'wp_ajax_wpfep_hide_review_ask', 'wpfep_hide_review_ask' );
  */
 function wpfep_send_feedback() {
 	if ( isset( $_POST['_wpnonce'] ) ) {
-		 wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_feedback_action' );
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_feedback_action' );
 	}
 	$headers   = 'Content-type: text/html;charset=utf-8' . "\r\n";
 	$feedback  = 'Feedback: <br>';
@@ -517,7 +516,7 @@ function wpfep_send_feedback() {
 	wp_mail( 'support@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $feedback, $headers );
 	die();
 }
-add_action( 'wp_ajax_wpfep_send_feedback', 'Wpfep_Send_Feedback' );
+add_action( 'wp_ajax_wpfep_send_feedback', 'wpfep_send_feedback' );
 
 /**
  * Wpfep_let_to_num function.
@@ -627,4 +626,151 @@ function wpfep_clean( $var ) {
 	} else {
 		return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
 	}
+}
+/**
+ * Function wp_frontend_profile_output()
+ *
+ * Provides the frontend output for the frontend profile editing
+ */
+function wpfep_show_profile() {
+
+	/* First things first - if no are not logged in move on! */
+	if ( ! is_user_logged_in() ) {
+		echo "<div class='wpfep-login-alert'>";
+		/* translators: %s: Login link */
+		printf( esc_html__( 'This page is restricted. Please %s to view this page.', 'wpfep' ), wp_loginout( '', false ) );
+		echo '</div>';
+		return;
+	}
+	$user = wp_get_current_user();
+	if ( in_array( 'administrator', (array) $user->roles, true ) ) {
+		if ( current_user_can( 'manage_options' ) ) {
+			ob_start();
+		}
+		echo "<div class='wpfep_editing_disabled'>";
+		printf( esc_html__( 'Frontend editing is disabled for administrators because of security risks.', 'wpfep' ) );
+		echo '</div>';
+		return ob_get_clean();
+	}
+	/* if you're an admin - too risky to allow frontend editing */
+	?>
+	<div class="wpfep-wrapper">
+		<?php
+			/* get the tabs that have been added - see below */
+			$wpfep_tabs = apply_filters(
+				'wpfep_tabs',
+				array()
+			);
+
+			/**
+			 * Hook before tab content.
+			 *
+			 * @hook wpfep_before_tabs
+			 * fires before the tabs list items are outputted
+			 * @param (array) $tabs is all the tabs that have been added
+			 * @param (int) $current_user_id the user if of the current user to add things targetted to a specific user only.
+			 */
+			do_action( 'wpfep_before_tabs', $wpfep_tabs, get_current_user_id() );
+		?>
+		<ul class="wpfep-tabs" id="wpfep-tabs">
+			<?php
+				/**
+				 * Set an array of tab titles and ids
+				 * the id set here should match the id given to the content wrapper
+				 * which has the class tab-content included in the callback function
+				 *
+				 * @hooked wpfep_add_profile_tab - 10
+				 * @hooked wpfep_add_password_tab - 20
+				 */
+				$wpfep_tabs = apply_filters(
+					'wpfep_tabs',
+					array()
+				);
+				/* check we have items to show */
+			if ( ! empty( $wpfep_tabs ) ) {
+				/* loop through each item */
+				foreach ( $wpfep_tabs as $wpfep_tab ) {
+					/* output the tab name as a tab */
+					wpfep_tab_list_item( $wpfep_tab );
+				}
+			}
+			?>
+		</ul><!-- // wpfep-tabs -->
+		<?php
+			global $wp;
+			/* loop through each item */
+		foreach ( $wpfep_tabs as $wpfep_tab ) {
+
+			/* build the content class */
+			$content_class = '';
+
+			/* if we have a class provided */
+			if ( '' != $wpfep_tab['content_class'] ) {
+				/* add the content class to our variable */
+				$content_class .= ' ' . $wpfep_tab['content_class'];
+			}
+
+			/**
+			 * Hook before tab content.
+			 *
+			 * @hook wpfep_before_tab_content
+			 * fires before the contents of the tab are outputted
+			 * @param (string) $tab_id the id of the tab being displayed. This can be used to target a particular tab.
+			 * @param (int) $current_user_id the user if of the current user to add things targetted to a specific user only.
+			 */
+			do_action( 'wpfep_before_tab_content', $wpfep_tab['id'], get_current_user_id() );
+			?>
+							
+			<div class="tab-content<?php echo esc_attr( $content_class ); ?>" id="<?php echo esc_attr( $wpfep_tab['id'] ); ?>">
+				<form method="post" action="<?php echo esc_attr( get_edit_profile_page() ) . '#' . esc_attr( $wpfep_tab['id'] ); ?>" class="wpfep-form-<?php echo esc_attr( $wpfep_tab['id'] ); ?>">
+					<?php
+						/* check if callback function exists */
+					if ( isset( $wpfep_tab['callback'] ) && function_exists( $wpfep_tab['callback'] ) ) {
+						/* use custom callback function */
+						$wpfep_tab['callback']( $wpfep_tab );
+					} else {
+						/* use default callback function */
+						wpfep_default_tab_content( $wpfep_tab );
+					}
+					?>
+																
+					<?php
+						wp_nonce_field(
+							'wpfep_nonce_action',
+							'wpfep_nonce_name'
+						);
+					?>
+				</form>
+			</div>
+				<?php
+				/**
+				 * Get current user id.
+				 *
+				 * @hook wpfep_after_tab_content
+				 * fires after the contents of the tab are outputted
+				 * @param (string) $tab_id the id of the tab being displayed. This can be used to target a particular tab.
+				 * @param (int) $current_user_id the user if of the current user to add things targetted to a specific user only.
+				 */
+				do_action( 'wpfep_after_tab_content', $wpfep_tab['id'], get_current_user_id() );
+		} // end tabs loop
+		?>
+	</div><!-- // wpfep-wrapper -->
+	<?php
+}
+
+/**
+ * Get edit profile page url
+ *
+ * @return boolean|string
+ */
+function get_edit_profile_page() {
+	$page_id = wpfep_get_option( 'profile_edit_page', 'wpfep_pages', false );
+
+	if ( ! $page_id ) {
+		return false;
+	}
+
+	$url = get_permalink( $page_id );
+
+	return apply_filters( 'wpfep_profile_edit_url', $url, $page_id );
 }

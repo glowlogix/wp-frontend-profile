@@ -14,7 +14,7 @@ if ( ! empty( $message ) ) {
 }
 
 if ( isset( $_GET['success'] ) && 'yes' == $_GET['success'] ) {
-	echo "<div class='wpfep-success'>" . esc_attr_e( 'Registration has been successful!', 'wpfep' ) . '</div>';
+	echo "<div class='wpfep-success'>" . esc_html( 'Registration has been successful!', 'wpfep' ) . '</div>';
 }
 	$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
 	$action_url    = get_permalink( $register_page );

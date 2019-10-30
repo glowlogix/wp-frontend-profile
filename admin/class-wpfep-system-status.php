@@ -421,17 +421,14 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 					<tr>
 						<td><?php esc_attr_e( 'Database Index Size', 'wpfep' ); ?></td>
 						<td><?php printf( '%.2fMB', esc_html( $database['database_size']['index'] ) ); ?></td>
-					</tr>
-
-				
-
+					</tr>				
 					<?php foreach ( $database['database_tables']['other'] as $table => $table_data ) { ?>
 						<tr>
 							<td><?php echo esc_html( $table ); ?></td>
 							<td>
 								<?php
-								 /* translators: %s: search term */
-								 printf( esc_html( 'Data: %1$.2fMB + Index: %2$.2fMB', 'wpfep' ), esc_html( wpfep_format_decimal( $table_data['data'], 2 ) ), esc_html( wpfep_format_decimal( $table_data['index'], 2 ) ) );
+								/* translators: %s: search term */
+								printf( esc_html( 'Data: %1$.2fMB + Index: %2$.2fMB', 'wpfep' ), esc_html( wpfep_format_decimal( $table_data['data'], 2 ) ), esc_html( wpfep_format_decimal( $table_data['index'], 2 ) ) );
 								?>
 							</td>
 						</tr>
@@ -573,7 +570,21 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 						<td>
 						<?php
 						/* translators: %s: child theme */
-							echo $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wpfep' ), 'https://codex.wordpress.org/Child_Themes' );
+							$theme_name = $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wpfep' ), 'https://codex.wordpress.org/Child_Themes' );
+							echo wp_kses(
+								$theme_name,
+								array(
+									'span' => array(
+
+										'class' => array(),
+									),
+									'a'    => array(
+										'href'   => array(),
+										'target' => array(),
+									),
+								)
+							);
+
 						?>
 							</td>
 					</tr>
@@ -720,7 +731,7 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 				'https://plugins.svn.wordpress.org/wpptm/trunk/readme.txt',
 				array(
 					'timeout'     => 10,
-					'user-agent'  => 'wpptm/' . WPFEP_VERSION,
+					'user-agent'  => 'wpfep/' . WPFEP_VERSION,
 					'httpversion' => '1.1',
 				)
 			);

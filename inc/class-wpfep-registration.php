@@ -156,7 +156,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				$enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
 				if ( 'off' != $enable_strong_pwd ) {
 					/* get the length of the password entered */
-					$password    = isset( $_POST['pwd1'] );
+					$password    = isset($_POST['pwd1']) ? $_POST['pwd1'] : '' ;
 					$pass_length = strlen( $password );
 
 					/* check the password match the correct length. */
@@ -183,9 +183,38 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					}
 				}
 				// sanitize fields.
-				if ( isset( $_POST['wpfep_reg_uname'] ) != sanitize_text_field( wp_unslash( $_POST['wpfep_reg_uname'] ) ) || isset( $_POST['wpfep_reg_fname'] ) != sanitize_text_field( wp_unslash( $_POST['wpfep_reg_fname'] ) ) || isset( $_POST['wpfep_reg_lname'] ) != sanitize_text_field( wp_unslash( $_POST['wpfep_reg_lname'] ) ) || isset( $_POST['wpfep-description'] ) != sanitize_textarea_field( wp_unslash( $_POST['wpfep-description'] ) ) || isset( $_POST['wpfep-website'] ) != sanitize_text_field( wp_unslash( $_POST['wpfep-website'] ) ) || isset( $_POST['wpfep_reg_email'] ) != sanitize_email( wp_unslash( $_POST['wpfep_reg_email'] ) ) ) {
-
+				if ( isset( $_POST['wpfep_reg_email'] ) != sanitize_email( wp_unslash( $_POST['wpfep_reg_email'] ) ) ) {
 					return;
+				}
+
+				if ( isset( $_POST['wpfep_reg_uname'] ) == sanitize_text_field( wp_unslash( $_POST['wpfep_reg_uname'] ) ) ) {
+					$reg_name = sanitize_text_field( wp_unslash( $_POST['wpfep_reg_uname'] ) );
+				} else {
+					$reg_name = '';
+				}
+
+				if ( isset( $_POST['wpfep_reg_fname'] ) == sanitize_text_field( wp_unslash( $_POST['wpfep_reg_fname'] ) ) ) {
+					$user_fname = sanitize_text_field( wp_unslash( $_POST['wpfep_reg_fname'] ) );
+
+				} else {
+					$user_fname = '';
+				}
+				if ( isset( $_POST['wpfep_reg_lname'] ) == sanitize_text_field( wp_unslash( $_POST['wpfep_reg_lname'] ) ) ) {
+					$user_lname = sanitize_text_field( wp_unslash( $_POST['wpfep_reg_lname'] ) );
+				} else {
+					$user_lname = '';
+				}
+				if ( isset( $_POST['wpfep-description'] ) ) {
+					$desc = sanitize_text_field( wp_unslash( $_POST['wpfep-description'] ) );
+				} else {
+
+					$desc = '';
+				}
+				if ( isset( $_POST['wpfep-website'] ) == sanitize_text_field( wp_unslash( $_POST['wpfep-website'] ) ) ) {
+					$user_web = sanitize_text_field( wp_unslash( $_POST['wpfep-website'] ) );
+
+				} else {
+					$user_web = '';
 				}
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {
@@ -217,14 +246,13 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					$userdata['user_login'] = sanitize_text_field( wp_unslash( $_POST['wpfep_reg_uname'] ) );
 				}
 
-				$dec_role = wpfep_decryption( isset( $_POST['urhidden'] ) ? sanitize_text_field( wp_unslash( $_POST['urhidden'] ) ) : '' );
-
-				$userdata['first_name']  = isset( $_POST['wpfep_reg_fname'] ) ? sanitize_text_field( wp_unslash( $_POST['wpfep_reg_fname'] ) ) : '';
-				$userdata['last_name']   = isset( $_POST['wpfep_reg_lname'] ) ? sanitize_text_field( wp_unslash( $_POST['wpfep_reg_lname'] ) ) : '';
-				$userdata['user_email']  = sanitize_text_field( wp_unslash( $_POST['wpfep_reg_email'] ) );
+				$dec_role                = wpfep_decryption( isset( $_POST['urhidden'] ) ? sanitize_text_field( wp_unslash( $_POST['urhidden'] ) ) : '' );
+				$userdata['first_name']  = $user_fname;
+				$userdata['last_name']   = $user_lname;
+				$userdata['user_email']  = sanitize_email( wp_unslash( $_POST['wpfep_reg_email'] ) );
 				$userdata['user_pass']   = sanitize_text_field( wp_unslash( $_POST['pwd1'] ) );
-				$userdata['description'] = isset( $_POST['wpfep-description'] ) ? sanitize_text_field( wp_unslash( $_POST['wpfep-description'] ) ) : '';
-				$userdata['user_url']    = isset( $_POST['wpfep-website'] ) ? sanitize_text_field( wp_unslash( $_POST['wpfep-website'] ) ) : '';
+				$userdata['description'] = $desc;
+				$userdata['user_url']    = $user_web;
 
 				if ( get_role( $dec_role ) ) {
 					$userdata['role'] = $dec_role;
@@ -346,7 +374,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 		public function show_messages() {
 			if ( $this->messages ) {
 				foreach ( $this->messages as $message ) {
-					printf( '<div class="wpfep-message">%s</div>', $message );
+					printf( '<div class="wpfep-message">%s</div>', esc_html( $message ) );
 				}
 			}
 		}

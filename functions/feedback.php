@@ -19,14 +19,31 @@ function wpfep_error_notices() {
 		$ask_review_date = get_option( 'wpfep_Install_Time' ) + 3600 * 24 * 4;}
 	if ( $ask_review_date < time() && get_option( 'wpfep_Install_Time' ) < time() - 3600 * 24 * 4 ) {
 
-			global $pagenow;
-		if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow && current_user_can( 'administrator' ) ) {?>
+		global $pagenow;
+		if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow && current_user_can( 'administrator' ) ) { ?>
 			<div class='notice notice-info is-dismissible wpfep-main-dashboard-review-ask updated_wpfep' style="display: none;">
 				<div class='wpfep-review-ask-plugin-icon'></div>
 				<div class='wpfep-review-ask-text'>
 					<p class='wpfep-review-ask-starting-text'><?php esc_attr_e( 'Enjoying using the WP Frontend Profile plugin', 'wpfep' ); ?></p>
-					<p class='wpfep-review-ask-feedback-text wpfep-hidden'><?php esc_attr_e( 'Help us make the plugin better! Please take a minute to rate the plugin. Thanks!', 'wpfep' ); ?> </p>
-					<p class='wpfep-review-ask-review-text wpfep-hidden'><?php _e( 'Please let us know what we could do to make the plugin better!<br /><span>Privacy disclaimer: Your email address shall be collected for support purposes when you send your feedback.', 'wpfep' ); ?></span></p>
+					<p class='wpfep-review-ask-feedback-text wpfep-hidden'><?php esc_attr_e( 'Help us make the plugin better! Please take a minute to rate the plugin. Thanks!', 'wpfep' ); ?></p>
+					<p class='wpfep-review-ask-review-text wpfep-hidden'>
+					<?php
+					$feed_line = 'Please let us know what we could do to make the plugin better!<br /><span>Privacy disclaimer: Your email address shall be collected for support purposes when you send your feedback.';
+
+					echo wp_kses(
+						$feed_line,
+						array(
+							'p'    => array(
+								'class' => array(),
+
+							),
+							'br'   => array(),
+							'span' => array(),
+
+						)
+					);
+					?>
+					</span></p>
 					<p class='wpfep-review-ask-thank-you-text wpfep-hidden'><?php esc_attr_e( 'Thank you for taking the time to help us!', 'wpfep' ); ?></p>
 				</div>
 				<div class='wpfep-review-ask-actions'>
@@ -42,7 +59,6 @@ function wpfep_error_notices() {
 						<textarea></textarea>
 						<br>
 						<input type="hidden" name="feedback_email_address" value="<?php echo esc_attr( $current_user->user_email ); ?>">
-						<?php // wp_nonce_field( 'wpfep_feedback_action' );. ?>
 					</div>
 					<div class='wpfep-review-ask-send-feedback wpfep-review-ask-action wpfep-review-ask-blue'><?php esc_attr_e( 'Send Feedback', 'wpfep' ); ?></div>
 				</div>

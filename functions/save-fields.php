@@ -77,6 +77,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		 * the value is the value we want to actually save
 		 */
 		foreach ( $tab_data as $key => $value ) {
+
 			/* if the key is the save sumbit - move to next in array */
 			if ( 'wpfep_save' == $key || 'wpfep_nonce_action' == $key ) {
 				continue;
@@ -185,8 +186,8 @@ function wpfep_save_fields( $tabs, $user_id ) {
 	} else {
 
 		?>
-		<div class="messages"><p class="updated"><?php esc_html_e( 'Your profile was updated successfully!', 'wpfep' ); ?></p></div>
-		
+		<div class="messages"><p class="updated"><?php esc_html_e( 'Yours profile was updated successfully!', 'wpfep' ); ?></p></div>
+	
 		<?php
 
 	}
@@ -195,7 +196,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 			jQuery(document).ready(function(){
 				jQuery('html, body').animate({
 				scrollTop: jQuery("div.wpfep-wrapper").offset().top
-			  }, 1000);
+			}, 1000);
 			});
 	</script>
 	<?php
@@ -219,7 +220,7 @@ function wpfep_save_password( $tabs, $user_id ) {
 
 	/* get the posted data from the password tab */
 	if ( isset( $_POST['_wpnonce'] ) ) {
-		 wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_nonce_name' );
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_nonce_name' );
 	}
 	$data = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
 	/* first lets check we have a password added to save */
@@ -343,9 +344,9 @@ function wpfep_save_password( $tabs, $user_id ) {
 	?>
 	<script type="text/javascript">
 			jQuery(document).ready(function(){
-				jQuery('html, body').animate({
-				scrollTop: jQuery("div.wpfep-wrapper").offset().top
-			  }, 1000);
+			jQuery('html, body').animate({
+			scrollTop: jQuery("div.wpfep-wrapper").offset().top
+			}, 1000);
 			});
 	</script>
 	<?php

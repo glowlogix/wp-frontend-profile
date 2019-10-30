@@ -179,7 +179,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		 */
 		public function lost_password_links() {
 
-			$links = sprintf( '<a href="%s">%s</a>', $this->get_action_url( 'lostpassword' ), __( 'Lost Password', 'wpptm' ) );
+			$links = sprintf( '<a href="%s">%s</a>', $this->get_action_url( 'lostpassword' ), __( 'Lost Password', 'wpfep' ) );
 
 			return $links;
 		}
@@ -215,7 +215,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 				 switch ( $action ) {
 					 case 'lostpassword':
-						 $this->messages[] = __( 'Please enter your username or email address. You will receive a link to create a new password via email.', 'wpptm' );
+						 $this->messages[] = __( 'Please enter your username or email address. You will receive a link to create a new password via email.', 'wpfep' );
 
 						 wpfep_load_template( 'lost-pass.php', $args );
 						 break;
@@ -229,7 +229,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 							 return;
 						 } else {
 
-							 $this->messages[] = __( 'Enter your new password below..', 'wpptm' );
+							 $this->messages[] = __( 'Enter your new password below..', 'wpfep' );
 
 							 wpfep_load_template( 'reset-pass.php', $args );
 						 }
@@ -238,11 +238,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 					 default:
 						 if ( 'confirm' == isset( $_GET['checkemail'] ) && sanitize_text_field( wp_unslash( $_GET['checkemail'] ) ) ) {
-							 $this->messages[] = __( 'Check your e-mail for the confirmation link.', 'wpptm' );
+							 $this->messages[] = __( 'Check your e-mail for the confirmation link.', 'wpfep' );
 						 }
 
 						 if ( 'true' == isset( $_GET['loggedout'] ) && sanitize_text_field( wp_unslash( $_GET['loggedout'] ) ) ) {
-							 $this->messages[] = __( 'You are now logged out.', 'wpptm' );
+							 $this->messages[] = __( 'You are now logged out.', 'wpfep' );
 						 }
 
 						 wpfep_load_template( 'login.php', $args );
@@ -276,18 +276,18 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				}
 
 				if ( empty( $_POST['log'] ) ) {
-					$this->login_errors[] = __( 'Username is required.', 'wpptm' );
+					$this->login_errors[] = __( 'Username is required.', 'wpfep' );
 					return;
 				}
 
 				if ( empty( $_POST['pwd'] ) ) {
-					$this->login_errors[] = __( 'Password is required.', 'wpptm' );
+					$this->login_errors[] = __( 'Password is required.', 'wpfep' );
 					return;
 				}
 
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {
-						$this->login_errors[] = __( 'Empty reCaptcha Field', 'wpptm' );
+						$this->login_errors[] = __( 'Empty reCaptcha Field', 'wpfep' );
 						return;
 					} else {
 						$no_captcha        = 1;
@@ -297,13 +297,13 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 					}
 				}
 
-				if ( is_email( $_POST['log'] ) && apply_filters( 'wpfep_get_username_from_email', true ) ) {
-					$user = get_user_by( 'email', $_POST['log'] );
+				if ( is_email( sanitize_text_field( wp_unslash( $_POST['log'] ) ) ) && apply_filters( 'wpfep_get_username_from_email', true ) ) {
+					$user = get_user_by( 'email', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
 
 					if ( isset( $user->user_login ) ) {
 						$creds['user_login'] = $user->user_login;
 					} else {
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'A user could not be found with this email address.', 'wpptm' );
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'A user could not be found with this email address.', 'wpfep' );
 						return;
 					}
 				} else {
@@ -363,7 +363,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		  * @return void
 		  */
 		public function process_logout() {
-			if ( isset( $_GET['action'] ) && $_GET['action'] == 'logout' ) {
+			if ( isset( $_GET['action'] ) && 'logout' == $_GET['action'] ) {
 
 				check_admin_referer( 'log-out' );
 				wp_logout();
@@ -408,19 +408,19 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 					$args['key']   = $_POST['key'];
 					$args['login'] = sanitize_text_field( wp_unslash( $_POST['login'] ) );
 
-					wp_verify_nonce( $_POST['_wpnonce'], 'wpfep_reset_pass' );
+					wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_reset_pass' );
 
 					if ( empty( $_POST['pass1'] ) || empty( $_POST['pass2'] ) ) {
-						$this->login_errors[] = __( 'Please enter your password.', 'wpptm' );
+						$this->login_errors[] = __( 'Please enter your password.', 'wpfep' );
 						return;
 					}
 
 					if ( $_POST['pass1'] !== $_POST['pass2'] ) {
-						$this->login_errors[] = __( 'Passwords do not match.', 'wpptm' );
+						$this->login_errors[] = __( 'Passwords do not match.', 'wpfep' );
 						return;
 					}
 					$enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
-					if ( $enable_strong_pwd != 'off' ) {
+					if ( 'off' != $enable_strong_pwd ) {
 						/* get the length of the password entered */
 						$password    = $_POST['pass1'];
 						$pass_length = strlen( $password );
@@ -430,7 +430,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 							/* add message indicating length issue!! */
 
-							$this->login_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Please make sure your password is a minimum of 12  characters long', 'wpptm' );
+							$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Please make sure your password is a minimum of 12  characters long', 'wpfep' );
 							return;
 						}
 
@@ -444,7 +444,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 						if ( false == $pass_complexity ) {
 
 							/* add message indicating complexity issue */
-							$this->login_errors[] = '<strong>' . __( 'Error', 'wpptm' ) . ':</strong> ' . __( 'Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpptm' );
+							$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep' );
 							return;
 						}
 					}
@@ -484,24 +484,26 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		public function retrieve_password() {
 			global $wpdb, $wp_hasher;
 
-			if ( empty( $_POST['user_login'] ) ) {
+			if ( isset( $_POST['_wpnonce'] ) ) {
+				wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_lost_pass' );
+				if ( empty( $_POST['user_login'] ) ) {
 
-				$this->login_errors[] = __( 'Enter a username or e-mail address.', 'wpptm' );
-				return;
-
-			} elseif ( strpos( $_POST['user_login'], '@' ) && apply_filters( 'wpfep_get_username_from_email', true ) ) {
-
-				$user_data = get_user_by( 'email', trim( $_POST['user_login'] ) );
-
-				if ( empty( $user_data ) ) {
-					$this->login_errors[] = __( 'There is no user registered with that email address.', 'wpptm' );
+					$this->login_errors[] = __( 'Enter a username or e-mail address.', 'wpfep' );
 					return;
+				} elseif ( strpos( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ), '@' ) && apply_filters( 'wpfep_get_username_from_email', true ) ) {
+
+					$user_data = get_user_by( 'email', sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) );
+
+					if ( empty( $user_data ) ) {
+						$this->login_errors[] = __( 'There is no user registered with that email address.', 'wpfep' );
+						return;
+					}
+				} else {
+
+					$login = sanitize_text_field( wp_unslash( $_POST['user_login'] ) );
+
+					$user_data = get_user_by( 'login', $login );
 				}
-			} else {
-
-				$login = trim( $_POST['user_login'] );
-
-				$user_data = get_user_by( 'login', $login );
 			}
 
 			do_action( 'lostpassword_post' );
@@ -511,7 +513,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 
 			if ( ! $user_data ) {
-				$this->login_errors[] = __( 'Invalid username or e-mail.', 'wpptm' );
+				$this->login_errors[] = __( 'Invalid username or e-mail.', 'wpfep' );
 				return false;
 			}
 
@@ -525,7 +527,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 			if ( ! $allow ) {
 
-				$this->login_errors[] = __( 'Password reset is not allowed for this user', 'wpptm' );
+				$this->login_errors[] = __( 'Password reset is not allowed for this user', 'wpfep' );
 				return false;
 
 			} elseif ( is_wp_error( $allow ) ) {
@@ -582,19 +584,19 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 
 			if ( empty( $key ) || ! is_string( $key ) ) {
-				$this->login_errors[] = __( 'Invalid key', 'wpptm' );
+				$this->login_errors[] = __( 'Invalid key', 'wpfep' );
 				return false;
 			}
 
 			if ( empty( $login ) || ! is_string( $login ) ) {
-				$this->login_errors[] = __( 'Invalid Login', 'wpptm' );
+				$this->login_errors[] = __( 'Invalid Login', 'wpfep' );
 				return false;
 			}
 
 			$user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->users WHERE user_activation_key = %s AND user_login = %s", $key, $login ) );
 
 			if ( empty( $user ) ) {
-				$this->login_errors[] = __( 'Invalid key', 'wpptm' );
+				$this->login_errors[] = __( 'Invalid key', 'wpfep' );
 				return false;
 			}
 
@@ -619,7 +621,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 					$wpfep_user  = new wpfep_User( $user->ID );
 					if ( ! $wpfep_user->is_verified() ) {
 						/* translators: %s: activation link */
-						$error->add( 'acitve_user', sprintf( __( '<strong>Your account is not active.</strong><br>Please check your email for activation link. <br><a href="%s">Click here</a> to resend the activation link', 'wpptm' ), $resend_link ) );
+						$error->add( 'acitve_user', sprintf( __( '<strong>Your account is not active.</strong><br>Please check your email for activation link. <br><a href="%s">Click here</a> to resend the activation link', 'wpfep' ), $resend_link ) );
 						return $error;
 					}
 				}
@@ -640,7 +642,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 
 			if ( ! isset( $_GET['id'] ) && empty( $_GET['id'] ) ) {
-				wpfep()->login->add_error( __( 'Activation URL is not valid', 'wpptm' ) );
+				wpfep()->login->add_error( __( 'Activation URL is not valid', 'wpfep' ) );
 				return;
 			}
 
@@ -650,29 +652,29 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			$wpfep_user_status = get_user_meta( $user_id, 'wpfep_user_status', true );
 
 			if ( ! $user ) {
-				wpfep()->login->add_error( __( 'Invalid User activation url', 'wpptm' ) );
+				wpfep()->login->add_error( __( 'Invalid User activation url', 'wpfep' ) );
 				return;
 			}
 
 			if ( $user->is_verified() ) {
-				wpfep()->login->add_error( __( 'User already verified', 'wpptm' ) );
+				wpfep()->login->add_error( __( 'User already verified', 'wpfep' ) );
 				return;
 			}
 
-			$activation_key = $_GET['wpfep_registration_activation'];
+			$activation_key = sanitize_text_field( wp_unslash( $_GET['wpfep_registration_activation'] ) );
 
 			if ( $user->get_activation_key() != $activation_key ) {
-				wpfep()->login->add_error( __( 'Activation URL is not valid', 'wpptm' ) );
+				wpfep()->login->add_error( __( 'Activation URL is not valid', 'wpfep' ) );
 				return;
 			}
 
 			$user->mark_verified();
 			$user->remove_activation_key();
 
-			$message = __( 'Your account has been activated', 'wpptm' );
+			$message = __( 'Your account has been activated', 'wpfep' );
 
-			if ( $wpfep_user_status != 'approved' ) {
-				$message = __( "Your account has been verified , but you can't login until manually approved your account by an administrator.", 'wpptm' );
+			if ( 'approved' != $wpfep_user_status ) {
+				$message = __( "Your account has been verified , but you can't login until manually approved your account by an administrator.", 'wpfep' );
 			}
 
 			wpfep()->login->add_message( $message );
@@ -702,10 +704,10 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				$hashed = time() . ':' . $wpfep_hasher->HashPassword( $key );
 				$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $the_user->user_login ) );
 				/* translators: %s: username value */
-				$subject = sprintf( __( '[%s] Your username and password info', 'wpptm' ), $blogname );
+				$subject = sprintf( __( '[%s] Your username and password info', 'wpfep' ), $blogname );
 				/* translators: %s: username term */
-				$message  = sprintf( __( 'Username: %s', 'wpptm' ), $the_user->user_login ) . "\r\n\r\n";
-				$message .= __( 'To set your password, visit the following address:', 'wpptm' ) . "\r\n\r\n";
+				$message  = sprintf( __( 'Username: %s', 'wpfep' ), $the_user->user_login ) . "\r\n\r\n";
+				$message .= __( 'To set your password, visit the following address:', 'wpfep' ) . "\r\n\r\n";
 				$message .= network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $the_user->user_login ), 'login' ) . "\r\n\r\n";
 				$message .= wp_login_url() . "\r\n";
 
@@ -716,12 +718,12 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				wp_mail( $user_email, $subject, $message );
 			} else {
 				/* translators: %s: blognmae term */
-				$subject = sprintf( __( '[%s] Account has been activated', 'wpptm' ), $blogname );
+				$subject = sprintf( __( '[%s] Account has been activated', 'wpfep' ), $blogname );
 				/* translators: %s: current user*/
-				$message  = sprintf( __( 'Hi %s,', 'wpptm' ), $the_user->user_login ) . "\r\n\r\n";
-				$message .= __( 'Congrats! Your account has been activated. To login visit the following url:', 'wpptm' ) . "\r\n\r\n";
+				$message  = sprintf( __( 'Hi %s,', 'wpfep' ), $the_user->user_login ) . "\r\n\r\n";
+				$message .= __( 'Congrats! Your account has been activated. To login visit the following url:', 'wpfep' ) . "\r\n\r\n";
 				$message .= wp_login_url() . "\r\n\r\n";
-				$message .= __( 'Thanks', 'wpptm' );
+				$message .= __( 'Thanks', 'wpfep' );
 
 				$subject = apply_filters( 'wpfep_mail_after_confirmation_subject', $subject );
 				$message = apply_filters( 'wpfep_mail_after_confirmation_body', $message );
@@ -740,19 +742,19 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		  * @return \WP_Error
 		  */
 		public function user_activation_message() {
-			return new WP_Error( 'user-activated', __( 'Your account has been activated', 'wpptm' ), 'message' );
+			return new WP_Error( 'user-activated', __( 'Your account has been activated', 'wpfep' ), 'message' );
 		}
 
 		/**
 		 * Redirect user to page after log in.
 		 *
 		 * @since 1.0.0
-		 * @return \WP_Error
+		 * @return void
 		 */
 		public function wp_login_page_redirect() {
 			global $pagenow;
 
-			if ( ! is_admin() && $pagenow == 'wp-login.php' && isset( $_GET['action'] ) && $_GET['action'] == 'register' ) {
+			if ( ! is_admin() && 'wp-login.php' == $pagenow && isset( $_GET['action'] ) && 'register' == $_GET['action'] ) {
 				$reg_page = get_permalink( wpfep_get_option( 'register_page', 'wpfep_pages' ) );
 				wp_redirect( $reg_page );
 				exit;
@@ -773,7 +775,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			wp_set_password( $new_pass, $user->ID );
 			// User password change email to admin.
 			$change_password_admin_mail = wpfep_get_option( 'change_password_admin_mail', 'wpfep_emails_notification', 'on' );
-			if ( $change_password_admin_mail == 'on' ) {
+			if ( 'on' == $change_password_admin_mail ) {
 				wp_password_change_notification( $user );
 			}
 			// User password change email to admin.
@@ -803,11 +805,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				$this->get_login_url()
 			);
 
-			$message  = __( 'Someone requested that the password be reset for the following account:', 'wpptm' ) . "\r\n\r\n";
+			$message  = __( 'Someone requested that the password be reset for the following account:', 'wpfep' ) . "\r\n\r\n";
 			$message .= network_home_url( '/' ) . "\r\n\r\n";
 			/* translators: %s: username term */
-			$message .= sprintf( esc_html__( 'Username: %s', 'wpptm' ), $user_login ) . "\r\n\r\n";
-			$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'wpptm' ) . "\r\n\r\n";
+			$message .= sprintf( esc_html__( 'Username: %s', 'wpfep' ), $user_login ) . "\r\n\r\n";
+			$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'wpfep' ) . "\r\n\r\n";
 			$message .= esc_html_e( 'To reset your password, visit the following address:', 'wpfep' ) . "\r\n\r\n";
 			$message .= ' ' . $reset_url . " \r\n";
 
@@ -817,7 +819,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				$blogname = $GLOBALS['current_site']->site_name;
 			}
 			/* translators: %s: blogname term */
-			$title = sprintf( esc_html__( '[%s] Password Reset', 'wpptm' ), $blogname );
+			$title = sprintf( esc_html__( '[%s] Password Reset', 'wpfep' ), $blogname );
 			$title = apply_filters( 'retrieve_password_title', $title );
 
 			$message = apply_filters( 'retrieve_password_message', $message, $key, $user_login );
@@ -857,7 +859,24 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			if ( $this->login_errors ) {
 				foreach ( $this->login_errors as $error ) {
 					echo '<div class="wpfep-error">';
-					_e( $error, 'wpfep' );
+					echo wp_kses(
+						$error,
+						array(
+							'input' => array(
+								'type'  => array(),
+								'class' => array(),
+								'id'    => array(),
+								'name'  => array(),
+								'value' => array(),
+							),
+							'p'     => array(),
+							'a'     => array(
+								'target' => array(),
+								'href'   => array(),
+							),
+
+						)
+					);
 					echo '</div>';
 				}
 			}
@@ -871,7 +890,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		public function show_messages() {
 			if ( $this->messages ) {
 				foreach ( $this->messages as $message ) {
-					printf( '<div class="wpfep-message">%s</div>', $message );
+					printf( '<div class="wpfep-message">%s</div>', esc_html( $message ) );
 				}
 			}
 		}

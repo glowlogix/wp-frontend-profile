@@ -32,8 +32,8 @@ if ( ! class_exists( 'WPFEP_Admin_Help' ) ) :
 		 */
 		public function enqueue_scripts() {
 			global $pagenow;
-			if ( 'post.php' == $pagenow ) {
-				wp_enqueue_script( 'wpfep_shortcode_handle', plugins_url( '/assets/js/wpfep-tmc-button.js', dirname( __FILE__ ) ), array( 'jquery' ), WPFEP_VERSION );
+			if ( 'post.php' === $pagenow ) {
+				wp_enqueue_script( 'wpfep_shortcode_handle', plugins_url( '/assets/js/wpfep-tmc-button.js', dirname( __FILE__ ) ), array( 'jquery' ), WPFEP_VERSION, true );
 			}
 		}
 
@@ -43,19 +43,19 @@ if ( ! class_exists( 'WPFEP_Admin_Help' ) ) :
 		public function localize_shortcodes_script() {
 			$shortcodes = array(
 				'wpfep-register' => array(
-					'title'   => __( 'Register', 'wpptm' ),
+					'title'   => __( 'Register', 'wpfep' ),
 					'content' => '[wpfep-register]',
 				),
 				'wpfep-edit'     => array(
-					'title'   => __( 'Edit', 'wpptm' ),
+					'title'   => __( 'Edit', 'wpfep' ),
 					'content' => '[wpfep]',
 				),
 				'wpfep-login'    => array(
-					'title'   => __( 'Login', 'wpptm' ),
+					'title'   => __( 'Login', 'wpfep' ),
 					'content' => '[wpfep-login]',
 				),
 				'wpfep-profile'  => array(
-					'title'   => __( 'Profile', 'wpptm' ),
+					'title'   => __( 'Profile', 'wpfep' ),
 					'content' => '[wpfep-profile]',
 				),
 			);
