@@ -1,53 +1,61 @@
-=== WP Front End Profile ===
+=== WP FrontEnd Profile ===
 
-Contributors: wpmarkuk
-Donate link: http://markwilkinson.me/saythanks
-Tags: profile, users, user meta
+Contributors: glowlogix, wpmarkuk
+Donate link: https://www.glowlogix.com
+Tags: profile, users, user meta, register, login
 Requires at least: 4.0.1
-Tested up to: 4.5.4
-Stable tag: 0.2.2
+Tested up to: 5.2.4
+Stable tag: 1.0.0
+Requires PHP: 5.2.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WP Front End Profile allows users to edit their profile without going into the dashboard to do so.
+WP Frontend Profile allows users to edit/view their profile and register/login without going into the dashboard to do so.
 
 == Description ==
 
-WP Front End Profile give you the ability to add a extensible user profile section to the front end of your WordPress website. By default the plugin adds two tabs to the front end profile. One of these titled profile allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
+WP Frontend Profile gives you the ability to add a extensible user profile section to the frontend of your WordPress website. By default the plugin adds two tabs to the frontend profile. One of these tabs, titled profile, allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
 
 = Plugin Extensibility =
 
-As the front end profile is rendered with tabs you can easily add your own tabs with your own fields to store user meta data. Tabs and fields are added through filters and all the saving of the data is taken care of for you.
+As the frontend profile is rendered with tabs you can easily add your own tabs with your own fields to store user meta data. Tabs and fields are added through filters and all the saving of the data is taken care of for you.
 
 You can add the following field types:
 
-*	WYSIWYG
-*	Select
-* 	Text Area
-*	Checkbox
-*	Password
-*	Email
-*	Text
+* WYSIWYG
+* Select
+* Text Area
+* Checkbox
+* Password
+* Email
+* Text
 
 See FAQs for how to add our own fields and tabs.
 
 = Profile Output =
 
-To output the front end profile you can use the following function in your template files:
+To output the frontend profile feature you can use the following shortcodes in editor:
 
-`
-wpfep_show_profile();
-`
+* Profile page `[wpfep-profile]`
+* Edit profile `[wpfep]`
+* Register page `[wpfep-register]`
+* Login page `[wpfep-login]`
 
 == Installation ==
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php wpfep_show_profile(); ?>` in your templates where you want the front end profile to display
+2. Activate the plugin through the 'Plugins' menu in WordPress
+
+After having installed the plugin:
+1. Create a new Page “Profile” for profile and insert shortcode [wpfep-profile]
+2. Create a new Page “Edit Profile” for editing profile and insert shortcode [wpfep]
+3. Create a new Page “Login” for login form and insert shortcode [wpfep-login]
+4. Create a new Page “Register” for registration form and insert shortcode [wpfep-register]
+5. Set the Edit Page option from Pages tab on settings page.
 
 == Frequently Asked Questions ==
 
-For more information and more extensive documentation about this plugin checkout the [WP Front End Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
+For more information and more extensive documentation about this plugin checkout the [WP Frontend Profile Wiki](https://github.com/wpmark/wp-frontend-profile/wiki) on Github.
 
 = How do I add my own tab to the profile output? =
 
@@ -76,7 +84,7 @@ add_filter( 'wpfep_tabs', 'wpmark_add_tab', 30 );
 
 Note here the priority of 30 which means after the Profile tab (10) and the Password tab (20).
 
-= How do I add fields to tab? =
+= How do I add fields to a tab? =
 
 Fields can be added to a tab using a dynamic filter named `wpfep_fields_$tab_id`. The tab ID is the id of tab as declared when adding the tab (see FAQ above). This means that you can add fields to any tab even the default tabs. Below is an example of how you would add fields to a tab with the ID of `wpmark_tab`:
 
@@ -106,22 +114,13 @@ Yes there are two field IDs reserved which are `user_email` and `user_url`. This
 
 == Screenshots ==
 
-1. The front end profile output.
+1. WP frontend profile edit page.
+2. WP frontend profile register page. 
+3. WP frontend profile login page. 
+4. WP frontend profile setting area.
+5. WP frontend profile tool area. 
+6. WP frontend profile system status area.
 
 == Changelog ==
 
-= 0.2.2 =
-* Security: Fix privilege escalation and XSS vulnerabilities. Many thanks to @mustardBees for reporting this issue repsonsobilty and offering a fix.
-
-= 0.2.1 =
-* Added ability to display form via shortcode.
-
-= 0.2 =
-* Include a nonce in the front end editing form for security.
-
-= 0.1 =
-* Initial launch.
-
-== Upgrade notice ==
-
-Upgrade through the WordPress dashboard.
+For the plugin’s changelog, please see [the changelog page on GitHub](https://github.com/glowlogix/wp-frontend-profile/CHANGELOG.md).

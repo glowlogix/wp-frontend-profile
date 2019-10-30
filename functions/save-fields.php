@@ -1,40 +1,49 @@
 <?php
 /**
- * function wpfep_save_fields()
+ * Feilds for user.
+ *
+ * @package WP Frontend Profile
+ */
+
+/**
+ * Function wpfep_save_fields()
  * saves the fields from a tab (except password tab) to user meta
- * @param (array) $tabs is an array of all of the current tabs
- * @param (int) $user_id is the current logged in users id
+ *
+ * @param (array) $tabs is an array of all of the current tabs.
+ * @param (int)   $user_id is the current logged in users id.
  */
 function wpfep_save_fields( $tabs, $user_id ) {
-	
+
 	/* check the nonce */
-	if( ! isset( $_POST[ 'wpfep_nonce_name' ] ) || ! wp_verify_nonce( $_POST[ 'wpfep_nonce_name' ], 'wpfep_nonce_action' ) )
+	if ( ! isset( $_POST['wpfep_nonce_name'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpfep_nonce_name'] ) ), 'wpfep_nonce_action' ) ) {
 		return;
-	
+	}
+
 	/* set an array to store messages in */
 	$messages = array();
-	
+
 	/* get the POST data */
 	$tabs_data = $_POST;
-	
 	/**
-	 * remove the following array elements from the data
+	 * Remove the following array elements from the data
 	 * password
 	 * nonce name
 	 * wp refere - sent with nonce
 	 */
-	unset( $tabs_data[ 'password' ] );
-	unset( $tabs_data[ 'wpfep_nonce_name' ] );
-	unset( $tabs_data[ '_wp_http_referer' ] );
-	
+	unset( $tabs_data['password'] );
+	unset( $tabs_data['wpfep_nonce_name'] );
+	unset( $tabs_data['_wp_http_referer'] );
+	unset( $tabs_data['description'] );
+
 	/* lets check we have some data to save */
-	if( empty( $tabs_data ) )
+	if ( empty( $tabs_data ) ) {
 		return;
-		
+	}
+
 	/**
-	 * setup an array of reserved meta keys
+	 * Setup an array of reserved meta keys
 	 * to process in a different way
-	 * they are not meta data in wordpress
+	 * they are not meta data in WordPress
 	 * reserved names are user_url and user_email as they are stored in the users table not user meta
 	 */
 	$reserved_ids = apply_filters(
@@ -44,14 +53,13 @@ function wpfep_save_fields( $tabs, $user_id ) {
 			'user_url',
 		)
 	);
-
 	/**
-	 * set an array of registered fields
+	 * Set an array of registered fields
 	 */
 	$registered_fields = array();
-	foreach( $tabs as $tab ) {
-		$tab_fields = apply_filters(
-			'wpfep_fields_' . $tab[ 'id' ],
+	foreach ( $tabs as $tab ) {
+		$tab_fields        = apply_filters(
+			'wpfep_fields_' . $tab['id'],
 			array(),
 			$user_id
 		);
@@ -62,49 +70,50 @@ function wpfep_save_fields( $tabs, $user_id ) {
 	$registered_keys = wp_list_pluck( $registered_fields, 'id' );
 
 	/* loop through the data array - each element of this will be a tabs data */
-	foreach( $tabs_data as $tab_data ) {
-		
+	foreach ( $tabs_data as $tab_data ) {
 		/**
-		 * loop through this tabs array
+		 * Loop through this tabs array
 		 * the ket here is the meta key to save to
 		 * the value is the value we want to actually save
 		 */
-		foreach( $tab_data as $key => $value ) {
-			
+		foreach ( $tab_data as $key => $value ) {
+
 			/* if the key is the save sumbit - move to next in array */
-			if( $key == 'wpfep_save' || $key == 'wpfep_nonce_action' )
+			if ( 'wpfep_save' == $key || 'wpfep_nonce_action' == $key ) {
 				continue;
+			}
 
 			/* if the key is not in our list of registered keys - move to next in array */
-			if ( ! in_array( $key, $registered_keys ) )
+			if ( ! in_array( $key, $registered_keys ) ) {
 				continue;
+			}
 
 			/* check whether the key is reserved - handled with wp_update_user */
-			if( in_array( $key, $reserved_ids ) ) {
-				
+
+			if ( in_array( $key, $reserved_ids ) ) {
+
 				$user_id = wp_update_user(
 					array(
 						'ID' => $user_id,
-						$key => $value
+						$key => $value,
 					)
 				);
-				
+
 				/* check for errors */
 				if ( is_wp_error( $user_id ) ) {
-					
+
 					/* update failed */
-					$messages[ 'update_failed' ] = '<p class="error">There was a problem with updating your profile.</p>';
-				
+					$messages['update_failed'] = '<p class="error">There was a problem with updating your profile.</p>';
+
 				}
-			
-			/* just standard user meta - handle with update_user_meta */
+
+				/* just standard user meta - handle with update_user_meta */
 			} else {
 
 				/* lookup field options by key */
 				$registered_field_key = array_search( $key, array_column( $registered_fields, 'id' ) );
-
 				/* sanitize user input based on field type */
-				switch ( $registered_fields[$registered_field_key]['type'] ) {
+				switch ( $registered_fields[ $registered_field_key ]['type'] ) {
 					case 'wysiwyg':
 						$value = wp_filter_post_kses( $value );
 						break;
@@ -125,143 +134,222 @@ function wpfep_save_fields( $tabs, $user_id ) {
 				}
 
 				/* update the user meta data */
+
 				$meta = update_user_meta( $user_id, $key, $value );
-				
+
 				/* check the update was succesfull */
-				if( $meta == false ) {
-					
+				if ( false == $meta ) {
+
 					/* update failed */
-					$messages[ 'update_failed' ] = '<p class="error">There was a problem with updating your profile.</p>';
-					
+					$messages['update_failed'] = '<p class="error">There was a problem with updating your profile.</p>';
+
 				}
-				
 			}
-			
-		} // end tab loop
-		
-	} // end data loop
-	
+		} // end tab loop.
+	} // end data loop.
+
+	// update user bio.
+	if ( isset( $_POST['description'] ) ) {
+		wp_update_user(
+			array(
+				'ID'          => $user_id,
+				'description' => sanitize_text_field( wp_unslash( $_POST['description'] ) ),
+			)
+		);
+	}
+
 	/* check if we have an messages to output */
-	if( empty( $messages ) ) {
-		
+
+	if ( empty( $messages ) ) {
 		?>
 		<div class="messages">
 		<?php
-		
+
 		/* lets loop through the messages stored */
-		foreach( $messages as $message ) {
-			
+		foreach ( $messages as $message ) {
 			/* output the message */
-			echo $message;
-			
+			echo wp_kses(
+				$message,
+				array(
+
+					'p' => array(
+						'class' => array(),
+					),
+				)
+			);
 		}
-		
+
 		?>
 		</div><!-- // messages -->
 		<?php
-		
+
 	} else {
-		
+
 		?>
-		<div class="messages"><p class="updated">Your profile was updated successfully!</p></div>
-		<?php
-		
-	}
+		<div class="messages"><p class="updated"><?php esc_html_e( 'Yours profile was updated successfully!', 'wpfep' ); ?></p></div>
 	
+		<?php
+
+	}
+	?>
+	<script type="text/javascript">
+			jQuery(document).ready(function(){
+				jQuery('html, body').animate({
+				scrollTop: jQuery("div.wpfep-wrapper").offset().top
+			}, 1000);
+			});
+	</script>
+	<?php
 }
 
 add_action( 'wpfep_before_tabs', 'wpfep_save_fields', 5, 2 );
 
 /**
- * function wpfep_save_password()
+ * Function wpfep_save_password()
  * saves the change of password on the profile password tab
  * check for length (filterable with wpfep_password_length) and complexity (upper/lower/numbers)
  * user is logged out on success with a message to login back in with new password.
  *
- * @param (array) $tabs is an array of all of the current tabs
- * @param (int) $user_id is the current logged in users id
+ * @param (array) $tabs is an array of all of the current tabs.
+ * @param (int)   $user_id is the current logged in users id.
  */
 function wpfep_save_password( $tabs, $user_id ) {
-	
+
 	/* set an array to store messages in */
 	$messages = array();
-	
+
 	/* get the posted data from the password tab */
-	$data = $_POST[ 'password' ];
-	
-	/* store both password for ease of access */
-	$password = $data[ 'user_pass' ];
-	$password_check = $data[ 'user_pass_check' ];
-	
+	if ( isset( $_POST['_wpnonce'] ) ) {
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wpfep_nonce_name' );
+	}
+	$data = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
 	/* first lets check we have a password added to save */
-	if( empty( $password ) )
+	if ( empty( $data ) ) {
 		return;
-	
+	}
+	/* store both password for ease of access */
+	$password       = $data['user_pass'];
+	$password_check = $data['user_pass_check'];
+
 	/* now lets check the password match */
-	if( $password != $password_check ) {
-		
+	if ( $password != $password_check ) {
+
 		/* add message indicating no match */
-		$messages[ 'password_mismatch' ] = '<p class="error">Please make sure the passwords match.</p>';
-		
+		$messages['password_mismatch'] = '<p class="error">' . sprintf( __( 'Please make sure the passwords match', 'wpfep' ) ) . '.</p>';
+
 	}
-	
-	/* get the length of the password entered */
-	$pass_length = strlen( $password );
-	
-	/* check the password match the correct length */
-	if( $pass_length < apply_filters( 'wpfep_password_length', 12 ) ) {
-		
-		/* add message indicating length issue!! */
-		$messages[ 'password_length' ] = '<p class="error">Please make sure your password is a minimum of ' . apply_filters( 'wpfep_password_length', 12 ) . ' characters long.</p>';
-		
-	}
-	
-	/**
-	 * match the password against a regex of complexity
-	 * at least 1 upper, 1 lower case letter and 1 number
-	 */
-	$pass_complexity = preg_match( apply_filters( 'wpfep_password_regex', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/' ), $password );
-	
-	/* check whether the password passed the regex check of complexity */
-	if( $pass_complexity == false ) {
-		
-		/* add message indicating complexity issue */
-		$messages[ 'password_complexity' ] = '<p class="error">Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number</p>';
-		
-	}
-	
-	/* check we have any messages in the messages array - if we have password failed at some point */
-	if( empty( $messages ) ) {
-		
+
+	$enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
+	if ( 'off' != $enable_strong_pwd ) {
+
+		/* get the length of the password entered */
+		$pass_length = strlen( $password );
+
+		/* check the password match the correct length */
+		if ( $pass_length < apply_filters( 'wpfep_password_length', 12 ) ) {
+
+			/* translators: %s: password lenght term */
+			$messages['password_length'] = '<p class="error">' . sprintf( __( 'Please make sure your password is a minimum of %s characters long.', 'wpfep' ), apply_filters( 'wpfep_password_length', 12 ) ) . '</p>';
+
+		}
+
 		/**
-		 * ok if we get this far we have passed all the checks above
+		 * Match the password against a regex of complexity
+		 * at least 1 upper, 1 lower case letter and 1 number
+		 */
+		$pass_complexity = preg_match( apply_filters( 'wpfep_password_regex', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/' ), $password );
+
+		/* check whether the password passed the regex check of complexity */
+		if ( false == $pass_complexity ) {
+
+			/* add message indicating complexity issue */
+			$messages['password_complexity'] = '<p class="error">' . __( 'Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep' ) . '.</p>';
+
+		}
+	}
+
+	/* check we have any messages in the messages array - if we have password failed at some point */
+	if ( empty( $messages ) ) {
+		/**
+		 * Ok if we get this far we have passed all the checks above
 		 * the password can now be updated and redirect the user to the login page
 		 */
-		
+
 		wp_set_password( $password, $user_id );
-		echo '<div class="messages"><p class="updated">You\'re password was successfully changed and you have been logged out. Please <a href="' . esc_url( wp_login_url() ) . '">login again here</a>.</p></div>';
-	
-	/* messages not empty therefore password failed */
+		/* translators: %s: login link */
+		$successfully_msg = '<div class="messages"><p class="updated">' . sprintf( __( 'You\'re password was successfully changed and you have been logged out. Please <a href="%s">login again here</a>.', 'wpfep' ), esc_url( wp_login_url() ) ) . '</p></div>';
+		echo wp_kses(
+			$successfully_msg,
+			array(
+				'div' => array(
+					'class' => array(),
+				),
+				'p'   => array(
+					'class' => array(),
+				),
+				'a'   => array(
+					'href' => array(),
+				),
+			)
+		);
+		 // User password change email to admin.
+		$user                       = wp_get_current_user();
+		$blogname                   = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+		$change_password_admin_mail = wpfep_get_option( 'change_password_admin_mail', 'wpfep_emails_notification', 'on' );
+		if ( 'off' != $change_password_admin_mail ) {
+			wp_password_change_notification( $user );
+		}
+		// User password change email to admin.
+		$message              = $user->user_login . ' Your password has been changed.';
+		$subject              = '[' . $blogname . '] Password changed';
+		$password_change_mail = wpfep_get_option( 'password_change_mail', 'wpfep_emails_notification', 'on' );
+		if ( 'off' != $password_change_mail ) {
+			wp_mail( $user->user_email, $subject, $message );
+		}
+		?>
+		<style type="text/css">
+			.wpfep-wrapper .tab-content, .wpfep-wrapper ul#wpfep-tabs {
+				display: none !important;
+			}
+		</style>
+		<?php
+		/* messages not empty therefore password failed */
 	} else {
-		
+
 		?>
 		<div class="messages">
 		<?php
-		
+
 		/* lets loop through the messages stored */
-		foreach( $messages as $message ) {
-			
+		foreach ( $messages as $message ) {
+
 			/* output the message */
-			echo $message;
-			
+			echo wp_kses(
+				$message,
+				array(
+
+					'p' => array(
+						'class' => array(),
+					),
+				)
+			);
+
 		}
-		
+
 		?>
 		</div><!-- // messages -->
 		<?php
-		
+
 	}
-	
+	?>
+	<script type="text/javascript">
+			jQuery(document).ready(function(){
+			jQuery('html, body').animate({
+			scrollTop: jQuery("div.wpfep-wrapper").offset().top
+			}, 1000);
+			});
+	</script>
+	<?php
 }
 
 add_action( 'wpfep_before_tabs', 'wpfep_save_password', 10, 2 );

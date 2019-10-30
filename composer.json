@@ -1,0 +1,24 @@
+{
+  "name": "glowlogix/wp-frontend-profile",
+  "type": "wordpress-plugin",
+  "description": "WP Frontend Profile WordPress plugin allows for editing of profile fields on the front end of your WordPress website.",
+  "keywords": [
+      "users",
+      "profile",
+      "plugin",
+      "WordPress"
+  ],
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "wp-coding-standards/wpcs": "~2.0.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "~0.5.0"
+  },
+  "scripts": {
+    "check-cs": "@php ./vendor/bin/phpcs --extensions=php --ignore=/vendor/",
+    "fix-cs": "@php ./vendor/bin/phpcbf --extensions=php --ignore=/vendor/"
+  },
+  "support": {
+    "issues": "https://github.com/glowlogix/wp-frontend-profile/issues",
+    "source": "https://github.com/glowlogix/wp-frontend-profile"
+  }
+}
