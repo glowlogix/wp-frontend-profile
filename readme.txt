@@ -14,7 +14,7 @@ WP Frontend Profile allows users to edit/view their profile and register/login w
 
 == Description ==
 
-WP frontend Profile give you the ability to add a extensible user profile section to the frontend of your WordPress website. By default the plugin adds two tabs to the frontend profile. One of these titled profile allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
+WP Frontend Profile gives you the ability to add a extensible user profile section to the frontend of your WordPress website. By default the plugin adds two tabs to the frontend profile. One of these tabs, titled profile, allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
 
 = Plugin Extensibility =
 
@@ -22,13 +22,13 @@ As the frontend profile is rendered with tabs you can easily add your own tabs w
 
 You can add the following field types:
 
-*	WYSIWYG
-*	Select
-* 	Text Area
-*	Checkbox
-*	Password
-*	Email
-*	Text
+* WYSIWYG
+* Select
+* Text Area
+* Checkbox
+* Password
+* Email
+* Text
 
 See FAQs for how to add our own fields and tabs.
 
@@ -36,22 +36,22 @@ See FAQs for how to add our own fields and tabs.
 
 To output the frontend profile feature you can use the following shortcodes in editor:
 
-*	Profile page `[wpfep-profile]`
-*	Edit profile `[wpfep]`
-*	Registor page `[wpfep-register]`
-*	Login page `[wpfep-login]`
+* Profile page `[wpfep-profile]`
+* Edit profile `[wpfep]`
+* Register page `[wpfep-register]`
+* Login page `[wpfep-login]`
 
 == Installation ==
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
 After having installed the plugin:
 1. Create a new Page “Profile” for profile and insert shortcode [wpfep-profile]
-1. Create a new Page “Edit Profile” for editing profile and insert shortcode [wpfep]
-1. Create a new Page “Login” for login form and insert shortcode [wpfep-login]
-1. Create a new Page “Register” for registration form and insert shortcode [wpfep-register]
-1. Set the Edit Page option from Pages tab on settings page.
+2. Create a new Page “Edit Profile” for editing profile and insert shortcode [wpfep]
+3. Create a new Page “Login” for login form and insert shortcode [wpfep-login]
+4. Create a new Page “Register” for registration form and insert shortcode [wpfep-register]
+5. Set the Edit Page option from Pages tab on settings page.
 
 == Frequently Asked Questions ==
 
