@@ -1,4 +1,4 @@
-=== WP FrontEnd Profile ===
+=== WP Frontend Profile ===
 
 Contributors: glowlogix, wpmarkuk
 Donate link: https://www.glowlogix.com
