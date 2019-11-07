@@ -6,6 +6,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <?php
 	$message = apply_filters( 'registration_message', '' );

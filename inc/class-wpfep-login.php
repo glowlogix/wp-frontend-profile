@@ -5,11 +5,11 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	 exit;}
-	/**
-	 * Login and forgot password handler class
-	 */
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Login and forgot password handler class
+ */
 if ( ! class_exists( 'WPFEP_Login' ) ) :
 	 /**
 	  * Login and forgot password handler class

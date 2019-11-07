@@ -6,6 +6,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="login" id="wpfep-login-form">
 
@@ -36,7 +38,7 @@
 
 		<?php $recaptcha = wpfep_get_option( 'enable_captcha_login', 'wpfep_general' ); ?>
 		<?php if ( 'on' == $recaptcha ) : ?>
-			<p> 
+			<p>
 				<div class="wpfep-fields">
 					<?php WPFEP_Captcha_Recaptcha::display_captcha(); ?>
 				</div>

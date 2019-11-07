@@ -5,9 +5,7 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 	/**
@@ -421,7 +419,7 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 					<tr>
 						<td><?php esc_attr_e( 'Database Index Size', 'wpfep' ); ?></td>
 						<td><?php printf( '%.2fMB', esc_html( $database['database_size']['index'] ) ); ?></td>
-					</tr>				
+					</tr>
 					<?php foreach ( $database['database_tables']['other'] as $table => $table_data ) { ?>
 						<tr>
 							<td><?php echo esc_html( $table ); ?></td>

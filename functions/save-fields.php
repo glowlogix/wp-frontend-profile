@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Function wpfep_save_fields()
  * saves the fields from a tab (except password tab) to user meta
@@ -187,7 +189,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 
 		?>
 		<div class="messages"><p class="updated"><?php esc_html_e( 'Yours profile was updated successfully!', 'wpfep' ); ?></p></div>
-	
+
 		<?php
 
 	}

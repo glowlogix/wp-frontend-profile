@@ -5,6 +5,8 @@
  * @package Wp_Frontend_Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Sample test case.
  */

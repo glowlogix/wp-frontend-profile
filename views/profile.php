@@ -6,6 +6,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 	$user_id = get_current_user_id();
 	$user    = get_userdata( $user_id );
 	$args    = array(
@@ -79,7 +81,7 @@
 					$the_query->the_post();
 					?>
 						<li class="wpfep-profile-item-li wpfep-profile-item-clearfix">
-						  
+
 							<div>
 								<h5 class="wpfep-profile-item-title">
 									<a href="<?php echo esc_html( get_the_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a>

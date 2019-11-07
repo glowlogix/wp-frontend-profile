@@ -5,8 +5,7 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPFEP_User' ) ) :
 	/**
