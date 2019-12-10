@@ -1,6 +1,6 @@
 jQuery( document ).ready(
 	function() {
-
+		
 		jQuery('ul.wpfep-tabs').each(function(){
 		    
 		    // For each set of wpbasis-tabs, we want to keep track of
@@ -36,7 +36,9 @@ jQuery( document ).ready(
 		      // Prevent the anchor's default click action
 		      e.preventDefault();
 		    });
-		  });
+		});
 
+		//Add required to user_email input field
+		jQuery(".wpfep-form-profile input#user_email").prop('required',true);		
 	}
 );

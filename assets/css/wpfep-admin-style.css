@@ -1,0 +1,145 @@
+span.wpfep-help-tip.dashicons.dashicons-editor-help {
+    margin: 2px 5px 0 0;
+}
+.wpfep-settings-wrap a#wpfep_profile-tab {
+    margin-left: 0px;
+}
+.updated_wpfep{
+  margin: 5px 0 15px !important;
+}
+.wpfep-ui-tooltip{
+	padding: 7px;
+    position: absolute;
+    z-index: 9999;
+    max-width: 300px;
+    background: #333 !important;
+    border-radius: 3px !important;
+    -webkit-box-shadow: 1px 1px 2px 1px rgba(214, 214, 214, 0.5);
+    box-shadow: 1px 1px 2px 1px rgba(214, 214, 214, 0.5);
+    color: #dedede !important;
+    text-rendering: optimizeLegibility;
+    text-shadow: none !important;
+    white-space: pre-line;
+    word-wrap: break-word;
+    border-width: 1px;
+}
+/**************************
+* WP Dashboard Review Ask
+***************************/
+.wpfep-clear {
+  clear: both;
+}
+.wpfep-main-dashboard-review-ask {
+  border-left-color: #0586be;
+}
+.wpfep-review-ask-plugin-icon {
+  height: 100px;
+  width: 100px;
+  float: left;
+  margin: 12px 24px 16px 10px;
+  background-image: url(../icon/WP-front-end-color-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.wpfep-review-ask-text p {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+.wpfep-review-ask-action {
+  width: 90px;
+  padding: 6px;
+  margin-right: 18px;
+  text-align: center;
+  float: left;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.wpfep-review-ask-white {
+  color: #999999;
+  border: 1px solid #bbbbbb;
+}
+.wpfep-review-ask-blue {
+  color: #ffffff;
+  background: #0586be;
+  border: 1px solid #0586be;
+  font-weight: 600;
+}
+.wpfep-review-ask-blue a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.wpfep-review-ask-feedback-form {
+  position: relative;
+  float: left;
+}.wpfep-review-ask-feedback-explanation textarea {
+  height: 70px;
+  width: 480px;
+}
+.wpfep-review-ask-send-feedback {
+  margin: 10px 0px;
+}
+
+.wpfep-review-ask-review-text span {
+  font-size: .8em;
+  font-weight: normal;
+}
+.wpfep-hidden{
+    display: none;
+}
+
+/**************************
+* System Status
+***************************/
+table.wpfep-status-table {
+    margin-bottom: 1em;
+}
+table.wpfep-status-table th {
+    font-weight: 700;
+    padding: 9px;
+}
+table.wpfep-status-table td,
+table.wpfep-status-table th {
+    font-size: 1.1em;
+    font-weight: 400;
+}
+table.wpfep-status-table h2 {
+    font-size: 14px;
+    margin: 0;
+}
+table.wpfep-status-table td:first-child {
+    width: 33%;
+}
+table.wpfep-status-table td mark,
+table.wpfep-status-table th mark {
+    background: transparent none;
+}
+table.wpfep-status-table td mark.yes,
+table.wpfep-status-table th mark.yes {
+    color: #7ad03a;
+}
+ p.submit {
+    margin: .5em 0;
+    padding: 2px;
+}
+#debug-report {
+    display: none;
+    margin: 10px 0;
+    padding: 0;
+    position: relative;
+}
+#debug-report textarea {
+    font-family: monospace;
+    width: 100%;
+    margin: 0;
+    height: 300px;
+    padding: 20px;
+    border-radius: 0;
+    resize: none;
+    font-size: 12px;
+    line-height: 20px;
+    outline: 0;
+}
+.notice_system_status_wpfep{
+    margin: 30px 0 15px;
+}

@@ -1,0 +1,6 @@
+node_modules/
+wordpress-coding-standards
+php-codesniffer
+package-lock.json
+composer.lock
+vendor/
