@@ -191,7 +191,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 		 * @return mixed
 		 */
 		public function add_post_states( $post_states, $post ) {
-			$wpfep_options = get_option( 'wpfep_profile' );
+			$wpfep_options = get_option( 'wpfep_pages' );
 
 			if ( ! empty( $wpfep_options['login_page'] ) && $wpfep_options['login_page'] === $post->ID ) {
 				$post_states[] = __( 'WPFP Login Page', 'wpfep' );
@@ -201,7 +201,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 				$post_states[] = __( 'WPFP Register Page', 'wpfep' );
 			}
 
-			if ( ! empty( $wpfep_options['edit_page'] ) && $wpfep_options['edit_page'] === $post->ID ) {
+			if ( ! empty( $wpfep_options['profile_edit_page'] ) && $wpfep_options['profile_edit_page'] === $post->ID ) {
 				$post_states[] = __( 'WPFP Profile Edit Page', 'wpfep' );
 			}
 
