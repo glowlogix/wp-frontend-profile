@@ -93,6 +93,13 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 							'options' => $pages,
 						),
 						array(
+							'name'    => 'admin_can_register_user_manually',
+							'label'   => __( 'Admin can register user manually', 'wpfep' ),
+							'desc'    => __( 'If enabled, Admin can add users manually', 'wpfep' ),
+							'type'    => 'checkbox',
+							'default' => 'on',
+						),
+						array(
 							'name'    => 'redirect_after_registration',
 							'label'   => __( 'Redirect After Registration', 'wpfep' ),
 							'desc'    => __( 'After successful registration, where the page will redirect to, Make sure you have checked auto login after registration.', 'wpfep' ),
