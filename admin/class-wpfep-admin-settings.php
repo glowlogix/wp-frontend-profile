@@ -86,18 +86,18 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 							'default' => 'on',
 						),
 						array(
-							'name'    => 'redirect_after_login_page',
-							'label'   => __( 'Redirect After Login', 'wpfep' ),
-							'desc'    => __( 'After successful login, where the page will redirect to', 'wpfep' ),
-							'type'    => 'select',
-							'options' => $pages,
-						),
-						array(
 							'name'    => 'admin_can_register_user_manually',
 							'label'   => __( 'Admin can register user manually', 'wpfep' ),
 							'desc'    => __( 'If enabled, Admin can add users manually', 'wpfep' ),
 							'type'    => 'checkbox',
 							'default' => 'on',
+						),
+						array(
+							'name'    => 'redirect_after_login_page',
+							'label'   => __( 'Redirect After Login', 'wpfep' ),
+							'desc'    => __( 'After successful login, where the page will redirect to', 'wpfep' ),
+							'type'    => 'select',
+							'options' => $pages,
 						),
 						array(
 							'name'    => 'redirect_after_registration',
