@@ -220,6 +220,10 @@ ul.wpfep-profile-item-ul {
 .wpfep-profile-items, .wpfep-profile-sidebar{
 	margin-bottom: 10px;
 }
+.wpfep_user_details h5 {
+    font-weight: 400;
+    font-size: 0.83em;
+}
 @media screen and (min-width: 64em){
 	.wpfep-columns{
 		width: 100%;
@@ -255,7 +259,7 @@ ul.wpfep-profile-item-ul {
 	    border-radius: 50%;
 	    margin: 0 auto;
 	    display: block;
-	    width: 200px !important;
+	    width: 140px !important;
 	}
 	ul.wpfep-profile-item-ul {
 	    margin-bottom: 0;
@@ -267,3 +271,19 @@ ul.wpfep-profile-item-ul {
 	    padding: 15px;
 	}
 }
+@media only screen and (min-width: 320px){
+.wpfep-fields .g-recaptcha {
+    transform: scale(0.77);
+    -webkit-transform: scale(0.77);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+ul.wpfep-profile-item-ul {
+    margin: 0px;
+}
+#wpfep_registration_form ul {
+    margin: 0px;
+    padding: 0px;
+}
+	}
