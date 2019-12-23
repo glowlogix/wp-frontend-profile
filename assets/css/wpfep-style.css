@@ -73,6 +73,11 @@ p.forgetmenot label {
 	font-size: 1.6rem;
 	margin-bottom: 4px;
 }
+.wpfep-field .radio-wrapper label {
+	display: inline;
+	font-size: 1rem;
+	margin-bottom: 0;
+}
 .wpfep-select-field label,
 .wpfep-checkbox-field label {
 	display: inline;

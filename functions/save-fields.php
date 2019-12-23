@@ -120,6 +120,9 @@ function wpfep_save_fields( $tabs, $user_id ) {
 					case 'select':
 						$value = sanitize_text_field( $value );
 						break;
+					case 'radio':
+						$value = sanitize_text_field( $value );
+						break;
 					case 'textarea':
 						$value = wp_filter_nohtml_kses( $value );
 						break;

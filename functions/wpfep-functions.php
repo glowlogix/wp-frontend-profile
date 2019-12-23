@@ -145,6 +145,17 @@ function wpfep_default_tab_content( $tab ) {
 }
 
 /**
+ * Function wpfep_field_get_options()
+ * retrieves an array of valid options for a field
+ *
+ * @param (array) $field the array of field data including id, label, desc and type.
+ * @return array list of options
+ */
+function wpfep_field_get_options( $field ) {
+	return $field['options'];
+}
+
+/**
  * Function wpfep_field()
  * outputs the an input field
  *
@@ -219,8 +230,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					<select name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>">
 
 					<?php
-					/* get the setting options */
-					$options = $field['options'];
+					$options = wpfep_field_get_options($field);
 
 					/* loop through each option */
 					foreach ( $options as $option ) {
@@ -230,6 +240,24 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					}
 					?>
 					</select>
+					<?php
+
+					break;
+
+				/* if this should be rendered as a set of radio buttons */
+				case 'radio':
+					?>
+
+					<?php
+					$options = wpfep_field_get_options($field);
+
+					/* loop through each option */
+					foreach ( $options as $option ) {
+						?>
+						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" value="<?php echo esc_attr( $option['value'] ); ?>" <?php checked( $current_field_value, $option['value'] ); ?>> <?php echo esc_html( $option['name'] ); ?></label></div>
+						<?php
+					}
+					?>
 					<?php
 
 					break;
