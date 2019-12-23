@@ -152,6 +152,15 @@ function wpfep_default_tab_content( $tab ) {
  * @return array list of options
  */
 function wpfep_field_get_options( $field ) {
+	if ( $field['taxonomy'] ) {
+		$terms = get_terms( $field['taxonomy'], array( 'hide_empty' => false ) );
+		$options = array();
+		foreach ( $terms as $term ) {
+			$options[] = array( 'value' => $term->slug, 'name' => $term->name ); 
+		}
+		return $options;
+	}
+
 	return $field['options'];
 }
 
@@ -188,6 +197,19 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 				$userdata            = get_userdata( $user_id );
 				$current_field_value = $userdata->{$field['id']};
 
+			/* not a reserved id, but is a taxonomy */
+		} elseif ($field['taxonomy']) {
+		
+				$terms = wp_get_object_terms( $user_id, $field['taxonomy'] );
+				$current_field_value = array();
+				foreach ( $terms as $term ) {
+					if ( $field['multiple'] ) {
+						$current_field_value[] = $term->slug;
+					} else {
+						$current_field_value   = $term->slug;
+					}
+				}
+		
 			/* not a reserved id - treat normally */
 		} else {
 
