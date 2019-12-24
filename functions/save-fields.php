@@ -129,6 +129,15 @@ function wpfep_save_fields( $tabs, $user_id ) {
 					case 'checkbox':
 						$value = isset( $value ) && '1' === $value ? true : false;
 						break;
+					case 'checkboxes':
+					case 'select multiple':
+						$oldvalue = $value;
+						$value = array();
+						foreach ($oldvalue as $v) {
+							if ( $v === '-' ) continue;
+							$value[] = sanitize_text_field($v);
+						}
+						break;
 					case 'email':
 						$value = sanitize_email( $value );
 						break;

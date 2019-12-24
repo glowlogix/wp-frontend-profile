@@ -203,7 +203,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 				$terms = wp_get_object_terms( $user_id, $field['taxonomy'] );
 				$current_field_value = array();
 				foreach ( $terms as $term ) {
-					if ( $field['multiple'] ) {
+					if ( $field['type'] == 'checkboxes' || $field['type'] == 'select multiple' ) {
 						$current_field_value[] = $term->slug;
 					} else {
 						$current_field_value   = $term->slug;
@@ -266,11 +266,28 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 
 					break;
 
+				/* if this should be rendered as a select input */
+				case 'select multiple':
+					?>
+					<select multiple name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>][]" id="<?php echo esc_attr( $field['id'] ); ?>">
+					<option>-</option>
+					<?php
+					$options = wpfep_field_get_options($field);
+
+					/* loop through each option */
+					foreach ( $options as $option ) {
+						?>
+						<option value="<?php echo esc_attr( $option['value'] ); ?>" <?php selected( true, in_array( $option['value'], $current_field_value ) ); ?>><?php echo esc_html( $option['name'] ); ?></option>
+						<?php
+					}
+					?>
+					</select>
+					<?php
+
+					break;
+
 				/* if this should be rendered as a set of radio buttons */
 				case 'radio':
-					?>
-
-					<?php
 					$options = wpfep_field_get_options($field);
 
 					/* loop through each option */
@@ -303,6 +320,24 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					<?php
 
 					/* break out of the switch statement */
+					break;
+
+				/* if this should be rendered as a set of radio buttons */
+				case 'checkboxes':
+					?>
+					<input type="hidden" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>][]" value="-" />
+					<?php
+					$options = wpfep_field_get_options($field);
+
+					/* loop through each option */
+					foreach ( $options as $option ) {
+						?>
+						<div class="checkbox-wrapper"><label><input type="checkbox" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>][]" value="<?php echo esc_attr( $option['value'] ); ?>" <?php checked( true, in_array( $option['value'], $current_field_value ) ); ?>> <?php echo esc_html( $option['name'] ); ?></label></div>
+						<?php
+					}
+					?>
+					<?php
+
 					break;
 
 				/* if the type is set to an email input */
