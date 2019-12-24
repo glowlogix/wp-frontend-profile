@@ -295,7 +295,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					/* break out of the switch statement */
 					break;
 
-				/* if the type is set to a textarea input */
+				/* if the type is set to a checkbox */
 				case 'checkbox':
 					?>
 					<input type="hidden" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>" value="0" <?php checked( $current_field_value, '0' ); ?> />
@@ -305,7 +305,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					/* break out of the switch statement */
 					break;
 
-				/* if the type is set to a textarea input */
+				/* if the type is set to an email input */
 				case 'email':
 					?>
 					<input type="email" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>" class="regular-text" value="<?php echo esc_attr( $current_field_value ); ?>" />
@@ -315,7 +315,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					/* break out of the switch statement */
 					break;
 
-				/* if the type is set to a textarea input */
+				/* if the type is set to a password input */
 				case 'password':
 					?>
 					<input type="password" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>" class="regular-text" value="" placeholder="New Password" />
