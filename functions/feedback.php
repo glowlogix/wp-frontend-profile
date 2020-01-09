@@ -60,7 +60,7 @@ function wpfep_error_notices() {
 						<br>
 						<input type="hidden" name="feedback_email_address" value="<?php echo esc_attr( $current_user->user_email ); ?>">
 					</div>
-					<div class='wpfep-review-ask-send-feedback wpfep-review-ask-action wpfep-review-ask-blue'><?php esc_attr_e( 'Send Feedback', 'wpfep' ); ?></div>
+					<div class='wpfep-review-ask-send-feedback wpfep-review-ask-action wpfep-review-ask-blue'><?php esc_attr_e( 'Submit', 'wpfep' ); ?></div>
 				</div>
 				<div class='wpfep-clear'></div>
 			</div>

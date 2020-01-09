@@ -30,7 +30,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 		 *
 		 * @var instance
 		 */
-		private static $_instance;
+		private static $instance;
 		/**
 		 * Error array.
 		 *
@@ -58,10 +58,10 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 		 * @return self
 		 */
 		public static function init() {
-			if ( ! self::$_instance ) {
-				self::$_instance = new self();
+			if ( ! self::$instance ) {
+				self::$instance = new self();
 			}
-			return self::$_instance;
+			return self::$instance;
 		}
 
 		/**
@@ -154,9 +154,9 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					return;
 				}
 				$enable_strong_pwd = wpfep_get_option( 'strong_password', 'wpfep_general' );
-				if ( 'off' != $enable_strong_pwd ) {
+				if ( 'off' !== $enable_strong_pwd ) {
 					/* get the length of the password entered */
-					$password    = isset($_POST['pwd1']) ? $_POST['pwd1'] : '' ;
+					$password    = isset( $_POST['pwd1'] ) ? $_POST['pwd1'] : '';
 					$pass_length = strlen( $password );
 
 					/* check the password match the correct length. */
@@ -164,7 +164,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 
 						/* add message indicating length issue!! */
 
-						$this->registration_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Please make sure your password is a minimum of 12  characters long', 'wpfep' );
+						$this->registration_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Please make sure your password is a minimum of 12 characters long', 'wpfep' );
 						return;
 					}
 
@@ -216,6 +216,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				} else {
 					$user_web = '';
 				}
+				
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {
 						$this->registration_errors[] = __( 'reCaptcha is required', 'wpfep' );
@@ -253,39 +254,46 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				$userdata['user_pass']   = sanitize_text_field( wp_unslash( $_POST['pwd1'] ) );
 				$userdata['description'] = $desc;
 				$userdata['user_url']    = $user_web;
-
+	
 				if ( get_role( $dec_role ) ) {
 					$userdata['role'] = $dec_role;
 				}
+				$send_link_activation  = wpfep_get_option( 'user_behave', 'wpfep_profile', 'No' );
+				$manually_register = wpfep_get_option( 'admin_can_register_user_manually', 'wpfep_profile', 'on' );
 				$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
+				$autologin_after_registration = wpfep_get_option( 'user_behave', 'wpfep_profile', 'Yes' );
 				$user = wp_insert_user( $userdata );
 				if ( is_wp_error( $user ) ) {
 						$this->registration_errors[] = $user->get_error_message();
 						return;
-				} elseif ( current_user_can( 'administrator' ) ){
+				}
+				else {
 
-					$password = $userdata['user_pass'];					
+				if ( current_user_can( 'administrator' ) && 'on' === $manually_register ) {
 
-					$wpfep_user = new WP_User( $user );
-					$user_login = stripslashes( $wpfep_user->user_login );
-					$user_email = stripslashes( $wpfep_user->user_email );
-					$blogname   = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-					/* translators: %s: search term */
-					$message = sprintf( esc_html__( 'New user registration on your site %s:', 'wpfep' ), get_option( 'blogname' ) ) . "\r\n\r\n";
-					/* translators: %s: user login */
-					$message .= sprintf( esc_html__( 'Username: %s', 'wpfep' ), $user_login ) . "\r\n\r\n";
-					/* translators: %s: user email */
-					$message .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $user_email ) . "\r\n";
-					$subject  = esc_html__( 'New User Registration', 'wpfep' );
-
-					$subject             = apply_filters( 'wpfep_default_reg_admin_mail_subject', $subject );
-					$message             = apply_filters( 'wpfep_default_reg_admin_mail_body', $message );
-					$register_admin_mail = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
-					if ( 'on' == $register_admin_mail ) {
+						$password = $userdata['user_pass'];
+						add_user_meta( $user, 'wpfep_user_status', 'approve' );
+						$wpfep_user = new WP_User( $user );
+						$user_login = stripslashes( $wpfep_user->user_login );
+						$user_email = stripslashes( $wpfep_user->user_email );
+						$blogname   = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+						/* translators: %s: search term */
+						$message = sprintf( esc_html__( 'New user registration on your site %s:', 'wpfep' ), get_option( 'blogname' ) ) . "\r\n\r\n";
+						/* translators: %s: user login */
+						$message .= sprintf( esc_html__( 'Username: %s', 'wpfep' ), $user_login ) . "\r\n\r\n";
 						/* translators: %s: user email */
-						wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
-					}
-											/* translators: %s: user login */
+						$message .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $user_email ) . "\r\n";
+						/* translators: %s: user pass */
+						$subject = esc_html__( 'New User Registration', 'wpfep' );
+
+						$subject             = apply_filters( 'wpfep_default_reg_admin_mail_subject', $subject );
+						$message             = apply_filters( 'wpfep_default_reg_admin_mail_body', $message );
+						$register_admin_mail = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
+						if ( 'on' === $register_admin_mail ) {
+							/* translators: %s: user email */
+							wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
+						}
+						/* translators: %s: user login */
 						$message  = sprintf( esc_html__( 'Hi, %s', 'wpfep' ), $user_login ) . "\r\n";
 						$message .= 'Congrats! You are Successfully registered to  ' . $blogname . "\r\n\r\n";
 						/* translators: %s: user login */
@@ -299,59 +307,69 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 						$subject            = apply_filters( 'wpfep_default_reg_mail_subject', $subject );
 						$message            = apply_filters( 'wpfep_default_reg_mail_body', $message );
 						$register_user_mail = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
-					if ( 'on' == $register_user_mail ) {
-						/* translators: %1s: user login */
-						wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
-					}
-				}
-				else{
-					$wpfep_user = new WP_User( $user );
-					$user_login = stripslashes( $wpfep_user->user_login );
-					$user_email = stripslashes( $wpfep_user->user_email );
-					$blogname   = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-					/* translators: %s: search term */
-					$message = sprintf( esc_html__( 'New user registration on your site %s:', 'wpfep' ), get_option( 'blogname' ) ) . "\r\n\r\n";
-					/* translators: %s: user login */
-					$message .= sprintf( esc_html__( 'Username: %s', 'wpfep' ), $user_login ) . "\r\n\r\n";
-					/* translators: %s: user email */
-					$message .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $user_email ) . "\r\n";
-					$subject  = esc_html__( 'New User Registration', 'wpfep' );
+						if ( 'on' === $register_user_mail ) {
+							/* translators: %1s: user login */
+							wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
+						}
+				} 
+				elseif('Yes'=== $autologin_after_registration  && 'off'=== $manually_register && 'off' === $manually_approve_user) {
 
-					$subject             = apply_filters( 'wpfep_default_reg_admin_mail_subject', $subject );
-					$message             = apply_filters( 'wpfep_default_reg_admin_mail_body', $message );
-					$register_admin_mail = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
-					if ( 'on' == $register_admin_mail ) {
+						$wpfep_user = new WP_User( $user );
+						$user_login = stripslashes( $wpfep_user->user_login );
+						$user_email = stripslashes( $wpfep_user->user_email );
+						$blogname   = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+						/* translators: %s: search term */
+						$message = sprintf( esc_html__( 'New user registration on your site %s:', 'wpfep' ), get_option( 'blogname' ) ) . "\r\n\r\n";
+						/* translators: %s: user login */
+						$message .= sprintf( esc_html__( 'Username: %s', 'wpfep' ), $user_login ) . "\r\n\r\n";
 						/* translators: %s: user email */
-						wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
-					}
-					/* translators: %s: user login */
-					$message  = sprintf( esc_html__( 'Hi, %s', 'wpfep' ), $user_login ) . "\r\n";
-					$message .= 'Congrats! You are Successfully registered to ' . $blogname . "\r\n\r\n";
-					$message .= 'Thanks';
-					$subject  = 'Thank you for registering';
+						$message .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $user_email ) . "\r\n";
+						$subject  = esc_html__( 'New User Registration', 'wpfep' );
 
-					$subject            = apply_filters( 'wpfep_default_reg_mail_subject', $subject );
-					$message            = apply_filters( 'wpfep_default_reg_mail_body', $message );
-					$register_user_mail = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
-					if ( 'on' == $register_user_mail ) {
-						/* translators: %1s: user login */
-						wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
-					}
+						$subject             = apply_filters( 'wpfep_default_reg_admin_mail_subject', $subject );
+						$message             = apply_filters( 'wpfep_default_reg_admin_mail_body', $message );
+						$register_admin_mail = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
+						if ( 'on' === $register_admin_mail ) {
+							/* translators: %s: user email */
+							wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
+						}
+						/* translators: %s: user login */
+						$message  = sprintf( esc_html__( 'Hi, %s', 'wpfep' ), $user_login ) . "\r\n";
+						$message .= 'Congrats! You are Successfully registered to ' . $blogname . "\r\n\r\n";
+						$message .= 'Thanks';
+						$subject  = 'Thank you for registering';
+
+						$subject            = apply_filters( 'wpfep_default_reg_mail_subject', $subject );
+						$message            = apply_filters( 'wpfep_default_reg_mail_body', $message );
+						$register_user_mail = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
+						if ( 'on' === $register_user_mail ) {
+							/* translators: %1s: user login */
+							wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
+						}
+					
 				}
-
+				if ( 'No' == $send_link_activation ) {
+                    $wpfep_user = new WPFEP_User( $user );
+					$wpfep_user->wpfep_new_user( $user );
+					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+					$redirect      = get_permalink( $register_page ) . '?success=notactivated';
+					wp_safe_redirect( $redirect );
+					if('off' == $manually_approve_user && 'off'=== $manually_register && 'off' === $manually_approve_user){
+						exit;
+					}					
+				}
 				if ( 'on' == $manually_approve_user ) {
 					$wpfep_user = new WPFEP_User( $user );
 					$wpfep_user->manually_approve( $user );
 					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
 					$redirect      = get_permalink( $register_page ) . '?success=notapproved';
-					wp_safe_redirect( $redirect );
+					wp_safe_redirect($redirect );
 					exit;
 				}
-                
 
-				$autologin_after_registration = wpfep_get_option( 'autologin_after_registration', 'wpfep_profile', 'on' );
+				$autologin_after_registration = wpfep_get_option( 'user_behave', 'wpfep_profile', 'Yes' );
 
-				if ( 'on' == $autologin_after_registration  && ! current_user_can( 'administrator' ) ) {
+				if ( 'Yes' === $autologin_after_registration && ! current_user_can( 'administrator' ) ) {
 					wp_clear_auth_cookie();
 					wp_set_current_user( $user );
 					wp_set_auth_cookie( $user );
@@ -362,25 +380,30 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					$this->registration_errors[] = $user->get_error_message();
 					return;
 				} else {
-					if('on'=== $manually_register ){
-					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-					wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
+					if('on'=== $manually_register && current_user_can( 'administrator' )){
+						$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+						$redirect      = get_permalink( $register_page ) . '?success=createdmanually';
+						wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
 						exit;
 					}
-
-					if ( 'on' == $autologin_after_registration && '' == $redirect_after_registration ) {
+                    elseif('Yes' === $autologin_after_registration){ 
+					if ( 'Yes' === $autologin_after_registration && '' === $redirect_after_registration ) {
 						$redirect = home_url();
-					} elseif ( '' != $redirect_after_registration ) {
+					} elseif ( '' !== $redirect_after_registration ) {
 						$redirect = get_permalink( $redirect_after_registration );
 					} else {
+						
 						$redirect = get_permalink( $register_page ) . '?success=yes';
+						add_user_meta( $user, 'wpfep_user_status', 'approve' );
 					}
 
-					wp_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
+					wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
 					exit;
 				}
 			}
+			}
 		}
+		}	
 
 		/**
 		 * Show errors on the form

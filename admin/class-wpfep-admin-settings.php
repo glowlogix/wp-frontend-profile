@@ -68,36 +68,46 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		 * Fields on setting page
 		 */
 		public function wpfep_settings_fields() {
+
 			$user_roles = array();
 			$pages      = wpfep_get_pages();
 			$all_roles  = get_editable_roles();
 			foreach ( $all_roles as $key => $value ) {
 				$user_roles[ $key ] = $value['name'];
 			}
+
+			$radio_options = array("Yes" => "Auto Login After Registration", "No" => "Send account activation Link to registered users"  );
 			$settings_fields = array(
 				'wpfep_profile'             => apply_filters(
 					'wpfep_options_profile',
 					array(
 						array(
-							'name'    => 'autologin_after_registration',
-							'label'   => __( 'Auto Login After Registration', 'wpfep' ),
-							'desc'    => __( 'If enabled, users after registration will be logged in to the system', 'wpfep' ),
-							'type'    => 'checkbox',
-							'default' => 'on',
+							'name'    => 'user_behave',
+							'label'   => __( 'New User behaviour on registration ', 'wpfep' ),
+							// 'desc'    => __( 'If enabled, users after registration will be logged in to the system', 'wpfep' ),
+							'type'    => 'select',
+							'options' => $radio_options,
 						),
+						// array(
+						// 	'name'    => 'send_user_activation_link',
+						// 	'label'   => __( 'Send Activation Link to New User', 'wpfep' ),
+						// 	'desc'    => __( 'If enabled, users after registration will get confirmaton link in email', 'wpfep' ),
+						// 	'type'    => 'radio',
+						// 	'default' => 'off',
+						// ),
 						array(
 							'name'    => 'admin_can_register_user_manually',
 							'label'   => __( 'Admin can register user manually', 'wpfep' ),
-							'desc'    => __( 'If enabled, Admin can add users manually', 'wpfep' ),
+							'desc'    => __( 'If enabled, Admin can add users manually from frontend.', 'wpfep' ),
 							'type'    => 'checkbox',
-							'default' => 'on',
+							'default' => 'off',
 						),
 						array(
 							'name'    => 'admin_manually_approve',
 							'label'   => __( 'Admin can Manually Approve User', 'wpfep' ),
-							'desc'    => __( 'If enabled, Admin can manually approve and deny users', 'wpfep' ),
+							'desc'    => __( 'If enabled, Admin can manually approve and deny users from backend.', 'wpfep' ),
 							'type'    => 'checkbox',
-							'default' => 'off',
+							'default' => 'on',
 						),
 						array(
 							'name'    => 'redirect_after_login_page',
@@ -204,7 +214,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 						array(
 							'name'    => 'register_mail',
 							'label'   => __( 'Registration success email', 'wpfep' ),
-							'desc'    => __( ' Send an email to user for when successfull registration.', 'wpfep' ),
+							'desc'    => __( ' Send an email to user for successful registration.', 'wpfep' ),
 							'type'    => 'checkbox',
 							'default' => 'on',
 						),
@@ -340,7 +350,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		public function tool_page() {
 			$confirmation_message = __( 'Are you Sure?', 'wpfep' );
 
-			if ( isset( $_GET['wpfep_delete_settings'] ) && 1 === $_GET['wpfep_delete_settings'] ) {
+			if ( wp_verify_nonce( isset( $_GET['wpfep_delete_settings'] ) && 1 === $_GET['wpfep_delete_settings'] ) ) {
 				?>
 				<div class="updated updated_wpfep">
 					<p>
@@ -390,7 +400,13 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		 * Clear all plugin settings
 		 */
 		public function clear_settings() {
-			if ( isset( $_GET['wpfep_delete_settings'] ) && '1' === $_GET['wpfep_delete_settings'] ) {
+			if (isset( $_GET['wpfep_delete_settings'] ) && '1' === $_GET['wpfep_delete_settings'] ) {
+				// Delete Pages.
+				$wpfep_options = get_option( 'wpfep_profile' );
+				wp_delete_post( $wpfep_options['login_page'], false );
+				wp_delete_post( $wpfep_options['register_page'], false );
+				wp_delete_post( $wpfep_options['edit_page'], false );
+				wp_delete_post( $wpfep_options['profile_page'], false );
 				// Delete Options.
 				delete_option( '_wpfep_page_created' );
 				delete_option( 'wpfep_general' );
@@ -399,5 +415,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 				delete_option( 'wpfep_uninstall' );
 			}
 		}
+		
 	}
+
 endif;
