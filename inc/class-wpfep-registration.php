@@ -257,7 +257,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				if ( get_role( $dec_role ) ) {
 					$userdata['role'] = $dec_role;
 				}
-
+				$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
 				$user = wp_insert_user( $userdata );
 				if ( is_wp_error( $user ) ) {
 						$this->registration_errors[] = $user->get_error_message();
@@ -339,6 +339,15 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					}
 				}
 
+				if ( 'on' == $manually_approve_user ) {
+					$wpfep_user = new WPFEP_User( $user );
+					$wpfep_user->manually_approve( $user );
+					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+					$redirect      = get_permalink( $register_page ) . '?success=notapproved';
+					wp_safe_redirect( $redirect );
+					exit;
+				}
+                
 
 				$autologin_after_registration = wpfep_get_option( 'autologin_after_registration', 'wpfep_profile', 'on' );
 

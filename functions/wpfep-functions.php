@@ -774,3 +774,122 @@ function get_edit_profile_page() {
 
 	return apply_filters( 'wpfep_profile_edit_url', $url, $page_id );
 }
+
+$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
+if ( 'on' == $manually_approve_user ) {
+	/**
+	 * Add the approve or deny link where appropriate.
+	 *
+	 * @uses user_row_actions
+	 * @param array  $actions returns the action.
+	 * @param object $user returns the user.
+	 * @return array
+	 */
+	function user_table_actions( $actions, $user ) {
+		if ( get_current_user_id() == $user->ID ) {
+			return $actions;
+		}
+		if ( is_super_admin( $user->ID ) ) {
+			return $actions;
+		}
+		$user_status  = get_user_meta( $user->ID, 'wpfep_user_status', true );
+		$approve_link = add_query_arg(
+			array(
+				'action' => 'approve',
+				'user'   => $user->ID,
+			)
+		);
+		$approve_link = remove_query_arg( array( 'new_role' ), $approve_link );
+		$approve_link = wp_nonce_url( $approve_link, 'new-user-approve' );
+		$reject_link = add_query_arg(
+			array(
+				'action' => 'rejected',
+				'user'   => $user->ID,
+			)
+		);
+		$reject_link = remove_query_arg( array( 'new_role' ), $reject_link );
+		$reject_link = wp_nonce_url( $reject_link, 'new-user-approve' );
+		$approve_action = '<a href="' . esc_url( $approve_link ) . '">' . __( 'Approve', 'wpfep' ) . '</a>';
+		$deny_action    = '<a href="' . esc_url( $reject_link ) . '">' . __( 'Rejected', 'wpfep' ) . '</a>';
+		if ( 'pending' == $user_status ) {
+			$actions[] = $approve_action;
+		} elseif ( 'approve' == $user_status ) {
+			$actions[] = $deny_action;
+		} elseif ( 'rejected' == $user_status ) {
+			$actions[] = $approve_action;
+		}
+		return $actions;
+	}
+	add_filter( 'user_row_actions', 'user_table_actions', 10, 2 );
+	/**
+	 * Add the status column to the user table
+	 *
+	 * @uses manage_users_columns
+	 * @param array $columns returns columns.
+	 * @return array
+	 */
+	function add_column( $columns ) {
+		$the_columns['wpfep_user_status'] = __( 'Status', 'wpfep' );
+		$newcol  = array_slice( $columns, 0, -1 );
+		$newcol  = array_merge( $newcol, $the_columns );
+		$columns = array_merge( $newcol, array_slice( $columns, 1 ) );
+		return $columns;
+	}
+	add_filter( 'manage_users_columns', 'add_column' );
+	/**
+	 * Show the status of the user in the status column
+	 *
+	 * @uses manage_users_custom_column
+	 * @param string $val_column return column value.
+	 * @param string $column_name return column value.
+	 * @param int    $user returns user data.
+	 * @return string
+	 */
+	function status_column( $val_column, $column_name, $user ) {
+		switch ( $column_name ) {
+			case 'wpfep_user_status':
+				$user_status = get_user_meta( $user, 'wpfep_user_status', true );
+				if ( 'approve' == $user_status ) {
+					$status = __( 'Approved', 'wpfep' );
+				} elseif ( 'pending' == $user_status ) {
+					$status = __( 'pending', 'wpfep' );
+				} elseif ( 'rejected' == $user_status ) {
+					$status = __( 'Rejected', 'wpfep' );
+				}
+				return $status;
+			break;
+			default:
+		}
+		return $val_column;
+	}
+	add_filter( 'manage_users_custom_column', 'status_column', 10, 3 );
+	/**
+	 * Update the user status if the approved or rejected link was clicked.
+	 *
+	 * @uses load-users.php
+	 */
+	function update_action() {
+		if ( isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '' && in_array( sanitize_text_field( wp_unslash( $_GET['action'] ) ), array( 'approve', 'rejected' ) ) && ! isset( $_GET['new_role'] ? sanitize_text_field( wp_unslash( $_GET['new_role'] ) ) : '' ) ) {
+			$request    = sanitize_text_field( wp_unslash( $_GET['action'] ) );
+			$request_id = intval( $_GET['user'] );
+			$user_data  = get_userdata( $request_id );
+			if ( 'approve' == $request ) {
+				update_user_meta( $request_id, 'wpfep_user_status', $request );
+				$subject = 'Approval Notification';
+				$message .= 'Your Account is Approved by Admin.' . "\r\n\r\n";
+				$message .= 'Now you Can Log In to your account.' . "\r\n\r\n";
+				$message .= 'Thank You' . "\r\n\r\n";
+				wp_mail( $user_data->user_email, $subject, $message );
+			}
+			if ( 'rejected' == $request ) {
+				update_user_meta( $request_id, 'wpfep_user_status', $request );
+				$subject = 'Denied Notification';
+				$message .= 'Your Account is Denied by Admin.' . "\r\n\r\n";
+				$message .= 'Now you Cannot Log In to your account.' . "\r\n\r\n";
+				$message .= 'Thank You' . "\r\n\r\n";
+				wp_mail( $user_data->user_email, $subject, $message );
+			}
+		}
+	}
+		add_action( 'load-users.php', 'update_action' );
+}		

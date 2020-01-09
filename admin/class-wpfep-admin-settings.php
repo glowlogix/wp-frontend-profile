@@ -93,6 +93,13 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 							'default' => 'on',
 						),
 						array(
+							'name'    => 'admin_manually_approve',
+							'label'   => __( 'Admin can Manually Approve User', 'wpfep' ),
+							'desc'    => __( 'If enabled, Admin can manually approve and deny users', 'wpfep' ),
+							'type'    => 'checkbox',
+							'default' => 'off',
+						),
+						array(
 							'name'    => 'redirect_after_login_page',
 							'label'   => __( 'Redirect After Login', 'wpfep' ),
 							'desc'    => __( 'After successful login, where the page will redirect to', 'wpfep' ),
