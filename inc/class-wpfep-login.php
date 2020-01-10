@@ -300,26 +300,37 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				if ( is_email( sanitize_text_field( wp_unslash( $_POST['log'] ) ) ) && apply_filters( 'wpfep_get_username_from_email', true ) ) {
 					$user = get_user_by( 'email', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
 					$user_meta = get_user_meta( $user->ID, 'wpfep_user_status', true );
+					if ( get_user_meta( $user->ID, 'has_to_be_activated', true ) != false ) {
 
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Activated yet.', 'wpfep' );
+						return;
+					}
+					if ( 'pending' == $user_meta || 'rejected' == $user_meta ) {
+
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Approved or Denied by Admin.', 'wpfep' );
+						return;
+					}
 					if ( isset( $user->user_login ) ) {
 						$creds['user_login'] = $user->user_login;
 					} else {
 						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'A user could not be found with this email address.', 'wpfep' );
 						return;
 					}
-					if ( 'pending' == $user_meta || 'rejected' == $user_meta ) {
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Approved or Denied by Admin.', 'wpfep' );
-						return;
-					}
 				} else {
 					$creds['user_login'] = sanitize_text_field( wp_unslash( $_POST['log'] ) );
 					$get_user_login = get_user_by( 'login', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
 					$user_meta      = get_user_meta( $get_user_login->ID, 'wpfep_user_status', true );
-				}
 
-				if ( 'pending' == $user_meta || 'rejected' == $user_meta ) {
-					$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Approved or Denied by Admin.', 'wpfep' );
-					return;
+					if ( get_user_meta( $get_user_login->ID, 'has_to_be_activated', true ) != false ) {
+
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Activated yet.', 'wpfep' );
+						return;
+					}
+					if ( 'pending' == $user_meta || 'rejected' == $user_meta ) {
+
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Approved or Denied by Admin.', 'wpfep' );
+						return;
+					}
 				}
 
 				$creds['user_password'] = sanitize_text_field( wp_unslash( $_POST['pwd'] ) );

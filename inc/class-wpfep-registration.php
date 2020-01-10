@@ -354,7 +354,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
 					$redirect      = get_permalink( $register_page ) . '?success=notactivated';
 					wp_safe_redirect( $redirect );
-					if('off' == $manually_approve_user && 'off'=== $manually_register && 'off' === $manually_approve_user){
+					if('off' == $manually_approve_user && 'off'=== $manually_register){
 						exit;
 					}					
 				}

@@ -125,6 +125,79 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 		}
 
 		/**
+		 * Send user confirmation E-mail
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param int $user return user data.
+		 *
+		 * @return void
+		 */
+		public function wpfep_new_user( $user ) {
+
+			$userdata = get_userdata( $user );
+			  
+			$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
+			if('on'== $manually_approve_user){
+			add_user_meta( $user, 'wpfep_user_status','pending' );
+             }
+             else{
+             	add_user_meta( $user, 'wpfep_user_status', 'approve' );
+             }
+
+			if ( $user && ! is_wp_error( $user ) ) {
+
+				$code = sha1( $user . time() );
+
+				$register_page = wpfep_get_option( 'login_page', 'wpfep_pages' );
+
+				$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+
+				$register_admin_mail = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
+
+				$activation_link = add_query_arg(
+					array(
+						'key'  => $code,
+						'user' => $user,
+					),
+					get_permalink( $register_page )
+				);
+
+				add_user_meta( $user, 'has_to_be_activated', $code, true );
+				/* translators: %s: user email */
+				$message = sprintf( __( 'Congrats! You are Successfully registered to: %s' ), $blogname ) . "<br><br>";
+
+				$message .= __( 'Click on the link to activate your Acoount' ) . "<br><br>";
+
+				$message .= '<a href=' . "$activation_link" . '>Click Here</a>';
+
+				$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+   				
+   				$option_enabled_for_email = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
+   				if ( 'on' == $option_enabled_for_email ) {
+   					wp_mail( $userdata->user_email, 'Email verification for account verification', $message, $headers );
+   				}
+                 	
+                 
+					/* translators: %s: admin mail */
+				$message_admin = sprintf( esc_html__( 'New user registration on your site %s:', 'wpfep' ), get_option( 'blogname' ) ) . "\r\n\r\n";
+					/* translators: %s: user login */
+				$message_admin .= sprintf( esc_html__( 'Username: %s', 'wpfep' ), $userdata->user_login ) . "\r\n\r\n";
+					/* translators: %s: user email */
+				$message_admin .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $userdata->user_email ) . "\r\n";
+					/* translators: %s: user subject */
+				$subject = esc_html__( 'New User Registration', 'wpfep' );
+					/* translators: %s: user email */
+				$option_enabled_for_email = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
+   				if ( 'on' == $option_enabled_for_email ) {
+				wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message_admin );
+			}
+			
+
+			}
+		}
+
+		/**
 		 * Manually approve users
 		 *
 		 * @since 1.0.0
@@ -134,14 +207,24 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 		 * @return void
 		 */
 		public function manually_approve( $user ) {
+
 			add_user_meta( $user, 'wpfep_user_status', 'pending' );
+
 			$userdata = get_userdata( $user );
+
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+
 			$subject = 'Registeration E-mail';
+
 			$message = sprintf( esc_attr( 'Congrats! You are Successfully registered to: %s' ), $blogname ) . "\r\n\r\n";
+
 			$message .= 'Your Account is not Approved by Admin.' . "\r\n\r\n";
+
 			$message .= 'We will send Confirmation when It is Approved.' . "\r\n\r\n";
+            if ( 'on' == $register_user_mail ) {
 			wp_mail( $userdata->user_email, $subject, $message );
+		    }
+		    		    
 			/* translators: %s: admin mail */
 			$message_admin = sprintf( esc_html__( 'New user registration on your site %s:', 'wpfep' ), get_option( 'blogname' ) ) . "\r\n\r\n";
 			/* translators: %s: user login */
@@ -151,7 +234,11 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 			/* translators: %s: user subject */
 		    $subject = esc_html__( 'New User Registration', 'wpfep' );
 			/* translators: %s: user email */
+            if ( 'on' == $register_admin_mail ) {
 		    wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message_admin );
+		    }
+		
+            
 		}
 	}
 endif;
