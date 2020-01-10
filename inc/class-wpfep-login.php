@@ -302,12 +302,12 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 					$user_meta = get_user_meta( $user->ID, 'wpfep_user_status', true );
 					if ( get_user_meta( $user->ID, 'has_to_be_activated', true ) != false ) {
 
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Activated yet.', 'wpfep' );
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not activated yet.', 'wpfep' );
 						return;
 					}
 					if ( 'pending' == $user_meta || 'rejected' == $user_meta ) {
 
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Approved or Denied by Admin.', 'wpfep' );
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not approved or denied by admin.', 'wpfep' );
 						return;
 					}
 					if ( isset( $user->user_login ) ) {
@@ -323,12 +323,12 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 					if ( get_user_meta( $get_user_login->ID, 'has_to_be_activated', true ) != false ) {
 
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Activated yet.', 'wpfep' );
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not activated yet.', 'wpfep' );
 						return;
 					}
 					if ( 'pending' == $user_meta || 'rejected' == $user_meta ) {
 
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not Approved or Denied by Admin.', 'wpfep' );
+						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not approved or denied by admin.', 'wpfep' );
 						return;
 					}
 				}

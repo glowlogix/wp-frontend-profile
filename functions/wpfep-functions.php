@@ -875,18 +875,18 @@ if ( 'on' == $manually_approve_user ) {
 			$user_data  = get_userdata( $request_id );
 			if ( 'approve' == $request ) {
 				update_user_meta( $request_id, 'wpfep_user_status', $request );
-				$subject = 'Approval Notification';
-				$message .= 'Your Account is Approved by Admin.' . "\r\n\r\n";
-				$message .= 'Now you Can Log In to your account.' . "\r\n\r\n";
-				$message .= 'Thank You' . "\r\n\r\n";
+				$subject = 'Approval notification';
+				$message .= 'Your account is approved by admin.' . "\r\n\r\n";
+				$message .= 'Now you can log in to your account.' . "\r\n\r\n";
+				$message .= 'Thank you' . "\r\n\r\n";
 				wp_mail( $user_data->user_email, $subject, $message );
 			}
 			if ( 'rejected' == $request ) {
 				update_user_meta( $request_id, 'wpfep_user_status', $request );
-				$subject = 'Denied Notification';
-				$message .= 'Your Account is Denied by Admin.' . "\r\n\r\n";
-				$message .= 'Now you Cannot Log In to your account.' . "\r\n\r\n";
-				$message .= 'Thank You' . "\r\n\r\n";
+				$subject = 'Denied notification';
+				$message .= 'Your account is denied by admin.' . "\r\n\r\n";
+				$message .= 'Now you cannot Log In to your account.' . "\r\n\r\n";
+				$message .= 'Thank you' . "\r\n\r\n";
 				wp_mail( $user_data->user_email, $subject, $message );
 			}
 		}

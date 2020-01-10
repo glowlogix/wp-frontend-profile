@@ -8,16 +8,16 @@
 ?>
 	<?php
 	if ( isset( $_GET['success'] ) && 'yes' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully Registered.', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered.', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'notactivated' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully Registered Manually.Activation Email has been sent to user successfully', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually.Activation email has been sent to user successfully', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'createdmanually' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully Registered Manually', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually', 'wpfep' ) ) . '</div>';
 	}
     if ( isset( $_GET['success'] ) && 'notapproved' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully Registered Manually', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'created' === $_GET['success'] ) {
 		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has done successfully', 'wpfep' ) ) . '</div>';

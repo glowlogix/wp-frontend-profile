@@ -167,7 +167,7 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 				/* translators: %s: user email */
 				$message = sprintf( __( 'Congrats! You are Successfully registered to: %s' ), $blogname ) . "<br><br>";
 
-				$message .= __( 'Click on the link to activate your Acoount' ) . "<br><br>";
+				$message .= __( 'Click on the link to activate your account' ) . "<br><br>";
 
 				$message .= '<a href=' . "$activation_link" . '>Click Here</a>';
 
@@ -175,7 +175,7 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
    				
    				$option_enabled_for_email = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
    				if ( 'on' == $option_enabled_for_email ) {
-   					wp_mail( $userdata->user_email, 'Email verification for account verification', $message, $headers );
+   					wp_mail( $userdata->user_email, 'Email verification for account activation', $message, $headers );
    				}
                  	
                  
@@ -186,7 +186,7 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 					/* translators: %s: user email */
 				$message_admin .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $userdata->user_email ) . "\r\n";
 					/* translators: %s: user subject */
-				$subject = esc_html__( 'New User Registration', 'wpfep' );
+				$subject = esc_html__( 'New user registration', 'wpfep' );
 					/* translators: %s: user email */
 				$option_enabled_for_email = wpfep_get_option( 'new_account_admin_mail', 'wpfep_emails_notification', 'on' );
    				if ( 'on' == $option_enabled_for_email ) {
@@ -216,11 +216,11 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 
 			$subject = 'Registeration E-mail';
 
-			$message = sprintf( esc_attr( 'Congrats! You are Successfully registered to: %s' ), $blogname ) . "\r\n\r\n";
+			$message = sprintf( esc_attr( 'Congrats! You are successfully registered to: %s' ), $blogname ) . "\r\n\r\n";
 
-			$message .= 'Your Account is not Approved by Admin.' . "\r\n\r\n";
+			$message .= 'Your account is not approved by admin.' . "\r\n\r\n";
 
-			$message .= 'We will send Confirmation when It is Approved.' . "\r\n\r\n";
+			$message .= 'We will send confirmation when it is approved.' . "\r\n\r\n";
             if ( 'on' == $register_user_mail ) {
 			wp_mail( $userdata->user_email, $subject, $message );
 		    }
@@ -232,7 +232,7 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 			/* translators: %s: user email */
 		    $message_admin .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $userdata->user_email ) . "\r\n";
 			/* translators: %s: user subject */
-		    $subject = esc_html__( 'New User Registration', 'wpfep' );
+		    $subject = esc_html__( 'New user registration', 'wpfep' );
 			/* translators: %s: user email */
             if ( 'on' == $register_admin_mail ) {
 		    wp_mail( get_option( 'admin_email' ), sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message_admin );

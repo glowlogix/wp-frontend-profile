@@ -22,7 +22,7 @@
 			$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
 			if ( $code == $_GET['key'] ) {
 				delete_user_meta( $user_id, 'has_to_be_activated' );
-				echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Congratulations!Your Account has been Activated.', 'wpfep' ) ) . '</div>';
+				echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Congratulations! Your account has been activated.', 'wpfep' ) ) . '</div>';
 			}
 		}
 	}
