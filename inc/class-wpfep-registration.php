@@ -216,7 +216,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				} else {
 					$user_web = '';
 				}
-				
+
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {
 						$this->registration_errors[] = __( 'reCaptcha is required', 'wpfep' );
@@ -254,22 +254,23 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				$userdata['user_pass']   = sanitize_text_field( wp_unslash( $_POST['pwd1'] ) );
 				$userdata['description'] = $desc;
 				$userdata['user_url']    = $user_web;
-	
+
 				if ( get_role( $dec_role ) ) {
 					$userdata['role'] = $dec_role;
 				}
-				$send_link_activation  = wpfep_get_option( 'user_behave', 'wpfep_profile', 'No' );
-				$manually_register = wpfep_get_option( 'admin_can_register_user_manually', 'wpfep_profile', 'on' );
-				$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
+				$send_link_activation         = wpfep_get_option( 'user_behave', 'wpfep_profile', 'No' );
+				$manually_register            = wpfep_get_option( 'admin_can_register_user_manually', 'wpfep_profile', 'on' );
+				$manually_approve_user        = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
 				$autologin_after_registration = wpfep_get_option( 'user_behave', 'wpfep_profile', 'Yes' );
-				$user = wp_insert_user( $userdata );
+				$user                         = wp_insert_user( $userdata );
+				add_user_meta( $user, 'wpfep_user_status', 'approve' );
 				if ( is_wp_error( $user ) ) {
 						$this->registration_errors[] = $user->get_error_message();
 						return;
 				}
 				else {
 
-				if ( current_user_can( 'administrator' ) && 'on' === $manually_register ) {
+					if ( current_user_can( 'administrator' ) && 'on' === $manually_register ) {
 
 						$password = $userdata['user_pass'];
 						add_user_meta( $user, 'wpfep_user_status', 'approve' );
@@ -301,9 +302,9 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 						/* translators: %s: user email */
 						$message .= sprintf( esc_html__( 'E-mail: %s', 'wpfep' ), $user_email ) . "\r\n";
 						/* translators: %s: user pass */
-						$message .= sprintf( esc_html__( 'Password %s', 'wpfep' ), $password ) . "\r\n\r\n\r\n";
-						$message .= 'Thanks' . "\r\n\r\n";
-						$subject  = 'Registration by admin of '.$blogname.'';
+						$message           .= sprintf( esc_html__( 'Password %s', 'wpfep' ), $password ) . "\r\n\r\n\r\n";
+						$message           .= 'Thanks' . "\r\n\r\n";
+						$subject            = 'Registration by admin of ' . $blogname . '';
 						$subject            = apply_filters( 'wpfep_default_reg_mail_subject', $subject );
 						$message            = apply_filters( 'wpfep_default_reg_mail_body', $message );
 						$register_user_mail = wpfep_get_option( 'register_mail', 'wpfep_emails_notification', 'on' );
@@ -311,8 +312,8 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 							/* translators: %1s: user login */
 							wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
 						}
-				} 
-				elseif('Yes'=== $autologin_after_registration  && 'off'=== $manually_register && 'off' === $manually_approve_user) {
+					}
+					elseif ( 'Yes' === $autologin_after_registration && 'off' === $manually_register && 'off' === $manually_approve_user ) {
 
 						$wpfep_user = new WP_User( $user );
 						$user_login = stripslashes( $wpfep_user->user_login );
@@ -346,64 +347,64 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 							/* translators: %1s: user login */
 							wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
 						}
-					
-				}
-				if ( 'No' == $send_link_activation ) {
-                    $wpfep_user = new WPFEP_User( $user );
-					$wpfep_user->wpfep_new_user( $user );
-					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-					$redirect      = get_permalink( $register_page ) . '?success=notactivated';
-					wp_safe_redirect( $redirect );
-					if('off' == $manually_approve_user && 'off'=== $manually_register){
-						exit;
-					}					
-				}
-				if ( 'on' == $manually_approve_user ) {
-					$wpfep_user = new WPFEP_User( $user );
-					$wpfep_user->manually_approve( $user );
-					$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-					$redirect      = get_permalink( $register_page ) . '?success=notapproved';
-					wp_safe_redirect($redirect );
-					exit;
-				}
 
-				$autologin_after_registration = wpfep_get_option( 'user_behave', 'wpfep_profile', 'Yes' );
-
-				if ( 'Yes' === $autologin_after_registration && ! current_user_can( 'administrator' ) ) {
-					wp_clear_auth_cookie();
-					wp_set_current_user( $user );
-					wp_set_auth_cookie( $user );
-				}
-				$redirect_after_registration = wpfep_get_option( 'redirect_after_registration', 'wpfep_profile' );
-				$register_page               = wpfep_get_option( 'register_page', 'wpfep_pages' );
-				if ( is_wp_error( $user ) ) {
-					$this->registration_errors[] = $user->get_error_message();
-					return;
-				} else {
-					if('on'=== $manually_register && current_user_can( 'administrator' )){
+					}
+					if ( 'No' == $send_link_activation ) {
+						$wpfep_user = new WPFEP_User( $user );
+						$wpfep_user->wpfep_new_user( $user );
 						$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-						$redirect      = get_permalink( $register_page ) . '?success=createdmanually';
-						wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
+						$redirect      = get_permalink( $register_page ) . '?success=notactivated';
+						wp_safe_redirect( $redirect );
+						if ( 'off' === $manually_approve_user && 'off' === $manually_register ) {
+							exit;
+						}
+					}
+					if ( 'on' == $manually_approve_user ) {
+						$wpfep_user = new WPFEP_User( $user );
+						$wpfep_user->manually_approve( $user );
+						$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+						$redirect      = get_permalink( $register_page ) . '?success=notapproved';
+						wp_safe_redirect( $redirect );
 						exit;
 					}
-                    elseif('Yes' === $autologin_after_registration){ 
-					if ( 'Yes' === $autologin_after_registration && '' === $redirect_after_registration ) {
-						$redirect = home_url();
-					} elseif ( '' !== $redirect_after_registration ) {
-						$redirect = get_permalink( $redirect_after_registration );
-					} else {
-						
-						$redirect = get_permalink( $register_page ) . '?success=yes';
-						add_user_meta( $user, 'wpfep_user_status', 'approve' );
-					}
 
-					wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
-					exit;
+					$autologin_after_registration = wpfep_get_option( 'user_behave', 'wpfep_profile', 'Yes' );
+
+					if ( 'Yes' === $autologin_after_registration && ! current_user_can( 'administrator' ) ) {
+						wp_clear_auth_cookie();
+						wp_set_current_user( $user );
+						wp_set_auth_cookie( $user );
+					}
+					$redirect_after_registration = wpfep_get_option( 'redirect_after_registration', 'wpfep_profile' );
+					$register_page               = wpfep_get_option( 'register_page', 'wpfep_pages' );
+					if ( is_wp_error( $user ) ) {
+						$this->registration_errors[] = $user->get_error_message();
+						return;
+					} else {
+						if ( 'on' === $manually_register && current_user_can( 'administrator' ) ) {
+							$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+							$redirect      = get_permalink( $register_page ) . '?success=createdmanually';
+							wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
+							exit;
+						}
+						elseif ( 'Yes' === $autologin_after_registration ) {
+							if ( 'Yes' === $autologin_after_registration && '' === $redirect_after_registration ) {
+								$redirect = home_url();
+							} elseif ( '' !== $redirect_after_registration ) {
+								$redirect = get_permalink( $redirect_after_registration );
+							} else {
+
+								$redirect = get_permalink( $register_page ) . '?success=yes';
+								add_user_meta( $user, 'wpfep_user_status', 'approve' );
+							}
+
+							wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
+							exit;
+						}
+					}
 				}
-			}
 			}
 		}
-		}	
 
 		/**
 		 * Show errors on the form

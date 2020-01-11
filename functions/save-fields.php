@@ -28,7 +28,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 	 * Remove the following array elements from the data
 	 * password
 	 * nonce name
-	 * wp refere - sent with nonce
+	 * wp refer - sent with nonce
 	 */
 	unset( $tabs_data['password'] );
 	unset( $tabs_data['wpfep_nonce_name'] );
@@ -78,7 +78,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 		 */
 		foreach ( $tab_data as $key => $value ) {
 
-			/* if the key is the save sumbit - move to next in array */
+			/* if the key is the save submit - move to next in array */
 			if ( 'wpfep_save' == $key || 'wpfep_nonce_action' == $key ) {
 				continue;
 			}
@@ -137,7 +137,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 
 				$meta = update_user_meta( $user_id, $key, $value );
 
-				/* check the update was succesfull */
+				/* check the update was successful */
 				if ( false == $meta ) {
 
 					/* update failed */
@@ -187,7 +187,7 @@ function wpfep_save_fields( $tabs, $user_id ) {
 
 		?>
 		<div class="messages"><p class="updated"><?php esc_html_e( 'Yours profile was updated successfully!', 'wpfep' ); ?></p></div>
-	
+
 		<?php
 
 	}
@@ -248,7 +248,7 @@ function wpfep_save_password( $tabs, $user_id ) {
 		/* check the password match the correct length */
 		if ( $pass_length < apply_filters( 'wpfep_password_length', 12 ) ) {
 
-			/* translators: %s: password lenght term */
+			/* translators: %s: password length term */
 			$messages['password_length'] = '<p class="error">' . sprintf( __( 'Please make sure your password is a minimum of %s characters long.', 'wpfep' ), apply_filters( 'wpfep_password_length', 12 ) ) . '</p>';
 
 		}

@@ -7,7 +7,7 @@
 
 /**
  * Function wpfep_register_scripts()
- * register the plugins scripts ready for enqueing
+ * register the plugins scripts ready for enqueuing
  */
 function wpfep_register_scripts() {
 

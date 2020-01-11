@@ -55,11 +55,11 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 					<p>
 						<strong><?php esc_attr_e( 'Congratulations!', 'wpfep' ); ?></strong> 
 						<?php
-						$page_succes = 'Pages for 
+						$page_success = 'Pages for 
 <strong>WP Frontend Profile</strong> has been successfully installed and saved!';
 
 						echo wp_kses(
-							$page_succes,
+							$page_success,
 							array(
 								'p'      => array(),
 								'strong' => array(),
@@ -99,7 +99,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 		 */
 		public function init_pages() {
 
-			// create a Registor page.
+			// create a Register page.
 			$register_page = $this->create_page( __( 'Register', 'wpfep' ), '[wpfep-register]' );
 			// edit Account.
 			$edit_page = $this->create_page( __( 'Profile Edit', 'wpfep' ), '[wpfep]' );

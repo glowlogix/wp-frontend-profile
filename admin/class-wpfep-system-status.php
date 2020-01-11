@@ -601,7 +601,7 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 							<?php
 								echo esc_html( $theme['parent_version'] );
 							if ( version_compare( $theme['parent_version'], $theme['parent_latest_verison'], '<' ) ) {
-								/* translators: %s: parant theme latest version */
+								/* translators: %s: parent theme latest version */
 								echo ' &ndash; <strong style="color:red;">' . sprintf( esc_attr__( '%s is available', 'wpfep' ), esc_html( $theme['parent_latest_verison'] ) ) . '</strong>';
 							}
 							?>

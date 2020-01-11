@@ -16,7 +16,7 @@
 	if ( isset( $_GET['success'] ) && 'createdmanually' === $_GET['success'] ) {
 		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually', 'wpfep' ) ) . '</div>';
 	}
-    if ( isset( $_GET['success'] ) && 'notapproved' === $_GET['success'] ) {
+	if ( isset( $_GET['success'] ) && 'notapproved' === $_GET['success'] ) {
 		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'created' === $_GET['success'] ) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * If you would like to edit this file, copy it to your current theme's directory and edit it there.
- *wpfep will always look in your theme's directory first, before using this default template.
+ * wpfep will always look in your theme's directory first, before using this default template.
  *
  * @package WP Frontend Profile
  */
@@ -26,7 +26,7 @@
 			}
 		}
 	}
-	  $login_obj = WPFEP_Login::init();
+	$login_obj = WPFEP_Login::init();
 	?>
 
 	<?php

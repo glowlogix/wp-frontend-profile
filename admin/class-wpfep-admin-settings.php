@@ -76,7 +76,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 				$user_roles[ $key ] = $value['name'];
 			}
 
-			$radio_options = array("Yes" => "Auto login after registration", "No" => "Send account activation email to registered users"  );
+			$radio_options   = array('Yes' => 'Auto login after registration', 'No' => 'Send account activation email to registered users'  );
 			$settings_fields = array(
 				'wpfep_profile'             => apply_filters(
 					'wpfep_options_profile',
@@ -89,12 +89,12 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 							'options' => $radio_options,
 						),
 						// array(
-						// 	'name'    => 'send_user_activation_link',
-						// 	'label'   => __( 'Send Activation Link to New User', 'wpfep' ),
-						// 	'desc'    => __( 'If enabled, users after registration will get confirmaton link in email', 'wpfep' ),
-						// 	'type'    => 'radio',
-						// 	'default' => 'off',
-						// ),
+						// 'name'    => 'send_user_activation_link',
+						// 'label'   => __( 'Send Activation Link to New User', 'wpfep' ),
+						// 'desc'    => __( 'If enabled, users after registration will get confirmation link in email', 'wpfep' ),
+						// 'type'    => 'radio',
+						// 'default' => 'off',
+						// ),.
 						array(
 							'name'    => 'admin_can_register_user_manually',
 							'label'   => __( 'Admin can register user manually', 'wpfep' ),
@@ -400,7 +400,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		 * Clear all plugin settings
 		 */
 		public function clear_settings() {
-			if (isset( $_GET['wpfep_delete_settings'] ) && '1' === $_GET['wpfep_delete_settings'] ) {
+			if ( isset( $_GET['wpfep_delete_settings'] ) && '1' === $_GET['wpfep_delete_settings'] ) {
 				// Delete Pages.
 				$wpfep_options = get_option( 'wpfep_profile' );
 				wp_delete_post( $wpfep_options['login_page'], false );
@@ -415,7 +415,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 				delete_option( 'wpfep_uninstall' );
 			}
 		}
-		
+
 	}
 
 endif;

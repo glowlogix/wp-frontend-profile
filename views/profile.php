@@ -52,7 +52,7 @@
 
 			</div>
 			<?php } ?>
-		   <a class="btn" href="<?php echo esc_html( get_edit_profile_page() ); ?>"><?php esc_attr_e( 'Edit Profile', 'wpfep' ); ?></a>
+			<a class="btn" href="<?php echo esc_html( get_edit_profile_page() ); ?>"><?php esc_attr_e( 'Edit Profile', 'wpfep' ); ?></a>
 			<div class="wpfep_end_profile"></div>
 		</div>
 	</div>
@@ -101,7 +101,7 @@
 				}
 				/* Restore original Post Data */
 				wp_reset_postdata();
-				 do_action( 'wpfep_profile_pagination', $the_query->max_num_pages );
+				do_action( 'wpfep_profile_pagination', $the_query->max_num_pages );
 			} else {
 				// no posts found.
 				echo '<p>' . esc_attr_e( 'Post not Found', 'wpfep' ) . '</p>';

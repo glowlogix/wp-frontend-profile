@@ -22,6 +22,7 @@ if ( isset( $_GET['success'] ) && 'notactivated' == $_GET['success'] ) {
 if ( isset( $_GET['success'] ) && 'notapproved' == $_GET['success'] ) {
 	echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has been successful!. Please wait for admin approval.', 'wpfep' ) ) . '</div>';
 }
+   
 	$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
 	$action_url    = get_permalink( $register_page );
 	$register_obj  = WPFEP_Registration::init();
