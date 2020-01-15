@@ -17,7 +17,7 @@ if ( isset( $_GET['success'] ) && 'yes' == $_GET['success'] ) {
 	echo "<div class='wpfep-success'>" . esc_html( 'Registration has been successful!', 'wpfep' ) . '</div>';
 }
 if ( isset( $_GET['success'] ) && 'notactivated' == $_GET['success'] ) {
-	echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has been successful!.Please activate your account from e-mail.', 'wpfep' ) ) . '</div>';
+	echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has been successful! Please activate your account from e-mail.', 'wpfep' ) ) . '</div>';
 }
 if ( isset( $_GET['success'] ) && 'notapproved' == $_GET['success'] ) {
 	echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has been successful!. Please wait for admin approval.', 'wpfep' ) ) . '</div>';
