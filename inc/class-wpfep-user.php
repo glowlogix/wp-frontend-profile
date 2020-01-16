@@ -206,8 +206,6 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 		 */
 		public function manually_approve( $user ) {
 
-			add_user_meta( $user, 'wpfep_user_status', 'pending' );
-
 			$userdata = get_userdata( $user );
 
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
