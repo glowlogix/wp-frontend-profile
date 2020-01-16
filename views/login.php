@@ -26,6 +26,7 @@
 		}
 	}
 	$login_obj = WPFEP_Login::init();
+	$register_obj  = WPFEP_Registration::init();
 	?>
 
 	<?php
@@ -37,7 +38,7 @@
 	<form name="loginform" class="wpfep-login-form" id="loginform" action="<?php echo esc_html( $action_url ); ?>" method="post">
 		<p>
 			<label for="wpfep-user_login"><?php esc_attr_e( 'Username or Email', 'wpfep' ); ?></label>
-			<input type="text" name="log" id="wpfep-user_login" class="input" value="" size="20" />
+			<input type="text" name="log" id="wpfep-user_login" class="input" value="<?php echo esc_html( $register_obj->get_post_value( 'log' ) ); ?>" size="20" />
 		</p>
 		<p>
 			<label for="wpfep-user_pass"><?php esc_attr_e( 'Password', 'wpfep' ); ?></label>

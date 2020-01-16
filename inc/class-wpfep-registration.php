@@ -353,8 +353,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 						$wpfep_user = new WPFEP_User( $user );
 						$wpfep_user->wpfep_new_user( $user );
 						$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-						$redirect      = get_permalink( $register_page ) . '?success=notactivated';
-						wp_safe_redirect( $redirect );
+						wp_safe_redirect( add_query_arg( array( 'success' => 'notactivated' ), get_permalink( $register_page ) ) );
 						if ( 'off' === $manually_approve_user && 'off' === $manually_register ) {
 							exit;
 						}
@@ -371,8 +370,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 						$wpfep_user = new WPFEP_User( $user );
 						$wpfep_user->manually_approve( $user );
 						$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-						$redirect      = get_permalink( $register_page ) . '?success=notapproved';
-						wp_safe_redirect( $redirect );
+						wp_safe_redirect( add_query_arg( array( 'success' => 'notapproved' ), get_permalink( $register_page ) ) );
 						exit;
 					}
 
@@ -391,7 +389,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 					} else {
 						if ( 'on' === $manually_register && current_user_can( 'administrator' ) ) {
 							$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-							$redirect      = get_permalink( $register_page ) . '?success=createdmanually';
+							$redirect      = add_query_arg( array( 'success' => 'createdmanually' ), get_permalink( $register_page ) );
 							wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );
 							exit;
 						}
@@ -402,8 +400,8 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 								$redirect = get_permalink( $redirect_after_registration );
 							} else {
 
-								$redirect = get_permalink( $register_page ) . '?success=yes';
-								add_user_meta( $user, 'wpfep_user_status', 'pending' );
+								$redirect = add_query_arg( array( 'success' => 'yes' ), get_permalink( $register_page ) );
+								add_user_meta( $user, 'wpfep_user_status', 'approve' );
 							}
 
 							wp_safe_redirect( apply_filters( 'wpfep_registration_redirect', $redirect, $user ) );

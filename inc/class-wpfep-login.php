@@ -303,8 +303,9 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				else {
 					$user      = get_user_by( 'login', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
 				}
+				$user_behave = wpfep_get_option( 'user_behave', 'wpfep_profile' );
 				$user_meta = get_user_meta( $user->ID, 'wpfep_user_status', true );
-					if ( get_user_meta( $user->ID, 'has_to_be_activated', true ) == false ) {
+					if ( ('activate_mail'== $user_behave ) && ( get_user_meta( $user->ID, 'has_to_be_activated', true ) == false ) ) {
 
 						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not activated yet.', 'wpfep' );
 						return;

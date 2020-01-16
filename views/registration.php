@@ -26,7 +26,6 @@ if ( isset( $_GET['success'] ) && 'notapproved' == $_GET['success'] ) {
 	$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
 	$action_url    = get_permalink( $register_page );
 	$register_obj  = WPFEP_Registration::init();
-	$login_obj     = WPFEP_Login::init();
 ?>
 
 	<?php echo esc_html( $register_obj->show_errors() ); ?>
