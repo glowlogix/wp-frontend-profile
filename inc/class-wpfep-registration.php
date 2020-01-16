@@ -216,6 +216,12 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				} else {
 					$user_web = '';
 				}
+				if ( isset( $_POST['role'] ) == sanitize_text_field( wp_unslash( $_POST['role'] ) ) ) {
+				    $user_role = sanitize_text_field( wp_unslash( $_POST['role'] ) );
+
+				} else {
+					$user_role = '';
+				}
 
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {
@@ -254,6 +260,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				$userdata['user_pass']   = sanitize_text_field( wp_unslash( $_POST['pwd1'] ) );
 				$userdata['description'] = $desc;
 				$userdata['user_url']    = $user_web;
+				$userdata['role']        = $user_role;
 
 				if ( get_role( $dec_role ) ) {
 					$userdata['role'] = $dec_role;

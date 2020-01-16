@@ -42,3 +42,26 @@ jQuery( document ).ready(
 		jQuery(".wpfep-form-profile input#user_email").prop('required',true);		
 	}
 );
+      jQuery(document).ready(function(){
+   jQuery("select").hide();
+  jQuery("#custom-role").click(function(){
+    jQuery("select").toggle();
+  });
+});
+jQuery(document).ready(function(){
+    jQuery('.check').click(function() {
+        jQuery('.check').not(this).prop('checked', false);
+    });
+     jQuery('.wpfep-showform-default').click(function() {
+       jQuery("#wpfep-default").show();
+    	 jQuery("#custom").hide();
+    	 jQuery(".wpfep-showform-default").prop("checked", true);
+    	 jQuery(".wpfep-showform-custom").prop("checked", false);
+    });
+      jQuery('.wpfep-showform-custom').click(function() {
+      jQuery("#custom").show();
+    	 jQuery("#wpfep-default").hide();
+    	 jQuery(".wpfep-showform-custom").prop("checked", true);
+    	 jQuery(".wpfep-showform-default").prop("checked", false);
+    });
+});

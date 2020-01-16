@@ -11,13 +11,13 @@
 		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered.', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'notactivated' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually.Activation email has been sent to user successfully', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually. Activation email has been sent to user successfully.', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'createdmanually' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually.', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'notapproved' === $_GET['success'] ) {
-		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually', 'wpfep' ) ) . '</div>';
+		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'User has been successfully registered manually.', 'wpfep' ) ) . '</div>';
 	}
 	if ( isset( $_GET['success'] ) && 'created' === $_GET['success'] ) {
 		echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has done successfully', 'wpfep' ) ) . '</div>';
@@ -80,7 +80,48 @@
 				</label>
 				<input type="text" name="wpfep-website" id="wpfep-user_website" class="input" value="<?php echo esc_html( $register_obj->get_post_value( 'wpfep-website' ) ); ?>"  />
 			</li>
-			
+			<li class="wpfep-form-field wpfep-default-user-role">
+			<label for="wpfep-default-role" class="wpfep-showform-default">
+			<input type="radio" class="wpfep-showform-default" value="Default role" name="showform" onchange="showhideForm(this.value);" checked="" />Default role</label>
+			<?php
+		
+			$roles_obj = new WP_Roles();
+			$roles_names_array = $roles_obj->get_names();
+
+    		echo '<select name="role" id="wpfep-custom" class="input" style="display:none">';
+    		foreach ($roles_names_array as $key => $value):
+
+        	if (in_array( $key, array( 'subscriber') ) )
+            echo '<option value="' . $key . '">' . $value . '</option>';
+    		endforeach;
+    		echo '</select>';
+      
+
+ 			?>
+ 			<label for="wpfep-custom-role"  class="wpfep-showform-custom">
+			<input type="radio" class="wpfep-showform-custom" value="Custom role" name="showform" onchange="showhideForm(this.value);" class="wpfep-role-right"/>Custom role</label>
+			</form>
+			<div id="wpfep-default">
+
+			</div>
+
+			<?php
+		
+			$roles_obj = new WP_Roles();
+			$roles_names_array = $roles_obj->get_names();
+
+    		echo '<select name="role" id="custom" class="input" style="display:none">';
+    		echo '<option value="" disabled selected>Select user role</option>';
+    		foreach ($roles_names_array as $key => $value):
+
+        	if ( in_array( $key, array( 'editor', 'author','contributor') ) )
+            echo '<option value="' . $key . '">' . $value . '</option>';
+    		endforeach;
+    		echo '</select>';
+      
+
+  			?>
+			</li>
 			<li class="wpfep-form-field wpfep-default-user-bio">
 				<label for="wpfep-description"><?php esc_attr_e( 'Biographical Info', 'wpfep' ); ?>
 				</label>
