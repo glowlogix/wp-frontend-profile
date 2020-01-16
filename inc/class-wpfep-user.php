@@ -163,7 +163,7 @@ if ( ! class_exists( 'WPFEP_User' ) ) :
 					get_permalink( $register_page )
 				);
 
-				add_user_meta( $user, 'has_to_be_activated', $code, true );
+				update_user_meta( $user, 'has_to_be_activated', $code, true );
 				/* translators: %s: user email */
 				$message = sprintf( __( 'Congrats! You are Successfully registered to: %s' ), $blogname ) . '<br><br>';
 

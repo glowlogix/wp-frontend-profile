@@ -76,7 +76,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 				$user_roles[ $key ] = $value['name'];
 			}
 
-			$radio_options   = array('Yes' => 'Auto login after registration', 'No' => 'Send account activation email to registered users'  );
+			$radio_options   = array('none'=>'--select--','auto_login' => 'Auto login after registration', 'activate_mail' => 'Send account activation email to registered users'  );
 			$settings_fields = array(
 				'wpfep_profile'             => apply_filters(
 					'wpfep_options_profile',
@@ -84,17 +84,10 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 						array(
 							'name'    => 'user_behave',
 							'label'   => __( 'New user behaviour on registration ', 'wpfep' ),
-							// 'desc'    => __( 'If enabled, users after registration will be logged in to the system', 'wpfep' ),
 							'type'    => 'select',
 							'options' => $radio_options,
 						),
-						// array(
-						// 'name'    => 'send_user_activation_link',
-						// 'label'   => __( 'Send Activation Link to New User', 'wpfep' ),
-						// 'desc'    => __( 'If enabled, users after registration will get confirmation link in email', 'wpfep' ),
-						// 'type'    => 'radio',
-						// 'default' => 'off',
-						// ),.
+						
 						array(
 							'name'    => 'admin_can_register_user_manually',
 							'label'   => __( 'Admin can register user manually', 'wpfep' ),
