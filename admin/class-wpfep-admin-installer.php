@@ -5,8 +5,7 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 	/**
@@ -44,7 +43,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 					<p class="submit">
 						<a class="button button-primary" href="<?php echo esc_url( add_query_arg( array( 'install_wpfep_pages' => true ), admin_url( 'admin.php?page=wpfep-settings' ) ) ); ?>"><?php esc_attr_e( 'Create Pages', 'wpfep' ); ?></a>
 						<?php esc_attr_e( 'or', 'wpfep' ); ?>
-						<a class="button" href="<?php echo esc_url( add_query_arg( array( 'wpfep_hide_page_nag' => true ) ) ); ?>"><?php esc_attr_e( 'Skip Setup', 'wpfep' ); ?></a>				
+						<a class="button" href="<?php echo esc_url( add_query_arg( array( 'wpfep_hide_page_nag' => true ) ) ); ?>"><?php esc_attr_e( 'Skip Setup', 'wpfep' ); ?></a>
 					</p>
 				</div>
 				<?php
@@ -53,9 +52,9 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 				?>
 				<div class="updated wpfep_updated">
 					<p>
-						<strong><?php esc_attr_e( 'Congratulations!', 'wpfep' ); ?></strong> 
+						<strong><?php esc_attr_e( 'Congratulations!', 'wpfep' ); ?></strong>
 						<?php
-						$page_succes = 'Pages for 
+						$page_succes = 'Pages for
 <strong>WP Frontend Profile</strong> has been successfully installed and saved!';
 
 						echo wp_kses(

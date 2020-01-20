@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="wpfep-user-loggedin">
 	<?php

@@ -5,12 +5,11 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
+defined( 'ABSPATH' ) || exit;
 
-	/**
-	 * Captcha Recaptcha class
-	 */
+/**
+ * Captcha Recaptcha class
+ */
 if ( ! class_exists( 'WPFEP_Captcha_Recaptcha' ) ) :
 	/**
 	 * Captcha Recaptcha class

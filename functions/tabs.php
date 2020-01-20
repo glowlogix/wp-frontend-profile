@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Function wpfep_add_profile_tab
  * adds the profile tab to the profile output

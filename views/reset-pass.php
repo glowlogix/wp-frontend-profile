@@ -6,6 +6,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="login" id="wpfep-login-form">
 

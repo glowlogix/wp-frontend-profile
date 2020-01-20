@@ -5,8 +5,8 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WPFEP_Admin_Help' ) ) :
 	/**
 	 * WPFEP_Admin_Help Class.

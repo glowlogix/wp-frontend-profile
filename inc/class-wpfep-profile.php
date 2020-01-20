@@ -5,11 +5,11 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
-	/**
-	 * User Profile handler class
-	 */
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * User Profile handler class
+ */
 if ( ! class_exists( 'WPFEP_Profile' ) ) :
 	/**
 	 * User Profile handler class

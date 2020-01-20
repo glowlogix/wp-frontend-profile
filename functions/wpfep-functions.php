@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Function wpfep_tab_list_item()
  * generates the list item for a tab heading (the actual tab!)
@@ -805,7 +807,7 @@ function wpfep_show_profile() {
 			 */
 			do_action( 'wpfep_before_tab_content', $wpfep_tab['id'], get_current_user_id() );
 			?>
-							
+
 			<div class="tab-content<?php echo esc_attr( $content_class ); ?>" id="<?php echo esc_attr( $wpfep_tab['id'] ); ?>">
 				<form method="post" action="<?php echo esc_attr( get_edit_profile_page() ) . '#' . esc_attr( $wpfep_tab['id'] ); ?>" class="wpfep-form-<?php echo esc_attr( $wpfep_tab['id'] ); ?>">
 					<?php
@@ -818,7 +820,7 @@ function wpfep_show_profile() {
 						wpfep_default_tab_content( $wpfep_tab );
 					}
 					?>
-																
+
 					<?php
 						wp_nonce_field(
 							'wpfep_nonce_action',
