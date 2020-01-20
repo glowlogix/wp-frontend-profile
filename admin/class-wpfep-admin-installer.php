@@ -52,13 +52,13 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 				?>
 				<div class="updated wpfep_updated">
 					<p>
-						<strong><?php esc_attr_e( 'Congratulations!', 'wpfep' ); ?></strong>
+						<strong><?php esc_attr_e( 'Congratulations!', 'wpfep' ); ?></strong> 
 						<?php
-						$page_succes = 'Pages for
+						$page_success = 'Pages for 
 <strong>WP Frontend Profile</strong> has been successfully installed and saved!';
 
 						echo wp_kses(
-							$page_succes,
+							$page_success,
 							array(
 								'p'      => array(),
 								'strong' => array(),
@@ -97,8 +97,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 		 * @return void
 		 */
 		public function init_pages() {
-
-			// create a Registor page.
+			// create a Register page.
 			$register_page = $this->create_page( __( 'Register', 'wpfep' ), '[wpfep-register]' );
 			// edit Account.
 			$edit_page = $this->create_page( __( 'Profile Edit', 'wpfep' ), '[wpfep]' );
@@ -190,7 +189,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 		 * @return mixed
 		 */
 		public function add_post_states( $post_states, $post ) {
-			$wpfep_options = get_option( 'wpfep_profile' );
+			$wpfep_options = get_option( 'wpfep_pages' );
 
 			if ( ! empty( $wpfep_options['login_page'] ) && $wpfep_options['login_page'] === $post->ID ) {
 				$post_states[] = __( 'WPFP Login Page', 'wpfep' );
@@ -200,7 +199,7 @@ if ( ! class_exists( 'WPFEP_Admin_Installer' ) ) :
 				$post_states[] = __( 'WPFP Register Page', 'wpfep' );
 			}
 
-			if ( ! empty( $wpfep_options['edit_page'] ) && $wpfep_options['edit_page'] === $post->ID ) {
+			if ( ! empty( $wpfep_options['profile_edit_page'] ) && $wpfep_options['profile_edit_page'] === $post->ID ) {
 				$post_states[] = __( 'WPFP Profile Edit Page', 'wpfep' );
 			}
 

@@ -33,5 +33,4 @@ function wpfep_register_scripts() {
 	}
 
 }
-
 add_action( 'wp_enqueue_scripts', 'wpfep_register_scripts' );

@@ -7,7 +7,6 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
 ?>
 <div class="login" id="wpfep-login-form">
 
@@ -31,6 +30,4 @@ defined( 'ABSPATH' ) || exit;
 			<?php wp_nonce_field( 'wpfep_lost_pass' ); ?>
 		</p>
 	</form>
-
-	<?php // echo WPFEP_Login::init()->get_action_links( array( 'lostpassword' => false ) );. ?>
 </div>

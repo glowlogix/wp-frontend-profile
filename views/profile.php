@@ -5,27 +5,25 @@
  *
  * @package WP Frontend Profile
  */
-
 defined( 'ABSPATH' ) || exit;
 
-	$user_id = get_current_user_id();
-	$user    = get_userdata( $user_id );
-	$args    = array(
-		'post_type' => 'post',
-		'author'    => $user_id,
-	);
+$user_id = get_current_user_id();
+$user    = get_userdata( $user_id );
+$args    = array(
+    'post_type' => 'post',
+    'author'    => $user_id,
+);
 
-
-	$current_user_posts = get_posts( $args );
-	$total              = count( $current_user_posts );?>
-	<?php
-	if ( ! is_user_logged_in() ) {
-		echo "<div class='wpfep-login-alert'>";
-		printf( esc_attr( 'This page is restricted. Please %s to view this page.', 'wpfep' ), wp_loginout( '', false ) );
-		echo '</div>';
-		return;
-	}
-	?>
+$current_user_posts = get_posts( $args );
+$total              = count( $current_user_posts );?>
+<?php
+if ( ! is_user_logged_in() ) {
+    echo "<div class='wpfep-login-alert'>";
+    printf( esc_attr( 'This page is restricted. Please %s to view this page.', 'wpfep' ), wp_loginout( '', false ) );
+    echo '</div>';
+    return;
+}
+?>
 <div class="wpfep_row">
 	<div class="wpfep-profile-sidebar wpfep-columns wpfep-small-12 wpfep-lg-3">
 		<?php
@@ -54,7 +52,7 @@ defined( 'ABSPATH' ) || exit;
 
 			</div>
 			<?php } ?>
-		   <a class="btn" href="<?php echo esc_html( get_edit_profile_page() ); ?>"><?php esc_attr_e( 'Edit Profile', 'wpfep' ); ?></a>
+			<a class="btn" href="<?php echo esc_html( get_edit_profile_page() ); ?>"><?php esc_attr_e( 'Edit Profile', 'wpfep' ); ?></a>
 			<div class="wpfep_end_profile"></div>
 		</div>
 	</div>
@@ -71,31 +69,27 @@ defined( 'ABSPATH' ) || exit;
 			);
 
 			// The Query.
-			$the_query = new WP_Query( $args );
-			echo '<ul class="wpfep-profile-item-ul">';
-			echo '<h4>' . esc_html( 'My Posts', 'wpfep' ) . '</h4>';
-				// The Loop.
+			$the_query = new WP_Query( $args ); ?>
+			<ul class="wpfep-profile-item-ul">
+			<h4><?php esc_html( 'My Posts', 'wpfep' ); ?></h4>
+            <?php // The Loop.
 			if ( $the_query->have_posts() ) {
-
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
 					?>
 						<li class="wpfep-profile-item-li wpfep-profile-item-clearfix">
-
 							<div>
 								<h5 class="wpfep-profile-item-title">
 									<a href="<?php echo esc_html( get_the_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
 								</h5>
 								<time class="wpfep-profile-item-time published" datetime="<?php echo esc_html( get_the_time( 'c' ) ); ?>">
-								<?php echo get_the_date(); ?>
+								    <?php echo get_the_date(); ?>
 								</time>
-								<div class="wpfep-profile-item-summary">
-								<?php
-
-								$excerpt = strip_shortcodes( wp_trim_words( get_the_excerpt(), 15, '...' ) );
-								echo '<p>' . esc_html( $excerpt ); '</p>'
-
-								?>
+                                <div class="wpfep-profile-item-summary">
+                                    <?php
+                                    $excerpt = strip_shortcodes( wp_trim_words( get_the_excerpt(), 15, '...' ) );
+                                    ?>
+                                    <p><?php esc_html( $excerpt ); ?></p>
 								</div>
 							</div>
 						</li>
@@ -103,12 +97,12 @@ defined( 'ABSPATH' ) || exit;
 				}
 				/* Restore original Post Data */
 				wp_reset_postdata();
-				 do_action( 'wpfep_profile_pagination', $the_query->max_num_pages );
+				do_action( 'wpfep_profile_pagination', $the_query->max_num_pages );
 			} else {
 				// no posts found.
 				echo '<p>' . esc_attr_e( 'Post not Found', 'wpfep' ) . '</p>';
 			}
-			echo '</ul>';
 			?>
+        </ul>
 	</div>
 </div>

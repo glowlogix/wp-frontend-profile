@@ -410,12 +410,10 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 						<td><?php esc_attr_e( 'Total Database Size', 'wpfep' ); ?></td>
 						<td><?php printf( '%.2fMB', esc_html( $database['database_size']['data'] ) + esc_html( $database['database_size']['index'] ) ); ?></td>
 					</tr>
-
 					<tr>
 						<td><?php esc_attr_e( 'Database Data Size', 'wpfep' ); ?></td>
 						<td><?php printf( '%.2fMB', esc_html( $database['database_size']['data'] ) ); ?></td>
 					</tr>
-
 					<tr>
 						<td><?php esc_attr_e( 'Database Index Size', 'wpfep' ); ?></td>
 						<td><?php printf( '%.2fMB', esc_html( $database['database_size']['index'] ) ); ?></td>
@@ -599,7 +597,7 @@ if ( ! class_exists( 'Wpfep_System_Status' ) ) :
 							<?php
 								echo esc_html( $theme['parent_version'] );
 							if ( version_compare( $theme['parent_version'], $theme['parent_latest_verison'], '<' ) ) {
-								/* translators: %s: parant theme latest version */
+								/* translators: %s: parent theme latest version */
 								echo ' &ndash; <strong style="color:red;">' . sprintf( esc_attr__( '%s is available', 'wpfep' ), esc_html( $theme['parent_latest_verison'] ) ) . '</strong>';
 							}
 							?>

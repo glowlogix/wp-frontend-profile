@@ -98,23 +98,22 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			switch ( $action ) {
 				case 'resetpass':
 					return add_query_arg( array( 'action' => 'resetpass' ), $root_url );
-				   break;
+					break;
 
 				case 'lostpassword':
 					return add_query_arg( array( 'action' => 'lostpassword' ), $root_url );
-				   break;
+					break;
 
 				case 'logout':
 					return wp_nonce_url( add_query_arg( array( 'action' => 'logout' ), $root_url ), 'log-out' );
-				   break;
+					break;
 
 				default:
 					if ( empty( $redirect_to ) ) {
 						return $root_url;
 					}
-
 					return add_query_arg( array( 'redirect_to' => urlencode( $redirect_to ) ), $root_url );
-				   break;
+					break;
 			}
 		}
 
@@ -206,63 +205,61 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				);
 
 			} else {
-
 				$action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : 'login';
+				$args = array(
+					'action_url' => $login_page,
+				);
 
-				 $args = array(
-					 'action_url' => $login_page,
-				 );
+				switch ( $action ) {
+					case 'lostpassword':
+						$this->messages[] = __( 'Please enter your username or email address. You will receive a link to create a new password via email.', 'wpfep' );
 
-				 switch ( $action ) {
-					 case 'lostpassword':
-						 $this->messages[] = __( 'Please enter your username or email address. You will receive a link to create a new password via email.', 'wpfep' );
+						wpfep_load_template( 'lost-pass.php', $args );
+						break;
 
-						 wpfep_load_template( 'lost-pass.php', $args );
-						 break;
+					case 'rp':
+					case 'resetpass':
+						if ( 'true' == isset( $_GET['reset'] ) && sanitize_text_field( wp_unslash( $_GET['reset'] ) ) ) {
 
-					 case 'rp':
-					 case 'resetpass':
-						 if ( 'true' == isset( $_GET['reset'] ) && sanitize_text_field( wp_unslash( $_GET['reset'] ) ) ) {
+							printf( '<div class="wpfep-message">' . esc_html__( 'Your password has been reset.', 'wpfep' ) . '</div>' );
+							wpfep_load_template( 'login.php', $args );
+							return;
+						} else {
 
-							 printf( '<div class="wpfep-message">' . esc_html__( 'Your password has been reset.', 'wpfep' ) . '</div>' );
-							 wpfep_load_template( 'login.php', $args );
-							 return;
-						 } else {
+							$this->messages[] = __( 'Enter your new password below..', 'wpfep' );
 
-							 $this->messages[] = __( 'Enter your new password below..', 'wpfep' );
+							wpfep_load_template( 'reset-pass.php', $args );
+						}
 
-							 wpfep_load_template( 'reset-pass.php', $args );
-						 }
+						break;
 
-						 break;
+					default:
+						if ( 'confirm' == isset( $_GET['checkemail'] ) && sanitize_text_field( wp_unslash( $_GET['checkemail'] ) ) ) {
+							$this->messages[] = __( 'Check your e-mail for the confirmation link.', 'wpfep' );
+						}
 
-					 default:
-						 if ( 'confirm' == isset( $_GET['checkemail'] ) && sanitize_text_field( wp_unslash( $_GET['checkemail'] ) ) ) {
-							 $this->messages[] = __( 'Check your e-mail for the confirmation link.', 'wpfep' );
-						 }
+						if ( 'true' == isset( $_GET['loggedout'] ) && sanitize_text_field( wp_unslash( $_GET['loggedout'] ) ) ) {
+							$this->messages[] = __( 'You are now logged out.', 'wpfep' );
+						}
 
-						 if ( 'true' == isset( $_GET['loggedout'] ) && sanitize_text_field( wp_unslash( $_GET['loggedout'] ) ) ) {
-							 $this->messages[] = __( 'You are now logged out.', 'wpfep' );
-						 }
+						wpfep_load_template( 'login.php', $args );
 
-						 wpfep_load_template( 'login.php', $args );
-
-						 break;
-				 }
+						break;
+				}
 			}
 
-			 return ob_get_clean();
+			return ob_get_clean();
 		}
 
-		 /**
-		  * Process login form
-		  *
-		  * @return void
-		  */
+		/**
+		 * Process login form
+		 *
+		 * @return void
+		 */
 		public function process_login() {
 			if ( ! empty( $_POST['wpfep_login'] ) && ! empty( $_POST['_wpnonce'] ) ) {
 				$creds = array();
-
+				$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile');
 				if ( isset( $_POST['_wpnonce'] ) ) {
 					wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'wpfep_login_action' );
 				}
@@ -296,19 +293,31 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 						WPFEP_Captcha_Recaptcha::captcha_verification();
 					}
 				}
-
+				$user = '';
 				if ( is_email( sanitize_text_field( wp_unslash( $_POST['log'] ) ) ) && apply_filters( 'wpfep_get_username_from_email', true ) ) {
-					$user = get_user_by( 'email', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
-
-					if ( isset( $user->user_login ) ) {
-						$creds['user_login'] = $user->user_login;
-					} else {
-						$this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'A user could not be found with this email address.', 'wpfep' );
-						return;
-					}
-				} else {
-					$creds['user_login'] = sanitize_text_field( wp_unslash( $_POST['log'] ) );
+					$user      = get_user_by( 'email', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
 				}
+				else {
+					$user      = get_user_by( 'login', sanitize_text_field( wp_unslash( $_POST['log'] ) ) );
+				}
+				$user_behave = wpfep_get_option( 'user_behave', 'wpfep_profile' );
+				$user_meta = get_user_meta( $user->ID, 'wpfep_user_status', true );
+                if ( ('activate_mail'== $user_behave ) && ( get_user_meta( $user->ID, 'has_to_be_activated', true ) == false ) ) {
+
+                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not activated yet.', 'wpfep' );
+                    return;
+                }
+                if ( ( 'on' == $manually_approve_user ) && ('pending' == $user_meta || 'rejected' == $user_meta ) ) {
+
+                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not approved or denied by admin.', 'wpfep' );
+                    return;
+                }
+                if ( isset( $user->user_login ) ) {
+                    $creds['user_login'] = $user->user_login;
+                } else {
+                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'A user could not be found with this email address.', 'wpfep' );
+                    return;
+                }
 
 				$creds['user_password'] = sanitize_text_field( wp_unslash( $_POST['pwd'] ) );
 				$creds['remember']      = isset( $_POST['rememberme'] );
@@ -335,11 +344,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 		}
 
-		 /**
-		  * Redirect user to a specific page after login
-		  *
-		  * @return  string $url
-		  */
+		/**
+		 * Redirect user to a specific page after login
+		 *
+		 * @return  string $url
+		 */
 		public function login_redirect() {
 
 			$redirect_to = wpfep_get_option( 'redirect_after_login_page', 'wpfep_profile', false );
@@ -357,11 +366,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			return home_url();
 		}
 
-		 /**
-		  * Logout the user
-		  *
-		  * @return void
-		  */
+		/**
+		 * Logout the user
+		 *
+		 * @return void
+		 */
 		public function process_logout() {
 			if ( isset( $_GET['action'] ) && 'logout' == $_GET['action'] ) {
 
@@ -374,11 +383,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 		}
 
-		 /**
-		  * Handle reset password form
-		  *
-		  * @return void
-		  */
+		/**
+		 * Handle reset password form
+		 *
+		 * @return void
+		 */
 		public function process_reset_password() {
 
 			if ( ! isset( $_POST['wpfep_reset_password'] ) ) {
@@ -474,13 +483,13 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 		}
 
-		 /**
-		  * Handles sending password retrieval email to customer.
-		  *
-		  * @access public
-		  * @uses $wpdb WordPress Database object
-		  * @return bool True: when finish. False: on error
-		  */
+		/**
+		 * Handles sending password retrieval email to customer.
+		 *
+		 * @access public
+		 * @uses $wpdb WordPress Database object
+		 * @return bool True: when finish. False: on error
+		 */
 		public function retrieve_password() {
 			global $wpdb, $wp_hasher;
 
@@ -565,16 +574,16 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			return true;
 		}
 
-		 /**
-		  * Retrieves a user row based on password reset key and login
-		  *
-		  * @uses $wpdb WordPress Database object
-		  *
-		  * @access public
-		  * @param string $key Hash to validate sending user's password.
-		  * @param string $login The user login.
-		  * @return object|bool User's database row on success, false for invalid keys
-		  */
+        /**
+         * Retrieves a user row based on password reset key and login
+         *
+         * @uses $wpdb WordPress Database object
+         *
+         * @access public
+         * @param string $key Hash to validate sending user's password.
+         * @param string $login The user login.
+         * @return object|bool User's database row on success, false for invalid keys
+         */
 		public function check_password_reset_key( $key, $login ) {
 			global $wpdb;
 
@@ -603,14 +612,14 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			return $user;
 		}
 
-		 /**
-		  * Successfull authenticate when enable email verfication in registration
-		  *
-		  * @param  object $user return user.
-		  * @param  string $username return username.
-		  * @param  string $password return password.
-		  * @return object
-		  */
+		/**
+		 * Successful authenticate when enable email verification in registration
+		 *
+		 * @param  object $user return user.
+		 * @param  string $username return username.
+		 * @param  string $password return password.
+		 * @return object
+		 */
 		public function successfully_authenticate( $user, $username, $password ) {
 
 			if ( ! is_wp_error( $user ) ) {
@@ -630,11 +639,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			return $user;
 		}
 
-		 /**
-		  * Check in activation of user registration
-		  *
-		  * @since 1.0.0
-		  */
+		/**
+		 * Check in activation of user registration
+		 *
+		 * @since 1.0.0
+		 */
 		public function activation_user_registration() {
 
 			if ( ! isset( $_GET['wpfep_registration_activation'] ) && empty( $_GET['wpfep_registration_activation'] ) ) {
@@ -717,7 +726,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 				wp_mail( $user_email, $subject, $message );
 			} else {
-				/* translators: %s: blognmae term */
+				/* translators: %s: blogname term */
 				$subject = sprintf( __( '[%s] Account has been activated', 'wpfep' ), $blogname );
 				/* translators: %s: current user*/
 				$message  = sprintf( __( 'Hi %s,', 'wpfep' ), $the_user->user_login ) . "\r\n\r\n";
@@ -735,12 +744,12 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			do_action( 'wpfep_user_activated', $user_id );
 		}
 
-		 /**
-		  * Shows activation message on success to wp-login.php
-		  *
-		  * @since 1.0.0
-		  * @return \WP_Error
-		  */
+		/**
+		 * Shows activation message on success to wp-login.php
+		 *
+		 * @since 1.0.0
+		 * @return \WP_Error
+		 */
 		public function user_activation_message() {
 			return new WP_Error( 'user-activated', __( 'Your account has been activated', 'wpfep' ), 'message' );
 		}
@@ -761,14 +770,14 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 		}
 
-		 /**
-		  * Handles resetting the user's password.
-		  *
-		  * @access public
-		  * @param object $user the user.
-		  * @param string $new_pass new password for the user in plaintext.
-		  * @return void
-		  */
+		/**
+		 * Handles resetting the user's password.
+		 *
+		 * @access public
+		 * @param object $user the user.
+		 * @param string $new_pass new password for the user in plaintext.
+		 * @return void
+		 */
 		public function reset_password( $user, $new_pass ) {
 			do_action( 'password_reset', $user, $new_pass );
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
@@ -788,13 +797,13 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 
 		}
 
-		 /**
-		  * Email reset password link
-		  *
-		  * @param string $user_login user login.
-		  * @param string $user_email user email.
-		  * @param string $key returns key.
-		  */
+		/**
+		 * Email reset password link
+		 *
+		 * @param string $user_login user login.
+		 * @param string $user_email user email.
+		 * @param string $key returns key.
+		 */
 		public function email_reset_pass( $user_login, $user_email, $key ) {
 			$reset_url = add_query_arg(
 				array(
@@ -829,32 +838,32 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 		}
 
-		 /**
-		  * Add info message.
-		  *
-		  * @param array $message return login error message.
-		  *
-		  * @since 1.0.0
-		  */
+		/**
+		 * Add info message.
+		 *
+		 * @param array $message return login error message.
+		 *
+		 * @since 1.0.0
+		 */
 		public function add_error( $message ) {
 			$this->login_errors[] = $message;
 		}
 
-		 /**
-		  * Add info message.
-		  *
-		  * @param array $message return login error message.
-		  *
-		  * @since 1.0.0
-		  */
+		/**
+		 * Add info message.
+		 *
+		 * @param array $message return login error message.
+		 *
+		 * @since 1.0.0
+		 */
 		public function add_message( $message ) {
 			$this->messages[] = $message;
 		}
-		 /**
-		  * Show erros on the form
-		  *
-		  * @return void
-		  */
+		/**
+		 * Show errors on the form
+		 *
+		 * @return void
+		 */
 		public function show_errors() {
 			if ( $this->login_errors ) {
 				foreach ( $this->login_errors as $error ) {
@@ -882,11 +891,11 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			}
 		}
 
-		 /**
-		  * Show messages on the form
-		  *
-		  * @return void
-		  */
+		/**
+		 * Show messages on the form
+		 *
+		 * @return void
+		 */
 		public function show_messages() {
 			if ( $this->messages ) {
 				foreach ( $this->messages as $message ) {

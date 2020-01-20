@@ -103,7 +103,7 @@ if ( ! class_exists( 'WPFEP_Settings_API' ) ) :
 		}
 
 		/**
-		 * Initialize and registers the settings sections and fileds to WordPress.
+		 * Initialize and registers the settings sections and fields to WordPress.
 		 *
 		 * Usually this should be called at `admin_init` hook.
 		 *
@@ -714,7 +714,7 @@ if ( ! class_exists( 'WPFEP_Settings_API' ) ) :
 		}
 
 		/**
-		 * Show navigations as tab.
+		 * Show navigation as tab.
 		 *
 		 * Shows all the settings section labels as tab.
 		 */

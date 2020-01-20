@@ -94,7 +94,7 @@ if ( ! class_exists( 'WPFEP_Profile' ) ) :
 			$this->messages[] = $message;
 		}
 		/**
-		 * Show erros on the form.
+		 * Show errors on the form.
 		 *
 		 * @return void
 		 */
