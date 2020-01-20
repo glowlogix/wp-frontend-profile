@@ -2,7 +2,7 @@
 
 > WP Frontend Profile allows users to edit/view their profile and register/login without going into the dashboard to do so.
 
-[![Release Version](https://img.shields.io/github/release/glowlogix/wp-frontend-profile.svg)](https://github.com/glowlogix/wp-frontend-profile/releases/latest) [![GitHub Issues](https://img.shields.io/github/issues/glowlogix/wp-frontend-profile)](#github-issues) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.2%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/glowlogix/wp-frontend-profile.svg)](https://github.com/glowlogix/wp-frontend-profile/blob/develop/LICENSE.md)
+[![Release Version](https://img.shields.io/github/release/glowlogix/wp-frontend-profile.svg)](https://github.com/glowlogix/wp-frontend-profile/releases/latest) [![GitHub Issues](https://img.shields.io/github/issues/glowlogix/wp-frontend-profile)](#github-issues) ![WordPress tested up to version](https://img.shields.io/badge/WordPress-v5.2%20tested-success.svg) [![GPLv2 License](https://img.shields.io/github/license/glowlogix/wp-frontend-profile.svg)](https://github.com/glowlogix/wp-frontend-profile/blob/master/LICENSE.md) [![Build Status](https://travis-ci.com/glowlogix/wp-frontend-profile.svg?branch=master)](https://travis-ci.com/glowlogix/wp-frontend-profile)
 
 WP Frontend Profile gives you the ability to add a extensible user profile section to the frontend of your WordPress website. By default the plugin adds two tabs to the frontend profile. One of these tabs, titled profile, allows a user to edit their user data including email, first and last names, URL and bio (description). The password tab allows a user to change their password for the site.
 

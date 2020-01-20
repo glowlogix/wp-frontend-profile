@@ -145,6 +145,26 @@ function wpfep_default_tab_content( $tab ) {
 }
 
 /**
+ * Function wpfep_field_get_options()
+ * retrieves an array of valid options for a field
+ *
+ * @param (array) $field the array of field data including id, label, desc and type.
+ * @return array list of options
+ */
+function wpfep_field_get_options( $field ) {
+	if ( $field['taxonomy'] ) {
+		$terms = get_terms( $field['taxonomy'], array( 'hide_empty' => false ) );
+		$options = array();
+		foreach ( $terms as $term ) {
+			$options[] = array( 'value' => $term->slug, 'name' => $term->name ); 
+		}
+		return $options;
+	}
+
+	return $field['options'];
+}
+
+/**
  * Function wpfep_field()
  * outputs the an input field
  *
@@ -177,6 +197,19 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 				$userdata            = get_userdata( $user_id );
 				$current_field_value = $userdata->{$field['id']};
 
+			/* not a reserved id, but is a taxonomy */
+		} elseif ($field['taxonomy']) {
+		
+				$terms = wp_get_object_terms( $user_id, $field['taxonomy'] );
+				$current_field_value = array();
+				foreach ( $terms as $term ) {
+					if ( $field['type'] == 'checkboxes' || $field['type'] == 'select multiple' ) {
+						$current_field_value[] = $term->slug;
+					} else {
+						$current_field_value   = $term->slug;
+					}
+				}
+		
 			/* not a reserved id - treat normally */
 		} else {
 
@@ -219,8 +252,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					<select name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>">
 
 					<?php
-					/* get the setting options */
-					$options = $field['options'];
+					$options = wpfep_field_get_options($field);
 
 					/* loop through each option */
 					foreach ( $options as $option ) {
@@ -230,6 +262,41 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					}
 					?>
 					</select>
+					<?php
+
+					break;
+
+				/* if this should be rendered as a select input */
+				case 'select multiple':
+					?>
+					<select multiple name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>][]" id="<?php echo esc_attr( $field['id'] ); ?>">
+					<option>-</option>
+					<?php
+					$options = wpfep_field_get_options($field);
+
+					/* loop through each option */
+					foreach ( $options as $option ) {
+						?>
+						<option value="<?php echo esc_attr( $option['value'] ); ?>" <?php selected( true, in_array( $option['value'], $current_field_value ) ); ?>><?php echo esc_html( $option['name'] ); ?></option>
+						<?php
+					}
+					?>
+					</select>
+					<?php
+
+					break;
+
+				/* if this should be rendered as a set of radio buttons */
+				case 'radio':
+					$options = wpfep_field_get_options($field);
+
+					/* loop through each option */
+					foreach ( $options as $option ) {
+						?>
+						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" value="<?php echo esc_attr( $option['value'] ); ?>" <?php checked( $current_field_value, $option['value'] ); ?>> <?php echo esc_html( $option['name'] ); ?></label></div>
+						<?php
+					}
+					?>
 					<?php
 
 					break;
@@ -245,7 +312,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					/* break out of the switch statement */
 					break;
 
-				/* if the type is set to a textarea input */
+				/* if the type is set to a checkbox */
 				case 'checkbox':
 					?>
 					<input type="hidden" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>" value="0" <?php checked( $current_field_value, '0' ); ?> />
@@ -255,7 +322,25 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					/* break out of the switch statement */
 					break;
 
-				/* if the type is set to a textarea input */
+				/* if this should be rendered as a set of radio buttons */
+				case 'checkboxes':
+					?>
+					<input type="hidden" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>][]" value="-" />
+					<?php
+					$options = wpfep_field_get_options($field);
+
+					/* loop through each option */
+					foreach ( $options as $option ) {
+						?>
+						<div class="checkbox-wrapper"><label><input type="checkbox" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>][]" value="<?php echo esc_attr( $option['value'] ); ?>" <?php checked( true, in_array( $option['value'], $current_field_value ) ); ?>> <?php echo esc_html( $option['name'] ); ?></label></div>
+						<?php
+					}
+					?>
+					<?php
+
+					break;
+
+				/* if the type is set to an email input */
 				case 'email':
 					?>
 					<input type="email" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>" class="regular-text" value="<?php echo esc_attr( $current_field_value ); ?>" />
@@ -265,7 +350,7 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 					/* break out of the switch statement */
 					break;
 
-				/* if the type is set to a textarea input */
+				/* if the type is set to a password input */
 				case 'password':
 					?>
 					<input type="password" name="<?php echo esc_attr( $tab_id ); ?>[<?php echo esc_attr( $field['id'] ); ?>]" id="<?php echo esc_attr( $field['id'] ); ?>" class="regular-text" value="" placeholder="New Password" />

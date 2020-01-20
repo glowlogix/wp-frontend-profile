@@ -120,11 +120,23 @@ function wpfep_save_fields( $tabs, $user_id ) {
 					case 'select':
 						$value = sanitize_text_field( $value );
 						break;
+					case 'radio':
+						$value = sanitize_text_field( $value );
+						break;
 					case 'textarea':
 						$value = wp_filter_nohtml_kses( $value );
 						break;
 					case 'checkbox':
 						$value = isset( $value ) && '1' === $value ? true : false;
+						break;
+					case 'checkboxes':
+					case 'select multiple':
+						$oldvalue = $value;
+						$value = array();
+						foreach ($oldvalue as $v) {
+							if ( $v === '-' ) continue;
+							$value[] = sanitize_text_field($v);
+						}
 						break;
 					case 'email':
 						$value = sanitize_email( $value );
@@ -134,8 +146,11 @@ function wpfep_save_fields( $tabs, $user_id ) {
 				}
 
 				/* update the user meta data */
-
-				$meta = update_user_meta( $user_id, $key, $value );
+				if ( $registered_fields[ $registered_field_key ]['taxonomy'] ) {
+					$meta = wp_set_object_terms( $user_id, $value, $registered_fields[ $registered_field_key ]['taxonomy'], false );
+				} else {
+					$meta = update_user_meta( $user_id, $key, $value );
+				}
 
 				/* check the update was succesfull */
 				if ( false == $meta ) {
