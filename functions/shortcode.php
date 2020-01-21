@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Function wpfep_register_shortcode()
  * register the a shortcode to display on frontend

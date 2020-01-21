@@ -5,11 +5,11 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
-	/**
-	 * User Profile handler class
-	 */
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * User Profile handler class
+ */
 if ( ! class_exists( 'WPFEP_Profile' ) ) :
 	/**
 	 * User Profile handler class
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WPFEP_Profile' ) ) :
 			$this->messages[] = $message;
 		}
 		/**
-		 * Show erros on the form.
+		 * Show errors on the form.
 		 *
 		 * @return void
 		 */

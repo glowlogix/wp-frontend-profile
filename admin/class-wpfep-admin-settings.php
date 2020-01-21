@@ -5,8 +5,7 @@
  * @package WP Frontend Profile
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 	/**
@@ -74,14 +73,28 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 			foreach ( $all_roles as $key => $value ) {
 				$user_roles[ $key ] = $value['name'];
 			}
+			$radio_options   = array('none'=>'--select--','auto_login' => 'Auto login after registration', 'activate_mail' => 'Send account activation email to registered users'  );
 			$settings_fields = array(
 				'wpfep_profile'             => apply_filters(
 					'wpfep_options_profile',
 					array(
 						array(
-							'name'    => 'autologin_after_registration',
-							'label'   => __( 'Auto Login After Registration', 'wpfep' ),
-							'desc'    => __( 'If enabled, users after registration will be logged in to the system', 'wpfep' ),
+							'name'    => 'user_behave',
+							'label'   => __( 'New user behaviour on registration ', 'wpfep' ),
+							'type'    => 'select',
+							'options' => $radio_options,
+						),
+						array(
+							'name'    => 'admin_can_register_user_manually',
+							'label'   => __( 'Admin can register user manually', 'wpfep' ),
+							'desc'    => __( 'If enabled, Admin can add users manually from frontend.', 'wpfep' ),
+							'type'    => 'checkbox',
+							'default' => 'off',
+						),
+						array(
+							'name'    => 'admin_manually_approve',
+							'label'   => __( 'Admin can Manually Approve User', 'wpfep' ),
+							'desc'    => __( 'If enabled, Admin can manually approve and deny users from backend.', 'wpfep' ),
 							'type'    => 'checkbox',
 							'default' => 'on',
 						),
@@ -190,7 +203,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 						array(
 							'name'    => 'register_mail',
 							'label'   => __( 'Registration success email', 'wpfep' ),
-							'desc'    => __( ' Send an email to user for when successfull registration.', 'wpfep' ),
+							'desc'    => __( ' Send an email to user for successful registration.', 'wpfep' ),
 							'type'    => 'checkbox',
 							'default' => 'on',
 						),
@@ -326,7 +339,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		public function tool_page() {
 			$confirmation_message = __( 'Are you Sure?', 'wpfep' );
 
-			if ( isset( $_GET['wpfep_delete_settings'] ) && 1 === $_GET['wpfep_delete_settings'] ) {
+			if ( wp_verify_nonce( isset( $_GET['wpfep_delete_settings'] ) && 1 === $_GET['wpfep_delete_settings'] ) ) {
 				?>
 				<div class="updated updated_wpfep">
 					<p>
@@ -377,6 +390,12 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 		 */
 		public function clear_settings() {
 			if ( isset( $_GET['wpfep_delete_settings'] ) && '1' === $_GET['wpfep_delete_settings'] ) {
+				// Delete Pages.
+				$wpfep_options = get_option( 'wpfep_profile' );
+				wp_delete_post( $wpfep_options['login_page'], false );
+				wp_delete_post( $wpfep_options['register_page'], false );
+				wp_delete_post( $wpfep_options['edit_page'], false );
+				wp_delete_post( $wpfep_options['profile_page'], false );
 				// Delete Options.
 				delete_option( '_wpfep_page_created' );
 				delete_option( 'wpfep_general' );

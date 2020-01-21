@@ -1,0 +1,1249 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Frontend Profile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-02 16:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.2.4"
+
+#: admin/class-wpfep-admin-settings.php:200
+msgid " Send an email to user for change password."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:193
+msgid " Send an email to user for when successfull registration."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:34
+msgid "$class"
+msgstr ""
+
+#. %1s: WordPress environment
+#: admin/class-wpfep-system-status.php:101
+#, php-format
+msgid "%1$s - We recommend setting memory to at least 64MB. See: %2$s"
+msgstr ""
+
+#. %1s: database prefix
+#: admin/class-wpfep-system-status.php:404
+#, php-format
+msgid "%1$s - We recommend using a prefix with less than 20 characters."
+msgstr ""
+
+#. %1s: current version
+#. %2s: your version
+#. %3s: core version
+#: admin/class-wpfep-system-status.php:643
+#, php-format
+msgid "%1$s version %2$s is out of date. The core version is %3$s"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:318
+#, php-format
+msgid "%s failed. Contact your hosting provider."
+msgstr ""
+
+#. %s: plugin latest version
+#. %s: theme latest version
+#. %s: parant theme latest version
+#: admin/class-wpfep-system-status.php:489
+#: admin/class-wpfep-system-status.php:559
+#: admin/class-wpfep-system-status.php:605
+#, php-format
+msgid "%s is available"
+msgstr ""
+
+#: functions/wpfep-functions.php:377
+msgid "-- select --"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:129
+msgid ""
+"<a target=\"_blank\" href=\"https://www.google.com/recaptcha/\">Register "
+"here</a> to get reCaptcha Site and Secret keys."
+msgstr ""
+
+#. %s: activation link
+#: inc/class-wpfep-login.php:624
+#, php-format
+msgid ""
+"<strong>Your account is not active.</strong><br>Please check your email for "
+"activation link. <br><a href=\"%s\">Click here</a> to resend the activation "
+"link"
+msgstr ""
+
+#. %s: user email
+#. %1s: user login
+#: inc/class-wpfep-registration.php:284 inc/class-wpfep-registration.php:297
+#, php-format
+msgid "[%1$s] %2$s"
+msgstr ""
+
+#. %s: blognmae term
+#: inc/class-wpfep-login.php:721
+#, php-format
+msgid "[%s] Account has been activated"
+msgstr ""
+
+#. %s: blogname term
+#: inc/class-wpfep-login.php:822
+#, php-format
+msgid "[%s] Password Reset"
+msgstr ""
+
+#. %s: username value
+#: inc/class-wpfep-login.php:707
+#, php-format
+msgid "[%s] Your username and password info"
+msgstr ""
+
+#: inc/class-wpfep-login.php:306 inc/class-wpfep-registration.php:242
+msgid "A user could not be found with this email address."
+msgstr ""
+
+#: inc/class-wpfep-registration.php:232
+msgid "A user with same username already exists."
+msgstr ""
+
+#: inc/class-wpfep-login.php:645 inc/class-wpfep-login.php:667
+msgid "Activation URL is not valid"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:470
+msgid "Active Plugins"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:91
+msgid "After successful login, where the page will redirect to"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:98
+msgid ""
+"After successful registration, where the page will redirect to, Make sure "
+"you have checked auto login after registration."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:327
+msgid "Are you Sure?"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:565
+msgid "Author URL"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:83
+msgid "Auto Login After Registration"
+msgstr ""
+
+#: views/registration.php:70
+msgid "Biographical Info"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:374
+msgid "Browser name"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:378
+msgid "Browser version"
+msgstr ""
+
+#. %s: plugin author
+#: admin/class-wpfep-system-status.php:514
+#, php-format
+msgid "by %s"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:356
+msgid "Caution:"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:199
+msgid "Change password email"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:220
+msgid "Change user password admin mail"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:148
+msgid ""
+"Check this box if you would like WP Frontend Profile to completely remove "
+"all of its data when the plugin is deleted."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:134
+msgid "Check to enable reCAPTCHA in login form."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:141
+msgid "Check to enable reCAPTCHA in registration form"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:118
+msgid "Check to enable strong password."
+msgstr ""
+
+#: inc/class-wpfep-login.php:241
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:569
+msgid "Child theme"
+msgstr ""
+
+#: admin/class-wpfep-settings-api.php:565
+msgid "Choose File"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:346
+msgid ""
+"Clicking this button will create required pages for the plugin. Note: It'll "
+"not delete/replace existing pages."
+msgstr ""
+
+#: admin/class-wpfep-admin-help.php:62
+msgid "Community forum"
+msgstr ""
+
+#: views/reset-pass.php:22
+msgid "Confirm new password"
+msgstr ""
+
+#: views/registration.php:59
+msgid "Confirm Password"
+msgstr ""
+
+#: inc/class-wpfep-registration.php:148
+msgid "Confirm Password is required."
+msgstr ""
+
+#: inc/class-wpfep-login.php:724
+msgid ""
+"Congrats! Your account has been activated. To login visit the following url:"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:56
+msgid "Congratulations!"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:64
+msgid "Copy for Support"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:65
+msgid "Copying to clipboard failed. Please press Ctrl/Cmd+C to copy."
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:45
+#: admin/class-wpfep-admin-settings.php:347
+msgid "Create Pages"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:173
+msgid "cURL Version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:173
+msgid "cURL version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:390
+msgid "Database"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:417
+msgid "Database Data Size"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:422
+msgid "Database Index Size"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:399
+msgid "Database Prefix"
+msgstr ""
+
+#. %s: default timezone
+#: admin/class-wpfep-system-status.php:213
+#, php-format
+msgid "Default timezone is %s - it should be UTC"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:208
+msgid "Default Timezone is UTC"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:208
+msgid "Default timezone is UTC"
+msgstr ""
+
+#: functions/default-fields.php:52
+msgid "Description/Bio"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:246
+msgid "DOMDocument"
+msgstr ""
+
+#. %s: user email
+#: inc/class-wpfep-registration.php:276
+#, php-format
+msgid "E-mail: %s"
+msgstr ""
+
+#: admin/class-wpfep-shortcodes-button.php:50
+msgid "Edit"
+msgstr ""
+
+#: admin/class-wpfep-settings-api.php:455
+msgid "Edit Page"
+msgstr ""
+
+#: views/profile.php:55
+msgid "Edit Profile"
+msgstr ""
+
+#: functions/default-fields.php:53
+msgid "Edit your description/bio."
+msgstr ""
+
+#: functions/default-fields.php:21
+msgid "Edit your email address - used for resetting your password etc."
+msgstr ""
+
+#: functions/default-fields.php:29
+msgid "Edit your first name."
+msgstr ""
+
+#: functions/default-fields.php:37
+msgid "Edit your last name."
+msgstr ""
+
+#: functions/default-fields.php:45
+msgid "Edit your profile associated URL."
+msgstr ""
+
+#: views/profile.php:43 views/registration.php:41
+msgid "Email"
+msgstr ""
+
+#: functions/default-fields.php:20
+msgid "Email Address"
+msgstr ""
+
+#: inc/class-wpfep-registration.php:133
+msgid "Email is required."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:248
+msgid "Emails"
+msgstr ""
+
+#: inc/class-wpfep-login.php:290
+msgid "Empty reCaptcha Field"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:117
+msgid "Enable Strong Password"
+msgstr ""
+
+#: functions/feedback.php:27
+msgid "Enjoying using the WP Frontend Profile plugin"
+msgstr ""
+
+#: inc/class-wpfep-login.php:491
+msgid "Enter a username or e-mail address."
+msgstr ""
+
+#: inc/class-wpfep-login.php:232
+msgid "Enter your new password below.."
+msgstr ""
+
+#: inc/class-wpfep-login.php:306 inc/class-wpfep-login.php:433
+#: inc/class-wpfep-login.php:447 inc/class-wpfep-registration.php:128
+#: inc/class-wpfep-registration.php:133 inc/class-wpfep-registration.php:138
+#: inc/class-wpfep-registration.php:143 inc/class-wpfep-registration.php:148
+#: inc/class-wpfep-registration.php:153 inc/class-wpfep-registration.php:167
+#: inc/class-wpfep-registration.php:181 inc/class-wpfep-registration.php:232
+#: inc/class-wpfep-registration.php:242
+msgid "Error"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:461
+msgid "Error messages should not be shown to visitors."
+msgstr ""
+
+#: functions/default-fields.php:28 views/registration.php:31
+msgid "First Name"
+msgstr ""
+
+#. %s: Forum URL
+#: admin/class-wpfep-admin-help.php:59
+#, php-format
+msgid ""
+"For further assistance with WP Frontend Profile core you can use the <a "
+"href=\"%1$s\">community forum</a>. "
+msgstr ""
+
+#: admin/class-wpfep-admin-help.php:68 admin/class-wpfep-admin-help.php:70
+msgid "Found a bug?"
+msgstr ""
+
+#: functions/wpfep-functions.php:651
+msgid ""
+"Frontend editing is disabled for administrators because of security risks."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:275
+msgid "Frontend Profile"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:221
+msgid "fsockopen/cURL"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:272
+msgid "GD Library"
+msgstr ""
+
+#: wp-frontend-profile.php:50
+msgid "Get help"
+msgstr ""
+
+#: views/lost-pass.php:24
+msgid "Get New Password"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:61
+msgid "Get system report"
+msgstr ""
+
+#. Author of the plugin
+msgid "Glowlogix"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:259
+msgid "GZip"
+msgstr ""
+
+#: admin/class-wpfep-admin-help.php:49 admin/class-wpfep-admin-help.php:51
+msgid "Help &amp; Support"
+msgstr ""
+
+#: functions/feedback.php:28
+msgid ""
+"Help us make the plugin better! Please take a minute to rate the plugin. "
+"Thanks!"
+msgstr ""
+
+#. %s: current user
+#: inc/class-wpfep-login.php:723
+#, php-format
+msgid "Hi %s,"
+msgstr ""
+
+#. %s: user login
+#: inc/class-wpfep-registration.php:287
+#, php-format
+msgid "Hi, %s"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:456
+msgid "Hide errors from visitors"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:76
+msgid "Home URL"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wordpress.org/plugins/wp-front-end-profile/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.glowlogix.com"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:84
+msgid "If enabled, users after registration will be logged in to the system"
+msgstr ""
+
+#: inc/class-wpfep-login.php:812
+msgid "If this was a mistake, just ignore this email and nothing will happen."
+msgstr ""
+
+#. %s: child theme
+#: admin/class-wpfep-system-status.php:573
+#, php-format
+msgid ""
+"If you are modifying wpfep on a parent theme that you did not build "
+"personally we recommend using a child theme. See: <a href=\"%s\" "
+"target=\"_blank\">How to create a child theme</a>"
+msgstr ""
+
+#. 1: GitHub issues URL 2: GitHub contribution guide URL 3: System status report URL
+#: admin/class-wpfep-admin-help.php:72
+#, php-format
+msgid ""
+"If you find a bug within WP Frontend Profile core you can create a ticket "
+"via <a href=\"%1$s\">Github issues</a>."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:101
+msgid "Increasing memory allocated to PHP"
+msgstr ""
+
+#: inc/class-wpfep-login.php:587 inc/class-wpfep-login.php:599
+msgid "Invalid key"
+msgstr ""
+
+#: inc/class-wpfep-login.php:592
+msgid "Invalid Login"
+msgstr ""
+
+#: inc/class-wpfep-login.php:655
+msgid "Invalid User activation url"
+msgstr ""
+
+#: inc/class-wpfep-login.php:516
+msgid "Invalid username or e-mail."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:129
+msgid "Language"
+msgstr ""
+
+#: functions/default-fields.php:36 views/registration.php:36
+msgid "Last Name"
+msgstr ""
+
+#: views/login.php:52
+msgid "Log In"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:107
+#: admin/class-wpfep-shortcodes-button.php:54
+msgid "Login"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:238
+msgid "Login / Registration"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:166
+msgid "Login Page"
+msgstr ""
+
+#: inc/class-wpfep-login.php:182
+msgid "Lost Password"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:204
+msgid "Max Upload Size"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:204
+msgid "Max upload size"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:285
+msgid "Multibyte String"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:285
+msgid "Multibyte string"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:191
+msgid "MySQL Version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:191
+msgid "MySQL version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:549
+msgid "Name"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:493
+msgid "Network enabled"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:213
+msgid "New account registration admin mail"
+msgstr ""
+
+#: functions/default-fields.php:74
+msgid "New Password"
+msgstr ""
+
+#: views/reset-pass.php:17
+msgid "New password"
+msgstr ""
+
+#: inc/class-wpfep-registration.php:277
+msgid "New User Registration"
+msgstr ""
+
+#. %s: search term
+#: inc/class-wpfep-registration.php:272
+#, php-format
+msgid "New user registration on your site %s:"
+msgstr ""
+
+#: functions/feedback.php:52
+msgid "No Thanks"
+msgstr ""
+
+#: functions/feedback.php:50
+msgid "Not Really"
+msgstr ""
+
+#: functions/feedback.php:54
+msgid "OK, Sure"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:46
+msgid "or"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:672
+msgid "Outdated Templates"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:672
+msgid "Outdated templates"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:628
+#: admin/class-wpfep-system-status.php:663
+#: admin/class-wpfep-system-status.php:663
+msgid "Overrides"
+msgstr ""
+
+#: inc/class-wpfep-profile.php:137
+msgid "Page"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:343
+msgid "Page Installation"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:243
+msgid "Pages"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:611
+msgid "Parent Theme Author URL"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:611
+msgid "Parent theme author URL"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:595
+msgid "Parent Theme Name"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:595
+msgid "Parent theme name"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:599
+msgid "Parent Theme Version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:599
+msgid "Parent theme version"
+msgstr ""
+
+#: functions/default-fields.php:73 functions/tabs.php:49 views/login.php:33
+#: views/registration.php:53
+msgid "Password"
+msgstr ""
+
+#: inc/class-wpfep-login.php:284 inc/class-wpfep-registration.php:143
+msgid "Password is required."
+msgstr ""
+
+#: inc/class-wpfep-login.php:530
+msgid "Password reset is not allowed for this user"
+msgstr ""
+
+#: inc/class-wpfep-registration.php:153
+msgid "Passwords are not same."
+msgstr ""
+
+#: inc/class-wpfep-login.php:419
+msgid "Passwords do not match."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:169
+msgid "PHP Max Input Vars"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:169
+msgid "PHP max input vars"
+msgstr ""
+
+#. %1$s: php version
+#: admin/class-wpfep-system-status.php:161
+msgid "PHP Post Max Size"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:161
+msgid "PHP post max size"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:165
+msgid "PHP Time Limit"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:165
+msgid "PHP time limit"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:147
+msgid "PHP Version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:147
+msgid "PHP version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:370
+msgid "Platform"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:60
+msgid ""
+"Please copy and paste this information in your ticket when contacting "
+"support:"
+msgstr ""
+
+#: inc/class-wpfep-login.php:414
+msgid "Please enter your password."
+msgstr ""
+
+#: inc/class-wpfep-login.php:218
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr ""
+
+#: functions/save-fields.php:238
+msgid "Please make sure the passwords match"
+msgstr ""
+
+#. %s: password lenght term
+#: functions/save-fields.php:252
+#, php-format
+msgid "Please make sure your password is a minimum of %s characters long."
+msgstr ""
+
+#: inc/class-wpfep-login.php:433 inc/class-wpfep-registration.php:167
+msgid "Please make sure your password is a minimum of 12  characters long"
+msgstr ""
+
+#: inc/class-wpfep-login.php:828
+msgid "Possible reason: your host may have disabled the mail() function."
+msgstr ""
+
+#: views/profile.php:107
+msgid "Post not Found"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:109
+#: admin/class-wpfep-shortcodes-button.php:58 functions/tabs.php:20
+msgid "Profile"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:105
+msgid "Profile Edit"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:173
+msgid "Profile Edit Page"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:180
+msgid "Profile Page"
+msgstr ""
+
+#: wp-frontend-profile.php:51
+msgid "Rate the plugin"
+msgstr ""
+
+#: wp-frontend-profile.php:51
+msgid "Rate the plugin ★★★★★"
+msgstr ""
+
+#: inc/class-wpfep-registration.php:221
+msgid "reCaptcha is required"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:133
+msgid "reCAPTCHA Login Form"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:140
+msgid "reCAPTCHA Registration Form"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:128
+msgid "reCAPTCHA Secret Key"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:124
+msgid "reCAPTCHA Site Key"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:90
+msgid "Redirect After Login"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:97
+msgid "Redirect After Registration"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:103
+#: admin/class-wpfep-shortcodes-button.php:46 views/registration.php:83
+msgid "Register"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:159
+msgid "Registration Page"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:192
+msgid "Registration success email"
+msgstr ""
+
+#: views/login.php:48
+msgid "Remember Me"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:311
+msgid "Remote GET"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:298
+msgid "Remote POST"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:147
+msgid "Remove Data on Uninstall?"
+msgstr ""
+
+#: admin/class-wpfep-admin-help.php:73
+msgid "Report a bug"
+msgstr ""
+
+#: views/reset-pass.php:29
+msgid "Reset Password"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:206
+msgid "Reset password email"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:352
+#: admin/class-wpfep-admin-settings.php:359
+msgid "Reset Settings"
+msgstr ""
+
+#: functions/wpfep-functions.php:317
+msgid "Save this tabs updated fields."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:446
+msgid "Secure Connection (HTTPS)"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:446
+msgid "Secure connection (HTTPS)"
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:441
+msgid "Security"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:167
+msgid "Select the page which contains [wpfep-login] shortcode"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:181
+msgid "Select the page which contains [wpfep-profile] shortcode"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:160
+msgid "Select the page which contains [wpfep-register] shortcode"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:174
+msgid "Select the page which contains [wpfep] shortcode"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:110
+msgid "Select user by roles, who can view admin bar in frontend."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:221
+msgid "Send an email to admin when user has changed account password."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:214
+msgid "Send an email to admin when user has created account on site."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:207
+msgid "Send an email to user for reset password."
+msgstr ""
+
+#: functions/feedback.php:63
+msgid "Send Feedback"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:138
+msgid "Server Environment"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:143
+msgid "Server Info"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:143
+msgid "Server info"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:253
+#: admin/class-wpfep-admin-settings.php:276
+#: admin/class-wpfep-admin-settings.php:276
+#: admin/class-wpfep-admin-settings.php:307
+msgid "Settings"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:333
+msgid "Settings has been cleared!"
+msgstr ""
+
+#. %s: Documentation URL
+#: admin/class-wpfep-admin-help.php:54
+#, php-format
+msgid ""
+"Should you need help understanding, using, or extending WP Frontend Profile, "
+"<a href=\"%s\">please read our documentation</a>."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:109
+msgid "Show Admin Bar"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:80
+msgid "Site URL"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:47
+msgid "Skip Setup"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:233
+msgid "SoapClient"
+msgstr ""
+
+#: inc/class-wpfep-login.php:808
+msgid "Someone requested that the password be reset for the following account:"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:177
+msgid "SUHOSIN Installed"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:177
+msgid "SUHOSIN installed"
+msgstr ""
+
+#: wp-frontend-profile.php:50
+msgid "Support"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:278
+#: admin/class-wpfep-system-status.php:58
+msgid "System Status"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:620
+msgid "Templates"
+msgstr ""
+
+#: functions/feedback.php:47
+msgid "Thank you for taking the time to help us!"
+msgstr ""
+
+#: inc/class-wpfep-login.php:726
+msgid "Thanks"
+msgstr ""
+
+#: inc/class-wpfep-login.php:828
+msgid "The e-mail could not be sent."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:544
+msgid "Theme"
+msgstr ""
+
+#: inc/class-wpfep-login.php:498
+msgid "There is no user registered with that email address."
+msgstr ""
+
+#. %s: Login link
+#: functions/wpfep-functions.php:641
+#, php-format
+msgid "This page is restricted. Please %s to view this page."
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"This plugin allows users to easily edit their profile information on the "
+"frontend rather than having to go into the dashboard to make changes to "
+"password, email address and other user meta data."
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:357
+msgid "This tool will delete all the plugin settings of WP Frontend Profile"
+msgstr ""
+
+#: inc/class-wpfep-login.php:813
+msgid "To reset your password, visit the following address:"
+msgstr ""
+
+#: inc/class-wpfep-login.php:710
+msgid "To set your password, visit the following address:"
+msgstr ""
+
+#: admin/class-wpfep-admin-settings.php:277
+msgid "Tools"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:412
+msgid "Total Database Size"
+msgstr ""
+
+#: functions/default-fields.php:44
+msgid "URL"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:382
+msgid "User agent"
+msgstr ""
+
+#: inc/class-wpfep-login.php:660
+msgid "User already verified"
+msgstr ""
+
+#: views/profile.php:49
+msgid "User Bio"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:365
+msgid "User Platform"
+msgstr ""
+
+#: views/registration.php:47
+msgid "Username"
+msgstr ""
+
+#: inc/class-wpfep-login.php:279 inc/class-wpfep-registration.php:138
+msgid "Username is required."
+msgstr ""
+
+#: views/lost-pass.php:17
+msgid "Username or E-mail:"
+msgstr ""
+
+#: views/login.php:29
+msgid "Username or Email"
+msgstr ""
+
+#. %s: username term
+#. %s: user login
+#: inc/class-wpfep-login.php:709 inc/class-wpfep-login.php:811
+#: inc/class-wpfep-registration.php:274
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:553
+msgid "Version"
+msgstr ""
+
+#: admin/class-wpfep-settings-api.php:456
+msgid "View Page"
+msgstr ""
+
+#: functions/wpfep-functions.php:319
+msgid "View Profile"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:482
+msgid "Visit plugin homepage"
+msgstr ""
+
+#: views/profile.php:45 views/registration.php:65
+msgid "Website"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:71
+msgid "WordPress Environment"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:119
+msgid "WP cron"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:119
+msgid "Wp Cron"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:109
+msgid "WP Debug Mode"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:109
+msgid "WP debug mode"
+msgstr ""
+
+#. Name of the plugin
+msgid "WP Frontend Profile"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:42
+msgid ""
+"WP Frontend Profile needs to create several pages (User Profile, "
+"Registration, Login, Profile Edit) to function correctly."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:96
+msgid "WP Memory Limit"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:96
+msgid "WP memory limit"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:92
+msgid "WP Multisite"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:92
+msgid "WP multisite"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:88
+msgid "WP version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:395
+msgid "WPFEP Database Version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:395
+msgid "WPFEP database version"
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:84
+msgid "wpfep version"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:197
+msgid "WPFP Login Page"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:205
+msgid "WPFP Profile Edit Page"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:209
+msgid "WPFP Profile Page"
+msgstr ""
+
+#: admin/class-wpfep-admin-installer.php:201
+msgid "WPFP Register Page"
+msgstr ""
+
+#: functions/feedback.php:51
+msgid "Yes!"
+msgstr ""
+
+#: inc/class-wpfep-login.php:245
+msgid "You are now logged out."
+msgstr ""
+
+#. %s: login link
+#: functions/save-fields.php:280
+#, php-format
+msgid ""
+"You're password was successfully changed and you have been logged out. "
+"Please <a href=\"%s\">login again here</a>."
+msgstr ""
+
+#: inc/class-wpfep-login.php:674 inc/class-wpfep-login.php:745
+msgid "Your account has been activated"
+msgstr ""
+
+#: inc/class-wpfep-login.php:677
+msgid ""
+"Your account has been verified , but you can't login until manually approved "
+"your account by an administrator."
+msgstr ""
+
+#: inc/class-wpfep-login.php:227
+msgid "Your password has been reset."
+msgstr ""
+
+#: functions/save-fields.php:266 inc/class-wpfep-login.php:447
+#: inc/class-wpfep-registration.php:181
+msgid ""
+"Your password must contain at least 1 uppercase, 1 lowercase letter and at "
+"least 1 number."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:227
+msgid ""
+"Your server does not have fsockopen or cURL enabled - PayPal IPN and other "
+"scripts which communicate with other servers will not work. Contact your "
+"hosting provider."
+msgstr ""
+
+#. %s: search term
+#: admin/class-wpfep-system-status.php:240
+#, php-format
+msgid ""
+"Your server does not have the %s class enabled - some gateway plugins which "
+"use SOAP may not work as expected."
+msgstr ""
+
+#: admin/class-wpfep-system-status.php:451
+msgid "Your site is not using HTTPS."
+msgstr ""
+
+#: functions/save-fields.php:189
+msgid "Yours profile was updated successfully!"
+msgstr ""

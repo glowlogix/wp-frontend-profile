@@ -1,11 +1,12 @@
 <?php
 /**
  * If you would like to edit this file, copy it to your current theme's directory and edit it there.
-  wpfep will always look in your theme's directory first, before using this default template.
+ * wpfep will always look in your theme's directory first, before using this default template.
  *
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 <div class="login" id="wpfep-login-form">
 
@@ -15,7 +16,19 @@
 	if ( ! empty( $message ) ) {
 		echo esc_html( $message ) . "\n";
 	}
-	  $login_obj = WPFEP_Login::init();
+	if ( isset( $_GET['key'] ) ) {
+		$user_id = filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 1 ) ) );
+		if ( $user_id ) {
+			$code                  = get_user_meta( $user_id, 'has_to_be_activated', true );
+			$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
+			if ( $code == $_GET['key'] ) {
+				echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Congratulations! Your account has been verified.', 'wpfep' ) ) . '</div>';
+				update_user_meta($user_id, 'verify', 'Yes');
+			}
+		}
+	}
+	$login_obj = WPFEP_Login::init();
+	$register_obj  = WPFEP_Registration::init();
 	?>
 
 	<?php
@@ -24,25 +37,23 @@
 
 	?>
 
-	<form name="loginform" class="wpfep-login-form" id="loginform" action="<?php echo esc_html( $action_url ); ?>" method="post">
+	<form name="loginform" class="wpfep-login-form" id="loginform" action="" method="post">
 		<p>
 			<label for="wpfep-user_login"><?php esc_attr_e( 'Username or Email', 'wpfep' ); ?></label>
-			<input type="text" name="log" id="wpfep-user_login" class="input" value="" size="20" />
+			<input type="text" name="log" id="wpfep-user_login" class="input" value="<?php echo esc_html( $register_obj->get_post_value( 'log' ) ); ?>" size="20" />
 		</p>
 		<p>
 			<label for="wpfep-user_pass"><?php esc_attr_e( 'Password', 'wpfep' ); ?></label>
 			<input type="password" name="pwd" id="wpfep-user_pass" class="input" value="" size="20" />
 		</p>
-
 		<?php $recaptcha = wpfep_get_option( 'enable_captcha_login', 'wpfep_general' ); ?>
 		<?php if ( 'on' == $recaptcha ) : ?>
-			<p> 
+			<p>
 				<div class="wpfep-fields">
 					<?php WPFEP_Captcha_Recaptcha::display_captcha(); ?>
 				</div>
 			</p>
 		<?php endif; ?>
-
 		<p class="forgetmenot">
 			<input name="rememberme" type="checkbox" id="wpfep-rememberme" value="forever" />
 			<label for="wpfep-rememberme"><?php esc_attr_e( 'Remember Me', 'wpfep' ); ?></label>

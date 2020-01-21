@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WP_Frontend_Profile' ) ) :
 	/**
 	 * WP_Frontend_Profile main class

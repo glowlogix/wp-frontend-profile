@@ -5,6 +5,8 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Function wpfep_register_scripts()
  * register the plugins scripts ready for enqueing
@@ -31,5 +33,4 @@ function wpfep_register_scripts() {
 	}
 
 }
-
 add_action( 'wp_enqueue_scripts', 'wpfep_register_scripts' );

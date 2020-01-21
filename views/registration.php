@@ -6,26 +6,33 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 <?php
-	$message = apply_filters( 'registration_message', '' );
+$message = apply_filters( 'registration_message', '' );
+
 if ( ! empty( $message ) ) {
 	echo esc_html( $message ) . "\n";
 }
-
 if ( isset( $_GET['success'] ) && 'yes' == $_GET['success'] ) {
 	echo "<div class='wpfep-success'>" . esc_html( 'Registration has been successful!', 'wpfep' ) . '</div>';
 }
-	$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
-	$action_url    = get_permalink( $register_page );
-	$register_obj  = WPFEP_Registration::init();
-	$login_obj     = WPFEP_Login::init();
+if ( isset( $_GET['success'] ) && 'notactivated' == $_GET['success'] ) {
+	echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has been successful! Please activate your account from e-mail.', 'wpfep' ) ) . '</div>';
+}
+if ( isset( $_GET['success'] ) && 'notapproved' == $_GET['success'] ) {
+	echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Registration has been successful!. Please wait for admin approval.', 'wpfep' ) ) . '</div>';
+}
+
+$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );
+$action_url    = get_permalink( $register_page );
+$register_obj  = WPFEP_Registration::init();
 ?>
 
-	<?php echo esc_html( $register_obj->show_errors() ); ?>
-	<?php echo esc_html( $register_obj->show_messages() ); ?>
+<?php echo esc_html( $register_obj->show_errors() ); ?>
+<?php echo esc_html( $register_obj->show_messages() ); ?>
 
-	<form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html( $action_url ); ?>" method="post">
+<form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html( $action_url ); ?>" method="post">
 		<ul>
 			<li class="wpfep-form-field wpfep-default-first-name">
 				<label for="wpfep_reg_fname"><?php esc_attr_e( 'First Name', 'wpfep' ); ?>
@@ -66,6 +73,7 @@ if ( isset( $_GET['success'] ) && 'yes' == $_GET['success'] ) {
 				</label>
 				<input type="text" name="wpfep-website" id="wpfep-user_website" class="input" value="<?php echo esc_html( $register_obj->get_post_value( 'wpfep-website' ) ); ?>"  />
 			</li>
+			
 			<li class="wpfep-form-field wpfep-default-user-bio">
 				<label for="wpfep-description"><?php esc_attr_e( 'Biographical Info', 'wpfep' ); ?>
 				</label>

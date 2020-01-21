@@ -220,6 +220,10 @@ ul.wpfep-profile-item-ul {
 .wpfep-profile-items, .wpfep-profile-sidebar{
 	margin-bottom: 10px;
 }
+.wpfep_user_details h5 {
+    font-weight: 400;
+    font-size: 0.83em;
+}
 @media screen and (min-width: 64em){
 	.wpfep-columns{
 		width: 100%;
@@ -255,7 +259,7 @@ ul.wpfep-profile-item-ul {
 	    border-radius: 50%;
 	    margin: 0 auto;
 	    display: block;
-	    width: 200px !important;
+	    width: 140px !important;
 	}
 	ul.wpfep-profile-item-ul {
 	    margin-bottom: 0;
@@ -266,4 +270,74 @@ ul.wpfep-profile-item-ul {
 	ul.wpfep-profile-item-ul {
 	    padding: 15px;
 	}
+}
+@media only screen and (min-width: 320px){
+.wpfep-fields .g-recaptcha {
+    transform: scale(0.77);
+    -webkit-transform: scale(0.77);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+ul.wpfep-profile-item-ul {
+    margin: 0px;
+}
+#wpfep_registration_form ul {
+    margin: 0px;
+    padding: 0px;
+}
+	}
+.wpfep-default-role :checked {
+    border: 3px solid #0586BE;
+    -webkit-appearance: none;
+}
+.wpfep-custom-role :checked {
+    border: 3px solid #0586BE;
+    -webkit-appearance: none;
+}
+input.wpfep-showform-default{
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+}
+input.wpfep-showform-custom{
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+}
+select#wfp-user-role {
+    font-size: 14px;
+    line-height: 2;
+    color: #32373c;
+    border-color: #7e8993;
+    box-shadow: none;
+    border-radius: 3px;
+    min-height: 30px;
+    max-width: 25rem;
+    background-size: 16px 16px;
+    cursor: pointer;
+    vertical-align: middle;
+    width: 214px;
+    padding: 7px;
+    margin-bottom: 14px;
+}
+.wpfep-default-user-role label {
+   display: inline;
+}
+label.wpfep-showform-custom {
+    margin-left: 15px;
 }

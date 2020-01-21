@@ -6,6 +6,7 @@
  * @package WP Frontend Profile
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 <div class="login" id="wpfep-login-form">
 
@@ -25,7 +26,7 @@
 
 		<?php do_action( 'resetpassword_form' ); ?>
 
-				<p class="submit">
+        <p class="submit">
 			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e( 'Reset Password', 'wpfep' ); ?>" />
 			<input type="hidden" name="key" value="<?php echo esc_attr( $_REQUEST['key'] ); ?>" />
 			<input type="hidden" name="login" id="user_login" value="<?php echo isset( $_REQUEST['login'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['login'] ) ) : ''; ?>" />
