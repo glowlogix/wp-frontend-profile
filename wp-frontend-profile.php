@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  * @package WP Frontend Profile
  */
 if ( ! defined( 'WPFEP_VERSION' ) ) {
-	define( 'WPFEP_VERSION', '1.0.0' );
+	define( 'WPFEP_VERSION', '1.1.0' );
 }
 if ( ! defined( 'WPFEP_PATH' ) ) {
 	define( 'WPFEP_PATH', plugin_dir_path( __FILE__ ) );

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.1.0] - 2020-01-22
+### Added
+- Admin should have the ability to create new users from frontend & select roles 0221779
+- Email verification for user registration b85701b
+- Admin can manually approve users 4aebd4c
+- Add Taxonomy/Term in Fields #25
+
+### Changed
+- Improve template design
+
 ## [1.0.0] - 2019-10-15
 ### Added
 - Captcha #14
@@ -35,6 +45,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Initial launch.
 
 [Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/v1.0.0...HEAD
+[1.1.0]: https://github.com/glowlogix/wp-frontend-profile/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/glowlogix/wp-frontend-profile/compare/v0.2.2...v1.0.0
 [0.2.2]: https://github.com/glowlogix/wp-frontend-profile/compare/v0.1...v0.2.2
 [0.0.1]: https://github.com/glowlogix/wp-frontend-profile/releases/tag/v0.1
