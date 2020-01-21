@@ -287,11 +287,11 @@ ul.wpfep-profile-item-ul {
     padding: 0px;
 }
 	}
-.wpfep-showform-default :checked {
+.wpfep-default-role :checked {
     border: 3px solid #0586BE;
     -webkit-appearance: none;
 }
-.wpfep-showform-custom :checked {
+.wpfep-custom-role :checked {
     border: 3px solid #0586BE;
     -webkit-appearance: none;
 }
@@ -319,10 +319,7 @@ input.wpfep-showform-custom{
     transition: 0.2s all linear;
     margin-right: 5px;
 }
-select#custom {
-    margin-bottom: 10px;
-}
-select#custom {
+select#wfp-user-role {
     font-size: 14px;
     line-height: 2;
     color: #32373c;

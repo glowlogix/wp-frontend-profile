@@ -215,7 +215,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				if ( isset( $_POST['role'] ) == sanitize_text_field( wp_unslash( $_POST['role'] ) ) ) {
 				    $user_role = sanitize_text_field( wp_unslash( $_POST['role'] ) );
 				} else {
-					$user_role = '';
+					$user_role = wpfep_decryption( isset( $_POST['urhidden'] ) ? sanitize_text_field( wp_unslash( $_POST['urhidden'] ) ) : '' );
 				}
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {
@@ -246,17 +246,14 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				} else {
 					$userdata['user_login'] = sanitize_text_field( wp_unslash( $_POST['wpfep_reg_uname'] ) );
 				}
-
-				$dec_role                = wpfep_decryption( isset( $_POST['urhidden'] ) ? sanitize_text_field( wp_unslash( $_POST['urhidden'] ) ) : '' );
 				$userdata['first_name']  = $user_fname;
 				$userdata['last_name']   = $user_lname;
 				$userdata['user_email']  = sanitize_email( wp_unslash( $_POST['wpfep_reg_email'] ) );
 				$userdata['user_pass']   = sanitize_text_field( wp_unslash( $_POST['pwd1'] ) );
 				$userdata['description'] = $desc;
 				$userdata['user_url']    = $user_web;
-				$userdata['role']        = $user_role;
-				if ( get_role( $dec_role ) ) {
-					$userdata['role'] = $dec_role;
+				if ( get_role( $user_role ) ) {
+					$userdata['role'] = $user_role;
 				}
 				$send_link_activation         = wpfep_get_option( 'user_behave', 'wpfep_profile' );
 				$manually_register            = wpfep_get_option( 'admin_can_register_user_manually', 'wpfep_profile', 'on' );
@@ -313,7 +310,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 							wp_mail( $user_email, sprintf( esc_html__( '[%1$s] %2$s', 'wpfep' ), $blogname, $subject ), $message );
 						}
 					}
-					elseif ( 'auto_login' === $autologin_after_registration && 'off' === $manually_register && 'off' === $manually_approve_user ) {
+					else {
 
 						$wpfep_user = new WP_User( $user );
 						$user_login = stripslashes( $wpfep_user->user_login );
@@ -350,6 +347,7 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 
 					}
 					if ( 'activate_mail' == $send_link_activation ) {
+
 						$wpfep_user = new WPFEP_User( $user );
 						$wpfep_user->wpfep_new_user( $user );
 						$register_page = wpfep_get_option( 'register_page', 'wpfep_pages' );

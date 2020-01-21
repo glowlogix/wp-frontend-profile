@@ -22,7 +22,8 @@ defined( 'ABSPATH' ) || exit;
 			$code                  = get_user_meta( $user_id, 'has_to_be_activated', true );
 			$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on' );
 			if ( $code == $_GET['key'] ) {
-				echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Congratulations! Your account has been activated.', 'wpfep' ) ) . '</div>';
+				echo "<div class='wpfep-success'>" . esc_html( esc_attr__( 'Congratulations! Your account has been verified.', 'wpfep' ) ) . '</div>';
+				update_user_meta($user_id, 'verify', 'Yes');
 			}
 		}
 	}

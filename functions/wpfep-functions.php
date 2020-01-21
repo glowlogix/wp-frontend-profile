@@ -23,9 +23,7 @@ function wpfep_tab_list_item( $tab ) {
 
 		/* add the tab class to our variable */
 		$tab_class .= ' ' . $tab['tab_class'];
-
 	}
-
 	?>
 	<li class="<?php echo esc_attr( $tab_class ); ?>">
 		<a href="#<?php echo esc_attr( $tab['id'] ); ?>"><?php echo esc_html( $tab['label'] ); ?></a>
@@ -372,7 +370,6 @@ function wpfep_field( $field, $classes, $tab_id, $user_id ) {
 			} // end if have description
 
 			?>
-
 	</div>
 
 	<?php
@@ -407,37 +404,36 @@ add_action( 'wpfep_after_tab_fields', 'wpfep_tab_content_save', 10, 2 );
  * @param    array $args settings field args.
  */
 function wpfep_settings_multiselect( $args ) {
-
-		$settings = new WPFEP_Settings_API();
-		$value    = $settings->get_option( $args['id'], $args['section'], $args['std'] );
-		$value    = is_array( $value ) ? (array) $value : array();
-		$size     = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
-		$html     = sprintf( '<select multiple="multiple" class="%1$s" name="%2$s[%3$s][]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
+	$settings = new WPFEP_Settings_API();
+	$value    = $settings->get_option( $args['id'], $args['section'], $args['std'] );
+	$value    = is_array( $value ) ? (array) $value : array();
+	$size     = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
+	$html     = sprintf( '<select multiple="multiple" class="%1$s" name="%2$s[%3$s][]" id="%2$s[%3$s]">', $size, $args['section'], $args['id'] );
 
 	foreach ( $args['options'] as $key => $label ) {
-			$checked = in_array( $key, $value ) ? $key : '0';
-			$html   .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $checked, $key, false ), $label );
+		$checked = in_array( $key, $value ) ? $key : '0';
+		$html   .= sprintf( '<option value="%s"%s>%s</option>', $key, selected( $checked, $key, false ), $label );
 	}
 
-		$html .= sprintf( '</select>' );
-		$html .= $settings->get_field_description( $args );
+	$html .= sprintf( '</select>' );
+	$html .= $settings->get_field_description( $args );
 
-		echo wp_kses(
-			$html,
-			array(
-				'select' => array(
-					'multiple' => array(),
-					'class'    => array(),
-					'name'     => array(),
-					'id'       => array(),
-				),
-				'option' => array(
-					'value'    => array(),
-					'selected' => array(),
-				),
-				'p'      => array(),
-			)
-		);
+	echo wp_kses(
+		$html,
+		array(
+			'select' => array(
+				'multiple' => array(),
+				'class'    => array(),
+				'name'     => array(),
+				'id'       => array(),
+			),
+			'option' => array(
+				'value'    => array(),
+				'selected' => array(),
+			),
+			'p'      => array(),
+		)
+	);
 }
 
 /**
@@ -478,9 +474,6 @@ function wpfep_get_pages( $post_type = 'page' ) {
  * @param (array)  $args set array.
  */
 function wpfep_load_template( $file, $args = array() ) {
-	// if ( $args && is_array( $args ) ) {
-	// extract( $args );
-	// }.
 	$child_theme_dir  = get_stylesheet_directory() . '/wpfep/';
 	$parent_theme_dir = get_template_directory() . '/wpfep/';
 	$wpfep_dir        = plugin_dir_path( __DIR__ ) . 'views/';
@@ -626,13 +619,13 @@ function wpfep_let_to_num( $size ) {
 	return $ret;
 }
 
-	/**
-	 * * wpfep_format_decimal.
-	 *
-	 * @param  object  $number return user Wpfep_format_decimal.
-	 * @param  boolean $dp decimal point.
-	 * @param  boolean $trim_zeros removes zero.
-	 */
+/**
+ * * wpfep_format_decimal.
+ *
+ * @param  object  $number return user Wpfep_format_decimal.
+ * @param  boolean $dp decimal point.
+ * @param  boolean $trim_zeros removes zero.
+ */
 function wpfep_format_decimal( $number, $dp = false, $trim_zeros = false ) {
 	$locale   = localeconv();
 	$decimals = array( wpfep_get_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'] );

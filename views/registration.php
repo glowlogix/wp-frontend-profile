@@ -73,20 +73,7 @@ $register_obj  = WPFEP_Registration::init();
 				</label>
 				<input type="text" name="wpfep-website" id="wpfep-user_website" class="input" value="<?php echo esc_html( $register_obj->get_post_value( 'wpfep-website' ) ); ?>"  />
 			</li>
-			<li class="wpfep-form-field wpfep-default-user-role">
-			 <?php
-             $roles_obj = new WP_Roles();
-             $roles_names_array = $roles_obj->get_names();
-
-             echo'<select name="role" class="input">';
-             foreach ($roles_names_array as $key => $value):
-                 if ( in_array( $key, array( 'subscriber') ) ):
-                     echo'<option value="' . $key . '">' . $value . '</option>';
-                 endif;
-             endforeach;
-             echo'</select>';
-			?>
-		    </li>
+			
 			<li class="wpfep-form-field wpfep-default-user-bio">
 				<label for="wpfep-description"><?php esc_attr_e( 'Biographical Info', 'wpfep' ); ?>
 				</label>

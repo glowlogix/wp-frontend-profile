@@ -190,7 +190,6 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		 */
 		public function login_form() {
 			global $wp;
-
 			$login_page = $this->get_login_url();
 
 			ob_start();
@@ -259,7 +258,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		public function process_login() {
 			if ( ! empty( $_POST['wpfep_login'] ) && ! empty( $_POST['_wpnonce'] ) ) {
 				$creds = array();
-				$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile');
+				$manually_approve_user = wpfep_get_option( 'admin_manually_approve', 'wpfep_profile', 'on');
 				if ( isset( $_POST['_wpnonce'] ) ) {
 					wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'wpfep_login_action' );
 				}
@@ -302,14 +301,17 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				}
 				$user_behave = wpfep_get_option( 'user_behave', 'wpfep_profile' );
 				$user_meta = get_user_meta( $user->ID, 'wpfep_user_status', true );
-                if ( ('activate_mail'== $user_behave ) && ( get_user_meta( $user->ID, 'has_to_be_activated', true ) == false ) ) {
+                if ( ('activate_mail'== $user_behave ) && ( ( 'Yes' != get_user_meta( $user->ID, 'verify', true) ) || ( get_user_meta( $user->ID, 'has_to_be_activated', true ) == false ) ) ) {
 
-                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not activated yet.', 'wpfep' );
+                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( "Please verify your account.", 'wpfep' );
                     return;
                 }
-                if ( ( 'on' == $manually_approve_user ) && ('pending' == $user_meta || 'rejected' == $user_meta ) ) {
-
-                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( 'Account is not approved or denied by admin.', 'wpfep' );
+                if ( ( 'on' == $manually_approve_user ) && ('pending' == $user_meta ) ) {
+                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( "Your account hasn't been approved by the administrator.", 'wpfep' );
+                    return;
+                }
+                if ( ( 'on' == $manually_approve_user ) && ('rejected' == $user_meta ) ) {
+                    $this->login_errors[] = '<strong>' . __( 'Error', 'wpfep' ) . ':</strong> ' . __( "Your account was not approved by the administrator.", 'wpfep' );
                     return;
                 }
                 if ( isset( $user->user_login ) ) {
@@ -680,7 +682,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 			$user->mark_verified();
 			$user->remove_activation_key();
 
-			$message = __( 'Your account has been activated', 'wpfep' );
+			$message = __( 'Your account has been verified', 'wpfep' );
 
 			if ( 'approved' != $wpfep_user_status ) {
 				$message = __( "Your account has been verified , but you can't login until manually approved your account by an administrator.", 'wpfep' );
@@ -730,7 +732,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 				$subject = sprintf( __( '[%s] Account has been activated', 'wpfep' ), $blogname );
 				/* translators: %s: current user*/
 				$message  = sprintf( __( 'Hi %s,', 'wpfep' ), $the_user->user_login ) . "\r\n\r\n";
-				$message .= __( 'Congrats! Your account has been activated. To login visit the following url:', 'wpfep' ) . "\r\n\r\n";
+				$message .= __( 'Congrats! Your account has been verified. To login visit the following url:', 'wpfep' ) . "\r\n\r\n";
 				$message .= wp_login_url() . "\r\n\r\n";
 				$message .= __( 'Thanks', 'wpfep' );
 
@@ -751,7 +753,7 @@ if ( ! class_exists( 'WPFEP_Login' ) ) :
 		 * @return \WP_Error
 		 */
 		public function user_activation_message() {
-			return new WP_Error( 'user-activated', __( 'Your account has been activated', 'wpfep' ), 'message' );
+			return new WP_Error( 'user-activated', __( 'Your account has been verified', 'wpfep' ), 'message' );
 		}
 
 		/**
