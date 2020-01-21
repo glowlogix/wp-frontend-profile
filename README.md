@@ -22,6 +22,8 @@ You can add the following field types:
 
 *	WYSIWYG
 *	Select
+*   Multi Select
+*   Radio
 *	Text Area
 *	Checkbox
 *	Password
