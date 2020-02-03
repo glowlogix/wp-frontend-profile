@@ -72,15 +72,17 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 		 */
 		public function registration_form( $atts ) {
 			global $wp;
-			$atts     = shortcode_atts(
+
+			$atts   = shortcode_atts(
 				array(
 					'role' => '',
 				),
 				$atts
 			);
+
 			$userrole = $atts['role'];
 
-			$roleencoded = wpfep_encryption( $userrole );
+			$roleencoded =  $userrole;
 
 			ob_start();
 
@@ -212,10 +214,14 @@ if ( ! class_exists( 'WPFEP_Registration' ) ) :
 				} else {
 					$user_web = '';
 				}
-				if ( isset( $_POST['role'] ) == sanitize_text_field( wp_unslash( $_POST['role'] ) ) ) {
+				if ( isset( $_POST['role'] ) ) {
 				    $user_role = sanitize_text_field( wp_unslash( $_POST['role'] ) );
-				} else {
-					$user_role = wpfep_decryption( isset( $_POST['urhidden'] ) ? sanitize_text_field( wp_unslash( $_POST['urhidden'] ) ) : '' );
+				} elseif (isset( $_POST['urhidden'] ) && 'administrator'== $_POST['urhidden']){
+
+					$user_role = '';
+				}
+				else {
+					$user_role = ( isset( $_POST['urhidden'] ) ? sanitize_text_field( wp_unslash( $_POST['urhidden'] ) ) : '' );
 				}
 				if ( isset( $_POST['g-recaptcha-response'] ) ) {
 					if ( empty( $_POST['g-recaptcha-response'] ) ) {

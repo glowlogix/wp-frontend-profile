@@ -89,7 +89,7 @@ $register_obj  = WPFEP_Registration::init();
 			</li>
 			<li class="wpfep-submit">
 				<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e( 'Register', 'wpfep' ); ?>" />
-				<input type="hidden" name="urhidden" value=" <?php echo esc_html( $userrole ); ?>" />
+				<input type="hidden" name="urhidden" value=" <?php echo esc_html( $args['userrole']); ?>" />
 				<input type="hidden" name="redirect_to" value="" />
 				<input type="hidden" name="wpfep_registration" value="true" />
 				<input type="hidden" name="action" value="registration" />
