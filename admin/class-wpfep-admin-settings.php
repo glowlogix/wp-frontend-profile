@@ -125,6 +125,14 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 							'options'  => $user_roles,
 							'default'  => array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ),
 						),
+						 array(
+					     'name'    => 'role_editor',
+					        'label'   => __( 'Role', 'wpfep' ),
+					        'desc'    => __( 'Select to to enable or disabled user add role feature.', 'wpfep' ),
+					       'type'    => 'checkbox',
+					       'default' => 'off',
+
+						),
 						array(
 							'name'    => 'strong_password',
 							'label'   => __( 'Enable Strong Password', 'wpfep' ),
@@ -288,7 +296,7 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 			$this->menu_pages[] = add_menu_page( __( 'Frontend Profile', 'wpfep' ), __( 'Frontend Profile', 'wpfep' ), 'manage_options', 'wpfep-settings_dashboard', array( $this, 'plugin_page' ), 'dashicons-admin-users', 55 );
 			$this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'Settings', 'wpfep' ), __( 'Settings', 'wpfep' ), 'manage_options', 'wpfep-settings', array( $this, 'plugin_page' ) );
 			$this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'Tools', 'wpfep' ), __( 'Tools', 'wpfep' ), 'manage_options', 'wpfep-tools', array( $this, 'tool_page' ) );
-			$this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'System Status', 'wpfep' ), __( 'System Status', 'wpfep' ), 'manage_options', 'wpfep-status', array( $this, 'system_status' ) );
+			$this->menu_pages[] = add_submenu_page( 'wpfep-settings_dashboard', __( 'System Status', 'wpfep' ), __( 'System Status', 'wpfep' ), 'manage_options', 'wpfep-status', array( $this, 'system_status' ) );			
 			remove_submenu_page( 'wpfep-settings_dashboard', 'wpfep-settings_dashboard' );
 		}
 

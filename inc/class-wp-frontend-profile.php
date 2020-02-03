@@ -66,6 +66,7 @@ if ( ! class_exists( 'WP_Frontend_Profile' ) ) :
 			require_once WPFEP_PATH . '/functions/shortcode.php';
 			require_once WPFEP_PATH . '/functions/feedback.php';
 			require_once WPFEP_PATH . '/inc/class-wpfep-user.php';
+			require_once WPFEP_PATH . '/inc/class-wpfep-roles-editor.php';
 
 			if ( is_admin() ) {
 				require_once WPFEP_PATH . '/admin/class-wpfep-admin-installer.php';
