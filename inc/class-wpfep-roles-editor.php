@@ -636,20 +636,174 @@
       {
           global $wp_roles;
 
-          if ($post->post_type == 'wpfep-roles-editor') {
-              $current_user = wp_get_current_user();
-              $default_role = get_option('default_role');
-              $role_slug = get_post_meta($post->ID, 'wpfep_role_slug', true);
+            if( isset( $_POST['wpfep-role-slug-hidden'] ) ) {
+                $role_slug = trim( $_POST['wpfep-role-slug-hidden'] );
+                $role_slug = $this->sanitize_role( $role_slug );
 
-              $url = admin_url('post.php?post='.$post->ID);
-              $actions = [
+                update_post_meta( $post_id, 'wpfep_role_slug', $role_slug );
+            }
 
-              ];
+        }
 
-              if (in_array($role_slug, $current_user->roles) && (!is_multisite() || (is_multisite() && !is_super_admin())) && (!empty($wp_roles->roles[$role_slug]['capabilities']) && array_key_exists('manage_options', $wp_roles->roles[$role_slug]['capabilities']))) {
-                  $actions = array_merge($actions, [
-                      'delete_notify your_role' => '<span title="'.esc_html__('You can\'t delete your role.', 'wpfep').'">'.esc_html__('Delete', 'wpfep').'</span>',
-                  ]
+        function update_role_capabilities() {
+
+            if( ! current_user_can( 'manage_options' ) ) {
+                die();
+            }
+
+            check_ajax_referer( 'wpfep-re-ajax-nonce', 'security' );
+
+            $role_slug = $this->sanitize_role( $_POST['role'] );
+
+            $role = get_role( $role_slug );
+
+            if( $role ) {
+                if( isset( $_POST['new_capabilities'] ) ) {
+                    foreach( $_POST['new_capabilities'] as $key => $value ) {
+                        $role->add_cap( sanitize_text_field( $key ) );
+                    }
+                }
+
+                if( isset( $_POST['capabilities_to_delete'] ) ) {
+                    foreach( $_POST['capabilities_to_delete'] as $key => $value ) {
+                        $role->remove_cap( sanitize_text_field( $key ) );
+                    }
+                }
+            } else {
+                $capabilities = array();
+
+                if( isset( $_POST['all_capabilities'] ) ) {
+                    foreach( $_POST['all_capabilities'] as $key => $value ) {
+                        $capabilities[sanitize_text_field( $key )] = true;
+                    };
+                }
+
+                $role_display_name = sanitize_text_field( $_POST['role_display_name'] );
+
+                add_role( $role_slug, $role_display_name, $capabilities );
+            }
+
+            die( 'role_capabilities_updated' );
+
+        }
+
+        function group_capabilities() {
+
+            $capabilities = get_option( 'wpfep_roles_editor_capabilities', 'not_set' );
+
+            if( $capabilities == 'not_set' ) {
+                // For remove non-custom capabilities from this array later on
+                // 
+
+                update_option( 'wpfep_roles_editor_capabilities', $capabilities );
+            } else {
+                $custom_capabilities = $this->get_all_capabilities();
+                $custom_capabilities = $this->remove_old_labels( $custom_capabilities );
+
+                foreach( $capabilities['post_types'] as $key => $value ) {
+                    $custom_capabilities = array_diff( $custom_capabilities, $value['capabilities'] );
+                }
+
+                foreach( $capabilities as $key => $value ) {
+                    if( $key != 'post_types' && $key != 'custom' ) {
+                        $custom_capabilities = array_diff( $custom_capabilities, $value['capabilities'] );
+                    }
+                }
+
+                $custom_capabilities = array_values( $custom_capabilities );
+                $custom_capabilities = array_unique( $custom_capabilities );
+                $custom_capabilities = array_diff( $custom_capabilities, $capabilities['custom']['capabilities'] );
+
+                if( ! empty( $custom_capabilities ) ) {
+                    $capabilities['custom']['capabilities'] = array_merge( $capabilities['custom']['capabilities'], $custom_capabilities );
+
+                    update_option( 'wpfep_roles_editor_capabilities', $capabilities );
+                }
+            }
+
+            return $capabilities;
+
+
+        }
+
+        function post_type_group_capabilities( $post_type = 'post' ) {
+
+            $capabilities = (array) get_post_type_object( $post_type )->cap;
+
+            unset( $capabilities['edit_post'] );
+            unset( $capabilities['read_post'] );
+            unset( $capabilities['delete_post'] );
+
+            $capabilities = array_values( $capabilities );
+
+            if( ! in_array( $post_type, array( 'post', 'page' ) ) ) {
+                // Get the post and page capabilities
+                $post_caps = array_values( (array) get_post_type_object( 'post' )->cap );
+                $page_caps = array_values( (array) get_post_type_object( 'page' )->cap );
+
+                // Remove post/page capabilities from the current post type capabilities
+                $capabilities = array_diff( $capabilities, $post_caps, $page_caps );
+            }
+
+            if( 'attachment' === $post_type ) {
+                $capabilities[] = 'unfiltered_upload';
+            }
+
+            return array_unique( $capabilities );
+
+        }
+
+        function get_all_capabilities() {
+
+            global $wp_roles;
+
+            $capabilities = array();
+
+            foreach( $wp_roles->role_objects as $key => $role ) {
+                if( is_array( $role->capabilities ) ) {
+                    foreach( $role->capabilities as $capability => $granted ) {
+                        $capabilities[$capability] = $capability;
+                    }
+                }
+            }
+
+            return array_unique( $capabilities );
+
+        }
+
+        function remove_filter_by_month_dropdown( $months, $post_type = NULL ) {
+
+            if( isset( $post_type ) && $post_type == 'wpfep-roles-editor' ) {
+                return __return_empty_array();
+            } else {
+                return $months;
+            }
+
+        }
+
+        function modify_list_row_actions( $actions, $post ) {
+            global $wp_roles;
+
+            if( $post->post_type == 'wpfep-roles-editor' ) {
+                $current_user = wp_get_current_user();
+                $default_role = get_option( 'default_role' );
+                $role_slug = get_post_meta( $post->ID, 'wpfep_role_slug', true );
+
+                $url = admin_url( 'post.php?post=' . $post->ID );
+                $edit_link = add_query_arg( array( 'action' => 'edit' ), $url );
+
+                $actions = array(
+                 'edit' => sprintf(
+                     '<a href="%1$s">%2$s</a>',
+                     esc_url( $edit_link ),
+                     esc_html__( 'Edit', 'wpfep' )
+                 )
+                 );
+
+                if( in_array( $role_slug, $current_user->roles ) && ( ! is_multisite() || ( is_multisite() && ! is_super_admin() ) ) && ( !empty( $wp_roles->roles[$role_slug]['capabilities'] ) && array_key_exists( 'manage_options', $wp_roles->roles[$role_slug]['capabilities'] ) ) ) {
+                    $actions = array_merge( $actions, array(
+                            'delete_notify your_role' => '<span title="'. esc_html__( 'You can\'t delete your role.', 'wpfep' ) .'">'. esc_html__( 'Delete', 'wpfep' ) .'</span>'
+                        )
                     );
               } elseif ($role_slug == $default_role) {
                   $actions = array_merge($actions, [
@@ -660,201 +814,283 @@
                       'delete_notify' => '<span title="'.esc_html__('You can\'t delete the default role. Change it first.', 'wpfep').'">'.esc_html__('Delete', 'wpfep').'</span>',
                   ]
                     );
-              }
-          }
+                } 
+            }
 
-          return $actions;
-      }
+            return $actions;
 
-      public function sanitize_role($role)
-      {
-          $role = strtolower($role);
-          $role = wp_strip_all_tags($role);
-          $role = preg_replace('/[^a-z0-9_\-\s]/', '', $role);
-          $role = str_replace(' ', '_', $role);
+        }
 
-          return $role;
-      }
+        function sanitize_role( $role ) {
 
-      public function wp_default_scripts()
-      {
-          $wp_default_scripts = [
-              'jquery', 'jquery-core', 'jquery-migrate', 'jquery-ui-core', 'jquery-ui-accordion',
-              'jquery-ui-autocomplete', 'jquery-ui-button', 'jquery-ui-datepicker', 'jquery-ui-dialog',
-              'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-menu', 'jquery-ui-mouse',
-              'jquery-ui-position', 'jquery-ui-progressbar', 'jquery-ui-resizable', 'jquery-ui-selectable',
-              'jquery-ui-slider', 'jquery-ui-sortable', 'jquery-ui-spinner', 'jquery-ui-tabs',
-              'jquery-ui-tooltip', 'jquery-ui-widget', 'underscore', 'backbone', 'utils', 'common',
-              'wp-a11y', 'sack', 'quicktags', 'colorpicker', 'editor', 'wp-fullscreen-stub', 'wp-ajax-response',
-              'wp-pointer', 'heartbeat', 'wp-auth-check', 'wp-lists', 'prototype', 'scriptaculous-root',
-              'scriptaculous-builder', 'scriptaculous-dragdrop', 'scriptaculous-effects', 'scriptaculous-slider',
-              'scriptaculous-sound', 'scriptaculous-controls', 'scriptaculous', 'cropper', 'jquery-effects-core',
-              'jquery-effects-blind', 'jquery-effects-bounce', 'jquery-effects-clip', 'jquery-effects-drop',
-              'jquery-effects-explode', 'jquery-effects-fade', 'jquery-effects-fold', 'jquery-effects-highlight',
-              'jquery-effects-puff', 'jquery-effects-pulsate', 'jquery-effects-scale', 'jquery-effects-shake',
-              'jquery-effects-size', 'jquery-effects-slide', 'jquery-effects-transfer', 'jquery-ui-selectmenu',
-              'jquery-form', 'jquery-color', 'schedule', 'jquery-query', 'jquery-serialize-object', 'jquery-hotkeys',
-              'jquery-table-hotkeys', 'jquery-touch-punch', 'suggest', 'imagesloaded', 'masonry', 'jquery-masonry',
-              'thickbox', 'jcrop', 'swfobject', 'plupload', 'plupload-all', 'plupload-html5', 'plupload-flash',
-              'plupload-silverlight', 'plupload-html4', 'plupload-handlers', 'wp-plupload', 'swfupload', 'swfupload-swfobject',
-              'swfupload-queue', 'swfupload-speed', 'swfupload-all', 'swfupload-handlers', 'comment-reply', 'json2',
-              'underscore', 'backbone', 'wp-util', 'wp-backbone', 'revisions', 'imgareaselect', 'mediaelement',
-              'wp-mediaelement', 'froogaloop', 'wp-playlist', 'zxcvbn-async', 'password-strength-meter', 'user-profile',
-              'language-chooser', 'user-suggest', 'admin-bar', 'wplink', 'wpdialogs', 'word-count', 'media-upload',
-              'hoverIntent', 'customize-base', 'customize-loader', 'customize-preview', 'customize-models', 'customize-views',
-              'customize-controls', 'customize-selective-refresh', 'customize-widgets', 'customize-preview-widgets',
-              'customize-preview-nav-menus', 'wp-custom-header', 'accordion', 'shortcode', 'media-models', 'wp-embed',
-              'media-views', 'media-editor', 'media-audiovideo', 'mce-view', 'wp-api', 'admin-tags', 'admin-comments', 'xfn',
-              'postbox', 'tags-box', 'tags-suggest', 'post', 'press-this', 'editor-expand', 'link', 'comment', 'admin-gallery',
-              'admin-widgets', 'theme', 'inline-edit-post', 'inline-edit-tax', 'plugin-install', 'updates', 'farbtastic', 'iris',
-              'wp-color-picker', 'dashboard', 'list-revisions', 'media-grid', 'media', 'image-edit', 'set-post-thumbnail',
-              'nav-menu', 'custom-header', 'custom-background', 'media-gallery', 'svg-painter', 'customize-nav-menus',
-          ];
+            $role = strtolower( $role );
+            $role = wp_strip_all_tags( $role );
+            $role = preg_replace( '/[^a-z0-9_\-\s]/', '', $role );
+            $role = str_replace( ' ', '_', $role );
 
-          return $wp_default_scripts;
-      }
+            return $role;
 
-      public function wp_default_styles()
-      {
-          $wp_default_styles = [
-              'admin-bar', 'colors', 'ie', 'wp-auth-check', 'wp-jquery-ui-dialog', 'wpfep-serial-notice-css',
-              'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media',
-              'themes', 'about', 'nav-menus', 'widgets', 'site-icon', 'l10n', 'wp-admin', 'login', 'install',
-              'wp-color-picker', 'customize-controls', 'customize-widgets', 'customize-nav-menus', 'press-this',
-              'buttons', 'dashicons', 'editor-buttons', 'media-views', 'wp-pointer', 'customize-preview',
-              'wp-embed-template-ie', 'imgareaselect', 'mediaelement', 'wp-mediaelement', 'thickbox',
-              'deprecated-media', 'farbtastic', 'jcrop', 'colors-fresh', 'open-sans',
-          ];
+        }
 
-          return $wp_default_styles;
-      }
+        function wp_default_scripts() {
 
-      public function get_hidden_capabilities()
-      {
-          $capabilities = [];
+            $wp_default_scripts = array(
+                'jquery', 'jquery-core', 'jquery-migrate', 'jquery-ui-core', 'jquery-ui-accordion',
+                'jquery-ui-autocomplete', 'jquery-ui-button', 'jquery-ui-datepicker', 'jquery-ui-dialog',
+                'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-menu', 'jquery-ui-mouse',
+                'jquery-ui-position', 'jquery-ui-progressbar', 'jquery-ui-resizable', 'jquery-ui-selectable',
+                'jquery-ui-slider', 'jquery-ui-sortable', 'jquery-ui-spinner', 'jquery-ui-tabs',
+                'jquery-ui-tooltip', 'jquery-ui-widget', 'underscore', 'backbone', 'utils', 'common',
+                'wp-a11y', 'sack', 'quicktags', 'colorpicker', 'editor', 'wp-fullscreen-stub', 'wp-ajax-response',
+                'wp-pointer', 'heartbeat', 'wp-auth-check', 'wp-lists', 'prototype', 'scriptaculous-root',
+                'scriptaculous-builder', 'scriptaculous-dragdrop', 'scriptaculous-effects', 'scriptaculous-slider',
+                'scriptaculous-sound', 'scriptaculous-controls', 'scriptaculous', 'cropper', 'jquery-effects-core',
+                'jquery-effects-blind', 'jquery-effects-bounce', 'jquery-effects-clip', 'jquery-effects-drop',
+                'jquery-effects-explode', 'jquery-effects-fade', 'jquery-effects-fold', 'jquery-effects-highlight',
+                'jquery-effects-puff', 'jquery-effects-pulsate', 'jquery-effects-scale', 'jquery-effects-shake',
+                'jquery-effects-size', 'jquery-effects-slide', 'jquery-effects-transfer', 'jquery-ui-selectmenu',
+                'jquery-form', 'jquery-color', 'schedule', 'jquery-query', 'jquery-serialize-object', 'jquery-hotkeys',
+                'jquery-table-hotkeys', 'jquery-touch-punch', 'suggest', 'imagesloaded', 'masonry', 'jquery-masonry',
+                'thickbox', 'jcrop', 'swfobject', 'plupload', 'plupload-all', 'plupload-html5', 'plupload-flash',
+                'plupload-silverlight', 'plupload-html4', 'plupload-handlers', 'wp-plupload', 'swfupload', 'swfupload-swfobject',
+                'swfupload-queue', 'swfupload-speed', 'swfupload-all', 'swfupload-handlers', 'comment-reply', 'json2',
+                'underscore', 'backbone', 'wp-util', 'wp-backbone', 'revisions', 'imgareaselect', 'mediaelement',
+                'wp-mediaelement', 'froogaloop', 'wp-playlist', 'zxcvbn-async', 'password-strength-meter', 'user-profile',
+                'language-chooser', 'user-suggest', 'admin-bar', 'wplink', 'wpdialogs', 'word-count', 'media-upload',
+                'hoverIntent', 'customize-base', 'customize-loader', 'customize-preview', 'customize-models', 'customize-views',
+                'customize-controls', 'customize-selective-refresh', 'customize-widgets', 'customize-preview-widgets',
+                'customize-preview-nav-menus', 'wp-custom-header', 'accordion', 'shortcode', 'media-models', 'wp-embed',
+                'media-views', 'media-editor', 'media-audiovideo', 'mce-view', 'wp-api', 'admin-tags', 'admin-comments', 'xfn',
+                'postbox', 'tags-box', 'tags-suggest', 'post', 'press-this', 'editor-expand', 'link', 'comment', 'admin-gallery',
+                'admin-widgets', 'theme', 'inline-edit-post', 'inline-edit-tax', 'plugin-install', 'updates', 'farbtastic', 'iris',
+                'wp-color-picker', 'dashboard', 'list-revisions', 'media-grid', 'media', 'image-edit', 'set-post-thumbnail',
+                'nav-menu', 'custom-header', 'custom-background', 'media-gallery', 'svg-painter', 'customize-nav-menus',
+            );
 
-          if (is_multisite() || !defined('ALLOW_UNFILTERED_UPLOADS') || !ALLOW_UNFILTERED_UPLOADS) {
-              $capabilities['unfiltered_upload'] = 'unfiltered_upload';
-          }
+            return $wp_default_scripts;
 
-          if (is_multisite() || (defined('DISALLOW_UNFILTERED_HTML') && DISALLOW_UNFILTERED_HTML)) {
-              $capabilities['unfiltered_html'] = 'unfiltered_html';
-          }
+        }
 
-          if (is_multisite() || (defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT)) {
-              $capabilities['edit_files'] = 'edit_files';
-              $capabilities['edit_plugins'] = 'edit_plugins';
-              $capabilities['edit_themes'] = 'edit_themes';
-          }
+        function wp_default_styles() {
 
-          if (is_multisite() || (defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)) {
-              $capabilities['edit_files'] = 'edit_files';
-              $capabilities['edit_plugins'] = 'edit_plugins';
-              $capabilities['edit_themes'] = 'edit_themes';
-              $capabilities['update_plugins'] = 'update_plugins';
-              $capabilities['delete_plugins'] = 'delete_plugins';
-              $capabilities['install_plugins'] = 'install_plugins';
-              $capabilities['upload_plugins'] = 'upload_plugins';
-              $capabilities['update_themes'] = 'update_themes';
-              $capabilities['delete_themes'] = 'delete_themes';
-              $capabilities['install_themes'] = 'install_themes';
-              $capabilities['upload_themes'] = 'upload_themes';
-              $capabilities['update_core'] = 'update_core';
-          }
+            $wp_default_styles = array(
+                'admin-bar', 'colors', 'ie', 'wp-auth-check', 'wp-jquery-ui-dialog', 'wpfep-serial-notice-css',
+                'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media',
+                'themes', 'about', 'nav-menus', 'widgets', 'site-icon', 'l10n', 'wp-admin', 'login', 'install',
+                'wp-color-picker', 'customize-controls', 'customize-widgets', 'customize-nav-menus', 'press-this',
+                'buttons', 'dashicons', 'editor-buttons', 'media-views', 'wp-pointer', 'customize-preview',
+                'wp-embed-template-ie', 'imgareaselect', 'mediaelement', 'wp-mediaelement', 'thickbox',
+                'deprecated-media', 'farbtastic', 'jcrop', 'colors-fresh', 'open-sans',
+            );
 
-          return array_unique($capabilities);
-      }
+            return $wp_default_styles;
 
-      // To Add actions on Add User back-end page
-      public function actions_on_user_new()
-      {
-          $this->scripts_and_styles_actions('user_new');
+        }
 
-          add_action('user_new_form', [$this, 'roles_field_user_new']);
+        function get_hidden_capabilities() {
 
-          add_action('user_register', [$this, 'roles_update_user_new']);
-      }
+            $capabilities = array();
 
-      // For Roles Edit checkboxes for Add User back-end page
-      public function roles_field_user_new()
-      {
-          if (!current_user_can('promote_users')) {
-              return;
-          }
+            if( is_multisite() || ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) || ! ALLOW_UNFILTERED_UPLOADS ) {
+                $capabilities['unfiltered_upload'] = 'unfiltered_upload';
+            }
 
-          $user_roles = apply_filters('wpfep_default_user_roles', [get_option('default_role')]);
+            if( is_multisite() || ( defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ) ) {
+                $capabilities['unfiltered_html'] = 'unfiltered_html';
+            }
 
-          if (isset($_POST['createuser']) && !empty($_POST['wpfep_re_user_roles'])) {
-              $user_roles = array_map([$this, 'sanitize_role'], $_POST['wpfep_re_user_roles']);
-          }
+            if( is_multisite() || ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) ) {
+                $capabilities['edit_files'] = 'edit_files';
+                $capabilities['edit_plugins'] = 'edit_plugins';
+                $capabilities['edit_themes'] = 'edit_themes';
+            }
 
-          wp_nonce_field('new_user_roles', 'wpfep_re_new_user_roles_nonce');
+            if( is_multisite() || ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) ) {
+                $capabilities['edit_files'] = 'edit_files';
+                $capabilities['edit_plugins'] = 'edit_plugins';
+                $capabilities['edit_themes'] = 'edit_themes';
+                $capabilities['update_plugins'] = 'update_plugins';
+                $capabilities['delete_plugins'] = 'delete_plugins';
+                $capabilities['install_plugins'] = 'install_plugins';
+                $capabilities['upload_plugins'] = 'upload_plugins';
+                $capabilities['update_themes'] = 'update_themes';
+                $capabilities['delete_themes'] = 'delete_themes';
+                $capabilities['install_themes'] = 'install_themes';
+                $capabilities['upload_themes'] = 'upload_themes';
+                $capabilities['update_core'] = 'update_core';
+            }
 
-          $this->roles_field_display($user_roles);
-      }
+            return array_unique( $capabilities );
 
-      public function roles_update_user_new($user_id)
-      {
-          if (!current_user_can('promote_users')) {
-              return;
-          }
+        }
 
-          if (!isset($_POST['wpfep_re_new_user_roles_nonce']) || !wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
-              return;
-          }
+        // To Add actions on Add User back-end page
+        function actions_on_user_new() {
 
-          $user = new \WP_User($user_id);
+            $this->scripts_and_styles_actions( 'user_new' );
 
-          $this->roles_update_user_new_and_edit($user);
-      }
+            add_action( 'user_new_form', array( $this, 'roles_field_user_new' ) );
 
-      public function roles_update_user_new_and_edit($user)
-      {
-          if (!empty($_POST['wpfep_re_user_roles'])) {
-              $old_roles = (array) $user->roles;
+            add_action( 'user_register', array( $this, 'roles_update_user_new' ) );
 
-              $new_roles = array_map([$this, 'sanitize_role'], $_POST['wpfep_re_user_roles']);
+        }
+        function actions_on_user_edit() {
 
-              foreach ($new_roles as $new_role) {
-                  if (!in_array($new_role, (array) $user->roles)) {
-                      $user->add_role($new_role);
-                  }
-              }
+        $this->scripts_and_styles_actions( 'user_edit' );
 
-              foreach ($old_roles as $old_role) {
-                  if (!in_array($old_role, $new_roles)) {
-                      $user->remove_role($old_role);
-                  }
-              }
-          } else {
-              foreach ((array) $user->roles as $old_role) {
-                  $user->remove_role($old_role);
-              }
-          }
-      }
+        add_action( 'personal_options', array( $this, 'roles_field_user_edit' ) );
 
-      public function scripts_and_styles_actions($location)
-      {
+        add_action( 'profile_update', array( $this, 'roles_update_user_edit' ), 10, 2 );
+
+        }
+        // For Roles Edit checkboxes for Add User back-end page
+        function roles_field_user_new() {
+
+            if( ! current_user_can( 'promote_users' ) ) {
+                return;
+            }
+
+            $user_roles = apply_filters( 'wpfep_default_user_roles', array( get_option( 'default_role' ) ) );
+
+            if( isset( $_POST['createuser'] ) && ! empty( $_POST['wpfep_re_user_roles'] ) ) {
+                $user_roles = array_map( array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles'] );
+            }
+
+            wp_nonce_field( 'new_user_roles', 'wpfep_re_new_user_roles_nonce' );
+
+            $this->roles_field_display( $user_roles );
+
+        }
+
+        // For Roles Edit checkboxes for Edit User back-end page
+        function roles_field_user_edit( $user ) {
+
+        if( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user->ID ) ) {
+            return;
+        }
+
+        $user_roles = (array) $user->roles;
+
+        wp_nonce_field( 'new_user_roles', 'wpfep_re_new_user_roles_nonce' );
+
+        $this->roles_field_display( $user_roles );
+
+        }
+          //To Output roles edit checkboxes
+        function roles_field_display( $user_roles ) {
+
+            $wpfep_roles = get_editable_roles();
+
+            ?>
+            <table class="form-table">
+                <tr class="wpfep-re-edit-user">
+                    <th><?php esc_html_e( 'Edit User Roles', 'wpfep' ); ?></th>
+
+                    <td>
+                        <div>
+                            <ul style="margin: 5px 0;">
+                                <?php foreach( $wpfep_roles as $role_slug => $role_details ) { ?>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" name="wpfep_re_user_roles[]" value="<?php echo esc_attr( $role_slug ); ?>" <?php checked( in_array( $role_slug, $user_roles ) ); ?> />
+                                            <?php echo esc_html( translate_user_role( $role_details['name'] ) ); ?>
+                                        </label>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        <?php
+        }
+        function roles_update_user_edit( $user_id, $old_user_data ) {
+
+        if( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user_id ) ) {
+            return;
+        }
+
+        if( ! isset( $_POST['wpfep_re_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles' ) ) {
+            return;
+        }
+
+        $this->roles_update_user_new_and_edit( $old_user_data );
+
+        }
+        function roles_update_user_new( $user_id ) {
+
+            if( ! current_user_can( 'promote_users' ) ) {
+                return;
+            }
+
+            if( ! isset( $_POST['wpfep_re_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles' ) ) {
+                return;
+            }
+
+            $user = new \WP_User( $user_id );
+
+            $this->roles_update_user_new_and_edit( $user );
+
+        }
+
+        function roles_update_user_new_and_edit( $user ) {
+
+            if( ! empty( $_POST['wpfep_re_user_roles'] ) ) {
+
+                $old_roles = (array) $user->roles;
+
+                $new_roles = array_map( array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles'] );
+
+                foreach( $new_roles as $new_role ) {
+                    if( ! in_array( $new_role, (array) $user->roles ) ) {
+                        $user->add_role( $new_role );
+                    }
+                }
+
+                foreach( $old_roles as $old_role ) {
+                    if( ! in_array( $old_role, $new_roles ) ) {
+                        $user->remove_role( $old_role );
+                    }
+                }
+            } else {
+                foreach( (array) $user->roles as $old_role ) {
+                    $user->remove_role( $old_role );
+                }
+            }
+
+        }
+
+        function scripts_and_styles_actions( $location ) {
 
             // For Enqueue jQuery on both Add User and Edit User back-end pages
-          add_action('admin_enqueue_scripts', [$this, 'enqueue_jquery']);
+            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_jquery' ) );
 
-          //This is Actions for Add User back-end page
-          if ($location == 'user_new') {
-              add_action('admin_footer', [$this, 'print_scripts_user_new'], 25);
-          }
-      }
+            //This is Actions for Add User back-end page
+            if( $location == 'user_new' ) {
+                add_action( 'admin_footer', array( $this, 'print_scripts_user_new' ), 25 );
+            }
+            if( $location == 'user_edit' ) {
+            add_action( 'admin_head', array( $this, 'print_styles_user_edit' ) );
+            add_action( 'admin_footer', array( $this, 'print_scripts_user_edit' ), 25 );
+        }
 
-      // For Enqueue jQuery where needed (use action)
-      public function enqueue_jquery()
-      {
-          wp_enqueue_script('jquery');
-      }
+    
 
-      //To Print scripts on Add User back-end page
-      public function print_scripts_user_new()
-      {
-          ?>
+
+        }
+
+        // For Enqueue jQuery where needed (use action)
+        function enqueue_jquery() {
+
+            wp_enqueue_script( 'jquery' );
+
+        }
+
+        //To Print scripts on Add User back-end page
+        function print_scripts_user_new() {
+
+            ?>
             <script>
                 jQuery( document ).ready( function() {
                     // Remove WordPress default Role Select
