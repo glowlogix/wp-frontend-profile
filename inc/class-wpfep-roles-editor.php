@@ -61,7 +61,7 @@ class WPFEP_Roles_Editor {
 		global $wp_scripts;
 		global $wp_styles;
 
-		if ( $post_type == 'wpfep-roles-editor' ) {
+		if ( 'wpfep-roles-editor' == $post_type ) {
 			$wp_default_scripts = $this->wp_default_scripts();
 			$scripts_exceptions = array( 'wpfep-sitewide', 'acf-field-group', 'acf-pro-field-group', 'acf-input', 'acf-pro-input' );
 			foreach ( $wp_scripts->registered as $key => $value ) {
@@ -84,7 +84,7 @@ class WPFEP_Roles_Editor {
 			wp_enqueue_script( 'wpfep_roles_editor_js', plugin_dir_url( __FILE__ ) . '../assets/js/roles-editor.js' );
 			wp_enqueue_style( 'wpfep_roles_editor_css', plugin_dir_url( __FILE__ ) . '../assets/css/roles-editor.css' );
 
-			if ( $current_screen->id == 'wpfep-roles-editor' ) {
+			if ( 'wpfep-roles-editor' == $current_screen->id ) {
 				$role_slug    = $this->sanitize_role( get_post_meta( $post->ID, 'wpfep_role_slug', true ) );
 				$current_role = get_role( $role_slug );
 				$current_user = wp_get_current_user();
@@ -115,7 +115,7 @@ class WPFEP_Roles_Editor {
 			// For Remove old WordPress levels system
 			// To Use filter and return FALSE if you need the old levels capability system
 			$remove_old_levels = apply_filters( 'wpfep_remove_old_levels', true );
-			if ( $remove_old_levels === true ) {
+			if ( true === $remove_old_levels ) {
 				$role_capabilities = $this->remove_old_labels( $role_capabilities );
 			}
 
@@ -134,13 +134,13 @@ class WPFEP_Roles_Editor {
 			$hidden_capabilities = null;
 
 			$remove_hidden_capabilities = apply_filters( 'wpfep_re_remove_hidden_caps', true );
-			if ( $remove_hidden_capabilities === true ) {
+			if ( true === $remove_hidden_capabilities ) {
 				$group_capabilities['general']['capabilities']                  = array_diff( $group_capabilities['general']['capabilities'], $this->get_hidden_capabilities() );
 				$group_capabilities['appearance']['capabilities']               = array_diff( $group_capabilities['appearance']['capabilities'], $this->get_hidden_capabilities() );
 				$group_capabilities['plugins']['capabilities']                  = array_diff( $group_capabilities['plugins']['capabilities'], $this->get_hidden_capabilities() );
 				$group_capabilities['post_types']['attachment']['capabilities'] = array_diff( $group_capabilities['post_types']['attachment']['capabilities'], $this->get_hidden_capabilities() );
 
-				if ( $role_capabilities !== null ) {
+				if ( null !== $role_capabilities ) {
 					$role_capabilities = array_diff_key( $role_capabilities, $this->get_hidden_capabilities() );
 				}
 
@@ -153,7 +153,7 @@ class WPFEP_Roles_Editor {
 			$all_capabilities = $this->get_all_capabilities();
 
 			$custom_capabilities = get_option( 'wpfep_roles_editor_capabilities', 'not_set' );
-			if ( $custom_capabilities != 'not_set' && ! empty( $custom_capabilities['custom']['capabilities'] ) ) {
+			if ( 'not_set' != $custom_capabilities && ! empty( $custom_capabilities['custom']['capabilities'] ) ) {
 				foreach ( $custom_capabilities['custom']['capabilities'] as $custom_capability_key => $custom_capability ) {
 					if ( ! in_array( $custom_capability, $all_capabilities ) ) {
 						$all_capabilities[ $custom_capability ] = $custom_capability;
@@ -222,7 +222,7 @@ class WPFEP_Roles_Editor {
 			// For Remove old WordPress levels system
 			// To Use filter and return FALSE if you need the old levels capability system
 			$remove_old_levels = apply_filters( 'wpfep_remove_old_levels', true );
-			if ( $remove_old_levels === true ) {
+			if ( true === $remove_old_levels ) {
 				$role_capabilities = $this->remove_old_labels( $role_capabilities );
 			}
 
@@ -283,11 +283,11 @@ class WPFEP_Roles_Editor {
 
 		$screen = get_current_screen();
 
-		if ( $screen->post_type == 'wpfep-roles-editor' ) {
-			   $title = esc_html__( 'Enter role name here', 'wpfep' );
+		if ( 'wpfep-roles-editor' == $screen->post_type ) {
+			$title = esc_html__( 'Enter role name here', 'wpfep' );
 		}
 
-		 return $title;
+		return $title;
 
 	}
 
@@ -317,7 +317,7 @@ class WPFEP_Roles_Editor {
 
 		$screen = get_current_screen();
 
-		if ( $screen->id == 'edit-wpfep-roles-editor' ) {
+		if ( 'edit-wpfep-roles-editor' == $screen->id ) {
 			global $wpdb;
 			global $wp_roles;
 
@@ -384,15 +384,15 @@ class WPFEP_Roles_Editor {
 		if ( isset( $role_slug ) ) {
 			$role = get_role( $role_slug );
 
-			if ( $column_name == 'role' ) {
+			if ( 'role' == $column_name ) {
 				echo '<input readonly spellcheck="false" type="text" class="wpfep-role-slug-input input" value="' . $role_slug . '" />';
 			}
 
-			if ( $column_name == 'capabilities' && isset( $role ) ) {
+			if ( 'capabilities' == $column_name && isset( $role ) ) {
 				// To Remove old WordPress levels system
 				// For Use filter and return FALSE if you need the old levels capability system
 				$remove_old_levels = apply_filters( 'wpfep_remove_old_levels', true );
-				if ( $remove_old_levels === true ) {
+				if ( true === $remove_old_levels ) {
 					$role_capabilities = $this->remove_old_labels( $role->capabilities );
 				} else {
 					$role_capabilities = $role->capabilities;
@@ -401,7 +401,7 @@ class WPFEP_Roles_Editor {
 				echo count( $role_capabilities );
 			}
 
-			if ( $column_name == 'users' && isset( $role ) ) {
+			if ( 'users' == $column_name && isset( $role ) ) {
 				$role_users_count = $this->count_role_users( $role->name );
 
 				if ( ! isset( $role_users_count ) ) {
@@ -464,7 +464,7 @@ class WPFEP_Roles_Editor {
 				<div class="misc-pub-section misc-pub-section-edit-slug">
 					<span>
 						<label for="wpfep-role-slug"><?php esc_html_e( 'Role Slug', 'wpfep' ); ?>: </label>
-						<input type="text" id="wpfep-role-slug" value="<?php echo $current_screen->action == 'add' ? '' : $role_slug; ?>" <?php echo $current_screen->action == 'add' ? '' : 'disabled'; ?>>
+						<input type="text" id="wpfep-role-slug" value="<?php echo 'add' == $current_screen->action ? '' : $role_slug; ?>" <?php echo 'add' == $current_screen->action ? '' : 'disabled'; ?>>
 					</span>
 				</div>
 			  <?php
@@ -486,7 +486,7 @@ class WPFEP_Roles_Editor {
 
 	function modify_post_title( $data ) {
 
-		if ( 'wpfep-roles-editor' != $data['post_type'] || $data['post_status'] == 'auto-draft' ) {
+		if ( 'wpfep-roles-editor' != $data['post_type'] || 'auto-draft' == $data['post_status'] ) {
 			return $data;
 		}
 
@@ -506,7 +506,7 @@ class WPFEP_Roles_Editor {
 
 		$post_type = get_post_type( $post_id );
 
-		if ( 'wpfep-roles-editor' != $post_type || $post->post_status == 'auto-draft' ) {
+		if ( 'wpfep-roles-editor' != $post_type || 'auto-draft' == $post->post_status ) {
 			return;
 		}
 
@@ -569,7 +569,7 @@ class WPFEP_Roles_Editor {
 
 		$capabilities = get_option( 'wpfep_roles_editor_capabilities', 'not_set' );
 
-		if ( $capabilities == 'not_set' ) {
+		if ( 'not_set' == $capabilities ) {
 			// For remove non-custom capabilities from this array later on
 			//
 			update_option( 'wpfep_roles_editor_capabilities', $capabilities );
@@ -582,7 +582,7 @@ class WPFEP_Roles_Editor {
 			}
 
 			foreach ( $capabilities as $key => $value ) {
-				if ( $key != 'post_types' && $key != 'custom' ) {
+				if ( 'post_types' != $key && 'custom' != $key ) {
 					$custom_capabilities = array_diff( $custom_capabilities, $value['capabilities'] );
 				}
 			}
@@ -649,7 +649,7 @@ class WPFEP_Roles_Editor {
 
 	function remove_filter_by_month_dropdown( $months, $post_type = null ) {
 
-		if ( isset( $post_type ) && $post_type == 'wpfep-roles-editor' ) {
+		if ( isset( $post_type ) && 'wpfep-roles-editor' == $post_type ) {
 			return __return_empty_array();
 		} else {
 			return $months;
@@ -660,7 +660,7 @@ class WPFEP_Roles_Editor {
 	function modify_list_row_actions( $actions, $post ) {
 		global $wp_roles;
 
-		if ( $post->post_type == 'wpfep-roles-editor' ) {
+		if ( 'wpfep-roles-editor' == $post->post_type ) {
 			$current_user = wp_get_current_user();
 			$default_role = get_option( 'default_role' );
 			$role_slug    = get_post_meta( $post->ID, 'wpfep_role_slug', true );
@@ -721,7 +721,7 @@ class WPFEP_Roles_Editor {
 	function delete_role_permanently( $post_id ) {
 
 		global $post_type;
-		if ( $post_type != 'wpfep-roles-editor' ) {
+		if ( 'wpfep-roles-editor' != $post_type ) {
 			return;
 		}
 
@@ -1100,7 +1100,7 @@ class WPFEP_Roles_Editor {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_jquery' ) );
 
 		// This is Actions for Add User back-end page
-		if ( $location == 'user_new' ) {
+		if ( 'user_new' == $location ) {
 			add_action( 'admin_footer', array( $this, 'print_scripts_user_new' ), 25 );
 		}
 
@@ -1160,6 +1160,6 @@ class WPFEP_Roles_Editor {
 
 }
 	   $add_role = wpfep_get_option( 'role_editor', 'wpfep_general' );
-if ( $add_role == 'on' ) {
+if ( 'on' == $add_role ) {
 	$wpfep_role_editor_instance = new WPFEP_Roles_Editor();
 }
