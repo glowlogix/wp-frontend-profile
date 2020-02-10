@@ -28,6 +28,7 @@
 
           // For Add role slug to the created post
           add_action('save_post', [$this, 'add_post_meta'], 10, 2);
+          add_action( 'load-user-edit.php', array( $this, 'actions_on_user_edit' ) );
 
           add_filter('wp_insert_post_data', [$this, 'modify_post_title'], '99', 1);
 
@@ -632,194 +633,45 @@
           }
       }
 
-      public function modify_list_row_actions($actions, $post)
-      {
-          global $wp_roles;
+      public function modify_list_row_actions( $actions, $post ) {
+        global $wp_roles;
 
-            if( isset( $_POST['wpfep-role-slug-hidden'] ) ) {
-                $role_slug = trim( $_POST['wpfep-role-slug-hidden'] );
-                $role_slug = $this->sanitize_role( $role_slug );
+        if( $post->post_type == 'wpfep-roles-editor' ) {
+            $current_user = wp_get_current_user();
+            $default_role = get_option( 'default_role' );
+            $role_slug = get_post_meta( $post->ID, 'wpfep_role_slug', true );
 
-                update_post_meta( $post_id, 'wpfep_role_slug', $role_slug );
-            }
+            $url = admin_url( 'post.php?post=' . $post->ID );
+            $edit_link = add_query_arg( array( 'action' => 'edit' ), $url );
 
+            $actions = array(
+             'edit' => sprintf(
+                 '<a href="%1$s">%2$s</a>',
+                 esc_url( $edit_link ),
+                 esc_html__( 'Edit', 'wpfep' )
+             )
+             );
+
+            if( in_array( $role_slug, $current_user->roles ) && ( ! is_multisite() || ( is_multisite() && ! is_super_admin() ) ) && ( !empty( $wp_roles->roles[$role_slug]['capabilities'] ) && array_key_exists( 'manage_options', $wp_roles->roles[$role_slug]['capabilities'] ) ) ) {
+                $actions = array_merge( $actions, array(
+                        'delete_notify your_role' => '<span title="'. esc_html__( 'You can\'t delete your role.', 'wpfep' ) .'">'. esc_html__( 'Delete', 'wpfep' ) .'</span>'
+                    )
+                );
+            } elseif( $role_slug == $default_role  ) {
+                $actions = array_merge( $actions, array(
+                        'default_role'  => sprintf(
+                            '<a href="%s">%s</a>',
+                            esc_url( admin_url( 'options-general.php#default_role' ) ),
+                            esc_html__( 'Change Default', 'wpfep' ) ),
+                        'delete_notify' => '<span title="'. esc_html__( 'You can\'t delete the default role. Change it first.', 'wpfep' ) .'">'. esc_html__( 'Delete', 'wpfep' ) .'</span>'
+                    )
+                );
+            } 
         }
 
-        function update_role_capabilities() {
+        return $actions;
 
-            if( ! current_user_can( 'manage_options' ) ) {
-                die();
-            }
-
-            check_ajax_referer( 'wpfep-re-ajax-nonce', 'security' );
-
-            $role_slug = $this->sanitize_role( $_POST['role'] );
-
-            $role = get_role( $role_slug );
-
-            if( $role ) {
-                if( isset( $_POST['new_capabilities'] ) ) {
-                    foreach( $_POST['new_capabilities'] as $key => $value ) {
-                        $role->add_cap( sanitize_text_field( $key ) );
-                    }
-                }
-
-                if( isset( $_POST['capabilities_to_delete'] ) ) {
-                    foreach( $_POST['capabilities_to_delete'] as $key => $value ) {
-                        $role->remove_cap( sanitize_text_field( $key ) );
-                    }
-                }
-            } else {
-                $capabilities = array();
-
-                if( isset( $_POST['all_capabilities'] ) ) {
-                    foreach( $_POST['all_capabilities'] as $key => $value ) {
-                        $capabilities[sanitize_text_field( $key )] = true;
-                    };
-                }
-
-                $role_display_name = sanitize_text_field( $_POST['role_display_name'] );
-
-                add_role( $role_slug, $role_display_name, $capabilities );
-            }
-
-            die( 'role_capabilities_updated' );
-
-        }
-
-        function group_capabilities() {
-
-            $capabilities = get_option( 'wpfep_roles_editor_capabilities', 'not_set' );
-
-            if( $capabilities == 'not_set' ) {
-                // For remove non-custom capabilities from this array later on
-                // 
-
-                update_option( 'wpfep_roles_editor_capabilities', $capabilities );
-            } else {
-                $custom_capabilities = $this->get_all_capabilities();
-                $custom_capabilities = $this->remove_old_labels( $custom_capabilities );
-
-                foreach( $capabilities['post_types'] as $key => $value ) {
-                    $custom_capabilities = array_diff( $custom_capabilities, $value['capabilities'] );
-                }
-
-                foreach( $capabilities as $key => $value ) {
-                    if( $key != 'post_types' && $key != 'custom' ) {
-                        $custom_capabilities = array_diff( $custom_capabilities, $value['capabilities'] );
-                    }
-                }
-
-                $custom_capabilities = array_values( $custom_capabilities );
-                $custom_capabilities = array_unique( $custom_capabilities );
-                $custom_capabilities = array_diff( $custom_capabilities, $capabilities['custom']['capabilities'] );
-
-                if( ! empty( $custom_capabilities ) ) {
-                    $capabilities['custom']['capabilities'] = array_merge( $capabilities['custom']['capabilities'], $custom_capabilities );
-
-                    update_option( 'wpfep_roles_editor_capabilities', $capabilities );
-                }
-            }
-
-            return $capabilities;
-
-
-        }
-
-        function post_type_group_capabilities( $post_type = 'post' ) {
-
-            $capabilities = (array) get_post_type_object( $post_type )->cap;
-
-            unset( $capabilities['edit_post'] );
-            unset( $capabilities['read_post'] );
-            unset( $capabilities['delete_post'] );
-
-            $capabilities = array_values( $capabilities );
-
-            if( ! in_array( $post_type, array( 'post', 'page' ) ) ) {
-                // Get the post and page capabilities
-                $post_caps = array_values( (array) get_post_type_object( 'post' )->cap );
-                $page_caps = array_values( (array) get_post_type_object( 'page' )->cap );
-
-                // Remove post/page capabilities from the current post type capabilities
-                $capabilities = array_diff( $capabilities, $post_caps, $page_caps );
-            }
-
-            if( 'attachment' === $post_type ) {
-                $capabilities[] = 'unfiltered_upload';
-            }
-
-            return array_unique( $capabilities );
-
-        }
-
-        function get_all_capabilities() {
-
-            global $wp_roles;
-
-            $capabilities = array();
-
-            foreach( $wp_roles->role_objects as $key => $role ) {
-                if( is_array( $role->capabilities ) ) {
-                    foreach( $role->capabilities as $capability => $granted ) {
-                        $capabilities[$capability] = $capability;
-                    }
-                }
-            }
-
-            return array_unique( $capabilities );
-
-        }
-
-        function remove_filter_by_month_dropdown( $months, $post_type = NULL ) {
-
-            if( isset( $post_type ) && $post_type == 'wpfep-roles-editor' ) {
-                return __return_empty_array();
-            } else {
-                return $months;
-            }
-
-        }
-
-        function modify_list_row_actions( $actions, $post ) {
-            global $wp_roles;
-
-            if( $post->post_type == 'wpfep-roles-editor' ) {
-                $current_user = wp_get_current_user();
-                $default_role = get_option( 'default_role' );
-                $role_slug = get_post_meta( $post->ID, 'wpfep_role_slug', true );
-
-                $url = admin_url( 'post.php?post=' . $post->ID );
-                $edit_link = add_query_arg( array( 'action' => 'edit' ), $url );
-
-                $actions = array(
-                 'edit' => sprintf(
-                     '<a href="%1$s">%2$s</a>',
-                     esc_url( $edit_link ),
-                     esc_html__( 'Edit', 'wpfep' )
-                 )
-                 );
-
-                if( in_array( $role_slug, $current_user->roles ) && ( ! is_multisite() || ( is_multisite() && ! is_super_admin() ) ) && ( !empty( $wp_roles->roles[$role_slug]['capabilities'] ) && array_key_exists( 'manage_options', $wp_roles->roles[$role_slug]['capabilities'] ) ) ) {
-                    $actions = array_merge( $actions, array(
-                            'delete_notify your_role' => '<span title="'. esc_html__( 'You can\'t delete your role.', 'wpfep' ) .'">'. esc_html__( 'Delete', 'wpfep' ) .'</span>'
-                        )
-                    );
-              } elseif ($role_slug == $default_role) {
-                  $actions = array_merge($actions, [
-                      'default_role'  => sprintf(
-                          '<a href="%s">%s</a>',
-                          esc_url(admin_url('options-general.php#default_role')),
-                          esc_html__('Change Default', 'wpfep')),
-                      'delete_notify' => '<span title="'.esc_html__('You can\'t delete the default role. Change it first.', 'wpfep').'">'.esc_html__('Delete', 'wpfep').'</span>',
-                  ]
-                    );
-                } 
-            }
-
-            return $actions;
-
-        }
+    }
 
         function sanitize_role( $role ) {
 
