@@ -28,7 +28,7 @@
 
           // For Add role slug to the created post
           add_action('save_post', [$this, 'add_post_meta'], 10, 2);
-          add_action( 'load-user-edit.php', array( $this, 'actions_on_user_edit' ) );
+          add_action('load-user-edit.php', array( $this, 'actions_on_user_edit' ));
 
           add_filter('wp_insert_post_data', [$this, 'modify_post_title'], '99', 1);
 
@@ -633,60 +633,59 @@
           }
       }
 
-      public function modify_list_row_actions( $actions, $post ) {
-        global $wp_roles;
+      public function modify_list_row_actions($actions, $post)
+      {
+          global $wp_roles;
 
-        if( $post->post_type == 'wpfep-roles-editor' ) {
-            $current_user = wp_get_current_user();
-            $default_role = get_option( 'default_role' );
-            $role_slug = get_post_meta( $post->ID, 'wpfep_role_slug', true );
+          if ($post->post_type == 'wpfep-roles-editor') {
+              $current_user = wp_get_current_user();
+              $default_role = get_option('default_role');
+              $role_slug = get_post_meta($post->ID, 'wpfep_role_slug', true);
 
-            $url = admin_url( 'post.php?post=' . $post->ID );
-            $edit_link = add_query_arg( array( 'action' => 'edit' ), $url );
+              $url = admin_url('post.php?post=' . $post->ID);
+              $edit_link = add_query_arg(array( 'action' => 'edit' ), $url);
 
-            $actions = array(
+              $actions = array(
              'edit' => sprintf(
                  '<a href="%1$s">%2$s</a>',
-                 esc_url( $edit_link ),
-                 esc_html__( 'Edit', 'wpfep' )
+                 esc_url($edit_link),
+                 esc_html__('Edit', 'wpfep')
              )
              );
 
-            if( in_array( $role_slug, $current_user->roles ) && ( ! is_multisite() || ( is_multisite() && ! is_super_admin() ) ) && ( !empty( $wp_roles->roles[$role_slug]['capabilities'] ) && array_key_exists( 'manage_options', $wp_roles->roles[$role_slug]['capabilities'] ) ) ) {
-                $actions = array_merge( $actions, array(
-                        'delete_notify your_role' => '<span title="'. esc_html__( 'You can\'t delete your role.', 'wpfep' ) .'">'. esc_html__( 'Delete', 'wpfep' ) .'</span>'
+              if (in_array($role_slug, $current_user->roles) && (! is_multisite() || (is_multisite() && ! is_super_admin())) && (!empty($wp_roles->roles[$role_slug]['capabilities']) && array_key_exists('manage_options', $wp_roles->roles[$role_slug]['capabilities']))) {
+                  $actions = array_merge($actions, array(
+                        'delete_notify your_role' => '<span title="'. esc_html__('You can\'t delete your role.', 'wpfep') .'">'. esc_html__('Delete', 'wpfep') .'</span>'
                     )
                 );
-            } elseif( $role_slug == $default_role  ) {
-                $actions = array_merge( $actions, array(
+              } elseif ($role_slug == $default_role) {
+                  $actions = array_merge($actions, array(
                         'default_role'  => sprintf(
                             '<a href="%s">%s</a>',
-                            esc_url( admin_url( 'options-general.php#default_role' ) ),
-                            esc_html__( 'Change Default', 'wpfep' ) ),
-                        'delete_notify' => '<span title="'. esc_html__( 'You can\'t delete the default role. Change it first.', 'wpfep' ) .'">'. esc_html__( 'Delete', 'wpfep' ) .'</span>'
+                            esc_url(admin_url('options-general.php#default_role')),
+                            esc_html__('Change Default', 'wpfep')),
+                        'delete_notify' => '<span title="'. esc_html__('You can\'t delete the default role. Change it first.', 'wpfep') .'">'. esc_html__('Delete', 'wpfep') .'</span>'
                     )
                 );
-            } 
-        }
+              }
+          }
 
-        return $actions;
+          return $actions;
+      }
 
-    }
+      public function sanitize_role($role)
+      {
+          $role = strtolower($role);
+          $role = wp_strip_all_tags($role);
+          $role = preg_replace('/[^a-z0-9_\-\s]/', '', $role);
+          $role = str_replace(' ', '_', $role);
 
-        function sanitize_role( $role ) {
+          return $role;
+      }
 
-            $role = strtolower( $role );
-            $role = wp_strip_all_tags( $role );
-            $role = preg_replace( '/[^a-z0-9_\-\s]/', '', $role );
-            $role = str_replace( ' ', '_', $role );
-
-            return $role;
-
-        }
-
-        function wp_default_scripts() {
-
-            $wp_default_scripts = array(
+      public function wp_default_scripts()
+      {
+          $wp_default_scripts = array(
                 'jquery', 'jquery-core', 'jquery-migrate', 'jquery-ui-core', 'jquery-ui-accordion',
                 'jquery-ui-autocomplete', 'jquery-ui-button', 'jquery-ui-datepicker', 'jquery-ui-dialog',
                 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-menu', 'jquery-ui-mouse',
@@ -719,13 +718,12 @@
                 'nav-menu', 'custom-header', 'custom-background', 'media-gallery', 'svg-painter', 'customize-nav-menus',
             );
 
-            return $wp_default_scripts;
+          return $wp_default_scripts;
+      }
 
-        }
-
-        function wp_default_styles() {
-
-            $wp_default_styles = array(
+      public function wp_default_styles()
+      {
+          $wp_default_styles = array(
                 'admin-bar', 'colors', 'ie', 'wp-auth-check', 'wp-jquery-ui-dialog', 'wpfep-serial-notice-css',
                 'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media',
                 'themes', 'about', 'nav-menus', 'widgets', 'site-icon', 'l10n', 'wp-admin', 'login', 'install',
@@ -735,117 +733,109 @@
                 'deprecated-media', 'farbtastic', 'jcrop', 'colors-fresh', 'open-sans',
             );
 
-            return $wp_default_styles;
+          return $wp_default_styles;
+      }
 
-        }
+      public function get_hidden_capabilities()
+      {
+          $capabilities = array();
 
-        function get_hidden_capabilities() {
+          if (is_multisite() || ! defined('ALLOW_UNFILTERED_UPLOADS') || ! ALLOW_UNFILTERED_UPLOADS) {
+              $capabilities['unfiltered_upload'] = 'unfiltered_upload';
+          }
 
-            $capabilities = array();
+          if (is_multisite() || (defined('DISALLOW_UNFILTERED_HTML') && DISALLOW_UNFILTERED_HTML)) {
+              $capabilities['unfiltered_html'] = 'unfiltered_html';
+          }
 
-            if( is_multisite() || ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) || ! ALLOW_UNFILTERED_UPLOADS ) {
-                $capabilities['unfiltered_upload'] = 'unfiltered_upload';
-            }
+          if (is_multisite() || (defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT)) {
+              $capabilities['edit_files'] = 'edit_files';
+              $capabilities['edit_plugins'] = 'edit_plugins';
+              $capabilities['edit_themes'] = 'edit_themes';
+          }
 
-            if( is_multisite() || ( defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ) ) {
-                $capabilities['unfiltered_html'] = 'unfiltered_html';
-            }
+          if (is_multisite() || (defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS)) {
+              $capabilities['edit_files'] = 'edit_files';
+              $capabilities['edit_plugins'] = 'edit_plugins';
+              $capabilities['edit_themes'] = 'edit_themes';
+              $capabilities['update_plugins'] = 'update_plugins';
+              $capabilities['delete_plugins'] = 'delete_plugins';
+              $capabilities['install_plugins'] = 'install_plugins';
+              $capabilities['upload_plugins'] = 'upload_plugins';
+              $capabilities['update_themes'] = 'update_themes';
+              $capabilities['delete_themes'] = 'delete_themes';
+              $capabilities['install_themes'] = 'install_themes';
+              $capabilities['upload_themes'] = 'upload_themes';
+              $capabilities['update_core'] = 'update_core';
+          }
 
-            if( is_multisite() || ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) ) {
-                $capabilities['edit_files'] = 'edit_files';
-                $capabilities['edit_plugins'] = 'edit_plugins';
-                $capabilities['edit_themes'] = 'edit_themes';
-            }
+          return array_unique($capabilities);
+      }
 
-            if( is_multisite() || ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) ) {
-                $capabilities['edit_files'] = 'edit_files';
-                $capabilities['edit_plugins'] = 'edit_plugins';
-                $capabilities['edit_themes'] = 'edit_themes';
-                $capabilities['update_plugins'] = 'update_plugins';
-                $capabilities['delete_plugins'] = 'delete_plugins';
-                $capabilities['install_plugins'] = 'install_plugins';
-                $capabilities['upload_plugins'] = 'upload_plugins';
-                $capabilities['update_themes'] = 'update_themes';
-                $capabilities['delete_themes'] = 'delete_themes';
-                $capabilities['install_themes'] = 'install_themes';
-                $capabilities['upload_themes'] = 'upload_themes';
-                $capabilities['update_core'] = 'update_core';
-            }
+      // To Add actions on Add User back-end page
+      public function actions_on_user_new()
+      {
+          $this->scripts_and_styles_actions('user_new');
 
-            return array_unique( $capabilities );
+          add_action('user_new_form', array( $this, 'roles_field_user_new' ));
 
-        }
+          add_action('user_register', array( $this, 'roles_update_user_new' ));
+      }
+      public function actions_on_user_edit()
+      {
+          $this->scripts_and_styles_actions('user_edit');
 
-        // To Add actions on Add User back-end page
-        function actions_on_user_new() {
+          add_action('personal_options', array( $this, 'roles_field_user_edit' ));
 
-            $this->scripts_and_styles_actions( 'user_new' );
+          add_action('profile_update', array( $this, 'roles_update_user_edit' ), 10, 2);
+      }
+      // For Roles Edit checkboxes for Add User back-end page
+      public function roles_field_user_new()
+      {
+          if (! current_user_can('promote_users')) {
+              return;
+          }
 
-            add_action( 'user_new_form', array( $this, 'roles_field_user_new' ) );
+          $user_roles = apply_filters('wpfep_default_user_roles', array( get_option('default_role') ));
 
-            add_action( 'user_register', array( $this, 'roles_update_user_new' ) );
+          if (isset($_POST['createuser']) && ! empty($_POST['wpfep_re_user_roles'])) {
+              $user_roles = array_map(array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles']);
+          }
 
-        }
-        function actions_on_user_edit() {
+          wp_nonce_field('new_user_roles', 'wpfep_re_new_user_roles_nonce');
 
-        $this->scripts_and_styles_actions( 'user_edit' );
+          $this->roles_field_display($user_roles);
+      }
 
-        add_action( 'personal_options', array( $this, 'roles_field_user_edit' ) );
+      // For Roles Edit checkboxes for Edit User back-end page
+      public function roles_field_user_edit($user)
+      {
+          if (! current_user_can('promote_users') || ! current_user_can('edit_user', $user->ID)) {
+              return;
+          }
 
-        add_action( 'profile_update', array( $this, 'roles_update_user_edit' ), 10, 2 );
+          $user_roles = (array) $user->roles;
 
-        }
-        // For Roles Edit checkboxes for Add User back-end page
-        function roles_field_user_new() {
+          wp_nonce_field('new_user_roles', 'wpfep_re_new_user_roles_nonce');
 
-            if( ! current_user_can( 'promote_users' ) ) {
-                return;
-            }
-
-            $user_roles = apply_filters( 'wpfep_default_user_roles', array( get_option( 'default_role' ) ) );
-
-            if( isset( $_POST['createuser'] ) && ! empty( $_POST['wpfep_re_user_roles'] ) ) {
-                $user_roles = array_map( array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles'] );
-            }
-
-            wp_nonce_field( 'new_user_roles', 'wpfep_re_new_user_roles_nonce' );
-
-            $this->roles_field_display( $user_roles );
-
-        }
-
-        // For Roles Edit checkboxes for Edit User back-end page
-        function roles_field_user_edit( $user ) {
-
-        if( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user->ID ) ) {
-            return;
-        }
-
-        $user_roles = (array) $user->roles;
-
-        wp_nonce_field( 'new_user_roles', 'wpfep_re_new_user_roles_nonce' );
-
-        $this->roles_field_display( $user_roles );
-
-        }
-          //To Output roles edit checkboxes
-        function roles_field_display( $user_roles ) {
-
-            $wpfep_roles = get_editable_roles();
-
-            ?>
+          $this->roles_field_display($user_roles);
+      }
+      //To Output roles edit checkboxes
+      public function roles_field_display($user_roles)
+      {
+          $wpfep_roles = get_editable_roles(); ?>
             <table class="form-table">
                 <tr class="wpfep-re-edit-user">
-                    <th><?php esc_html_e( 'Edit User Roles', 'wpfep' ); ?></th>
+                    <th><?php esc_html_e('Edit User Roles', 'wpfep'); ?></th>
 
                     <td>
                         <div>
                             <ul style="margin: 5px 0;">
-                                <?php foreach( $wpfep_roles as $role_slug => $role_details ) { ?>
+                                <?php foreach ($wpfep_roles as $role_slug => $role_details) { ?>
                                     <li>
                                         <label>
-                                            <input type="checkbox" name="wpfep_re_user_roles[]" value="<?php echo esc_attr( $role_slug ); ?>" <?php checked( in_array( $role_slug, $user_roles ) ); ?> />
-                                            <?php echo esc_html( translate_user_role( $role_details['name'] ) ); ?>
+                                            <input type="checkbox" name="wpfep_re_user_roles[]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $user_roles)); ?> />
+                                            <?php echo esc_html(translate_user_role($role_details['name'])); ?>
                                         </label>
                                     </li>
                                 <?php } ?>
@@ -856,93 +846,85 @@
             </table>
 
         <?php
-        }
-        function roles_update_user_edit( $user_id, $old_user_data ) {
+      }
+      public function roles_update_user_edit($user_id, $old_user_data)
+      {
+          if (! current_user_can('promote_users') || ! current_user_can('edit_user', $user_id)) {
+              return;
+          }
 
-        if( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user_id ) ) {
-            return;
-        }
+          if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
+              return;
+          }
 
-        if( ! isset( $_POST['wpfep_re_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles' ) ) {
-            return;
-        }
+          $this->roles_update_user_new_and_edit($old_user_data);
+      }
+      public function roles_update_user_new($user_id)
+      {
+          if (! current_user_can('promote_users')) {
+              return;
+          }
 
-        $this->roles_update_user_new_and_edit( $old_user_data );
+          if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
+              return;
+          }
 
-        }
-        function roles_update_user_new( $user_id ) {
+          $user = new \WP_User($user_id);
 
-            if( ! current_user_can( 'promote_users' ) ) {
-                return;
-            }
+          $this->roles_update_user_new_and_edit($user);
+      }
 
-            if( ! isset( $_POST['wpfep_re_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles' ) ) {
-                return;
-            }
+      public function roles_update_user_new_and_edit($user)
+      {
+          if (! empty($_POST['wpfep_re_user_roles'])) {
+              $old_roles = (array) $user->roles;
 
-            $user = new \WP_User( $user_id );
+              $new_roles = array_map(array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles']);
 
-            $this->roles_update_user_new_and_edit( $user );
+              foreach ($new_roles as $new_role) {
+                  if (! in_array($new_role, (array) $user->roles)) {
+                      $user->add_role($new_role);
+                  }
+              }
 
-        }
+              foreach ($old_roles as $old_role) {
+                  if (! in_array($old_role, $new_roles)) {
+                      $user->remove_role($old_role);
+                  }
+              }
+          } else {
+              foreach ((array) $user->roles as $old_role) {
+                  $user->remove_role($old_role);
+              }
+          }
+      }
 
-        function roles_update_user_new_and_edit( $user ) {
-
-            if( ! empty( $_POST['wpfep_re_user_roles'] ) ) {
-
-                $old_roles = (array) $user->roles;
-
-                $new_roles = array_map( array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles'] );
-
-                foreach( $new_roles as $new_role ) {
-                    if( ! in_array( $new_role, (array) $user->roles ) ) {
-                        $user->add_role( $new_role );
-                    }
-                }
-
-                foreach( $old_roles as $old_role ) {
-                    if( ! in_array( $old_role, $new_roles ) ) {
-                        $user->remove_role( $old_role );
-                    }
-                }
-            } else {
-                foreach( (array) $user->roles as $old_role ) {
-                    $user->remove_role( $old_role );
-                }
-            }
-
-        }
-
-        function scripts_and_styles_actions( $location ) {
+      public function scripts_and_styles_actions($location)
+      {
 
             // For Enqueue jQuery on both Add User and Edit User back-end pages
-            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_jquery' ) );
+          add_action('admin_enqueue_scripts', array( $this, 'enqueue_jquery' ));
 
-            //This is Actions for Add User back-end page
-            if( $location == 'user_new' ) {
-                add_action( 'admin_footer', array( $this, 'print_scripts_user_new' ), 25 );
-            }
-            if( $location == 'user_edit' ) {
-            add_action( 'admin_head', array( $this, 'print_styles_user_edit' ) );
-            add_action( 'admin_footer', array( $this, 'print_scripts_user_edit' ), 25 );
-        }
+          //This is Actions for Add User back-end page
+          if ($location == 'user_new') {
+              add_action('admin_footer', array( $this, 'print_scripts_user_new' ), 25);
+          }
+          if ($location == 'user_edit') {
+              add_action('admin_head', array( $this, 'print_styles_user_edit' ));
+              add_action('admin_footer', array( $this, 'print_scripts_user_edit' ), 25);
+          }
+      }
 
-    
+      // For Enqueue jQuery where needed (use action)
+      public function enqueue_jquery()
+      {
+          wp_enqueue_script('jquery');
+      }
 
-
-        }
-
-        // For Enqueue jQuery where needed (use action)
-        function enqueue_jquery() {
-
-            wp_enqueue_script( 'jquery' );
-
-        }
-
-        //To Print scripts on Add User back-end page
-        function print_scripts_user_new() {
-
-            ?>
+      //To Print scripts on Add User back-end page
+      public function print_scripts_user_new()
+      {
+          ?>
             <script>
                 jQuery( document ).ready( function() {
                     // Remove WordPress default Role Select
