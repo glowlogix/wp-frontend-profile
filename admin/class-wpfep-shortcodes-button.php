@@ -30,7 +30,7 @@ if (!class_exists('WPFEP_Admin_Help')) {
         public function enqueue_scripts()
         {
             global $pagenow;
-            if ('post.php' === $pagenow) {
+            if ('post.php' === $pagenow || 'post-new.php' === $pagenow) {
                 wp_enqueue_script('wpfep_shortcode_handle', plugins_url('/assets/js/wpfep-tmc-button.js', dirname(__FILE__)), ['jquery'], WPFEP_VERSION, true);
             }
         }
