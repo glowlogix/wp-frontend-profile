@@ -28,6 +28,7 @@
 
           // For Add role slug to the created post
           add_action('save_post', [$this, 'add_post_meta'], 10, 2);
+          add_action('load-user-edit.php', array( $this, 'actions_on_user_edit' ));
 
           add_filter('wp_insert_post_data', [$this, 'modify_post_title'], '99', 1);
 
@@ -641,25 +642,31 @@
               $default_role = get_option('default_role');
               $role_slug = get_post_meta($post->ID, 'wpfep_role_slug', true);
 
-              $url = admin_url('post.php?post='.$post->ID);
-              $actions = [
+              $url = admin_url('post.php?post=' . $post->ID);
+              $edit_link = add_query_arg(array( 'action' => 'edit' ), $url);
 
-              ];
+              $actions = array(
+             'edit' => sprintf(
+                 '<a href="%1$s">%2$s</a>',
+                 esc_url($edit_link),
+                 esc_html__('Edit', 'wpfep')
+             )
+             );
 
-              if (in_array($role_slug, $current_user->roles) && (!is_multisite() || (is_multisite() && !is_super_admin())) && (!empty($wp_roles->roles[$role_slug]['capabilities']) && array_key_exists('manage_options', $wp_roles->roles[$role_slug]['capabilities']))) {
-                  $actions = array_merge($actions, [
-                      'delete_notify your_role' => '<span title="'.esc_html__('You can\'t delete your role.', 'wpfep').'">'.esc_html__('Delete', 'wpfep').'</span>',
-                  ]
-                    );
+              if (in_array($role_slug, $current_user->roles) && (! is_multisite() || (is_multisite() && ! is_super_admin())) && (!empty($wp_roles->roles[$role_slug]['capabilities']) && array_key_exists('manage_options', $wp_roles->roles[$role_slug]['capabilities']))) {
+                  $actions = array_merge($actions, array(
+                        'delete_notify your_role' => '<span title="'. esc_html__('You can\'t delete your role.', 'wpfep') .'">'. esc_html__('Delete', 'wpfep') .'</span>'
+                    )
+                );
               } elseif ($role_slug == $default_role) {
-                  $actions = array_merge($actions, [
-                      'default_role'  => sprintf(
-                          '<a href="%s">%s</a>',
-                          esc_url(admin_url('options-general.php#default_role')),
-                          esc_html__('Change Default', 'wpfep')),
-                      'delete_notify' => '<span title="'.esc_html__('You can\'t delete the default role. Change it first.', 'wpfep').'">'.esc_html__('Delete', 'wpfep').'</span>',
-                  ]
-                    );
+                  $actions = array_merge($actions, array(
+                        'default_role'  => sprintf(
+                            '<a href="%s">%s</a>',
+                            esc_url(admin_url('options-general.php#default_role')),
+                            esc_html__('Change Default', 'wpfep')),
+                        'delete_notify' => '<span title="'. esc_html__('You can\'t delete the default role. Change it first.', 'wpfep') .'">'. esc_html__('Delete', 'wpfep') .'</span>'
+                    )
+                );
               }
           }
 
@@ -678,62 +685,62 @@
 
       public function wp_default_scripts()
       {
-          $wp_default_scripts = [
-              'jquery', 'jquery-core', 'jquery-migrate', 'jquery-ui-core', 'jquery-ui-accordion',
-              'jquery-ui-autocomplete', 'jquery-ui-button', 'jquery-ui-datepicker', 'jquery-ui-dialog',
-              'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-menu', 'jquery-ui-mouse',
-              'jquery-ui-position', 'jquery-ui-progressbar', 'jquery-ui-resizable', 'jquery-ui-selectable',
-              'jquery-ui-slider', 'jquery-ui-sortable', 'jquery-ui-spinner', 'jquery-ui-tabs',
-              'jquery-ui-tooltip', 'jquery-ui-widget', 'underscore', 'backbone', 'utils', 'common',
-              'wp-a11y', 'sack', 'quicktags', 'colorpicker', 'editor', 'wp-fullscreen-stub', 'wp-ajax-response',
-              'wp-pointer', 'heartbeat', 'wp-auth-check', 'wp-lists', 'prototype', 'scriptaculous-root',
-              'scriptaculous-builder', 'scriptaculous-dragdrop', 'scriptaculous-effects', 'scriptaculous-slider',
-              'scriptaculous-sound', 'scriptaculous-controls', 'scriptaculous', 'cropper', 'jquery-effects-core',
-              'jquery-effects-blind', 'jquery-effects-bounce', 'jquery-effects-clip', 'jquery-effects-drop',
-              'jquery-effects-explode', 'jquery-effects-fade', 'jquery-effects-fold', 'jquery-effects-highlight',
-              'jquery-effects-puff', 'jquery-effects-pulsate', 'jquery-effects-scale', 'jquery-effects-shake',
-              'jquery-effects-size', 'jquery-effects-slide', 'jquery-effects-transfer', 'jquery-ui-selectmenu',
-              'jquery-form', 'jquery-color', 'schedule', 'jquery-query', 'jquery-serialize-object', 'jquery-hotkeys',
-              'jquery-table-hotkeys', 'jquery-touch-punch', 'suggest', 'imagesloaded', 'masonry', 'jquery-masonry',
-              'thickbox', 'jcrop', 'swfobject', 'plupload', 'plupload-all', 'plupload-html5', 'plupload-flash',
-              'plupload-silverlight', 'plupload-html4', 'plupload-handlers', 'wp-plupload', 'swfupload', 'swfupload-swfobject',
-              'swfupload-queue', 'swfupload-speed', 'swfupload-all', 'swfupload-handlers', 'comment-reply', 'json2',
-              'underscore', 'backbone', 'wp-util', 'wp-backbone', 'revisions', 'imgareaselect', 'mediaelement',
-              'wp-mediaelement', 'froogaloop', 'wp-playlist', 'zxcvbn-async', 'password-strength-meter', 'user-profile',
-              'language-chooser', 'user-suggest', 'admin-bar', 'wplink', 'wpdialogs', 'word-count', 'media-upload',
-              'hoverIntent', 'customize-base', 'customize-loader', 'customize-preview', 'customize-models', 'customize-views',
-              'customize-controls', 'customize-selective-refresh', 'customize-widgets', 'customize-preview-widgets',
-              'customize-preview-nav-menus', 'wp-custom-header', 'accordion', 'shortcode', 'media-models', 'wp-embed',
-              'media-views', 'media-editor', 'media-audiovideo', 'mce-view', 'wp-api', 'admin-tags', 'admin-comments', 'xfn',
-              'postbox', 'tags-box', 'tags-suggest', 'post', 'press-this', 'editor-expand', 'link', 'comment', 'admin-gallery',
-              'admin-widgets', 'theme', 'inline-edit-post', 'inline-edit-tax', 'plugin-install', 'updates', 'farbtastic', 'iris',
-              'wp-color-picker', 'dashboard', 'list-revisions', 'media-grid', 'media', 'image-edit', 'set-post-thumbnail',
-              'nav-menu', 'custom-header', 'custom-background', 'media-gallery', 'svg-painter', 'customize-nav-menus',
-          ];
+          $wp_default_scripts = array(
+                'jquery', 'jquery-core', 'jquery-migrate', 'jquery-ui-core', 'jquery-ui-accordion',
+                'jquery-ui-autocomplete', 'jquery-ui-button', 'jquery-ui-datepicker', 'jquery-ui-dialog',
+                'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-menu', 'jquery-ui-mouse',
+                'jquery-ui-position', 'jquery-ui-progressbar', 'jquery-ui-resizable', 'jquery-ui-selectable',
+                'jquery-ui-slider', 'jquery-ui-sortable', 'jquery-ui-spinner', 'jquery-ui-tabs',
+                'jquery-ui-tooltip', 'jquery-ui-widget', 'underscore', 'backbone', 'utils', 'common',
+                'wp-a11y', 'sack', 'quicktags', 'colorpicker', 'editor', 'wp-fullscreen-stub', 'wp-ajax-response',
+                'wp-pointer', 'heartbeat', 'wp-auth-check', 'wp-lists', 'prototype', 'scriptaculous-root',
+                'scriptaculous-builder', 'scriptaculous-dragdrop', 'scriptaculous-effects', 'scriptaculous-slider',
+                'scriptaculous-sound', 'scriptaculous-controls', 'scriptaculous', 'cropper', 'jquery-effects-core',
+                'jquery-effects-blind', 'jquery-effects-bounce', 'jquery-effects-clip', 'jquery-effects-drop',
+                'jquery-effects-explode', 'jquery-effects-fade', 'jquery-effects-fold', 'jquery-effects-highlight',
+                'jquery-effects-puff', 'jquery-effects-pulsate', 'jquery-effects-scale', 'jquery-effects-shake',
+                'jquery-effects-size', 'jquery-effects-slide', 'jquery-effects-transfer', 'jquery-ui-selectmenu',
+                'jquery-form', 'jquery-color', 'schedule', 'jquery-query', 'jquery-serialize-object', 'jquery-hotkeys',
+                'jquery-table-hotkeys', 'jquery-touch-punch', 'suggest', 'imagesloaded', 'masonry', 'jquery-masonry',
+                'thickbox', 'jcrop', 'swfobject', 'plupload', 'plupload-all', 'plupload-html5', 'plupload-flash',
+                'plupload-silverlight', 'plupload-html4', 'plupload-handlers', 'wp-plupload', 'swfupload', 'swfupload-swfobject',
+                'swfupload-queue', 'swfupload-speed', 'swfupload-all', 'swfupload-handlers', 'comment-reply', 'json2',
+                'underscore', 'backbone', 'wp-util', 'wp-backbone', 'revisions', 'imgareaselect', 'mediaelement',
+                'wp-mediaelement', 'froogaloop', 'wp-playlist', 'zxcvbn-async', 'password-strength-meter', 'user-profile',
+                'language-chooser', 'user-suggest', 'admin-bar', 'wplink', 'wpdialogs', 'word-count', 'media-upload',
+                'hoverIntent', 'customize-base', 'customize-loader', 'customize-preview', 'customize-models', 'customize-views',
+                'customize-controls', 'customize-selective-refresh', 'customize-widgets', 'customize-preview-widgets',
+                'customize-preview-nav-menus', 'wp-custom-header', 'accordion', 'shortcode', 'media-models', 'wp-embed',
+                'media-views', 'media-editor', 'media-audiovideo', 'mce-view', 'wp-api', 'admin-tags', 'admin-comments', 'xfn',
+                'postbox', 'tags-box', 'tags-suggest', 'post', 'press-this', 'editor-expand', 'link', 'comment', 'admin-gallery',
+                'admin-widgets', 'theme', 'inline-edit-post', 'inline-edit-tax', 'plugin-install', 'updates', 'farbtastic', 'iris',
+                'wp-color-picker', 'dashboard', 'list-revisions', 'media-grid', 'media', 'image-edit', 'set-post-thumbnail',
+                'nav-menu', 'custom-header', 'custom-background', 'media-gallery', 'svg-painter', 'customize-nav-menus',
+            );
 
           return $wp_default_scripts;
       }
 
       public function wp_default_styles()
       {
-          $wp_default_styles = [
-              'admin-bar', 'colors', 'ie', 'wp-auth-check', 'wp-jquery-ui-dialog', 'wpfep-serial-notice-css',
-              'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media',
-              'themes', 'about', 'nav-menus', 'widgets', 'site-icon', 'l10n', 'wp-admin', 'login', 'install',
-              'wp-color-picker', 'customize-controls', 'customize-widgets', 'customize-nav-menus', 'press-this',
-              'buttons', 'dashicons', 'editor-buttons', 'media-views', 'wp-pointer', 'customize-preview',
-              'wp-embed-template-ie', 'imgareaselect', 'mediaelement', 'wp-mediaelement', 'thickbox',
-              'deprecated-media', 'farbtastic', 'jcrop', 'colors-fresh', 'open-sans',
-          ];
+          $wp_default_styles = array(
+                'admin-bar', 'colors', 'ie', 'wp-auth-check', 'wp-jquery-ui-dialog', 'wpfep-serial-notice-css',
+                'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media',
+                'themes', 'about', 'nav-menus', 'widgets', 'site-icon', 'l10n', 'wp-admin', 'login', 'install',
+                'wp-color-picker', 'customize-controls', 'customize-widgets', 'customize-nav-menus', 'press-this',
+                'buttons', 'dashicons', 'editor-buttons', 'media-views', 'wp-pointer', 'customize-preview',
+                'wp-embed-template-ie', 'imgareaselect', 'mediaelement', 'wp-mediaelement', 'thickbox',
+                'deprecated-media', 'farbtastic', 'jcrop', 'colors-fresh', 'open-sans',
+            );
 
           return $wp_default_styles;
       }
 
       public function get_hidden_capabilities()
       {
-          $capabilities = [];
+          $capabilities = array();
 
-          if (is_multisite() || !defined('ALLOW_UNFILTERED_UPLOADS') || !ALLOW_UNFILTERED_UPLOADS) {
+          if (is_multisite() || ! defined('ALLOW_UNFILTERED_UPLOADS') || ! ALLOW_UNFILTERED_UPLOADS) {
               $capabilities['unfiltered_upload'] = 'unfiltered_upload';
           }
 
@@ -770,22 +777,29 @@
       {
           $this->scripts_and_styles_actions('user_new');
 
-          add_action('user_new_form', [$this, 'roles_field_user_new']);
+          add_action('user_new_form', array( $this, 'roles_field_user_new' ));
 
-          add_action('user_register', [$this, 'roles_update_user_new']);
+          add_action('user_register', array( $this, 'roles_update_user_new' ));
       }
+      public function actions_on_user_edit()
+      {
+          $this->scripts_and_styles_actions('user_edit');
 
+          add_action('personal_options', array( $this, 'roles_field_user_edit' ));
+
+          add_action('profile_update', array( $this, 'roles_update_user_edit' ), 10, 2);
+      }
       // For Roles Edit checkboxes for Add User back-end page
       public function roles_field_user_new()
       {
-          if (!current_user_can('promote_users')) {
+          if (! current_user_can('promote_users')) {
               return;
           }
 
-          $user_roles = apply_filters('wpfep_default_user_roles', [get_option('default_role')]);
+          $user_roles = apply_filters('wpfep_default_user_roles', array( get_option('default_role') ));
 
-          if (isset($_POST['createuser']) && !empty($_POST['wpfep_re_user_roles'])) {
-              $user_roles = array_map([$this, 'sanitize_role'], $_POST['wpfep_re_user_roles']);
+          if (isset($_POST['createuser']) && ! empty($_POST['wpfep_re_user_roles'])) {
+              $user_roles = array_map(array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles']);
           }
 
           wp_nonce_field('new_user_roles', 'wpfep_re_new_user_roles_nonce');
@@ -793,13 +807,65 @@
           $this->roles_field_display($user_roles);
       }
 
-      public function roles_update_user_new($user_id)
+      // For Roles Edit checkboxes for Edit User back-end page
+      public function roles_field_user_edit($user)
       {
-          if (!current_user_can('promote_users')) {
+          if (! current_user_can('promote_users') || ! current_user_can('edit_user', $user->ID)) {
               return;
           }
 
-          if (!isset($_POST['wpfep_re_new_user_roles_nonce']) || !wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
+          $user_roles = (array) $user->roles;
+
+          wp_nonce_field('new_user_roles', 'wpfep_re_new_user_roles_nonce');
+
+          $this->roles_field_display($user_roles);
+      }
+      //To Output roles edit checkboxes
+      public function roles_field_display($user_roles)
+      {
+          $wpfep_roles = get_editable_roles(); ?>
+            <table class="form-table">
+                <tr class="wpfep-re-edit-user">
+                    <th><?php esc_html_e('Edit User Roles', 'wpfep'); ?></th>
+
+                    <td>
+                        <div>
+                            <ul style="margin: 5px 0;">
+                                <?php foreach ($wpfep_roles as $role_slug => $role_details) { ?>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" name="wpfep_re_user_roles[]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $user_roles)); ?> />
+                                            <?php echo esc_html(translate_user_role($role_details['name'])); ?>
+                                        </label>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        <?php
+      }
+      public function roles_update_user_edit($user_id, $old_user_data)
+      {
+          if (! current_user_can('promote_users') || ! current_user_can('edit_user', $user_id)) {
+              return;
+          }
+
+          if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
+              return;
+          }
+
+          $this->roles_update_user_new_and_edit($old_user_data);
+      }
+      public function roles_update_user_new($user_id)
+      {
+          if (! current_user_can('promote_users')) {
+              return;
+          }
+
+          if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
               return;
           }
 
@@ -810,19 +876,19 @@
 
       public function roles_update_user_new_and_edit($user)
       {
-          if (!empty($_POST['wpfep_re_user_roles'])) {
+          if (! empty($_POST['wpfep_re_user_roles'])) {
               $old_roles = (array) $user->roles;
 
-              $new_roles = array_map([$this, 'sanitize_role'], $_POST['wpfep_re_user_roles']);
+              $new_roles = array_map(array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles']);
 
               foreach ($new_roles as $new_role) {
-                  if (!in_array($new_role, (array) $user->roles)) {
+                  if (! in_array($new_role, (array) $user->roles)) {
                       $user->add_role($new_role);
                   }
               }
 
               foreach ($old_roles as $old_role) {
-                  if (!in_array($old_role, $new_roles)) {
+                  if (! in_array($old_role, $new_roles)) {
                       $user->remove_role($old_role);
                   }
               }
@@ -837,11 +903,15 @@
       {
 
             // For Enqueue jQuery on both Add User and Edit User back-end pages
-          add_action('admin_enqueue_scripts', [$this, 'enqueue_jquery']);
+          add_action('admin_enqueue_scripts', array( $this, 'enqueue_jquery' ));
 
           //This is Actions for Add User back-end page
           if ($location == 'user_new') {
-              add_action('admin_footer', [$this, 'print_scripts_user_new'], 25);
+              add_action('admin_footer', array( $this, 'print_scripts_user_new' ), 25);
+          }
+          if ($location == 'user_edit') {
+              add_action('admin_head', array( $this, 'print_styles_user_edit' ));
+              add_action('admin_footer', array( $this, 'print_scripts_user_edit' ), 25);
           }
       }
 
