@@ -30,7 +30,8 @@ if (!class_exists('WPFEP_Admin_Help')) {
         public function enqueue_scripts()
         {
             global $pagenow;
-            if ('post.php' === $pagenow || 'post-new.php' === $pagenow) {
+            $posttype = get_post_type( get_the_ID() );
+            if ( ('page' === $posttype && 'post.php' === $pagenow ) || ('page' === $posttype && 'post-new.php' === $pagenow) ) {
                 wp_enqueue_script('wpfep_shortcode_handle', plugins_url('/assets/js/wpfep-tmc-button.js', dirname(__FILE__)), ['jquery'], WPFEP_VERSION, true);
             }
         }
@@ -92,10 +93,12 @@ if (!class_exists('WPFEP_Admin_Help')) {
          */
         public function enqueue_plugin_scripts($plugin_array)
         {
-            // enqueue TinyMCE plugin script with its ID.
-            $plugin_array['wpfep_button'] = plugins_url('/assets/js/wpfep-tmc-button.js', dirname(__FILE__));
-
-            return $plugin_array;
+            $posttype = get_post_type( get_the_ID() );
+            if ( ('page' === $posttype && 'post.php' === $pagenow ) || ('page' === $posttype && 'post-new.php' === $pagenow) ) {
+                // enqueue TinyMCE plugin script with its ID.
+                $plugin_array['wpfep_button'] = plugins_url('/assets/js/wpfep-tmc-button.js', dirname(__FILE__));
+                return $plugin_array;
+            }
         }
 
         /**
