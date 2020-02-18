@@ -54,6 +54,7 @@ jQuery( document ).ready( function() {
         }
     } );
 
+
     // Display the current role capabilities (on single role page)
     wpfep_re_display_capabilities( 'all' );
 
@@ -81,6 +82,31 @@ jQuery( document ).ready( function() {
             }
         } );
     }
+        // Delete a capability
+    jQuery( '.post-type-wpfep-roles-editor #wpfep-role-edit-table' ).on( 'click', 'a.wpfep-delete-capability-link', function() {
+        if( ( wpfep_roles_editor_data.current_user_role && jQuery.inArray( jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text(), wpfep_roles_editor_data.admin_capabilities ) === -1 ) || ! wpfep_roles_editor_data.current_user_role ) {
+            jQuery( this ).closest( 'div.wpfep-role-edit-table-entry' ).remove();
+
+            var deleted_capability = {};
+            deleted_capability[jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text()] = jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text();
+            wpfep_re_capabilities_to_delete[jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text()] = jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text();
+
+            delete wpfep_re_current_role_capabilities[jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text()];
+            delete wpfep_re_new_capabilities[jQuery( this ).closest( 'span.wpfep-delete-capability' ).siblings( 'span.wpfep-capability' ).text()];
+
+            if( jQuery( '.wwpfep-add-new-cap-input' ).is( ':visible' ) ) {
+                wpfep_re_change_select_to_input();
+            }
+
+            wpfep_re_disable_select_capabilities( wpfep_re_capabilities_group, deleted_capability, 'delete' );
+
+            if( jQuery( '.wpfep-role-edit-table-entry' ).length < 1 ) {
+                wpfep_re_no_capabilities_found();
+            }
+
+            wpfep_re_number_of_capabilities();
+        }
+    } );
     // Change between select2 with all existing capabilities and input to add a new capability
     jQuery( '.post-type-wpfep-roles-editor a.wpfep-add-new-cap-link' ).click( function() {
         wpfep_re_change_select_to_input();

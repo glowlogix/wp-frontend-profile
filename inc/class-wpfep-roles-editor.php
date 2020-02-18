@@ -30,7 +30,7 @@ class WPFEP_Roles_Editor
 
         add_filter('wp_insert_post_data', [ $this, 'modify_post_title' ], '99', 1);
 
-        // add_action( 'wp_ajax_delete_capability_permanently', array( $this, 'delete_capability_permanently' ) );
+        add_action('wp_ajax_delete_capability_permanently', array( $this, 'delete_capability_permanently' ));
         add_action('wp_ajax_update_role_capabilities', [ $this, 'update_role_capabilities' ]);
         add_action('wp_ajax_get_role_capabilities', [ $this, 'get_role_capabilities' ]);
 
@@ -791,6 +791,32 @@ class WPFEP_Roles_Editor
         }
 
         return array_unique($capabilities);
+    }
+    public function delete_capability_permanently()
+    {
+        if (! current_user_can('manage_options')) {
+            die();
+        }
+
+        check_ajax_referer('wpfep-re-ajax-nonce', 'security');
+
+        global $wp_roles;
+
+        foreach ($wp_roles->role_names as $role_slug => $role_display_name) {
+            $role = get_role($role_slug);
+            $role->remove_cap(sanitize_text_field($_POST['capability']));
+        }
+
+        $capabilities = get_option('wpfep_roles_editor_capabilities', 'not_set');
+
+        if ($capabilities != 'not_set' && ($key = array_search(sanitize_text_field($_POST['capability']), $capabilities['custom']['capabilities'])) !== false) {
+            unset($capabilities['custom']['capabilities'][ $key ]);
+            $capabilities['custom']['capabilities'] = array_values($capabilities['custom']['capabilities']);
+
+            update_option('wpfep_roles_editor_capabilities', $capabilities);
+        }
+
+        die();
     }
 
     public function remove_filter_by_month_dropdown($months, $post_type = null)
