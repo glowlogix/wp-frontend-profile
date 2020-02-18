@@ -45,6 +45,7 @@ class WPFEP_Roles_Editor {
 
 		// To Add multiple roles checkbox to back-end Add / Edit User (as admin)
 		add_action( 'load-user-new.php', [ $this, 'actions_on_user_new' ] );
+		add_action( 'load-user-edit.php', array( $this, 'actions_on_user_edit' ) );
 	}
 
 	public function scripts_admin() {
@@ -1200,7 +1201,16 @@ class WPFEP_Roles_Editor {
 
 		add_action( 'user_register', [ $this, 'roles_update_user_new' ] );
 	}
+		// Add actions on Edit User back-end page
+	public function actions_on_user_edit() {
 
+		$this->scripts_and_styles_actions( 'user_edit' );
+
+		add_action( 'personal_options', array( $this, 'roles_field_user_edit' ) );
+
+		add_action( 'profile_update', array( $this, 'roles_update_user_edit' ), 10, 2 );
+
+	}
 	// For Roles Edit checkboxes for Add User back-end page
 	public function roles_field_user_new() {
 		if ( ! current_user_can( 'promote_users' ) ) {
@@ -1216,6 +1226,64 @@ class WPFEP_Roles_Editor {
 		wp_nonce_field( 'new_user_roles', 'wpfep_re_new_user_roles_nonce' );
 
 		$this->roles_field_display( $user_roles );
+	}
+	// Roles Edit checkboxes for Edit User back-end page
+	public function roles_field_user_edit( $user ) {
+
+		if ( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user->ID ) ) {
+			return;
+		}
+
+		$user_roles = (array) $user->roles;
+
+		wp_nonce_field( 'new_user_roles', 'wpfep_re_new_user_roles_nonce' );
+
+		$this->roles_field_display( $user_roles );
+
+	}
+
+	// Output roles edit checkboxes
+	public function roles_field_display( $user_roles ) {
+
+		$wpfep_roles = get_editable_roles();
+
+		?>
+		<table class="form-table">
+			<tr class="wpfep-re-edit-user">
+				<th><?php esc_html_e( 'Edit User Roles', 'wpfep' ); ?></th>
+
+				<td>
+					<div>
+						<ul style="margin: 5px 0;">
+							<?php foreach ( $wpfep_roles as $role_slug => $role_details ) { ?>
+								<li>
+									<label>
+										<input type="checkbox" name="wpfep_re_user_roles[]" value="<?php echo esc_attr( $role_slug ); ?>" <?php checked( in_array( $role_slug, $user_roles ) ); ?> />
+										<?php echo esc_html( translate_user_role( $role_details['name'] ) ); ?>
+									</label>
+								</li>
+							<?php } ?>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<?php
+	}
+
+	public function roles_update_user_edit( $user_id, $old_user_data ) {
+
+		if ( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user_id ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['wpfep_re_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles' ) ) {
+			return;
+		}
+
+		$this->roles_update_user_new_and_edit( $old_user_data );
+
 	}
 
 	public function roles_update_user_new( $user_id ) {
@@ -1257,13 +1325,21 @@ class WPFEP_Roles_Editor {
 	}
 
 	public function scripts_and_styles_actions( $location ) {
-		// For Enqueue jQuery on both Add User and Edit User back-end pages
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_jquery' ] );
 
-		// This is Actions for Add User back-end page
+		// Enqueue jQuery on both Add User and Edit User back-end pages
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_jquery' ) );
+
+		// Actions for Add User back-end page
 		if ( $location == 'user_new' ) {
-			add_action( 'admin_footer', [ $this, 'print_scripts_user_new' ], 25 );
+			add_action( 'admin_footer', array( $this, 'print_scripts_user_new' ), 25 );
 		}
+
+		// Actions for Edit User back-end page
+		if ( $location == 'user_edit' ) {
+			add_action( 'admin_head', array( $this, 'print_styles_user_edit' ) );
+			add_action( 'admin_footer', array( $this, 'print_scripts_user_edit' ), 25 );
+		}
+
 	}
 
 	// For Enqueue jQuery where needed (use action)
