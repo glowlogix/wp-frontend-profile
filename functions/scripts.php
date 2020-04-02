@@ -25,7 +25,7 @@ function wpfep_register_scripts()
     /* make a filter to allow turning off tab js */
     $tab_js_output = apply_filters('wpfep_tabs_js', true);
 
-     /* if we turn ob tab js - enqueue them */
+    /* if we turn ob tab js - enqueue them */
     if (true == $tab_js_output) {
         wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), 'jquery', [], true);
     }

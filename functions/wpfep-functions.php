@@ -196,7 +196,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
         $userdata = get_userdata($user_id);
         $current_field_value = $userdata->{$field['id']};
     /* not a reserved id, but is a taxonomy */
-    } elseif (isset( $field['taxonomy']) ) {
+    } elseif (isset($field['taxonomy'])) {
         $terms = wp_get_object_terms($user_id, $field['taxonomy']);
         $current_field_value = [];
         foreach ($terms as $term) {
@@ -284,7 +284,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                     /* loop through each option */
                     foreach ($options as $option) {
                         ?>
-						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>"  <?php checked( $current_field_value, $option['value'] ); ?>> <?php echo esc_html($option['name']); ?></label></div>
+						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>"  <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
 						<?php
                     }
                     ?>
@@ -932,7 +932,7 @@ if ('on' == $manually_approve_user) {
      */
     function status_column($val_column, $column_name, $user)
     {
-    	$status='';
+        $status='';
         switch ($column_name) {
             case 'wpfep_user_status':
                 $user_status = get_user_meta($user, 'wpfep_user_status', true);
