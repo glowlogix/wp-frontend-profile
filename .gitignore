@@ -4,3 +4,5 @@ php-codesniffer
 package-lock.json
 composer.lock
 vendor/
+.DS_Store
+.idea/
