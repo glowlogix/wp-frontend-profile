@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.0] - 2020-04-04
+### Added
+- Implement Add/Edit/Remove/Clone Role #36 #37 #39 #38 
+- Implement Assign Capabilities to Roles #44 
+- Implement Unassign Capabilities of Role #45 
+- Implement Shortcode Role Assignment #35
+
+### Fixed
+- Fix a warning on new post screen #41
+- Fix wpfep_register_scripts disables JS when filtering $style_output to false e0d2531
+
 ## [1.1.0] - 2020-01-22
 ### Added
 - Admin should have the ability to create new users from frontend & select roles 0221779
@@ -44,7 +55,8 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Added
 - Initial launch.
 
-[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/glowlogix/wp-frontend-profile/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/glowlogix/wp-frontend-profile/compare/v1.0.0...1.1.0
 [1.0.0]: https://github.com/glowlogix/wp-frontend-profile/compare/0.2.2...v1.0.0
 [0.2.2]: https://github.com/glowlogix/wp-frontend-profile/compare/v0.1...0.2.2

@@ -1,0 +1,437 @@
+/* Role Editor */
+/*
+
+*/
+
+[class^="icon-wpfep-re-"]:before, [class*=" icon-wpfep-re-"]:before {
+    font-family: "wpfep_re_font";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+.icon-wpfep-re-users:before { content: '\e801'; } /* '' */
+.icon-wpfep-re-slug:before { content: '\e802'; } /* '' */
+.icon-wpfep-re-caps:before { content: '\e803'; } /* '' */
+.icon-wpfep-re-spinner:before { content: '\e838'; } /* '' */
+
+.post-type-wpfep-roles-editor .table-role-info {
+    font-size: 13px;
+}
+
+.post-type-wpfep-roles-editor #post-query-submit {
+    display: none;
+}
+
+
+
+.post-type-wpfep-roles-editor .column-capabilities {
+    width: 15%;
+    text-align: center;
+}
+
+.post-type-wpfep-roles-editor .column-users {
+    width: 10%;
+    text-align: center;
+}
+
+.post-type-wpfep-roles-editor .wpfep-delete-capability-disabled,
+.post-type-wpfep-roles-editor .row-actions span.delete_notify {
+    color: #0073aa;
+    cursor: not-allowed;
+}
+
+.post-type-wpfep-roles-editor .misc-pub-section .icon-wpfep-re-users,
+.post-type-wpfep-roles-editor .misc-pub-section .icon-wpfep-re-slug,
+.post-type-wpfep-roles-editor .misc-pub-section .icon-wpfep-re-caps {
+    font-size: 20px;
+}
+
+
+
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities .select2 .select2-container {
+    padding: 0 5px 5px 0 !important;
+}
+
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities a.button-primary {
+    vertical-align: top;
+    margin: 1px 0 0 10px;
+    height: 32px;
+    line-height: 30px;
+}
+
+
+.post-type-wpfep-roles-editor .wpfep-re-spinner-container {
+    margin: 5px 3px 0 2px;
+    padding: 11px 0;
+    width: 100%;
+}
+
+.post-type-wpfep-roles-editor .wpfep-re-spinner-container i.icon-wpfep-re-spinner {
+    font-size: 35px;
+    margin-left: 45%;
+}
+
+
+ .wpfep-role-edit-table-entry :hover {
+
+
+    color: green;
+
+}
+.post-type-wpfep-roles-editor .misc-pub-section #wpfep-role-slug {
+    width: 59%;
+    margin-left: 5px;
+    text-transform: lowercase;
+}
+
+.post-type-wpfep-roles-editor .misc-pub-section.misc-pub-section-users,
+.post-type-wpfep-roles-editor .misc-pub-section.misc-pub-section-capabilities,
+.post-type-wpfep-roles-editor .misc-pub-section.misc-pub-section-edit-slug {
+    padding-top: 10px;
+    margin: 5px 0;
+}
+
+.post-type-wpfep-roles-editor .misc-pub-section.misc-pub-section-users span,
+.post-type-wpfep-roles-editor .misc-pub-section.misc-pub-section-capabilities span,
+.post-type-wpfep-roles-editor .misc-pub-section.misc-pub-section-edit-slug span {
+    font-size: 14px;
+    bottom: 1px;
+    position: relative;
+}
+
+.post-type-wpfep-roles-editor .wpfep-re-cap-perm-delete {
+    color: #0073aa;
+    font-size: 13px;
+    float: right;
+    position: relative;
+    z-index: 1;
+}
+
+.post-type-wpfep-roles-editor .wpfep-re-cap-perm-delete:active,
+.post-type-wpfep-roles-editor .wpfep-re-cap-perm-delete:focus,
+.post-type-wpfep-roles-editor .wpfep-re-cap-perm-delete:hover {
+    color: #000000;
+    cursor: pointer;
+}
+.post-type-wpfep-roles-editor .wpfep-re-spin {
+    -moz-animation: wpfep_re_spin 2s infinite linear;
+    -o-animation: wpfep_re_spin 2s infinite linear;
+    -webkit-animation: wpfep_re_spin 2s infinite linear;
+    animation: wpfep_re_spin 2s infinite linear;
+    display: inline-block;
+}
+@-moz-keyframes wpfep_re_spin {
+    0% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(359deg);
+        -o-transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@-webkit-keyframes wpfep_re_spin {
+    0% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(359deg);
+        -o-transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@-o-keyframes wpfep_re_spin {
+    0% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(359deg);
+        -o-transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@-ms-keyframes wpfep_re_spin {
+    0% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(359deg);
+        -o-transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@keyframes wpfep_re_spin {
+    0% {
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(359deg);
+        -o-transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+/*Color scheme */
+input.wpfep-role-slug-input.input {
+    background-color: #fff;
+    border: none !important;
+    box-shadow: none;
+}
+
+td.role.column-role {
+    background: white !important;
+}
+input.wpfep-role-slug-input.input {
+    background-color: white;
+    border: none !important;
+    box-shadow: none;
+}
+td.title.column-title.has-row-actions.column-primary.page-title {
+    background-color: white !important;
+}
+td.capabilities.column-capabilities {
+    background: white !important;
+}
+td.users.column-users {
+    background: white !important;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-add-caps {
+    width: 100%;
+    height: 100px;
+}
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities .wpfep-add-new-cap-input {
+    display: none; 
+    vertical-align: middle;
+    width: 40%;
+    line-height: 20px;
+    padding-bottom: 10px;
+    border: 1px solid #AAAAAA;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: none;
+    font-size: 13px;
+    margin: 0;
+}
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities .wpfep-add-new-cap-input:focus {
+    border: 1px solid #000;
+    outline: none;
+    box-shadow: none;
+}
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities #wpfep-add-new-cap-link {
+    margin: 10px 5px;
+}
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities #wpfep-add-new-cap-link a:link,
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities #wpfep-add-new-cap-link a:hover,
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities #wpfep-add-new-cap-link a:visited,
+.post-type-wpfep-roles-editor #wpfep_edit_role_capabilities #wpfep-add-new-cap-link a:active {
+    text-decoration: none;
+    box-shadow: none;
+}
+.post-type-wpfep-roles-editor #wpfep-duplicate-capability-error,
+.post-type-wpfep-roles-editor #wpfep-hidden-capability-error,
+.post-type-wpfep-roles-editor #wpfep-add-capability-error {
+    border-left: 3px solid #0073aa;
+    display: none;
+    color: #0073aa;
+    font-size: 14px;
+    margin-left: 6px;
+    padding: 5px 10px;
+    line-height: 35px;
+    vertical-align: top;
+}
+.post-type-wpfep-roles-editor #wpfep-capabilities-tabs .wpfep-role-editor-tab-title a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 10px 0 10px 10px;
+    height: 24px;
+    line-height: 24px;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry {
+
+
+
+    height: 32px;
+    cursor: pointer;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry.wpfep-new-capability-highlight {
+    background-color: #e6e6e6;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table {
+    padding: 20px 5px 0 5px;
+    float: right;
+    width: 84%;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-capability {
+    padding: 0 10px;
+    width: 70%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    display: inline-block;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-capability.wpfep-new-capability {
+    color: #0085ba;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-delete-capability {
+    float: right;
+    padding-right: 5px;
+    display: inline-block;
+    width: 15%;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-delete-capability a:link {
+    text-decoration: none;
+    color: #0073aa;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-delete-capability a:active,
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-delete-capability a:hover,
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry .wpfep-delete-capability a:visited {
+    text-decoration: none;
+    color: #FF0000;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry.wpfep-role-edit-no-cap {
+    background-color: inherit;
+}
+
+.post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry.wpfep-role-edit-no-cap span {
+    color: #0073aa;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table #wpfep-role-edit-caps-clear,
+.post-type-wpfep-roles-editor #wpfep-role-edit-caps-div #wpfep-role-edit-divs-clear {
+    width: 100%;
+    clear: both;
+}
+@media screen and ( max-width: 1600px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry {
+        width: 49%;
+    }
+
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 80%;
+    }
+}
+
+@media screen and ( max-width: 1400px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 76%;
+    }
+}
+
+@media screen and ( max-width: 1350px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table .wpfep-role-edit-table-entry {
+        width: 100%;
+    }
+}
+
+@media screen and ( max-width: 1250px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 72%;
+    }
+}
+
+@media screen and ( max-width: 1150px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 68%;
+    }
+}
+
+@media screen and ( max-width: 1100px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 62%;
+    }
+}
+
+@media screen and ( max-width: 850px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 70%;
+    }
+}
+
+@media screen and ( max-width: 782px ) {
+    .post-type-wpfep-roles-editor .column-role input.wpfep-role-slug-input {
+        height: 25px;
+    }
+
+    .post-type-wpfep-roles-editor .column-capabilities,
+    .post-type-wpfep-roles-editor .column-users {
+        text-align: inherit;
+    }
+}
+
+@media screen and ( max-width: 650px ) {
+    .post-type-wpfep-roles-editor #wpfep-role-edit-table {
+        width: 100%;
+    }
+
+
+}
+input.wpfep-role-slug-input.input {
+    background-color: #fff;
+    border: none !important;
+    box-shadow: none;
+}
+.post-type-wpfep-roles-editor #wpfep-capabilities-tabs .wpfep-role-editor-tab-title.wpfep-role-editor-tab-active {
+    color: #0586BE;
+    font-weight: bold;
+}
+ul#wpfep-capabilities a {
+    text-decoration: none;
+    margin-left: 40px;
+}
+ul#wpfep-capabilities {
+    width: 25%;
+    float: left;
+    border: 1px solid #cccccc;
+    padding-top:20px;
+}
+.post-type-wpfep-roles-editor #wpfep-role-edit-table {
+    width: 70%;
+}
+.wpfep-user-info {
+    width: 30%;
+    float: left;
+}
