@@ -99,6 +99,13 @@ if ( ! class_exists( 'WPFEP_Admin_Settings' ) ) :
 							'default' => 'on',
 						),
 						array(
+							'name'    => 'admin_profile_edit',
+							'label'   => __( 'Admin can edit profile', 'wpfep' ),
+							'desc'    => __( 'Allow administrators to edit their own profiles on the frontend.', 'wpfep' ),
+							'type'    => 'checkbox',
+							'default' => 'off'
+						),
+						array(
 							'name'    => 'redirect_after_login_page',
 							'label'   => __( 'Redirect After Login', 'wpfep' ),
 							'desc'    => __( 'After successful login, where the page will redirect to', 'wpfep' ),
