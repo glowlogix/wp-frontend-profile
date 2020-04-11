@@ -208,16 +208,16 @@ if (!class_exists('WPFEP_User')) {
             }
 
             /* translators: %s: admin mail */
-            $message_admin = sprintf(esc_html__('New user registration on your site %s:', 'wpfep'), get_option('blogname'))."\r\n\r\n";
+            $message_admin = sprintf(esc_html__('New user registration on your site %s:', 'wp-front-end-profile'), get_option('blogname'))."\r\n\r\n";
             /* translators: %s: user login */
-            $message_admin .= sprintf(esc_html__('Username: %s', 'wpfep'), $userdata->user_login)."\r\n\r\n";
+            $message_admin .= sprintf(esc_html__('Username: %s', 'wp-front-end-profile'), $userdata->user_login)."\r\n\r\n";
             /* translators: %s: user email */
-            $message_admin .= sprintf(esc_html__('E-mail: %s', 'wpfep'), $userdata->user_email)."\r\n";
+            $message_admin .= sprintf(esc_html__('E-mail: %s', 'wp-front-end-profile'), $userdata->user_email)."\r\n";
             /* translators: %s: user subject */
-            $subject = esc_html__('New user registration', 'wpfep');
+            $subject = esc_html__('New user registration', 'wp-front-end-profile');
             /* translators: %s: user email */
             if ('on' == $register_admin_mail) {
-                wp_mail(get_option('admin_email'), sprintf(esc_html__('[%1$s] %2$s', 'wpfep'), $blogname, $subject), $message_admin);
+                wp_mail(get_option('admin_email'), sprintf(esc_html__('[%1$s] %2$s', 'wp-front-end-profile'), $blogname, $subject), $message_admin);
             }
         }
     }

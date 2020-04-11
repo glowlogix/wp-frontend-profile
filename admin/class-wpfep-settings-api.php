@@ -457,8 +457,8 @@ if (!class_exists('WPFEP_Settings_API')) {
 
             $html .= sprintf('</select>');
             if ('' !== $value) {
-                $html .= sprintf(' <a href='.get_edit_post_link($value).' class="button"> '.__('Edit Page', 'wpfep').'</a>');
-                $html .= sprintf(' <a href='.get_permalink($value).' class="button"> '.__('View Page', 'wpfep').'</a>');
+                $html .= sprintf(' <a href='.get_edit_post_link($value).' class="button"> '.__('Edit Page', 'wp-front-end-profile').'</a>');
+                $html .= sprintf(' <a href='.get_permalink($value).' class="button"> '.__('View Page', 'wp-front-end-profile').'</a>');
             }
 
             echo wp_kses(
@@ -568,7 +568,7 @@ if (!class_exists('WPFEP_Settings_API')) {
             $value = esc_attr($this->get_option($args['id'], $args['section'], $args['std']));
             $size = isset($args['size']) && !is_null($args['size']) ? $args['size'] : 'regular';
             $id = $args['section'].'['.$args['id'].']';
-            $label = isset($args['options']['button_label']) ? $args['options']['button_label'] : __('Choose File', 'wpfep');
+            $label = isset($args['options']['button_label']) ? $args['options']['button_label'] : __('Choose File', 'wp-front-end-profile');
 
             $html = sprintf('<input type="text" class="%1$s-text wpsa-url" id="%2$s[%3$s]" name="%2$s[%3$s]" value="%4$s"/>', $size, $args['section'], $args['id'], $value);
             $html .= '<input type="button" class="button wpsa-browse" value="'.$label.'" />';

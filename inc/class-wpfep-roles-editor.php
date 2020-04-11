@@ -167,20 +167,20 @@ class WPFEP_Roles_Editor
                 'current_user_role'             => $current_user_role,
                 'admin_capabilities'            => $admin_capabilities,
                 'hidden_capabilities'           => $hidden_capabilities,
-                'default_role_text'             => esc_html__('Default Role', 'wpfep'),
-                'your_role_text'                => esc_html__('Your Role', 'wpfep'),
-                'role_name_required_error_text' => esc_html__('Role name is required.', 'wpfep'),
-                'no_capabilities_found_text'    => esc_html__('No capabilities found.', 'wpfep'),
-                'select2_placeholder_text'      => esc_html__('Select capabilities', 'wpfep'),
-                'delete_permanently_text'       => esc_html__('Delete Permanently', 'wpfep'),
-                'capability_perm_delete_text'   => esc_html__("This will permanently delete the capability from your site and from every user role.\n\nIt can't be undone!", 'wpfep'),
-                'new_cap_update_title_text'     => esc_html__('This capability is not saved until you click Update!', 'wpfep'),
-                'new_cap_publish_title_text'    => esc_html__('This capability is not saved until you click Publish!', 'wpfep'),
-                'delete_text'                   => esc_html__('Delete', 'wpfep'),
-                'cancel_text'                   => esc_html__('Cancel', 'wpfep'),
-                'add_new_capability_text'       => esc_html__('Add New Capability', 'wpfep'),
-                'capability_text'               => esc_html__('Capability', 'wpfep'),
-                'cap_no_delete_text'            => esc_html__('You can\'t delete this capability from your role.', 'wpfep'),
+                'default_role_text'             => esc_html__('Default Role', 'wp-front-end-profile'),
+                'your_role_text'                => esc_html__('Your Role', 'wp-front-end-profile'),
+                'role_name_required_error_text' => esc_html__('Role name is required.', 'wp-front-end-profile'),
+                'no_capabilities_found_text'    => esc_html__('No capabilities found.', 'wp-front-end-profile'),
+                'select2_placeholder_text'      => esc_html__('Select capabilities', 'wp-front-end-profile'),
+                'delete_permanently_text'       => esc_html__('Delete Permanently', 'wp-front-end-profile'),
+                'capability_perm_delete_text'   => esc_html__("This will permanently delete the capability from your site and from every user role.\n\nIt can't be undone!", 'wp-front-end-profile'),
+                'new_cap_update_title_text'     => esc_html__('This capability is not saved until you click Update!', 'wp-front-end-profile'),
+                'new_cap_publish_title_text'    => esc_html__('This capability is not saved until you click Publish!', 'wp-front-end-profile'),
+                'delete_text'                   => esc_html__('Delete', 'wp-front-end-profile'),
+                'cancel_text'                   => esc_html__('Cancel', 'wp-front-end-profile'),
+                'add_new_capability_text'       => esc_html__('Add New Capability', 'wp-front-end-profile'),
+                'capability_text'               => esc_html__('Capability', 'wp-front-end-profile'),
+                'cap_no_delete_text'            => esc_html__('You can\'t delete this capability from your role.', 'wwp-front-end-profile'),
             ];
 
             wp_localize_script('wpfep_roles_editor_js', 'wpfep_roles_editor_data', $vars_array);
@@ -239,20 +239,20 @@ class WPFEP_Roles_Editor
     {
         if (is_admin() && current_user_can('manage_options')) {
             $labels = [
-                'name'               => esc_html__('Roles Editor', 'wpfep'),
-                'singular_name'      => esc_html__('Roles Editor', 'wpfep'),
-                'add_new'            => esc_html__('Add New Role', 'wpfep'),
-                'add_new_item'       => esc_html__('Add New Role', 'wpfep'),
-                'edit_item'          => esc_html__('Edit Role', 'wpfep'),
-                'new_item'           => esc_html__('New Role', 'wpfep'),
-                'all_items'          => esc_html__('Roles Editor', 'wpfep'),
-                'view_item'          => esc_html__('View Role', 'wpfep'),
-                'search_items'       => esc_html__('Search the Roles Editor', 'wpfep'),
-                'not_found'          => esc_html__('No roles found', 'wpfep'),
-                'not_found_in_trash' => esc_html__('No roles found in trash', 'wpfep'),
-                'name_admin_bar'     => esc_html__('Role', 'wpfep'),
+                'name'               => esc_html__('Roles Editor', 'wp-front-end-profile'),
+                'singular_name'      => esc_html__('Roles Editor', 'wp-front-end-profile'),
+                'add_new'            => esc_html__('Add New Role', 'wp-front-end-profile'),
+                'add_new_item'       => esc_html__('Add New Role', 'wp-front-end-profile'),
+                'edit_item'          => esc_html__('Edit Role', 'wp-front-end-profile'),
+                'new_item'           => esc_html__('New Role', 'wp-front-end-profile'),
+                'all_items'          => esc_html__('Roles Editor', 'wp-front-end-profile'),
+                'view_item'          => esc_html__('View Role', 'wp-front-end-profile'),
+                'search_items'       => esc_html__('Search the Roles Editor', 'wp-front-end-profile'),
+                'not_found'          => esc_html__('No roles found', 'wp-front-end-profile'),
+                'not_found_in_trash' => esc_html__('No roles found in trash', 'wp-front-end-profile'),
+                'name_admin_bar'     => esc_html__('Role', 'wp-front-end-profile'),
                 'parent_item_colon'  => '',
-                'menu_name'          => esc_html__('Roles Editor', 'wpfep'),
+                'menu_name'          => esc_html__('Roles Editor', 'wp-front-end-profile'),
             ];
 
             $args = [
@@ -277,7 +277,7 @@ class WPFEP_Roles_Editor
         $screen = get_current_screen();
 
         if ($screen->post_type == 'wpfep-roles-editor') {
-            $title = esc_html__('Enter role name here', 'wpfep');
+            $title = esc_html__('Enter role name here', 'wp-front-end-profile');
         }
 
         return $title;
@@ -289,16 +289,16 @@ class WPFEP_Roles_Editor
 
         $messages['wpfep-roles-editor'] = [
             0  => '',
-            1  => esc_html__('Role updated.', 'wpfep'),
-            2  => esc_html__('Custom field updated.', 'wpfep'),
-            3  => esc_html__('Custom field deleted.', 'wpfep'),
-            4  => esc_html__('Role updated.', 'wpfep'),
+            1  => esc_html__('Role updated.', 'wp-front-end-profile'),
+            2  => esc_html__('Custom field updated.', 'wp-front-end-profile'),
+            3  => esc_html__('Custom field deleted.', 'wp-front-end-profile'),
+            4  => esc_html__('Role updated.', 'wp-front-end-profile'),
             5  => isset($_GET['revision']) ? sprintf(esc_html__('Role restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
-            6  => esc_html__('Role created.', 'wpfep'),
-            7  => esc_html__('Role saved.', 'wpfep'),
-            8  => esc_html__('Role submitted.', 'wpfep'),
-            9  => sprintf(esc_html__('Role scheduled for: <strong>%1$s</strong>', 'wpfep'), date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date))),
-            10 => esc_html__('Role draft updated.', 'wpfep'),
+            6  => esc_html__('Role created.', 'wp-front-end-profile'),
+            7  => esc_html__('Role saved.', 'wp-front-end-profile'),
+            8  => esc_html__('Role submitted.', 'wp-front-end-profile'),
+            9  => sprintf(esc_html__('Role scheduled for: <strong>%1$s</strong>', 'wp-front-end-profile'), date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date))),
+            10 => esc_html__('Role draft updated.', 'wp-front-end-profile'),
         ];
 
         return $messages;
@@ -357,10 +357,10 @@ class WPFEP_Roles_Editor
     public function add_extra_column_for_roles_editor_cpt($columns)
     {
         $columns = [
-             'title'        => esc_html__('Role Name', 'wpfep'),
-             'role'         => esc_html__('Role Slug', 'wpfep'),
-             'capabilities' => esc_html__('Capabilities', 'wpfep'),
-             'users'        => esc_html__('Users', 'wpfep'),
+             'title'        => esc_html__('Role Name', 'wp-front-end-profile'),
+             'role'         => esc_html__('Role Slug', 'wp-front-end-profile'),
+             'capabilities' => esc_html__('Capabilities', 'wp-front-end-profile'),
+             'users'        => esc_html__('Users', 'wp-front-end-profile'),
          ];
 
         return apply_filters('wpfep_manage_roles_columns', $columns);
@@ -405,7 +405,7 @@ class WPFEP_Roles_Editor
     public function register_meta_boxes()
     {
         remove_meta_box('slugdiv', 'wpfep-roles-editor', 'normal');
-        add_meta_box('wpfep_edit_role_capabilities', esc_html__('Edit Role Capabilities', 'wpfep'), [ $this, 'edit_role_capabilities_meta_box_callback' ], 'wpfep-roles-editor', 'normal', 'high');
+        add_meta_box('wpfep_edit_role_capabilities', esc_html__('Edit Role Capabilities', 'wp-front-end-profile'), [ $this, 'edit_role_capabilities_meta_box_callback' ], 'wpfep-roles-editor', 'normal', 'high');
     }
 
     public function edit_role_capabilities_meta_box_callback() {        ?>
@@ -415,72 +415,72 @@ class WPFEP_Roles_Editor
 			<div id="wpfep-role-edit-add-caps">
 			<div class="wpfep-user-info">
 			 <div class="misc-pub-section misc-pub-section-users">
-				<span><?php esc_html_e('Users', 'wpfep'); ?>: <strong>0</strong></span>
+				<span><?php esc_html_e('Users', 'wp-front-end-profile'); ?>: <strong>0</strong></span>
 			</div>
 
 			<div class="misc-pub-section misc-pub-section-capabilities">
-				<span><?php esc_html_e('Capabilities', 'wpfep'); ?>: <strong>0</strong></span>
+				<span><?php esc_html_e('Capabilities', 'wp-front-end-profile'); ?>: <strong>0</strong></span>
 			</div>
 			</div>
 			<div class="wpfep-capability-area">
 				<select style="width: 40%; display: none;" class="wpfep-capabilities-select" multiple="multiple"></select>
 
-				<input class="wpfep-add-new-cap-input" type="text" placeholder="<?php esc_html_e('Add a new capability', 'wpfep'); ?>">
+				<input class="wpfep-add-new-cap-input" type="text" placeholder="<?php esc_html_e('Add a new capability', 'wp-front-end-profile'); ?>">
 
 				<a href="javascript:void(0)" class="button-primary" onclick="wpfep_re_add_capability()">
-					<span><?php esc_html_e('Add Capability', 'wpfep'); ?></span>
+					<span><?php esc_html_e('Add Capability', 'wp-front-end-profile'); ?></span>
 				</a>
 
 				<div id="wpfep-add-new-cap-link">
-					<a class="wpfep-add-new-cap-link" href="javascript:void(0)"><?php esc_html_e('Add New Capability', 'wpfep'); ?></a>
+					<a class="wpfep-add-new-cap-link" href="javascript:void(0)"><?php esc_html_e('Add New Capability', 'wp-front-end-profile'); ?></a>
 				</div>
 
-				<span id="wpfep-add-capability-error"><?php esc_html_e('Please select an existing capability or add a new one!', 'wpfep'); ?></span>
-				<span id="wpfep-hidden-capability-error"><?php esc_html_e('You can\'t add a hidden capability!', 'wpfep'); ?></span>
-				<span id="wpfep-duplicate-capability-error"><?php esc_html_e('This capability already exists!', 'wpfep'); ?></span>
+				<span id="wpfep-add-capability-error"><?php esc_html_e('Please select an existing capability or add a new one!', 'wp-front-end-profile'); ?></span>
+				<span id="wpfep-hidden-capability-error"><?php esc_html_e('You can\'t add a hidden capability!', 'wp-front-end-profile'); ?></span>
+				<span id="wpfep-duplicate-capability-error"><?php esc_html_e('This capability already exists!', 'wp-front-end-profile'); ?></span>
 			</div>
 			 </div>
 			 </div>
 			<div class="wpfep-role-edit-caps">
 				<ul id="wpfep-capabilities">
 					<li class="wpfep-role-editor-tab-title wpfep-role-editor-tab-active">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-all" data-wpfep-re-tab="all"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-All', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-all" data-wpfep-re-tab="all"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-All', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-general" data-wpfep-re-tab="general"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-General', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-general" data-wpfep-re-tab="general"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-General', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-posts" data-wpfep-re-tab="post"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Posts', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-posts" data-wpfep-re-tab="post"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Posts', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-pages" data-wpfep-re-tab="page"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Pages', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-pages" data-wpfep-re-tab="page"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Pages', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-media" data-wpfep-re-tab="attachment"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Media', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-media" data-wpfep-re-tab="attachment"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Media', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-taxonomies" data-wpfep-re-tab="taxonomies"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Taxonomies', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-taxonomies" data-wpfep-re-tab="taxonomies"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Taxonomies', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-appearance" data-wpfep-re-tab="appearance"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Appearance', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-appearance" data-wpfep-re-tab="appearance"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Appearance', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-plugins" data-wpfep-re-tab="plugins"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('Plugins', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-plugins" data-wpfep-re-tab="plugins"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('Plugins', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-users" data-wpfep-re-tab="users"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Users', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-users" data-wpfep-re-tab="users"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Users', 'wp-front-end-profile'); ?></span></a>
 					</li>
 
 					<li class="wpfep-role-editor-tab-title">
-						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-custom" data-wpfep-re-tab="custom"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Custom', 'wpfep'); ?></span></a>
+						<a href="javascript:void(0)" class="wpfep-role-editor-tab wpfep-role-editor-custom" data-wpfep-re-tab="custom"> <span class="wpfep-role-editor-tab-label"><?php esc_html_e('-Custom', 'wp-front-end-profile'); ?></span></a>
 					</li>
 				</ul>
 
@@ -521,7 +521,7 @@ class WPFEP_Roles_Editor
 
 				<div class="misc-pub-section misc-pub-section-edit-slug">
 					<span>
-						<label for="wpfep-role-slug"><?php esc_html_e('Role Slug', 'wpfep'); ?>: </label>
+						<label for="wpfep-role-slug"><?php esc_html_e('Role Slug', 'wp-front-end-profile'); ?>: </label>
 						<input type="text" id="wpfep-role-slug" value="<?php echo $current_screen->action == 'add' ? '' : $role_slug; ?>" <?php echo $current_screen->action == 'add' ? '' : 'disabled'; ?>>
 					</span>
 				</div>
@@ -847,7 +847,7 @@ class WPFEP_Roles_Editor
                 'edit' => sprintf(
                     '<a href="%1$s">%2$s</a>',
                     esc_url($edit_link),
-                    esc_html__('Edit', 'wpfep')
+                    esc_html__('Edit', 'wp-front-end-profile')
                 ),
             );
 
@@ -866,7 +866,7 @@ class WPFEP_Roles_Editor
                     'clone' => sprintf(
                         '<a href="%1$s">%2$s</a>',
                         esc_url($clone_link),
-                        esc_html__('Clone', 'wpfep')
+                        esc_html__('Clone', 'wp-front-end-profile')
                     ),
                 )
             );
@@ -875,7 +875,7 @@ class WPFEP_Roles_Editor
                 $actions = array_merge(
                     $actions,
                     array(
-                        'delete_notify your_role' => '<span title="' . esc_html__('You can\'t delete your role.', 'wpfep') . '">' . esc_html__('Delete', 'wpfep') . '</span>',
+                        'delete_notify your_role' => '<span title="' . esc_html__('You can\'t delete your role.', 'wp-front-end-profile') . '">' . esc_html__('Delete', 'wp-front-end-profile') . '</span>',
                     )
                 );
             } elseif ($role_slug == $default_role) {
@@ -885,9 +885,9 @@ class WPFEP_Roles_Editor
                         'default_role'  => sprintf(
                             '<a href="%s">%s</a>',
                             esc_url(admin_url('options-general.php#default_role')),
-                            esc_html__('Change Default', 'wpfep')
+                            esc_html__('Change Default', 'wp-front-end-profile')
                         ),
-                        'delete_notify' => '<span title="' . esc_html__('You can\'t delete the default role. Change it first.', 'wpfep') . '">' . esc_html__('Delete', 'wpfep') . '</span>',
+                        'delete_notify' => '<span title="' . esc_html__('You can\'t delete the default role. Change it first.', 'wp-front-end-profile') . '">' . esc_html__('Delete', 'wp-front-end-profile') . '</span>',
                     )
                 );
             } else {
@@ -900,7 +900,7 @@ class WPFEP_Roles_Editor
                             '<a href="%1$s" onclick="return confirm( \'%2$s\' );">%3$s</a>',
                             esc_url($delete_link),
                             esc_html__('Are you sure?\nThis will permanently delete the role and cannot be undone!\nUsers assigned only on this role will be moved to the default role.', 'profile_builder'),
-                            esc_html__('Delete', 'wpfep')
+                            esc_html__('Delete', 'wp-front-end-profile')
                         ),
                     )
                 );
@@ -1273,7 +1273,7 @@ class WPFEP_Roles_Editor
         $wpfep_roles = get_editable_roles(); ?>
 		<table class="form-table">
 			<tr class="wpfep-re-edit-user">
-				<th><?php esc_html_e('Edit User Roles', 'wpfep'); ?></th>
+				<th><?php esc_html_e('Edit User Roles', 'wp-front-end-profile'); ?></th>
 
 				<td>
 					<div>
