@@ -16,40 +16,40 @@ function wpfep_add_profile_tab_meta_fields($fields)
 {
     $fields[] = [
         'id'      => 'user_email',
-        'label'   => __('Email Address', 'wpfep'),
-        'desc'    => __('Edit your email address - used for resetting your password etc.', 'wpfep'),
+        'label'   => __('Email Address', 'wp-front-end-profile'),
+        'desc'    => __('Edit your email address - used for resetting your password etc.', 'wp-front-end-profile'),
         'type'    => 'email',
         'classes' => 'user_email',
     ];
 
     $fields[] = [
         'id'      => 'first_name',
-        'label'   => __('First Name', 'wpfep'),
-        'desc'    => __('Edit your first name.', 'wpfep'),
+        'label'   => __('First Name', 'wp-front-end-profile'),
+        'desc'    => __('Edit your first name.', 'wp-front-end-profile'),
         'type'    => 'text',
         'classes' => 'first_name',
     ];
 
     $fields[] = [
         'id'      => 'last_name',
-        'label'   => __('Last Name', 'wpfep'),
-        'desc'    => __('Edit your last name.', 'wpfep'),
+        'label'   => __('Last Name', 'wp-front-end-profile'),
+        'desc'    => __('Edit your last name.', 'wp-front-end-profile'),
         'type'    => 'text',
         'classes' => 'last_name',
     ];
 
     $fields[] = [
         'id'      => 'user_url',
-        'label'   => __('URL', 'wpfep'),
-        'desc'    => __('Edit your profile associated URL.', 'wpfep'),
+        'label'   => __('URL', 'wp-front-end-profile'),
+        'desc'    => __('Edit your profile associated URL.', 'wp-front-end-profile'),
         'type'    => 'text',
         'classes' => 'user_url',
     ];
 
     $fields[] = [
         'id'      => 'description',
-        'label'   => __('Description/Bio', 'wpfep'),
-        'desc'    => __('Edit your description/bio.', 'wpfep'),
+        'label'   => __('Description/Bio', 'wp-front-end-profile'),
+        'desc'    => __('Edit your description/bio.', 'wp-front-end-profile'),
         'type'    => 'wysiwyg',
         'classes' => 'description',
     ];
@@ -70,8 +70,8 @@ function wpfep_add_password_tab_fields($fields)
 {
     $fields[] = [
         'id'      => 'user_pass',
-        'label'   => __('Password', 'wpfep'),
-        'desc'    => __('New Password', 'wpfep'),
+        'label'   => __('Password', 'wp-front-end-profile'),
+        'desc'    => __('New Password', 'wp-front-end-profile'),
         'type'    => 'password',
         'classes' => 'user_pass',
     ];

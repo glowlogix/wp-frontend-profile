@@ -183,7 +183,7 @@ if (!class_exists('WPFEP_Login')) {
          */
         public function lost_password_links()
         {
-            $links = sprintf('<a href="%s">%s</a>', $this->get_action_url('lostpassword'), __('Lost Password', 'wpfep'));
+            $links = sprintf('<a href="%s">%s</a>', $this->get_action_url('lostpassword'), __('Lost Password', 'wp-front-end-profile'));
 
             return $links;
         }
@@ -215,7 +215,7 @@ if (!class_exists('WPFEP_Login')) {
 
                 switch ($action) {
                     case 'lostpassword':
-                        $this->messages[] = __('Please enter your username or email address. You will receive a link to create a new password via email.', 'wpfep');
+                        $this->messages[] = __('Please enter your username or email address. You will receive a link to create a new password via email.', 'wp-front-end-profile');
 
                         wpfep_load_template('lost-pass.php', $args);
                         break;
@@ -223,12 +223,12 @@ if (!class_exists('WPFEP_Login')) {
                     case 'rp':
                     case 'resetpass':
                         if ('true' == isset($_GET['reset']) && sanitize_text_field(wp_unslash($_GET['reset']))) {
-                            printf('<div class="wpfep-message">'.esc_html__('Your password has been reset.', 'wpfep').'</div>');
+                            printf('<div class="wpfep-message">'.esc_html__('Your password has been reset.', 'wp-front-end-profile').'</div>');
                             wpfep_load_template('login.php', $args);
 
                             return;
                         } else {
-                            $this->messages[] = __('Enter your new password below..', 'wpfep');
+                            $this->messages[] = __('Enter your new password below..', 'wp-front-end-profile');
 
                             wpfep_load_template('reset-pass.php', $args);
                         }
@@ -237,11 +237,11 @@ if (!class_exists('WPFEP_Login')) {
 
                     default:
                         if ('confirm' == isset($_GET['checkemail']) && sanitize_text_field(wp_unslash($_GET['checkemail']))) {
-                            $this->messages[] = __('Check your e-mail for the confirmation link.', 'wpfep');
+                            $this->messages[] = __('Check your e-mail for the confirmation link.', 'wp-front-end-profile');
                         }
 
                         if ('true' == isset($_GET['loggedout']) && sanitize_text_field(wp_unslash($_GET['loggedout']))) {
-                            $this->messages[] = __('You are now logged out.', 'wpfep');
+                            $this->messages[] = __('You are now logged out.', 'wp-front-end-profile');
                         }
 
                         wpfep_load_template('login.php', $args);
@@ -277,20 +277,20 @@ if (!class_exists('WPFEP_Login')) {
                 }
 
                 if (empty($_POST['log'])) {
-                    $this->login_errors[] = __('Username is required.', 'wpfep');
+                    $this->login_errors[] = __('Username is required.', 'wp-front-end-profile');
 
                     return;
                 }
 
                 if (empty($_POST['pwd'])) {
-                    $this->login_errors[] = __('Password is required.', 'wpfep');
+                    $this->login_errors[] = __('Password is required.', 'wp-front-end-profile');
 
                     return;
                 }
 
                 if (isset($_POST['g-recaptcha-response'])) {
                     if (empty($_POST['g-recaptcha-response'])) {
-                        $this->login_errors[] = __('Empty reCaptcha Field', 'wpfep');
+                        $this->login_errors[] = __('Empty reCaptcha Field', 'wp-front-end-profile');
 
                         return;
                     } else {
@@ -309,24 +309,24 @@ if (!class_exists('WPFEP_Login')) {
                 $user_behave = wpfep_get_option('user_behave', 'wpfep_profile');
                 $user_meta = get_user_meta($user->ID, 'wpfep_user_status', true);
                 if (('activate_mail' == $user_behave) && (('Yes' != get_user_meta($user->ID, 'verify', true)) || (get_user_meta($user->ID, 'has_to_be_activated', true) == false))) {
-                    $this->login_errors[] = '<strong>'.__('Error', 'wpfep').':</strong> '.__('Please verify your account.', 'wpfep');
+                    $this->login_errors[] = '<strong>'.__('Error', 'wp-front-end-profile').':</strong> '.__('Please verify your account.', 'wp-front-end-profile');
 
                     return;
                 }
                 if (('on' == $manually_approve_user) && ('pending' == $user_meta)) {
-                    $this->login_errors[] = '<strong>'.__('Error', 'wpfep').':</strong> '.__("Your account hasn't been approved by the administrator.", 'wpfep');
+                    $this->login_errors[] = '<strong>'.__('Error', 'wp-front-end-profile').':</strong> '.__("Your account hasn't been approved by the administrator.", 'wp-front-end-profile');
 
                     return;
                 }
                 if (('on' == $manually_approve_user) && ('rejected' == $user_meta)) {
-                    $this->login_errors[] = '<strong>'.__('Error', 'wpfep').':</strong> '.__('Your account was not approved by the administrator.', 'wpfep');
+                    $this->login_errors[] = '<strong>'.__('Error', 'wwp-front-end-profile').':</strong> '.__('Your account was not approved by the administrator.', 'wp-front-end-profile');
 
                     return;
                 }
                 if (isset($user->user_login)) {
                     $creds['user_login'] = $user->user_login;
                 } else {
-                    $this->login_errors[] = '<strong>'.__('Error', 'wpfep').':</strong> '.__('A user could not be found with this email address.', 'wpfep');
+                    $this->login_errors[] = '<strong>'.__('Error', 'wp-front-end-profile').':</strong> '.__('A user could not be found with this email address.', 'wp-front-end-profile');
 
                     return;
                 }
@@ -434,13 +434,13 @@ if (!class_exists('WPFEP_Login')) {
                     wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_reset_pass');
 
                     if (empty($_POST['pass1']) || empty($_POST['pass2'])) {
-                        $this->login_errors[] = __('Please enter your password.', 'wpfep');
+                        $this->login_errors[] = __('Please enter your password.', 'wp-front-end-profile');
 
                         return;
                     }
 
                     if ($_POST['pass1'] !== $_POST['pass2']) {
-                        $this->login_errors[] = __('Passwords do not match.', 'wpfep');
+                        $this->login_errors[] = __('Passwords do not match.', 'wp-front-end-profile');
 
                         return;
                     }
@@ -455,7 +455,7 @@ if (!class_exists('WPFEP_Login')) {
 
                             /* add message indicating length issue!! */
 
-                            $this->login_errors[] = '<strong>'.__('Error', 'wpfep').':</strong> '.__('Please make sure your password is a minimum of 12  characters long', 'wpfep');
+                            $this->login_errors[] = '<strong>'.__('Error', 'wp-front-end-profile').':</strong> '.__('Please make sure your password is a minimum of 12  characters long', 'wp-front-end-profile');
 
                             return;
                         }
@@ -470,7 +470,7 @@ if (!class_exists('WPFEP_Login')) {
                         if (false == $pass_complexity) {
 
                             /* add message indicating complexity issue */
-                            $this->login_errors[] = '<strong>'.__('Error', 'wpfep').':</strong> '.__('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep');
+                            $this->login_errors[] = '<strong>'.__('Error', 'wp-front-end-profile').':</strong> '.__('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wp-front-end-profile');
 
                             return;
                         }
@@ -514,14 +514,14 @@ if (!class_exists('WPFEP_Login')) {
             if (isset($_POST['_wpnonce'])) {
                 wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass');
                 if (empty($_POST['user_login'])) {
-                    $this->login_errors[] = __('Enter a username or e-mail address.', 'wpfep');
+                    $this->login_errors[] = __('Enter a username or e-mail address.', 'wp-front-end-profile');
 
                     return;
                 } elseif (strpos(sanitize_text_field(wp_unslash($_POST['user_login'])), '@') && apply_filters('wpfep_get_username_from_email', true)) {
                     $user_data = get_user_by('email', sanitize_text_field(wp_unslash($_POST['user_login'])));
 
                     if (empty($user_data)) {
-                        $this->login_errors[] = __('There is no user registered with that email address.', 'wpfep');
+                        $this->login_errors[] = __('There is no user registered with that email address.', 'wp-front-end-profile');
 
                         return;
                     }
@@ -539,7 +539,7 @@ if (!class_exists('WPFEP_Login')) {
             }
 
             if (!$user_data) {
-                $this->login_errors[] = __('Invalid username or e-mail.', 'wpfep');
+                $this->login_errors[] = __('Invalid username or e-mail.', 'wp-front-end-profile');
 
                 return false;
             }
@@ -553,7 +553,7 @@ if (!class_exists('WPFEP_Login')) {
             $allow = apply_filters('allow_password_reset', true, $user_data->ID);
 
             if (!$allow) {
-                $this->login_errors[] = __('Password reset is not allowed for this user', 'wpfep');
+                $this->login_errors[] = __('Password reset is not allowed for this user', 'wp-front-end-profile');
 
                 return false;
             } elseif (is_wp_error($allow)) {
@@ -611,13 +611,13 @@ if (!class_exists('WPFEP_Login')) {
             }
 
             if (empty($key) || !is_string($key)) {
-                $this->login_errors[] = __('Invalid key', 'wpfep');
+                $this->login_errors[] = __('Invalid key', 'wp-front-end-profile');
 
                 return false;
             }
 
             if (empty($login) || !is_string($login)) {
-                $this->login_errors[] = __('Invalid Login', 'wpfep');
+                $this->login_errors[] = __('Invalid Login', 'wp-front-end-profile');
 
                 return false;
             }
@@ -625,7 +625,7 @@ if (!class_exists('WPFEP_Login')) {
             $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM $wpdb->users WHERE user_activation_key = %s AND user_login = %s", $key, $login));
 
             if (empty($user)) {
-                $this->login_errors[] = __('Invalid key', 'wpfep');
+                $this->login_errors[] = __('Invalid key', 'wp-front-end-profile');
 
                 return false;
             }
@@ -651,7 +651,7 @@ if (!class_exists('WPFEP_Login')) {
                     $wpfep_user = new wpfep_User($user->ID);
                     if (!$wpfep_user->is_verified()) {
                         /* translators: %s: activation link */
-                        $error->add('acitve_user', sprintf(__('<strong>Your account is not active.</strong><br>Please check your email for activation link. <br><a href="%s">Click here</a> to resend the activation link', 'wpfep'), $resend_link));
+                        $error->add('acitve_user', sprintf(__('<strong>Your account is not active.</strong><br>Please check your email for activation link. <br><a href="%s">Click here</a> to resend the activation link', 'wp-front-end-profile'), $resend_link));
 
                         return $error;
                     }
@@ -673,7 +673,7 @@ if (!class_exists('WPFEP_Login')) {
             }
 
             if (!isset($_GET['id']) && empty($_GET['id'])) {
-                wpfep()->login->add_error(__('Activation URL is not valid', 'wpfep'));
+                wpfep()->login->add_error(__('Activation URL is not valid', 'wp-front-end-profile'));
 
                 return;
             }
@@ -684,13 +684,13 @@ if (!class_exists('WPFEP_Login')) {
             $wpfep_user_status = get_user_meta($user_id, 'wpfep_user_status', true);
 
             if (!$user) {
-                wpfep()->login->add_error(__('Invalid User activation url', 'wpfep'));
+                wpfep()->login->add_error(__('Invalid User activation url', 'wp-front-end-profile'));
 
                 return;
             }
 
             if ($user->is_verified()) {
-                wpfep()->login->add_error(__('User already verified', 'wpfep'));
+                wpfep()->login->add_error(__('User already verified', 'wp-front-end-profile'));
 
                 return;
             }
@@ -698,7 +698,7 @@ if (!class_exists('WPFEP_Login')) {
             $activation_key = sanitize_text_field(wp_unslash($_GET['wpfep_registration_activation']));
 
             if ($user->get_activation_key() != $activation_key) {
-                wpfep()->login->add_error(__('Activation URL is not valid', 'wpfep'));
+                wpfep()->login->add_error(__('Activation URL is not valid', 'wp-front-end-profile'));
 
                 return;
             }
@@ -706,10 +706,10 @@ if (!class_exists('WPFEP_Login')) {
             $user->mark_verified();
             $user->remove_activation_key();
 
-            $message = __('Your account has been verified', 'wpfep');
+            $message = __('Your account has been verified', 'wp-front-end-profile');
 
             if ('approved' != $wpfep_user_status) {
-                $message = __("Your account has been verified , but you can't login until manually approved your account by an administrator.", 'wpfep');
+                $message = __("Your account has been verified , but you can't login until manually approved your account by an administrator.", 'wp-front-end-profile');
             }
 
             wpfep()->login->add_message($message);
@@ -739,10 +739,10 @@ if (!class_exists('WPFEP_Login')) {
                 $hashed = time().':'.$wpfep_hasher->HashPassword($key);
                 $wpdb->update($wpdb->users, ['user_activation_key' => $hashed], ['user_login' => $the_user->user_login]);
                 /* translators: %s: username value */
-                $subject = sprintf(__('[%s] Your username and password info', 'wpfep'), $blogname);
+                $subject = sprintf(__('[%s] Your username and password info', 'wp-front-end-profile'), $blogname);
                 /* translators: %s: username term */
-                $message = sprintf(__('Username: %s', 'wpfep'), $the_user->user_login)."\r\n\r\n";
-                $message .= __('To set your password, visit the following address:', 'wpfep')."\r\n\r\n";
+                $message = sprintf(__('Username: %s', 'wp-front-end-profile'), $the_user->user_login)."\r\n\r\n";
+                $message .= __('To set your password, visit the following address:', 'wp-front-end-profile')."\r\n\r\n";
                 $message .= network_site_url("wp-login.php?action=rp&key=$key&login=".rawurlencode($the_user->user_login), 'login')."\r\n\r\n";
                 $message .= wp_login_url()."\r\n";
 
@@ -753,12 +753,12 @@ if (!class_exists('WPFEP_Login')) {
                 wp_mail($user_email, $subject, $message);
             } else {
                 /* translators: %s: blogname term */
-                $subject = sprintf(__('[%s] Account has been activated', 'wpfep'), $blogname);
+                $subject = sprintf(__('[%s] Account has been activated', 'wp-front-end-profile'), $blogname);
                 /* translators: %s: current user*/
-                $message = sprintf(__('Hi %s,', 'wpfep'), $the_user->user_login)."\r\n\r\n";
-                $message .= __('Congrats! Your account has been verified. To login visit the following url:', 'wpfep')."\r\n\r\n";
+                $message = sprintf(__('Hi %s,', 'wp-front-end-profile'), $the_user->user_login)."\r\n\r\n";
+                $message .= __('Congrats! Your account has been verified. To login visit the following url:', 'wp-front-end-profile')."\r\n\r\n";
                 $message .= wp_login_url()."\r\n\r\n";
-                $message .= __('Thanks', 'wpfep');
+                $message .= __('Thanks', 'wp-front-end-profile');
 
                 $subject = apply_filters('wpfep_mail_after_confirmation_subject', $subject);
                 $message = apply_filters('wpfep_mail_after_confirmation_body', $message);
@@ -779,7 +779,7 @@ if (!class_exists('WPFEP_Login')) {
          */
         public function user_activation_message()
         {
-            return new WP_Error('user-activated', __('Your account has been verified', 'wpfep'), 'message');
+            return new WP_Error('user-activated', __('Your account has been verified', 'wp-front-end-profile'), 'message');
         }
 
         /**
@@ -845,12 +845,12 @@ if (!class_exists('WPFEP_Login')) {
                 $this->get_login_url()
             );
 
-            $message = __('Someone requested that the password be reset for the following account:', 'wpfep')."\r\n\r\n";
+            $message = __('Someone requested that the password be reset for the following account:', 'wp-front-end-profile')."\r\n\r\n";
             $message .= network_home_url('/')."\r\n\r\n";
             /* translators: %s: username term */
-            $message .= sprintf(esc_html__('Username: %s', 'wpfep'), $user_login)."\r\n\r\n";
-            $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'wpfep')."\r\n\r\n";
-            $message .= esc_html_e('To reset your password, visit the following address:', 'wpfep')."\r\n\r\n";
+            $message .= sprintf(esc_html__('Username: %s', 'wp-front-end-profile'), $user_login)."\r\n\r\n";
+            $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'wp-front-end-profile')."\r\n\r\n";
+            $message .= esc_html_e('To reset your password, visit the following address:', 'wp-front-end-profile')."\r\n\r\n";
             $message .= ' '.$reset_url." \r\n";
 
             $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
@@ -859,13 +859,13 @@ if (!class_exists('WPFEP_Login')) {
                 $blogname = $GLOBALS['current_site']->site_name;
             }
             /* translators: %s: blogname term */
-            $title = sprintf(esc_html__('[%s] Password Reset', 'wpfep'), $blogname);
+            $title = sprintf(esc_html__('[%s] Password Reset', 'wp-front-end-profile'), $blogname);
             $title = apply_filters('retrieve_password_title', $title);
 
             $message = apply_filters('retrieve_password_message', $message, $key, $user_login);
 
             if ($message && !wp_mail($user_email, wp_specialchars_decode($title), $message)) {
-                wp_die(esc_html_e('The e-mail could not be sent.', 'wpfep')."<br />\n".esc_html_e('Possible reason: your host may have disabled the mail() function.', 'wpfep'));
+                wp_die(esc_html_e('The e-mail could not be sent.', 'wp-front-end-profile')."<br />\n".esc_html_e('Possible reason: your host may have disabled the mail() function.', 'wp-front-end-profile'));
             }
         }
 

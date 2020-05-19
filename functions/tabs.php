@@ -18,7 +18,7 @@ function wpfep_add_profile_tab($tabs)
     /* add our tab to the tabs array */
     $tabs[] = [
         'id'            => 'profile', // used for the callback function, if declared or exists and the tab content wrapper id.
-        'label'         => __('Profile', 'wpfep'),
+        'label'         => __('Profile', 'wp-front-end-profile'),
         'tab_class'     => 'profile-tab',
         'content_class' => 'profile-content',
         /**
@@ -48,7 +48,7 @@ function wpfep_add_password_tab($tabs)
     /* add our tab to the tabs array */
     $tabs[] = [
         'id'            => 'password',
-        'label'         => __('Password', 'wpfep'),
+        'label'         => __('Password', 'wp-front-end-profile'),
         'tab_class'     => 'password-tab',
         'content_class' => 'password-content',
     ];

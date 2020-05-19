@@ -142,7 +142,7 @@ if (!class_exists('WPFEP_Profile')) {
 			<div class="wpfep-pagination">
 				<?php
                 $big = 999999999; // need an unlikely integer.
-                $translated = __('Page', 'wpfep'); // Supply translatable string.
+                $translated = __('Page', 'wp-front-end-profile'); // Supply translatable string.
 
                 $paginate_links = paginate_links(
                     [
