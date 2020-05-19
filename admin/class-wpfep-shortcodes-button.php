@@ -93,6 +93,7 @@ if (!class_exists('WPFEP_Admin_Help')) {
          */
         public function enqueue_plugin_scripts($plugin_array)
         {
+			global $pagenow;
             $posttype = get_post_type(get_the_ID());
             if (('page' === $posttype && 'post.php' === $pagenow) || ('page' === $posttype && 'post-new.php' === $pagenow)) {
                 // enqueue TinyMCE plugin script with its ID.

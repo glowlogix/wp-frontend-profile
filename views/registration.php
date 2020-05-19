@@ -90,7 +90,6 @@ $register_obj = WPFEP_Registration::init();
 				<input type="hidden" name="redirect_to" value="" />
 				<input type="hidden" name="wpfep_registration" value="true" />
 				<input type="hidden" name="action" value="registration" />
-
 				<?php wp_nonce_field('wpfep_registration_action'); ?>
 			</li>
 			<?php do_action('wpfep_reg_form_bottom'); ?>

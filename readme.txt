@@ -41,6 +41,7 @@ To output the frontend profile feature you can use the following shortcodes in e
 * Profile page `[wpfep-profile]`
 * Edit profile `[wpfep]`
 * Register page `[wpfep-register]`
+* Register page with role `[wpfep-register role="desired_role"]`
 * Login page `[wpfep-login]`
 
 == Installation ==
