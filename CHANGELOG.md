@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.2.1] - 2020-05-19
+## [1.2.2] - 2020-05-19
 ### Added
 - Implement Login Widget #51
 - Translation ready #51
@@ -64,8 +64,8 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Added
 - Initial launch.
 
-[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.1...HEAD
-[1.2.1]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.0...1.2.1
+[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.2...HEAD
+[1.2.2]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.0...1.2.2
 [1.2.0]: https://github.com/glowlogix/wp-frontend-profile/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/glowlogix/wp-frontend-profile/compare/v1.0.0...1.1.0
 [1.0.0]: https://github.com/glowlogix/wp-frontend-profile/compare/0.2.2...v1.0.0
