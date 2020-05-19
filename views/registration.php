@@ -12,13 +12,13 @@ if (!empty($message)) {
     echo esc_html($message)."\n";
 }
 if (isset($_GET['success']) && 'yes' == $_GET['success']) {
-    echo "<div class='wpfep-success'>".esc_html('Registration has been successful!', 'wpfep').'</div>';
+    echo "<div class='wpfep-success'>".esc_html('Registration has been successful!', 'wp-front-end-profile').'</div>';
 }
 if (isset($_GET['success']) && 'notactivated' == $_GET['success']) {
-    echo "<div class='wpfep-success'>".esc_html(esc_attr__('Registration has been successful! Please activate your account from e-mail.', 'wpfep')).'</div>';
+    echo "<div class='wpfep-success'>".esc_html(esc_attr__('Registration has been successful! Please activate your account from e-mail.', 'wp-front-end-profile')).'</div>';
 }
 if (isset($_GET['success']) && 'notapproved' == $_GET['success']) {
-    echo "<div class='wpfep-success'>".esc_html(esc_attr__('Registration has been successful!. Please wait for admin approval.', 'wpfep')).'</div>';
+    echo "<div class='wpfep-success'>".esc_html(esc_attr__('Registration has been successful!. Please wait for admin approval.', 'wp-front-end-profile')).'</div>';
 }
 
 $register_page = wpfep_get_option('register_page', 'wpfep_pages');
@@ -32,47 +32,47 @@ $register_obj = WPFEP_Registration::init();
 <form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
 		<ul>
 			<li class="wpfep-form-field wpfep-default-first-name">
-				<label for="wpfep_reg_fname"><?php esc_attr_e('First Name', 'wpfep'); ?>
+				<label for="wpfep_reg_fname"><?php esc_attr_e('First Name', 'wp-front-end-profile'); ?>
 				</label>
 				<input type="text" name="wpfep_reg_fname" id="wpfep-user_fname" class="input" value="<?php echo esc_html($register_obj->get_post_value('wpfep_reg_fname')); ?>"  />
 			</li>
 			<li class="wpfep-form-field wpfep-default-last-name">
-				<label for="wpfep_reg_lname"><?php esc_attr_e('Last Name', 'wpfep'); ?>
+				<label for="wpfep_reg_lname"><?php esc_attr_e('Last Name', 'wp-front-end-profile'); ?>
 				</label>
 				<input type="text" name="wpfep_reg_lname" id="wpfep-user_lname" class="input" value="<?php echo esc_html($register_obj->get_post_value('wpfep_reg_lname')); ?>"  />
 			</li>
 			<li class="wpfep-form-field wpfep-default-email">
-				<label for="wpfep_reg_email"><?php esc_attr_e('Email', 'wpfep'); ?>
+				<label for="wpfep_reg_email"><?php esc_attr_e('Email', 'wp-front-end-profile'); ?>
 					<span class="wpfep-required">*</span>
 				</label>
 				<input type="Email" name="wpfep_reg_email" id="wpfep-user_email" class="input" value="<?php echo esc_html($register_obj->get_post_value('wpfep_reg_email')); ?>">
 			</li>
 			<li class="wpfep-form-field wpfep-default-username">
-				<label for="wpfep_reg_uname"><?php esc_attr_e('Username', 'wpfep'); ?>
+				<label for="wpfep_reg_uname"><?php esc_attr_e('Username', 'wp-front-end-profile'); ?>
 					<span class="wpfep-required">*</span>
 				</label>
 				<input type="text" name="wpfep_reg_uname" id="wpfep-user_login" class="input" value="<?php echo esc_html($register_obj->get_post_value('wpfep_reg_uname')); ?>" />
 			</li>
 			<li class="wpfep-form-field wpfep-default-password">
-				<label for="pwd1"><?php esc_attr_e('Password', 'wpfep'); ?>
+				<label for="pwd1"><?php esc_attr_e('Password', 'wp-front-end-profile'); ?>
 					<span class="wpfep-required">*</span>
 				</label>
 				<input type="password" name="pwd1" id="wpfep-user_pass1" class="input" value=""  />
 			</li>
 			<li class="wpfep-form-field wpfep-default-confirm-password">
-				<label for="pwd2"><?php esc_attr_e('Confirm Password', 'wpfep'); ?>
+				<label for="pwd2"><?php esc_attr_e('Confirm Password', 'wp-front-end-profile'); ?>
 					<span class="wpfep-required">*</span>
 				</label>
 					<input type="password" name="pwd2" id="wpfep-user_pass2" class="input" value=""  />
 			</li>
 			<li class="wpfep-form-field wpfep-default-user-website">
-				<label for="wpfep-description"><?php esc_attr_e('Website', 'wpfep'); ?>
+				<label for="wpfep-description"><?php esc_attr_e('Website', 'wp-front-end-profile'); ?>
 				</label>
 				<input type="text" name="wpfep-website" id="wpfep-user_website" class="input" value="<?php echo esc_html($register_obj->get_post_value('wpfep-website')); ?>"  />
 			</li>
 			
 			<li class="wpfep-form-field wpfep-default-user-bio">
-				<label for="wpfep-description"><?php esc_attr_e('Biographical Info', 'wpfep'); ?>
+				<label for="wpfep-description"><?php esc_attr_e('Biographical Info', 'wp-front-end-profile'); ?>
 				</label>
 				<textarea rows="5" name="wpfep-description" maxlength="" class="default_field_description" id="description"><?php echo esc_html($register_obj->get_post_value('wpfep-description')); ?></textarea>
 			</li>
@@ -85,12 +85,11 @@ $register_obj = WPFEP_Registration::init();
 				<?php } ?>
 			</li>
 			<li class="wpfep-submit">
-				<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Register', 'wpfep'); ?>" />
-				<input type="hidden" name="urhidden" value="<?php echo esc_html($args['userrole']); ?>" />
+				<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Register', 'wp-front-end-profile'); ?>" />
+				<input type="hidden" name="urhidden" value=" <?php echo esc_html($args['userrole']); ?>" />
 				<input type="hidden" name="redirect_to" value="" />
 				<input type="hidden" name="wpfep_registration" value="true" />
 				<input type="hidden" name="action" value="registration" />
-
 				<?php wp_nonce_field('wpfep_registration_action'); ?>
 			</li>
 			<?php do_action('wpfep_reg_form_bottom'); ?>

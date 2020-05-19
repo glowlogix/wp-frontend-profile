@@ -69,6 +69,7 @@ if (!class_exists('WP_Frontend_Profile')) {
             require_once WPFEP_PATH.'/functions/feedback.php';
             require_once WPFEP_PATH.'/inc/class-wpfep-user.php';
             require_once WPFEP_PATH.'/inc/class-wpfep-roles-editor.php';
+            require_once WPFEP_PATH.'/inc/class-wpfep-login-widget.php';
 
             if (is_admin()) {
                 require_once WPFEP_PATH.'/admin/class-wpfep-admin-installer.php';
@@ -108,7 +109,7 @@ if (!class_exists('WP_Frontend_Profile')) {
          */
         public function load_textdomain()
         {
-            load_plugin_textdomain('wpfep', false, WPFEP_PATH.'/languages/');
+            load_plugin_textdomain('wp-front-end-profile', false, WPFEP_PATH.'/languages/');
         }
 
         /**

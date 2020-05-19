@@ -17,7 +17,7 @@ $total = count($current_user_posts); ?>
 <?php
 if (!is_user_logged_in()) {
     echo "<div class='wpfep-login-alert'>";
-    printf(esc_attr('This page is restricted. Please %s to view this page.', 'wpfep'), wp_loginout('', false));
+    printf(esc_attr('This page is restricted. Please %s to view this page.', 'wp-front-end-profile'), wp_loginout('', false));
     echo '</div>';
 
     return;
@@ -39,19 +39,19 @@ if (!is_user_logged_in()) {
                 echo '<h5>'.esc_html($user->display_name).'</h5>';
             }
             ?>
-			<p><strong><?php esc_attr_e('Email', 'wpfep'); ?>: </strong><?php echo esc_html($user->user_email); ?></p>
+			<p><strong><?php esc_attr_e('Email', 'wp-front-end-profile'); ?>: </strong><?php echo esc_html($user->user_email); ?></p>
 			<?php if ('' != $user->user_url) { ?>
-			<p><strong><?php esc_attr_e('Website', 'wpfep'); ?>: </strong><?php echo '<a href='.esc_html($user->user_url).'>'.esc_html($user->user_url).'</a>'; ?></p>
+			<p><strong><?php esc_attr_e('Website', 'wp-front-end-profile'); ?>: </strong><?php echo '<a href='.esc_html($user->user_url).'>'.esc_html($user->user_url).'</a>'; ?></p>
 			<?php } if ('' != $user->description) { ?>
 			<div class="wpfep_user_bio">
 				<p>
-					<strong><?php esc_attr_e('User Bio', 'wpfep'); ?> : </strong>
+					<strong><?php esc_attr_e('User Bio', 'wp-front-end-profile'); ?> : </strong>
 					<?php echo esc_html($user->description); ?>
 				</p>
 
 			</div>
 			<?php } ?>
-			<a class="btn" href="<?php echo esc_html(get_edit_profile_page()); ?>"><?php esc_attr_e('Edit Profile', 'wpfep'); ?></a>
+			<a class="btn" href="<?php echo esc_html(get_edit_profile_page()); ?>"><?php esc_attr_e('Edit Profile', 'wp-front-end-profile'); ?></a>
 			<div class="wpfep_end_profile"></div>
 		</div>
 	</div>
@@ -70,7 +70,7 @@ if (!is_user_logged_in()) {
             // The Query.
             $the_query = new WP_Query($args); ?>
 			<ul class="wpfep-profile-item-ul">
-			<h4><?php esc_html('My Posts', 'wpfep'); ?></h4>
+			<h4><?php esc_html('My Posts', 'wp-front-end-profile'); ?></h4>
             <?php // The Loop.
             if ($the_query->have_posts()) {
                 while ($the_query->have_posts()) {
@@ -97,7 +97,7 @@ if (!is_user_logged_in()) {
                 do_action('wpfep_profile_pagination', $the_query->max_num_pages);
             } else {
                 // no posts found.
-                echo '<p>'.esc_attr_e('Post not Found', 'wpfep').'</p>';
+                echo '<p>'.esc_attr_e('Post not Found', 'wp-front-end-profile').'</p>';
             }
             ?>
         </ul>

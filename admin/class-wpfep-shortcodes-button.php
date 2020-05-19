@@ -43,19 +43,19 @@ if (!class_exists('WPFEP_Admin_Help')) {
         {
             $shortcodes = [
                 'wpfep-register' => [
-                    'title'   => __('Register', 'wpfep'),
+                    'title'   => __('Register', 'wp-front-end-profile'),
                     'content' => '[wpfep-register]',
                 ],
                 'wpfep-edit'     => [
-                    'title'   => __('Edit', 'wpfep'),
+                    'title'   => __('Edit', 'wp-front-end-profile'),
                     'content' => '[wpfep]',
                 ],
                 'wpfep-login'    => [
-                    'title'   => __('Login', 'wpfep'),
+                    'title'   => __('Login', 'wp-front-end-profile'),
                     'content' => '[wpfep-login]',
                 ],
                 'wpfep-profile'  => [
-                    'title'   => __('Profile', 'wpfep'),
+                    'title'   => __('Profile', 'wp-front-end-profile'),
                     'content' => '[wpfep-profile]',
                 ],
             ];
@@ -93,7 +93,7 @@ if (!class_exists('WPFEP_Admin_Help')) {
          */
         public function enqueue_plugin_scripts($plugin_array)
         {
-			global $pagenow;
+            global $pagenow;
             $posttype = get_post_type(get_the_ID());
             if (('page' === $posttype && 'post.php' === $pagenow) || ('page' === $posttype && 'post-new.php' === $pagenow)) {
                 // enqueue TinyMCE plugin script with its ID.

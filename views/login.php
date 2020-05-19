@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
             $code = get_user_meta($user_id, 'has_to_be_activated', true);
             $manually_approve_user = wpfep_get_option('admin_manually_approve', 'wpfep_profile', 'on');
             if ($code == $_GET['key']) {
-                echo "<div class='wpfep-success'>".esc_html(esc_attr__('Congratulations! Your account has been verified.', 'wpfep')).'</div>';
+                echo "<div class='wpfep-success'>".esc_html(esc_attr__('Congratulations! Your account has been verified.', 'wp-front-end-profile')).'</div>';
                 update_user_meta($user_id, 'verify', 'Yes');
             }
         }
@@ -36,11 +36,11 @@ defined('ABSPATH') || exit;
 
 	<form name="loginform" class="wpfep-login-form" id="loginform" action="" method="post">
 		<p>
-			<label for="wpfep-user_login"><?php esc_attr_e('Username or Email', 'wpfep'); ?></label>
+			<label for="wpfep-user_login"><?php esc_attr_e('Username or Email', 'wp-front-end-profile'); ?></label>
 			<input type="text" name="log" id="wpfep-user_login" class="input" value="<?php echo esc_html($register_obj->get_post_value('log')); ?>" size="20" />
 		</p>
 		<p>
-			<label for="wpfep-user_pass"><?php esc_attr_e('Password', 'wpfep'); ?></label>
+			<label for="wpfep-user_pass"><?php esc_attr_e('Password', 'wp-front-end-profile'); ?></label>
 			<input type="password" name="pwd" id="wpfep-user_pass" class="input" value="" size="20" />
 		</p>
 		<?php $recaptcha = wpfep_get_option('enable_captcha_login', 'wpfep_general'); ?>
@@ -53,11 +53,11 @@ defined('ABSPATH') || exit;
 		<?php } ?>
 		<p class="forgetmenot">
 			<input name="rememberme" type="checkbox" id="wpfep-rememberme" value="forever" />
-			<label for="wpfep-rememberme"><?php esc_attr_e('Remember Me', 'wpfep'); ?></label>
+			<label for="wpfep-rememberme"><?php esc_attr_e('Remember Me', 'wp-front-end-profile'); ?></label>
 		</p>
 
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Log In', 'wpfep'); ?>" />
+			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Log In', 'wp-front-end-profile'); ?>" />
 			<input type="hidden" name="redirect_to" value="<?php echo esc_html(wp_get_referer()); ?>" />
 			<input type="hidden" name="wpfep_login" value="true" />
 			<input type="hidden" name="action" value="login" />

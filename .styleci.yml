@@ -1,1 +1,4 @@
 preset: psr2
+finder:
+    not-path:
+      - "freemius/includes/class-freemius.php"
