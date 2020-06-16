@@ -53,10 +53,10 @@
 		<div id="poststuff">
 			<?php if (! $has_addons) : ?>
 				<h3><?php echo esc_html(sprintf(
-                        '%s... %s',
-                        fs_text_x_inline('Oops', 'exclamation', 'oops', $slug),
-                        fs_text_inline('We couldn\'t load the add-ons list. It\'s probably an issue on our side, please try to come back in few minutes.', 'add-ons-missing', $slug)
-                    )) ?></h3>
+    '%s... %s',
+    fs_text_x_inline('Oops', 'exclamation', 'oops', $slug),
+    fs_text_inline('We couldn\'t load the add-ons list. It\'s probably an issue on our side, please try to come back in few minutes.', 'add-ons-missing', $slug)
+)) ?></h3>
 			<?php endif ?>
 			<ul class="fs-cards-list">
 				<?php if ($has_addons) : ?>
@@ -179,12 +179,13 @@
                         ?>
 						<li class="fs-card fs-addon" data-slug="<?php echo $addon->slug ?>">
 							<?php
-                                $view_details_link = sprintf('<a href="%s" aria-label="%s" data-title="%s"',
-                                    esc_url(network_admin_url('plugin-install.php?fs_allow_updater_and_dialog=true' . (! empty($fs_blog_id) ? '&fs_blog_id=' . $fs_blog_id : '') . '&tab=plugin-information&parent_plugin_id=' . $fs->get_id() . '&plugin=' . $addon->slug .
+                                $view_details_link = sprintf(
+                            '<a href="%s" aria-label="%s" data-title="%s"',
+                            esc_url(network_admin_url('plugin-install.php?fs_allow_updater_and_dialog=true' . (! empty($fs_blog_id) ? '&fs_blog_id=' . $fs_blog_id : '') . '&tab=plugin-information&parent_plugin_id=' . $fs->get_id() . '&plugin=' . $addon->slug .
                                                                 '&TB_iframe=true&width=600&height=550')),
-                                    esc_attr(sprintf(fs_text_inline('More information about %s', 'more-information-about-x', $slug), $addon->title)),
-                                    esc_attr($addon->title)
-                                ) . ' class="thickbox%s">%s</a>';
+                            esc_attr(sprintf(fs_text_inline('More information about %s', 'more-information-about-x', $slug), $addon->title)),
+                            esc_attr($addon->title)
+                        ) . ' class="thickbox%s">%s</a>';
 
                                 echo sprintf(
                                     $view_details_link,
@@ -224,7 +225,8 @@
                                         if ($is_plugin_active || $is_addon_installed) {
                                             echo sprintf(
                                                 '<span class="fs-badge fs-installed-addon-badge">%s</span>',
-                                                esc_html($is_plugin_active ?
+                                                esc_html(
+                                                    $is_plugin_active ?
                                                     fs_text_x_inline('Active', 'active add-on', 'active-addon', $slug) :
                                                     fs_text_x_inline('Installed', 'installed add-on', 'installed-addon', $slug)
                                                 )
@@ -341,7 +343,7 @@
 		                                            <?php endif ?>
 		                                            <li><?php
                                                             echo sprintf(
-                                                                $view_details_link,
+                                                $view_details_link,
                                                                 /**
                                                                  * No additional class.
                                                                  *
@@ -357,7 +359,7 @@
                                                                  * @since 2.2.4
                                                                  */
                                                                 esc_html($view_details_text)
-                                                            );
+                                            );
                                                         ?></li>
 	                                            </ul></div>
                                         </div>

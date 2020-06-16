@@ -266,15 +266,15 @@
                                                         <?php wp_nonce_field('downgrade_account') ?>
                                                         <a href="#"
                                                            onclick="if ( confirm('<?php echo esc_attr(sprintf(
-                                                               $downgrade_x_confirm_text,
-                                                               ($fs->is_only_premium()  ? $cancelling_subscription_text : $downgrading_plan_text),
-                                                               $plan->title,
-                                                               human_time_diff(time(), strtotime($license->expiration))
-                                                           )) ?> <?php if (! $license->is_block_features) {
-                                                               echo esc_attr(sprintf($after_downgrade_non_blocking_text, $plan->title, $fs->get_module_label(true)));
-                                                           } else {
-                                                               echo esc_attr(sprintf($after_downgrade_blocking_text, $plan->title));
-                                                           }?> <?php echo esc_attr($prices_increase_text) ?> <?php fs_esc_attr_echo_inline('Are you sure you want to proceed?', 'proceed-confirmation', $slug) ?>') ) this.parentNode.submit(); return false;"><i class="dashicons dashicons-download"></i> <?php echo esc_html($fs->is_only_premium() ? fs_text_inline('Cancel Subscription', 'cancel-subscription', $slug) : $downgrade_text) ?></a>
+                                                $downgrade_x_confirm_text,
+                                                ($fs->is_only_premium()  ? $cancelling_subscription_text : $downgrading_plan_text),
+                                                $plan->title,
+                                                human_time_diff(time(), strtotime($license->expiration))
+                                            )) ?> <?php if (! $license->is_block_features) {
+                                                echo esc_attr(sprintf($after_downgrade_non_blocking_text, $plan->title, $fs->get_module_label(true)));
+                                            } else {
+                                                echo esc_attr(sprintf($after_downgrade_blocking_text, $plan->title));
+                                            }?> <?php echo esc_attr($prices_increase_text) ?> <?php fs_esc_attr_echo_inline('Are you sure you want to proceed?', 'proceed-confirmation', $slug) ?>') ) this.parentNode.submit(); return false;"><i class="dashicons dashicons-download"></i> <?php echo esc_html($fs->is_only_premium() ? fs_text_inline('Cancel Subscription', 'cancel-subscription', $slug) : $downgrade_text) ?></a>
                                                     </form>
                                                 </li>
                                                 <li>&nbsp;&bull;&nbsp;</li>
@@ -371,7 +371,8 @@
                                             $profile[] = array(
                                                 'id'    => 'site_secret_key',
                                                 'title' => fs_text_inline('Secret Key', 'secret-key', $slug),
-                                                'value' => ((is_string($site->secret_key)) ?
+                                                'value' => (
+                                                    (is_string($site->secret_key)) ?
                                                     $site->secret_key :
                                                     fs_text_x_inline('No Secret', 'as secret encryption key missing', 'no-secret', $slug)
                                                 )
@@ -408,7 +409,8 @@
                                                     $profile[] = array(
                                                         'id'    => 'plan',
                                                         'title' => ($is_child_license ? ucfirst($fs->get_module_type()) . ' ' : '') . $plan_text,
-                                                        'value' => strtoupper(is_string($plan->name) ?
+                                                        'value' => strtoupper(
+                                                            is_string($plan->name) ?
                                                             $plan->title :
                                                             strtoupper($free_text)
                                                         )
@@ -613,8 +615,8 @@
 															      onsubmit="var val = prompt('<?php echo esc_attr(sprintf(
                                                                       /* translators: %s: User's account property (e.g. name, email) */
                                                                       fs_text_inline('What is your %s?', 'what-is-your-x', $slug),
-                                                                      $p['title']
-                                                                  )) ?>', '<?php echo $p['value'] ?>'); if (null == val || '' === val) return false; jQuery('input[name=fs_<?php echo $p['id'] ?>_<?php echo $fs->get_unique_affix() ?>]').val(val); return true;">
+                                                            $p['title']
+                                                        )) ?>', '<?php echo $p['value'] ?>'); if (null == val || '' === val) return false; jQuery('input[name=fs_<?php echo $p['id'] ?>_<?php echo $fs->get_unique_affix() ?>]').val(val); return true;">
 																<input type="hidden" name="fs_action" value="update_<?php echo $p['id'] ?>">
 																<input type="hidden" name="fs_<?php echo $p['id'] ?>_<?php echo $fs->get_unique_affix() ?>"
 																       value="">
@@ -944,11 +946,11 @@
                         $form.prepend( '<input type="hidden" name="deactivate_license" value="true" />' );
 
                         $subscriptionCancellationModal.find( '.fs-modal-footer .button-primary' ).text( '<?php echo esc_js(sprintf(
-                            fs_text_inline('Cancelling %s...', 'cancelling-x', $slug),
-                            $is_paid_trial ?
+                fs_text_inline('Cancelling %s...', 'cancelling-x', $slug),
+                $is_paid_trial ?
                                 fs_text_inline('trial', 'trial', $slug) :
                                 fs_text_inline('subscription', 'subscription', $slug)
-                        )) ?>' );
+            )) ?>' );
 
                         $form.submit();
                     }

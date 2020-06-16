@@ -26,8 +26,8 @@
                 echo  esc_html(sprintf(
                         /* translators: %s: Page name */
                          $fs->get_text_inline('Secure HTTPS %s page, running from an external domain', 'secure-x-page-header'),
-                         $VARS['page']
-                     )) .
+                    $VARS['page']
+                )) .
                      ' - ' .
                      sprintf(
                          '<a class="fs-security-proof" href="%s" target="_blank">%s</a>',

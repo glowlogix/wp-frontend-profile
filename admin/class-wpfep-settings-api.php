@@ -462,8 +462,8 @@ if (!class_exists('WPFEP_Settings_API')) {
             }
 
             echo wp_kses(
-                    $html,
-                    [
+                $html,
+                [
                         'span'   => [
                             'class' => [],
                             'title' => [],
@@ -485,7 +485,7 @@ if (!class_exists('WPFEP_Settings_API')) {
                         ],
 
                     ]
-                );
+            );
         }
 
         /**

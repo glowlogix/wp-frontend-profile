@@ -725,10 +725,12 @@
                 $transient_data->response = array();
             } elseif (! empty($transient_data->response[ $basename ])) {
                 $version = $is_plugin ?
-                    (! empty($transient_data->response[ $basename ]->new_version) ?
+                    (
+                        ! empty($transient_data->response[ $basename ]->new_version) ?
                         $transient_data->response[ $basename ]->new_version :
                         null
-                    ) : (! empty($transient_data->response[ $basename ]['new_version']) ?
+                    ) : (
+                        ! empty($transient_data->response[ $basename ]['new_version']) ?
                         $transient_data->response[ $basename ]['new_version'] :
                         null
                     );

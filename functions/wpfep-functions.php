@@ -342,9 +342,9 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* if the type is set to a password input */
                 case 'password':
                     ?>
-					<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="" placeholder="New Password" />
+					<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="" placeholder="<?php  echo __('New Password', 'wp-front-end-profile');?>" />
 
-					<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>_check]" id="<?php echo esc_attr($field['id']); ?>_check" class="regular-text" value="" placeholder="Repeat New Password" />
+					<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>_check]" id="<?php echo esc_attr($field['id']); ?>_check" class="regular-text" value="" placeholder=" <?php echo __('Repeat New Password', 'wp-front-end-profile');?>" />
 
 					<?php
 
@@ -383,7 +383,7 @@ function wpfep_tab_content_save($tab, $user_id)
     $profile_page_obj = $profile_page->get_profile_url(); ?>
 	<div class="wpfep-save">
 		<label class="wpfep_save_description"><?php echo esc_html__('Save this tabs updated fields.', 'wp-front-end-profile'); ?></label>
-		<input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="Update <?php echo esc_attr($tab['label']); ?>" />
+		<input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="<?php echo __('Update'); ?> <?php echo esc_attr__($tab['label']); ?>" />
 		<a class="btn" href="<?php echo esc_attr($profile_page_obj); ?>"><?php echo esc_html__('View Profile', 'wp-front-end-profile'); ?></a>
 	</div>
 	<?php
@@ -611,7 +611,6 @@ function wpfep_let_to_num($size)
             // no break.
         case 'K':
             $ret *= 1024;
-            // no break.
     }
 
     return $ret;
@@ -810,9 +809,9 @@ function wpfep_show_profile()
 											
 					<?php
                         wp_nonce_field(
-                            'wpfep_nonce_action',
-                            'wpfep_nonce_name'
-                        ); ?>
+                        'wpfep_nonce_action',
+                        'wpfep_nonce_name'
+                    ); ?>
 				</form>
 			</div>
 				<?php

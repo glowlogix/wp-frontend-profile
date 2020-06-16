@@ -219,7 +219,8 @@
                 $themes_directory
                 . '/'
                 . str_replace("../{$themes_directory_name}/", '', $this_sdk_relative_path)
-                . '/start.php');
+                . '/start.php'
+            );
         }
 
         $is_newest_sdk_path_valid = ($is_newest_sdk_plugin_active || $fs_active_plugins->newest->in_activation) && file_exists($sdk_starter_path);
@@ -246,7 +247,8 @@
         } else {
             if ($is_newest_sdk_plugin_active &&
                  $this_sdk_relative_path == $fs_active_plugins->newest->sdk_path &&
-                 ($fs_active_plugins->newest->in_activation ||
+                 (
+                     $fs_active_plugins->newest->in_activation ||
                    (class_exists('Freemius') && (! defined('WP_FS__SDK_VERSION') || version_compare(WP_FS__SDK_VERSION, $this_sdk_version, '<')))
                  )
 
@@ -284,7 +286,8 @@
             $plugins_or_theme_dir_path
             . '/'
             . str_replace("../{$themes_directory_name}/", '', $fs_active_plugins->newest->sdk_path)
-            . '/start.php');
+            . '/start.php'
+        );
 
         if (file_exists($newest_sdk_starter)) {
             // Reorder plugins to load plugin with newest SDK first.

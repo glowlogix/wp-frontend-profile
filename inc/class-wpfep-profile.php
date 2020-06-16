@@ -155,15 +155,15 @@ if (!class_exists('WPFEP_Profile')) {
                     ]
                 );
             echo wp_kses(
-                    $paginate_links,
-                    [
+                $paginate_links,
+                [
                         'a' => [
                             'class' => [],
                             'href'  => [],
                         ],
 
                     ]
-                ); ?>
+            ); ?>
 			</div>
 			<?php
         }
