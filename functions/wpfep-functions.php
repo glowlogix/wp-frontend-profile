@@ -305,10 +305,20 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
                 /* if the type is set to a checkbox */
                 case 'checkbox':
+	                $options = wpfep_field_get_options($field);
                     ?>
 					<input type="hidden" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="0" <?php checked($current_field_value, '0'); ?> />
-					<input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="1" <?php checked($current_field_value, '1'); ?> />
+                <?php
+                    /* loop through each option */
+	                foreach ($options as $option) {
+	                    ?>
+
+                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']);
+                    ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value']?>" <?php checked
+                    ($current_field_value, $option['value']); ?> />
 					<?php
+                        echo $option['name'];
+                    }
 
                     /* break out of the switch statement */
                     break;
