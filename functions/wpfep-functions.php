@@ -305,17 +305,15 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
                 /* if the type is set to a checkbox */
                 case 'checkbox':
-	                $options = wpfep_field_get_options($field);
+                    $options = wpfep_field_get_options($field);
                     ?>
 					<input type="hidden" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="0" <?php checked($current_field_value, '0'); ?> />
                 <?php
                     /* loop through each option */
-	                foreach ($options as $option) {
-	                    ?>
+                    foreach ($options as $option) {
+                        ?>
 
-                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']);
-                    ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value']?>" <?php checked
-                    ($current_field_value, $option['value']); ?> />
+                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value']?>" <?php checked($current_field_value, $option['value']); ?> />
 					<?php
                         echo $option['name'];
                     }
@@ -621,7 +619,6 @@ function wpfep_let_to_num($size)
             // no break.
         case 'K':
             $ret *= 1024;
-            // no break.
     }
 
     return $ret;
@@ -820,9 +817,9 @@ function wpfep_show_profile()
 											
 					<?php
                         wp_nonce_field(
-                            'wpfep_nonce_action',
-                            'wpfep_nonce_name'
-                        ); ?>
+                        'wpfep_nonce_action',
+                        'wpfep_nonce_name'
+                    ); ?>
 				</form>
 			</div>
 				<?php
