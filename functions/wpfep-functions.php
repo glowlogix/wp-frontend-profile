@@ -611,7 +611,6 @@ function wpfep_let_to_num($size)
             // no break.
         case 'K':
             $ret *= 1024;
-            // no break.
     }
 
     return $ret;
