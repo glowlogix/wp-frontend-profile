@@ -196,7 +196,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
         $userdata = get_userdata($user_id);
         $current_field_value = $userdata->{$field['id']};
     /* not a reserved id, but is a taxonomy */
-    } elseif ($field['taxonomy']) {
+    } elseif (isset($field['taxonomy'])) {
         $terms = wp_get_object_terms($user_id, $field['taxonomy']);
         $current_field_value = [];
         foreach ($terms as $term) {
@@ -284,7 +284,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                     /* loop through each option */
                     foreach ($options as $option) {
                         ?>
-						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>" <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
+						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>"  <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
 						<?php
                     }
                     ?>
@@ -382,9 +382,9 @@ function wpfep_tab_content_save($tab, $user_id)
     $profile_page = new WPFEP_Profile();
     $profile_page_obj = $profile_page->get_profile_url(); ?>
 	<div class="wpfep-save">
-		<label class="wpfep_save_description"><?php echo esc_html__('Save this tabs updated fields.', 'wpfep'); ?></label>
+		<label class="wpfep_save_description"><?php echo esc_html__('Save this tabs updated fields.', 'wp-front-end-profile'); ?></label>
 		<input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="Update <?php echo esc_attr($tab['label']); ?>" />
-		<a class="btn" href="<?php echo esc_attr($profile_page_obj); ?>"><?php echo esc_html__('View Profile', 'wpfep'); ?></a>
+		<a class="btn" href="<?php echo esc_attr($profile_page_obj); ?>"><?php echo esc_html__('View Profile', 'wp-front-end-profile'); ?></a>
 	</div>
 	<?php
 }
@@ -440,8 +440,7 @@ function wpfep_settings_multiselect($args)
 function wpfep_get_pages($post_type = 'page')
 {
     global $wpdb;
-
-    $array = ['' => __('-- select --', 'wpfep')];
+    $array = ['' => __('-- select --', 'wp-front-end-profile')];
     $pages = get_posts(
         [
             'post_type'   => $post_type,
@@ -713,7 +712,7 @@ function wpfep_show_profile()
     if (!is_user_logged_in()) {
         echo "<div class='wpfep-login-alert'>";
         /* translators: %s: Login link */
-        printf(esc_html__('This page is restricted. Please %s to view this page.', 'wpfep'), wp_loginout('', false));
+        printf(esc_html__('This page is restricted. Please %s to view this page.', 'wp-front-end-profile'), wp_loginout('', false));
         echo '</div>';
 
         return;
@@ -724,7 +723,7 @@ function wpfep_show_profile()
             ob_start();
         }
         echo "<div class='wpfep_editing_disabled'>";
-        printf(esc_html__('Frontend editing is disabled for administrators because of security risks.', 'wpfep'));
+        printf(esc_html__('Frontend editing is disabled for administrators because of security risks.', 'wp-front-end-profile'));
         echo '</div>';
 
         return ob_get_clean();
@@ -887,8 +886,8 @@ if ('on' == $manually_approve_user) {
         );
         $reject_link = remove_query_arg(['new_role'], $reject_link);
         $reject_link = wp_nonce_url($reject_link, 'new-user-approve');
-        $approve_action = '<a href="'.esc_url($approve_link).'">'.__('Approve', 'wpfep').'</a>';
-        $deny_action = '<a href="'.esc_url($reject_link).'">'.__('Rejected', 'wpfep').'</a>';
+        $approve_action = '<a href="'.esc_url($approve_link).'">'.__('Approve', 'wp-front-end-profile').'</a>';
+        $deny_action = '<a href="'.esc_url($reject_link).'">'.__('Rejected', 'wp-front-end-profile').'</a>';
         if ('pending' == $user_status) {
             $actions[] = $approve_action;
         } elseif ('approve' == $user_status) {
@@ -911,7 +910,7 @@ if ('on' == $manually_approve_user) {
      */
     function add_column($columns)
     {
-        $the_columns['wpfep_user_status'] = __('Status', 'wpfep');
+        $the_columns['wpfep_user_status'] = __('Status', 'wp-front-end-profile');
         $newcol = array_slice($columns, 0, -1);
         $newcol = array_merge($newcol, $the_columns);
         $columns = array_merge($newcol, array_slice($columns, 1));
@@ -932,15 +931,17 @@ if ('on' == $manually_approve_user) {
      */
     function status_column($val_column, $column_name, $user)
     {
+        $status='';
+
         switch ($column_name) {
             case 'wpfep_user_status':
                 $user_status = get_user_meta($user, 'wpfep_user_status', true);
                 if ('approve' == $user_status) {
-                    $status = __('Approved', 'wpfep');
+                    $status = __('Approved', 'wp-front-end-profile');
                 } elseif ('pending' == $user_status) {
-                    $status = __('pending', 'wpfep');
+                    $status = __('pending', 'wp-front-end-profile');
                 } elseif ('rejected' == $user_status) {
-                    $status = __('Rejected', 'wpfep');
+                    $status = __('Rejected', 'wp-front-end-profile');
                 }
 
                 return $status;
