@@ -4,8 +4,8 @@ Contributors: glowlogix, wpmarkuk
 Donate link: https://www.glowlogix.com
 Tags: profile, users, user meta, register, login
 Requires at least: 4.0.1
-Tested up to: 5.2.4
-Stable tag: 1.1.0
+Tested up to: 5.4.0
+Stable tag: 1.2.0
 Requires PHP: 5.2.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -41,6 +41,7 @@ To output the frontend profile feature you can use the following shortcodes in e
 * Profile page `[wpfep-profile]`
 * Edit profile `[wpfep]`
 * Register page `[wpfep-register]`
+* Register page with role `[wpfep-register role="desired_role"]`
 * Login page `[wpfep-login]`
 
 == Installation ==

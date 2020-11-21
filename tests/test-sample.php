@@ -1,22 +1,20 @@
 <?php
 /**
- * Class SampleTest
- *
- * @package Wp_Frontend_Profile
+ * Class SampleTest.
  */
-
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Sample test case.
  */
-class SampleTest extends WP_UnitTestCase {
-
-	/**
-	 * A single example test.
-	 */
-	public function test_sample() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
-	}
+class SampleTest extends WP_UnitTestCase
+{
+    /**
+     * A single example test.
+     */
+    public function test_sample()
+    {
+        // Replace this with some actual testing code.
+        $this->assertTrue(true);
+    }
 }
