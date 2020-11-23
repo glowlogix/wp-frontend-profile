@@ -117,7 +117,8 @@ HTML;
             foreach ($available_licenses as $license) {
                 $label = sprintf(
                     "%s-Site %s License - %s",
-                    (1 == $license->quota ?
+                    (
+                        1 == $license->quota ?
                         'Single' :
                         ($license->is_unlimited() ? 'Unlimited' : $license->quota)
                     ),
@@ -138,7 +139,8 @@ HTML;
             $available_license  = $available_licenses[0];
             $value              = sprintf(
                 "%s-Site %s License - %s",
-                (1 == $available_license->quota ?
+                (
+                    1 == $available_license->quota ?
                     'Single' :
                     ($available_license->is_unlimited() ? 'Unlimited' : $available_license->quota)
                 ),

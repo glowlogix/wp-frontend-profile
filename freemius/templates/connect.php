@@ -181,7 +181,8 @@
 
                         $message = $fs->apply_filters(
                             'connect-message_on-premium',
-                            ($is_network_upgrade_mode ?
+                            (
+                                $is_network_upgrade_mode ?
                                 '' :
                                 /* translators: %s: name (e.g. Hey John,) */
                                 $hey_x_text . '<br>'
@@ -213,7 +214,8 @@
 
                         $message = $fs->apply_filters(
                             $filter,
-                            ($is_network_upgrade_mode ?
+                            (
+                                $is_network_upgrade_mode ?
                                 '' :
                                 /* translators: %s: name (e.g. Hey John,) */
                                 $hey_x_text . '<br>'
@@ -243,8 +245,8 @@
                             $message .= '<br><br>' . sprintf(fs_text_inline('If you\'d like to use the %s on those sites, please enter your license key below and click the activation button.', 'connect_message_network_upgrade-premium-activate-license', $slug), $is_premium_only ? $fs->get_module_label(true) : sprintf(
                                 /* translators: %s: module type (plugin, theme, or add-on) */
                                     fs_text_inline("%s's paid features", 'x-paid-features', $slug),
-                                    $fs->get_module_label(true)
-                                ));
+                                $fs->get_module_label(true)
+                            ));
 
                             /* translators: %s: module type (plugin, theme, or add-on) */
                             $message .= ' ' . sprintf(fs_text_inline('Alternatively, you can skip it for now and activate the license later, in your %s\'s network-level Account page.', 'connect_message_network_upgrade-premium-skip-license', $slug), $fs->get_module_label(true));
@@ -276,10 +278,10 @@
 
                 <?php
                     $send_updates_text = sprintf(
-                        '%s<span class="action-description"> - %s</span>',
-                        $fs->get_text_inline('Yes', 'yes'),
-                        $fs->get_text_inline('send me security & feature updates, educational content and offers.', 'send-updates')
-                    );
+                    '%s<span class="action-description"> - %s</span>',
+                    $fs->get_text_inline('Yes', 'yes'),
+                    $fs->get_text_inline('send me security & feature updates, educational content and offers.', 'send-updates')
+                );
 
                     $do_not_send_updates_text = sprintf(
                         '%s<span class="action-description"> - %s</span>',
@@ -417,10 +419,10 @@
 					<?php if ($require_license_key) : ?>
 						<p class="fs-license-sync-disclaimer"><?php
                                 echo sprintf(
-                                    fs_esc_html_inline('The %1$s will be periodically sending data to %2$s to check for security and feature updates, and verify the validity of your license.', 'license-sync-disclaimer', $slug),
-                                    $fs->get_module_label(true),
-                                    $freemius_link
-                                ) ?></p>
+                fs_esc_html_inline('The %1$s will be periodically sending data to %2$s to check for security and feature updates, and verify the validity of your license.', 'license-sync-disclaimer', $slug),
+                $fs->get_module_label(true),
+                $freemius_link
+            ) ?></p>
 					<?php endif ?>
 					<a class="fs-trigger" href="#" tabindex="1"><?php fs_esc_html_echo_inline('What permissions are being granted?', 'what-permissions', $slug) ?></a>
 					<ul><?php
@@ -848,10 +850,11 @@
 			console.log('Primary button was clicked');
 
 			$(this).addClass('fs-loading');
-			$(this).html('<?php echo esc_js($is_pending_activation ?
+			$(this).html('<?php echo esc_js(
+            $is_pending_activation ?
                 fs_text_x_inline('Sending email', 'as in the process of sending an email', 'sending-email', $slug) :
                 fs_text_x_inline('Activating', 'as activating plugin', 'activating', $slug)
-            ) ?>...');
+        ) ?>...');
 		});
 
 		$('.fs-permissions .fs-trigger').on('click', function () {

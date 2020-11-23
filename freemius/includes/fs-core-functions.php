@@ -425,7 +425,8 @@
             $title = (is_string($icon_class) ? '<i class="' . $icon_class . '"></i> ' : '') . $title;
 
             if (is_string($confirmation)) {
-                return sprintf('<form action="%s" method="%s"><input type="hidden" name="fs_action" value="%s">%s<a href="#" class="%s" onclick="if (confirm(\'%s\')) this.parentNode.submit(); return false;">%s</a></form>',
+                return sprintf(
+                    '<form action="%s" method="%s"><input type="hidden" name="fs_action" value="%s">%s<a href="#" class="%s" onclick="if (confirm(\'%s\')) this.parentNode.submit(); return false;">%s</a></form>',
                     freemius($module_id)->_get_admin_page_url($page, $params),
                     $method,
                     $action,
@@ -435,7 +436,8 @@
                     $title
                 );
             } elseif ('GET' !== strtoupper($method)) {
-                return sprintf('<form action="%s" method="%s"><input type="hidden" name="fs_action" value="%s">%s<a href="#" class="%s" onclick="this.parentNode.submit(); return false;">%s</a></form>',
+                return sprintf(
+                    '<form action="%s" method="%s"><input type="hidden" name="fs_action" value="%s">%s<a href="#" class="%s" onclick="this.parentNode.submit(); return false;">%s</a></form>',
                     freemius($module_id)->_get_admin_page_url($page, $params),
                     $method,
                     $action,
@@ -444,7 +446,8 @@
                     $title
                 );
             } else {
-                return sprintf('<a href="%s" class="%s">%s</a></form>',
+                return sprintf(
+                    '<a href="%s" class="%s">%s</a></form>',
                     wp_nonce_url(freemius($module_id)->_get_admin_page_url($page, array_merge($params, array( 'fs_action' => $action ))), $action),
                     'button' . (! empty($button_class) ? ' ' . $button_class : '') . ($is_primary ? ' button-primary' : '') . ($is_small ? ' button-small' : ''),
                     $title
@@ -1475,9 +1478,12 @@
         {
             $args = func_get_args();
 
-            return call_user_func_array('apply_filters', array_merge(
+            return call_user_func_array(
+                'apply_filters',
+                array_merge(
                     array( "fs_{$tag}_{$module_unique_affix}" ),
-                    array_slice($args, 2))
+                    array_slice($args, 2)
+                )
             );
         }
     }

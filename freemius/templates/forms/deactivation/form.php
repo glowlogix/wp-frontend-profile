@@ -147,8 +147,8 @@ HTML;
 
                         $subscriptionCancellationModal.find( '.fs-modal-footer .button' ).addClass( 'disabled' );
                         $subscriptionCancellationModal.find( '.fs-modal-footer .button-primary' ).text( '<?php echo esc_js(
-                            sprintf(fs_text_inline('Cancelling %s...', 'cancelling-x', $slug), $subscription_cancellation_context)
-                        ) ?>' );
+                    sprintf(fs_text_inline('Cancelling %s...', 'cancelling-x', $slug), $subscription_cancellation_context)
+                ) ?>' );
                     },
                     success: function( result ) {
                         if ( result.success ) {
@@ -168,9 +168,9 @@ HTML;
 
                             $subscriptionCancellationModal.find( '.fs-modal-footer .button' ).removeClass( 'disabled' );
                             $subscriptionCancellationModal.find( '.fs-modal-footer .button-primary' ).html( <?php echo json_encode(sprintf(
-                                fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
-                                ucfirst($subscription_cancellation_context)
-                            )) ?> );
+                    fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
+                    ucfirst($subscription_cancellation_context)
+                )) ?> );
                         }
                     }
                 });
@@ -362,11 +362,11 @@ HTML;
 			$modal.find('.reason-input').remove();
 			$modal.find( '.internal-message' ).hide();
 			$modal.find('.button-deactivate').html('<?php echo esc_js(sprintf(
-                fs_text_inline('Submit & %s', 'deactivation-modal-button-submit', $slug),
-                $fs->is_plugin() ?
+            fs_text_inline('Submit & %s', 'deactivation-modal-button-submit', $slug),
+            $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-            )) ?>');
+        )) ?>');
 
 			enableDeactivateButton();
 
@@ -508,18 +508,18 @@ HTML;
         // Reset the deactivate button's text.
         if ( 'confirm' === getCurrentPanel() ) {
             $deactivateButton.text( <?php echo json_encode(sprintf(
-                fs_text_inline('Yes - %s', 'deactivation-modal-button-confirm', $slug),
-                $fs->is_plugin() ?
+            fs_text_inline('Yes - %s', 'deactivation-modal-button-confirm', $slug),
+            $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-            )) ?> );
+        )) ?> );
 		} else {
             $deactivateButton.html( <?php echo json_encode(sprintf(
-                fs_text_inline('Skip & %s', 'skip-and-x', $slug),
-                $fs->is_plugin() ?
+            fs_text_inline('Skip & %s', 'skip-and-x', $slug),
+            $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-            )) ?> );
+        )) ?> );
 		}
 	}
 

@@ -86,9 +86,10 @@
 			<td><?php echo number_format(100 * $log['total'], 2) . ' ' . $ms_text ?></td>
 			<td>
 				<?php
-                    printf('<a href="#" onclick="jQuery(this).parent().find(\'table\').toggle(); return false;">%s</a>',
-                        $log['path']
-                    );
+                    printf(
+    '<a href="#" onclick="jQuery(this).parent().find(\'table\').toggle(); return false;">%s</a>',
+    $log['path']
+);
                 ?>
 				<table class="widefat" style="display: none">
 					<tbody>

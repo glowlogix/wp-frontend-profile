@@ -258,7 +258,9 @@
                 'authorization' => $auth_type . ' ' . $this->_id . ':' .
                                    $this->_public . ':' .
                                    self::Base64UrlEncode(hash_hmac(
-                                       'sha256', $string_to_sign, $this->_secret
+                                       'sha256',
+                                       $string_to_sign,
+                                       $this->_secret
                                    ))
             );
 
@@ -291,7 +293,9 @@
                 $pResourceUrl . '?' .
                 (1 < count($resource) && ! empty($resource[1]) ? $resource[1] . '&' : '') .
                 'authorization=' . urlencode($auth['authorization']) .
-                '&auth_date=' . urlencode($auth['date']), $this->_isSandbox);
+                '&auth_date=' . urlencode($auth['date']),
+                $this->_isSandbox
+            );
         }
 
         /**

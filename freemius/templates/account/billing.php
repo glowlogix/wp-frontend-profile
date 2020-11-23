@@ -314,10 +314,11 @@
 			<tr>
 				<td colspan="2">
 					<button
-						class="button"><?php echo esc_html($has_billing ?
+						class="button"><?php echo esc_html(
+                    $has_billing ?
                             $edit_text :
                             $update_text
-                        ) ?></button>
+                ) ?></button>
 				</td>
 			</tr>
 		</table>

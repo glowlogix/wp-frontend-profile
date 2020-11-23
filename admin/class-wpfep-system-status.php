@@ -323,14 +323,14 @@ if (!class_exists('Wpfep_System_Status')) {
 								<mark class="<?php echo esc_attr($css_class); ?>">
 									<?php
                                     echo wp_kses(
-                                        $icon,
-                                        [
+                        $icon,
+                        [
                                             'span' => [
 
                                                 'class' => [],
                                             ],
                                         ]
-                                    ); ?>
+                    ); ?>
 								<?php echo !empty($row['note']) ? wp_kses_data($row['note']) : ''; ?>
 								</mark>
 							</td>
@@ -474,37 +474,37 @@ if (!class_exists('Wpfep_System_Status')) {
 								<td>
 								<?php
                                 echo wp_kses(
-                                    $plugin_name,
-                                    [
+                                $plugin_name,
+                                [
                                         'a' => [
                                             'href'  => [],
                                             'id'    => [],
                                             'class' => [],
                                         ],
                                     ]
-                                ); ?>
+                            ); ?>
 			</td>
 								<td>
 								<?php
                                     /* translators: %s: plugin author */
                                     printf(esc_attr__('by %s', 'wp-front-end-profile'), esc_html($plugin['author_name']));
                             echo ' &ndash; '.esc_html($plugin['version']).wp_kses(
-                                        $version_string,
-                                        [
+                                $version_string,
+                                [
                                             'strong' => [
                                                 'style' => [],
 
                                             ],
                                         ]
-                                    ).wp_kses(
-                                        $network_string,
-                                        [
+                            ).wp_kses(
+                                $network_string,
+                                [
                                             'strong' => [
                                                 'style' => [],
 
                                             ],
                                         ]
-                                    )
+                            )
                                 ?>
 									</td>
 							</tr>
@@ -546,8 +546,8 @@ if (!class_exists('Wpfep_System_Status')) {
                         /* translators: %s: child theme */
                             $theme_name = $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; '.sprintf(__('If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wp-front-end-profile'), 'https://codex.wordpress.org/Child_Themes');
             echo wp_kses(
-                                $theme_name,
-                                [
+                $theme_name,
+                [
                                     'span' => [
 
                                         'class' => [],
@@ -557,7 +557,7 @@ if (!class_exists('Wpfep_System_Status')) {
                                         'target' => [],
                                     ],
                                 ]
-                            ); ?>
+            ); ?>
 							</td>
 					</tr>
 					<?php
@@ -613,10 +613,10 @@ if (!class_exists('Wpfep_System_Status')) {
                                              * Translators: %3s: core version
                                              */
                                             esc_html__('%1$s version %2$s is out of date. The core version is %3$s', 'wp-front-end-profile'),
-                                            '<code>'.esc_html($override['file']).'</code>',
-                                            '<strong style="color:red">'.esc_html($current_version).'</strong>',
-                                            esc_html($override['core_version'])
-                                        );
+                                    '<code>'.esc_html($override['file']).'</code>',
+                                    '<strong style="color:red">'.esc_html($current_version).'</strong>',
+                                    esc_html($override['core_version'])
+                                );
                             } else {
                                 echo esc_html($override['file']);
                             }

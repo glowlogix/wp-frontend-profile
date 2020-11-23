@@ -131,7 +131,8 @@
         {
             $cache_entry = $this->_options->get_option($key, false);
 
-            $is_valid = (is_object($cache_entry) &&
+            $is_valid = (
+                is_object($cache_entry) &&
                           isset($cache_entry->timestamp) &&
                           is_numeric($cache_entry->timestamp) &&
                           $cache_entry->timestamp > WP_FS__SCRIPT_START_TIME

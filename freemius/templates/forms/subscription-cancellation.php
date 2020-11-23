@@ -44,14 +44,14 @@ if ($VARS['is_license_deactivation']) {
 }
 
     $subscription_cancellation_text .= sprintf(
-    fs_text_inline(
-        'In case you are NOT planning on using this %s on this site (or any other site) - would you like to cancel the %s as well?',
-        'cancel-subscription-message',
-        $slug
-    ),
-    ($VARS['is_license_deactivation'] ? fs_text_inline('license', 'license', $slug) : $module_label),
-    $subscription_cancellation_context
-);
+        fs_text_inline(
+            'In case you are NOT planning on using this %s on this site (or any other site) - would you like to cancel the %s as well?',
+            'cancel-subscription-message',
+            $slug
+        ),
+        ($VARS['is_license_deactivation'] ? fs_text_inline('license', 'license', $slug) : $module_label),
+        $subscription_cancellation_context
+    );
 
 $cancel_subscription_action_label = sprintf(
     fs_esc_html_inline(
@@ -113,7 +113,7 @@ $subscription_cancellation_confirmation_message = $has_trial ?
             human_time_diff(time(), strtotime($license->expiration))
         ),
         (
-        $license->is_block_features ?
+            $license->is_block_features ?
             (
                 $fs->is_only_premium() ?
                     sprintf($after_downgrade_blocking_text_premium_only, $module_label) :
@@ -188,9 +188,9 @@ fs_enqueue_local_style('fs_dialog_boxes', '/admin/dialog-boxes.css');
 
                 if ( isSelected ) {
                     $primaryButton.html( <?php echo json_encode(sprintf(
-                        fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
-                        ucfirst($subscription_cancellation_context)
-                    )) ?> );
+    fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
+    ucfirst($subscription_cancellation_context)
+)) ?> );
 
                     $modal.find('.fs-price-increase-warning').show();
                 } else {

@@ -90,15 +90,15 @@
 				</div>
 			<?php else : ?>
 				<p class="fs-installation-notice"><?php echo sprintf(
-                        fs_esc_html_inline('An automated download and installation of %s (paid version) from %s will start in %s. If you would like to do it manually - click the cancellation button now.', 'installing-in-n', $slug),
-                        $plugin_title,
-                        sprintf(
-                            '<a href="%s" target="_blank">%s</a>',
-                            'https://freemius.com',
-                            'freemius.com'
-                        ),
-                        $countdown_html
-                    ) ?></p>
+    fs_esc_html_inline('An automated download and installation of %s (paid version) from %s will start in %s. If you would like to do it manually - click the cancellation button now.', 'installing-in-n', $slug),
+    $plugin_title,
+    sprintf(
+        '<a href="%s" target="_blank">%s</a>',
+        'https://freemius.com',
+        'freemius.com'
+    ),
+    $countdown_html
+) ?></p>
 			<?php endif ?>
 			<p class="fs-installing"
 			   style="display: none"><?php echo sprintf(fs_esc_html_inline('The installation process has started and may take a few minutes to complete. Please wait until it is done - do not refresh this page.', 'installing-module-x', $slug), $plugin_title) ?></p>
