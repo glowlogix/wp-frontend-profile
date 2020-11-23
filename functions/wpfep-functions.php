@@ -448,7 +448,6 @@ function wpfep_settings_multiselect($args)
 function wpfep_get_pages($post_type = 'page')
 {
     global $wpdb;
-
     $array = ['' => __('-- select --', 'wp-front-end-profile')];
     $pages = get_posts(
         [
@@ -726,7 +725,7 @@ function wpfep_show_profile()
         return;
     }
     $user = wp_get_current_user();
-    if (in_array('administrator', (array) $user->roles, true)) {
+    if (in_array('administrator', (array) $user->roles, true) && wpfep_get_option('admin_profile_edit', 'wpfep_profile', 'off') == 'off') {
         if (current_user_can('manage_options')) {
             ob_start();
         }
@@ -940,6 +939,7 @@ if ('on' == $manually_approve_user) {
     function status_column($val_column, $column_name, $user)
     {
         $status='';
+
         switch ($column_name) {
             case 'wpfep_user_status':
                 $user_status = get_user_meta($user, 'wpfep_user_status', true);
@@ -973,7 +973,7 @@ if ('on' == $manually_approve_user) {
             if ('approve' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);
                 $subject = 'Approval notification';
-                $message = 'Your account is approved by admin.'."\r\n\r\n";
+                $message .= 'Your account is approved by admin.'."\r\n\r\n";
                 $message .= 'Now you can log in to your account.'."\r\n\r\n";
                 $message .= 'Thank you'."\r\n\r\n";
                 wp_mail($user_data->user_email, $subject, $message);
@@ -981,7 +981,7 @@ if ('on' == $manually_approve_user) {
             if ('rejected' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);
                 $subject = 'Denied notification';
-                $message = 'Your account is denied by admin.'."\r\n\r\n";
+                $message .= 'Your account is denied by admin.'."\r\n\r\n";
                 $message .= 'Now you cannot Log In to your account.'."\r\n\r\n";
                 $message .= 'Thank you'."\r\n\r\n";
                 wp_mail($user_data->user_email, $subject, $message);
