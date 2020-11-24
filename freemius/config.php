@@ -150,11 +150,14 @@
     }
 
     if (! defined('WP_FS__IS_HTTPS')) {
-        define('WP_FS__IS_HTTPS', (WP_FS__IS_HTTP_REQUEST &&
+        define(
+            'WP_FS__IS_HTTPS',
+            (
+                WP_FS__IS_HTTP_REQUEST &&
                                      // Checks if CloudFlare's HTTPS (Flexible SSL support).
                                      isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
                                      'https' === strtolower($_SERVER['HTTP_X_FORWARDED_PROTO'])
-                                   ) ||
+            ) ||
                                    // Check if HTTPS request.
                                    (isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ||
                                    (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT'])
@@ -174,7 +177,9 @@
         if (defined('WP_FS__LOCALHOST_IP')) {
             define('WP_FS__IS_LOCALHOST', (WP_FS__LOCALHOST_IP === WP_FS__REMOTE_ADDR));
         } else {
-            define('WP_FS__IS_LOCALHOST', WP_FS__IS_HTTP_REQUEST &&
+            define(
+                'WP_FS__IS_LOCALHOST',
+                WP_FS__IS_HTTP_REQUEST &&
                                            is_string(WP_FS__REMOTE_ADDR) &&
                                            (substr(WP_FS__REMOTE_ADDR, 0, 4) === '127.' ||
                                              WP_FS__REMOTE_ADDR === '::1')
@@ -350,13 +355,16 @@
      * @author Vova Feldman (@svovaf)
      */
     if (! defined('WP_FS__IS_NETWORK_ADMIN')) {
-        define('WP_FS__IS_NETWORK_ADMIN',
+        define(
+            'WP_FS__IS_NETWORK_ADMIN',
             is_multisite() &&
-            (is_network_admin() ||
-              ((defined('DOING_AJAX') && DOING_AJAX &&
+            (
+                is_network_admin() ||
+              ((
+                  defined('DOING_AJAX') && DOING_AJAX &&
                   (isset($_REQUEST['_fs_network_admin']) /*||
                     ( ! empty( $_REQUEST['action'] ) && 'delete-plugin' === $_REQUEST['action'] )*/)
-                ) ||
+              ) ||
                 // Plugin uninstall.
                 defined('WP_UNINSTALL_PLUGIN'))
             )

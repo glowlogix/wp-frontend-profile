@@ -40,15 +40,16 @@
     <input type="hidden" name="license_id" value="<?php echo $available_license->id ?>">
     <input type="submit" class="fs-activate-license button<?php echo ! empty($VARS['class']) ? ' ' . $VARS['class'] : '' ?>"
            value="<?php echo esc_attr(sprintf(
-               $activate_plan_text . '%s',
-               $premium_plan->title,
-               ($VARS['is_localhost'] && $available_license->is_free_localhost) ?
+    $activate_plan_text . '%s',
+    $premium_plan->title,
+    ($VARS['is_localhost'] && $available_license->is_free_localhost) ?
                    ' [' . fs_text_inline('Localhost', 'localhost', $slug) . ']' :
-                   ($available_license->is_single_site() ?
+                   (
+                       $available_license->is_single_site() ?
                        '' :
                        ' [' . (1 < $available_license->left() ?
                            sprintf(fs_text_x_inline('%s left', 'as 5 licenses left', 'x-left', $slug), $available_license->left()) :
                            strtolower(fs_text_inline('Last license', 'last-license', $slug))) . ']'
                    )
-           )) ?> ">
+)) ?> ">
 </form>

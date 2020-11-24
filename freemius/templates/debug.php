@@ -279,18 +279,20 @@
                     <td<?php if ($is_active && ! $fs->has_api_connectivity()) {
                     echo ' style="color: red; text-transform: uppercase;"';
                 } ?>><?php if ($is_active) {
-                    echo esc_html($fs->has_api_connectivity() ?
+                    echo esc_html(
+                        $fs->has_api_connectivity() ?
                                 fs_text_x_inline('Connected', 'as connection was successful') :
                                 fs_text_x_inline('Blocked', 'as connection blocked')
-                            );
+                    );
                 } ?></td>
                     <td<?php if ($is_active && ! $fs->is_on()) {
                     echo ' style="color: red; text-transform: uppercase;"';
                 } ?>><?php if ($is_active) {
-                    echo esc_html($fs->is_on() ?
+                    echo esc_html(
+                        $fs->is_on() ?
                                 $on_text :
                                 $off_text
-                            );
+                    );
                 } ?></td>
                     <td><?php echo $data->file ?></td>
                     <td><?php echo $data->public_key ?></td>
@@ -355,8 +357,8 @@
         <h2><?php echo esc_html(sprintf(
             /* translators: %s: 'plugin' or 'theme' */
                 fs_text_inline('%s Installs', 'module-installs'),
-                (WP_FS__MODULE_TYPE_PLUGIN === $module_type ? fs_text_inline('Plugin', 'plugin') : fs_text_inline('Theme', 'theme'))
-            )) ?> / <?php fs_esc_html_echo_x_inline('Sites', 'like websites', 'sites') ?></h2>
+        (WP_FS__MODULE_TYPE_PLUGIN === $module_type ? fs_text_inline('Plugin', 'plugin') : fs_text_inline('Theme', 'theme'))
+    )) ?> / <?php fs_esc_html_echo_x_inline('Sites', 'like websites', 'sites') ?></h2>
         <table id="fs_<?php echo $module_type ?>_installs" class="widefat">
             <thead>
             <tr>
@@ -377,8 +379,8 @@
             <tbody>
             <?php foreach ($sites_map as $slug => $sites) : ?>
                 <?php if (! is_array($sites)) {
-                $sites = array( $sites );
-            } ?>
+        $sites = array( $sites );
+    } ?>
                 <?php foreach ($sites as $site) : ?>
                     <tr>
                         <td><?php echo $site->id ?></td>

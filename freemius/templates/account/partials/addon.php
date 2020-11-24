@@ -314,19 +314,19 @@
                 $fs_addon->_add_license_activation_dialog_box();
 
                 $buttons[] = fs_ui_get_action_button(
-                        $fs->get_id(),
-                        'account',
-                        'activate_license',
-                        (! $has_feature_enabled_license) ?
+                    $fs->get_id(),
+                    'account',
+                    'activate_license',
+                    (! $has_feature_enabled_license) ?
                             fs_esc_html_inline('Activate License', 'activate-license', $slug) :
                             fs_esc_html_inline('Change License', 'change-license', $slug),
-                        'activate-license-trigger ' . $fs_addon->get_unique_affix(),
-                        array(
+                    'activate-license-trigger ' . $fs_addon->get_unique_affix(),
+                    array(
                             'plugin_id' => $addon_id,
                         ),
-                        (! $has_feature_enabled_license),
-                        true
-                    );
+                    (! $has_feature_enabled_license),
+                    true
+                );
 
                 $is_license_activation_added = true;
             }
@@ -334,15 +334,15 @@
             if ($fs_addon->has_paid_plan()) {
                 // Add sync license only if non of the other CTAs are visible.
                 $buttons[] = fs_ui_get_action_button(
-                        $fs->get_id(),
-                        'account',
-                        $fs->get_unique_affix() . '_sync_license',
-                        fs_esc_html_x_inline('Sync', 'as synchronize', 'sync', $slug),
-                        '',
-                        array( 'plugin_id' => $addon_id ),
-                        false,
-                        true
-                    );
+                    $fs->get_id(),
+                    'account',
+                    $fs->get_unique_affix() . '_sync_license',
+                    fs_esc_html_x_inline('Sync', 'as synchronize', 'sync', $slug),
+                    '',
+                    array( 'plugin_id' => $addon_id ),
+                    false,
+                    true
+                );
             }
 //            }
         } elseif (! $show_upgrade) {
@@ -375,7 +375,8 @@
         }
 
         if ($show_upgrade) {
-            $buttons[] = sprintf('<a href="%s" class="thickbox button button-small button-primary" aria-label="%s" data-title="%s"><i class="dashicons dashicons-cart"></i> %s</a>',
+            $buttons[] = sprintf(
+                '<a href="%s" class="thickbox button button-small button-primary" aria-label="%s" data-title="%s"><i class="dashicons dashicons-cart"></i> %s</a>',
                 esc_url(network_admin_url('plugin-install.php?fs_allow_updater_and_dialog=true' . (! empty($fs_blog_id) ? '&fs_blog_id=' . $fs_blog_id : '') . '&tab=plugin-information&parent_plugin_id=' . $fs->get_id() . '&plugin=' . $addon_info['slug'] .
                                             '&TB_iframe=true&width=600&height=550')),
                 esc_attr(sprintf(fs_text_inline('More information about %s', 'more-information-about-x', $slug), $addon_info['title'])),
@@ -430,7 +431,8 @@
             <?php
                 if ($is_addon_activated) {
                     fs_ui_action_button(
-                        $fs->get_id(), 'account',
+                        $fs->get_id(),
+                        'account',
                         'delete_account',
                         fs_text_x_inline('Delete', 'verb', 'delete', $slug),
                         '',

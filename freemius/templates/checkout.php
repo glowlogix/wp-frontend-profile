@@ -298,16 +298,22 @@
 						// and then click the purchase button, the context information
 						// of the user will be shared with Freemius in order to complete the
 						// purchase workflow and activate the license for the right user.
-						<?php $install_data = array_merge($fs->get_opt_in_params(),
-                        array(
-                            'activation_url' => fs_nonce_url($fs->_get_admin_page_url('',
-                                array(
+						<?php $install_data = array_merge(
+                            $fs->get_opt_in_params(),
+                            array(
+                            'activation_url' => fs_nonce_url(
+                                $fs->_get_admin_page_url(
+                                    '',
+                                    array(
                                     'fs_action' => $fs->get_unique_affix() . '_activate_new',
                                     'plugin_id' => $plugin_id,
 
-                                )),
-                                $fs->get_unique_affix() . '_activate_new')
-                        )) ?>
+                                )
+                                ),
+                                $fs->get_unique_affix() . '_activate_new'
+                            )
+                        )
+                        ) ?>
 						FS.PostMessage.post('context', <?php echo json_encode($install_data) ?>, frame[0]);
 					});
 

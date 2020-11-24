@@ -57,12 +57,12 @@ if (!class_exists('WPFEP_Admin_Installer')) {
 <strong>WP Frontend Profile</strong> has been successfully installed and saved!';
 
                 echo wp_kses(
-                            $page_success,
-                            [
+                    $page_success,
+                    [
                                 'p'      => [],
                                 'strong' => [],
                             ]
-                        ); ?>
+                ); ?>
 					</p>
 				</div>
 				<?php

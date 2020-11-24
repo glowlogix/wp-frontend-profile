@@ -91,8 +91,10 @@
         'ask-for-upgrade-email-address' => _fs_text("Enter the email address you've used for the upgrade below and we will resend you the license key."),
         'x-plan'                        => _fs_x('%s Plan', 'e.g. Professional Plan'),
         'you-are-step-away'             => _fs_text('You are just one step away - %s'),
-        'activate-x-now'                => _fs_x('Complete "%s" Activation Now',
-            '%s - plugin name. As complete "Jetpack" activation now'),
+        'activate-x-now'                => _fs_x(
+            'Complete "%s" Activation Now',
+            '%s - plugin name. As complete "Jetpack" activation now'
+        ),
         'few-plugin-tweaks'             => _fs_text('We made a few tweaks to the %s, %s'),
         'optin-x-now'                   => _fs_text('Opt in to make "%s" better!'),
         'error'                         => _fs_text('Error'),
@@ -243,8 +245,10 @@
         'reason-cant-pay-anymore'                  => _fs_text("I can't pay for it anymore"),
         'reason-temporary-deactivation'            => _fs_text("It's a temporary deactivation. I'm just debugging an issue."),
         'reason-temporary-x'                       => _fs_text("It's a temporary %s. I'm just debugging an issue."),
-        'reason-other'                             => _fs_x('Other',
-            'the text of the "other" reason for deactivating the module that is shown in the modal box.'),
+        'reason-other'                             => _fs_x(
+            'Other',
+            'the text of the "other" reason for deactivating the module that is shown in the modal box.'
+        ),
         'ask-for-reason-message'                   => _fs_text('Kindly tell us the reason so we can improve.'),
         'placeholder-plugin-name'                  => _fs_text("What's the %s's name?"),
         'placeholder-comfortable-price'            => _fs_text('What price would you feel comfortable paying?'),
@@ -364,15 +368,21 @@
         'congrats'                                 => _fs_x('Congrats', 'as congratulations'),
         'oops'                                     => _fs_x('Oops', 'exclamation'),
         'yee-haw'                                  => _fs_x('Yee-haw', 'interjection expressing joy or exuberance'),
-        'woot'                                     => _fs_x('W00t',
-            '(especially in electronic communication) used to express elation, enthusiasm, or triumph.'),
+        'woot'                                     => _fs_x(
+            'W00t',
+            '(especially in electronic communication) used to express elation, enthusiasm, or triumph.'
+        ),
         'right-on'                                 => _fs_x('Right on', 'a positive response'),
-        'hmm'                                      => _fs_x('Hmm',
-            'something somebody says when they are thinking about what you have just said. '),
+        'hmm'                                      => _fs_x(
+            'Hmm',
+            'something somebody says when they are thinking about what you have just said. '
+        ),
         'ok'                                       => _fs_text('O.K'),
         'hey'                                      => _fs_x('Hey', 'exclamation'),
-        'heads-up'                                 => _fs_x('Heads up',
-            'advance notice of something that will need attention.'),
+        'heads-up'                                 => _fs_x(
+            'Heads up',
+            'advance notice of something that will need attention.'
+        ),
         #endregion Expressions
 
         #region Admin Notices
@@ -397,8 +407,10 @@
         'deactivate-free-version'                  => _fs_text('Deactivate the free version'),
         'upload-and-activate'                      => _fs_text('Upload and activate the downloaded version'),
         'howto-upload-activate'                    => _fs_text('How to upload and activate?'),
-        'addon-successfully-purchased-message'     => _fs_x('%s Add-on was successfully purchased.',
-            '%s - product name, e.g. Facebook add-on was successfully...'),
+        'addon-successfully-purchased-message'     => _fs_x(
+            '%s Add-on was successfully purchased.',
+            '%s - product name, e.g. Facebook add-on was successfully...'
+        ),
         'addon-successfully-upgraded-message'      => _fs_text('Your %s Add-on plan was successfully upgraded.'),
         'email-verified-message'                   => _fs_text('Your email has been successfully verified - you are AWESOME!'),
         'plan-upgraded-message'                    => _fs_text('Your plan was successfully upgraded.'),
@@ -419,8 +431,10 @@
         'trial-cancel-message'                     => _fs_text('Your %s free trial was successfully cancelled.'),
         'version-x-released'                       => _fs_x('Version %s was released.', '%s - numeric version number'),
         'please-download-x'                        => _fs_text('Please download %s.'),
-        'latest-x-version'                         => _fs_x('the latest %s version here',
-            '%s - plan name, as the latest professional version here'),
+        'latest-x-version'                         => _fs_x(
+            'the latest %s version here',
+            '%s - plan name, as the latest professional version here'
+        ),
         'trial-x-promotion-message'                => _fs_text('How do you like %s so far? Test all our %s premium features with a %d-day free trial.'),
         'start-free-trial'                         => _fs_x('Start free trial', 'call to action'),
         'starting-trial'                           => _fs_text('Starting trial'),
@@ -446,8 +460,10 @@
         'curl-missing-message'                     => _fs_text('We use PHP cURL library for the API calls, which is a very common library and usually installed and activated out of the box. Unfortunately, cURL is not activated (or disabled) on your server.'),
         'curl-disabled-methods'                    => _fs_text('Disabled method(s):'),
         'cloudflare-blocks-connection-message'     => _fs_text('From unknown reason, CloudFlare, the firewall we use, blocks the connection.'),
-        'x-requires-access-to-api'                 => _fs_x('%s requires an access to our API.',
-            'as pluginX requires an access to our API'),
+        'x-requires-access-to-api'                 => _fs_x(
+            '%s requires an access to our API.',
+            'as pluginX requires an access to our API'
+        ),
         'squid-blocks-connection-message'          => _fs_text('It looks like your server is using Squid ACL (access control lists), which blocks the connection.'),
         'squid-no-clue-title'                      => _fs_text('I don\'t know what is Squid or ACL, help me!'),
         'squid-no-clue-desc'                       => _fs_text('We\'ll make sure to contact your hosting company and resolve the issue. You will get a follow-up email to %s once we have an update.'),
@@ -465,8 +481,10 @@
         'deactivate-plugin-title'                  => _fs_text('That\'s exhausting, please deactivate'),
         'deactivate-plugin-desc'                   => _fs_text('We feel your frustration and sincerely apologize for the inconvenience. Hope to see you again in the future.'),
         'fix-request-sent-message'                 => _fs_text('Thank for giving us the chance to fix it! A message was just sent to our technical staff. We will get back to you as soon as we have an update to %s. Appreciate your patience.'),
-        'server-blocking-access'                   => _fs_x('Your server is blocking the access to Freemius\' API, which is crucial for %1$s synchronization. Please contact your host to whitelist %2$s',
-            '%1$s - plugin title, %2$s - API domain'),
+        'server-blocking-access'                   => _fs_x(
+            'Your server is blocking the access to Freemius\' API, which is crucial for %1$s synchronization. Please contact your host to whitelist %2$s',
+            '%1$s - plugin title, %2$s - API domain'
+        ),
         'wrong-authentication-param-message'       => _fs_text('It seems like one of the authentication parameters is wrong. Update your Public Key, Secret Key & User ID, and try again.'),
         #endregion Connectivity Issues
         #region Change Owner
@@ -474,11 +492,15 @@
         'change-owner-request_owner-confirmed'     => _fs_text('Thanks for confirming the ownership change. An email was just sent to %s for final approval.'),
         'change-owner-request_candidate-confirmed' => _fs_text('%s is the new owner of the account.'),
         #endregion Change Owner
-        'addon-x-cannot-run-without-y'             => _fs_x('%s cannot run without %s.',
-            'addonX cannot run without pluginY'),
+        'addon-x-cannot-run-without-y'             => _fs_x(
+            '%s cannot run without %s.',
+            'addonX cannot run without pluginY'
+        ),
         'addon-x-cannot-run-without-parent'        => _fs_x('%s cannot run without the plugin.', 'addonX cannot run...'),
-        'plugin-x-activation-message'              => _fs_x('%s activation was successfully completed.',
-            'pluginX activation was successfully...'),
+        'plugin-x-activation-message'              => _fs_x(
+            '%s activation was successfully completed.',
+            'pluginX activation was successfully...'
+        ),
         'features-and-pricing'                     => _fs_x('Features & Pricing', 'Plugin installer section title'),
         'free-addon-not-deployed'                  => _fs_text('Add-on must be deployed to WordPress.org or Freemius.'),
         'paid-addon-not-deployed'                  => _fs_text('Paid add-on must be deployed to Freemius.'),

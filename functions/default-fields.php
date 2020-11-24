@@ -59,6 +59,30 @@ function wpfep_add_profile_tab_meta_fields($fields)
 add_filter('wpfep_fields_profile', 'wpfep_add_profile_tab_meta_fields', 10);
 
 /**
+ * Function wpfeb_disable_email_for_admins()
+ * Removes the email field when the current user is an admin.
+ *
+ * @param (array) $fields are the current array of fields added to this filter.
+ *
+ * @return (array) $fields are the modified array of fields to pass back to the filter
+ */
+function wpfep_disable_email_for_admins($fields, $userid)
+{
+    $user = new WP_User($userid);
+    if ($user->has_cap('manage_options')) {
+        foreach ($fields as $i => $field) {
+            if ($field['id'] == 'user_email') {
+                unset($fields[$i]);
+            }
+        }
+    }
+
+    return $fields;
+}
+add_filter('wpfep_fields_profile', 'wpfep_disable_email_for_admins', 20, 2);
+
+
+/**
  * Wpfep_add_password_tab_fields()
  * adds the password update fields to the passwords tab.
  *

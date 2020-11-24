@@ -98,6 +98,13 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                             'default' => 'on',
                         ],
                         [
+                            'name'    => 'admin_profile_edit',
+                            'label'   => __('Admin can edit profile', 'wp-front-end-profile'),
+                            'desc'    => __('Allow administrators to edit their own profiles on the frontend.', 'wp-front-end-profile'),
+                            'type'    => 'checkbox',
+                            'default' => 'off',
+                        ],
+                        [
                             'name'    => 'redirect_after_login_page',
                             'label'   => __('Redirect After Login', 'wp-front-end-profile'),
                             'desc'    => __('After successful login, where the page will redirect to', 'wp-front-end-profile'),
@@ -134,38 +141,38 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                         ],
                         [
                             'name'    => 'strong_password',
-                            'label'   => __('Enable Strong Password', 'wp-front-end-profile'),
-                            'desc'    => __('Check to enable strong password.', 'wp-front-end-profile'),
+                            'label'   => __('Enable Strong Password', 'wpfep'),
+                            'desc'    => __('Check to enable strong password.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'on',
                         ],
                         [
                             'name'  => 'recaptcha_public',
-                            'label' => __('reCAPTCHA Site Key', 'wp-front-end-profile'),
+                            'label' => __('reCAPTCHA Site Key', 'wpfep'),
                         ],
                         [
                             'name'  => 'recaptcha_private',
-                            'label' => __('reCAPTCHA Secret Key', 'wp-front-end-profile'),
-                            'desc'  => __('<a target="_blank" href="https://www.google.com/recaptcha/">Register here</a> to get reCaptcha Site and Secret keys.', 'wp-front-end-profile'),
+                            'label' => __('reCAPTCHA Secret Key', 'wpfep'),
+                            'desc'  => __('<a target="_blank" href="https://www.google.com/recaptcha/">Register here</a> to get reCaptcha Site and Secret keys.', 'wpfep'),
                         ],
                         [
                             'name'    => 'enable_captcha_login',
-                            'label'   => __('reCAPTCHA Login Form', 'wp-front-end-profile'),
-                            'desc'    => __('Check to enable reCAPTCHA in login form.', 'wp-front-end-profile'),
+                            'label'   => __('reCAPTCHA Login Form', 'wpfep'),
+                            'desc'    => __('Check to enable reCAPTCHA in login form.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'off',
                         ],
                         [
                             'name'    => 'enable_captcha_registration',
-                            'label'   => __('reCAPTCHA Registration Form', 'wp-front-end-profile'),
-                            'desc'    => __('Check to enable reCAPTCHA in registration form', 'wp-front-end-profile'),
+                            'label'   => __('reCAPTCHA Registration Form', 'wpfep'),
+                            'desc'    => __('Check to enable reCAPTCHA in registration form', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'off',
                         ],
                         [
                             'name'    => 'wpfep_remove_data_on_uninstall',
-                            'label'   => __('Remove Data on Uninstall?', 'wp-front-end-profile'),
-                            'desc'    => __('Check this box if you would like WP Frontend Profile to completely remove all of its data when the plugin is deleted.', 'wp-front-end-profile'),
+                            'label'   => __('Remove Data on Uninstall?', 'wpfep'),
+                            'desc'    => __('Check this box if you would like WP Frontend Profile to completely remove all of its data when the plugin is deleted.', 'wpfep'),
                             'type'    => 'checkbox',
                             'options' => 'off',
                         ],
@@ -176,29 +183,29 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                     [
                         [
                             'name'    => 'register_page',
-                            'label'   => __('Registration Page', 'wp-front-end-profile'),
-                            'desc'    => __('Select the page which contains [wpfep-register] shortcode', 'wp-front-end-profile'),
+                            'label'   => __('Registration Page', 'wpfep'),
+                            'desc'    => __('Select the page which contains [wpfep-register] shortcode', 'wpfep'),
                             'type'    => 'select_page',
                             'options' => $pages,
                         ],
                         [
                             'name'    => 'login_page',
-                            'label'   => __('Login Page', 'wp-front-end-profile'),
-                            'desc'    => __('Select the page which contains [wpfep-login] shortcode', 'wp-front-end-profile'),
+                            'label'   => __('Login Page', 'wpfep'),
+                            'desc'    => __('Select the page which contains [wpfep-login] shortcode', 'wpfep'),
                             'type'    => 'select_page',
                             'options' => $pages,
                         ],
                         [
                             'name'    => 'profile_edit_page',
-                            'label'   => __('Profile Edit Page', 'wp-front-end-profile'),
-                            'desc'    => __('Select the page which contains [wpfep] shortcode', 'wp-front-end-profile'),
+                            'label'   => __('Profile Edit Page', 'wpfep'),
+                            'desc'    => __('Select the page which contains [wpfep] shortcode', 'wpfep'),
                             'type'    => 'select_page',
                             'options' => $pages,
                         ],
                         [
                             'name'    => 'profile_page',
-                            'label'   => __('Profile Page', 'wp-front-end-profile'),
-                            'desc'    => __('Select the page which contains [wpfep-profile] shortcode', 'wp-front-end-profile'),
+                            'label'   => __('Profile Page', 'wpfep'),
+                            'desc'    => __('Select the page which contains [wpfep-profile] shortcode', 'wpfep'),
                             'type'    => 'select_page',
                             'options' => $pages,
                         ],
@@ -209,36 +216,36 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                     [
                         [
                             'name'    => 'register_mail',
-                            'label'   => __('Registration success email', 'wp-front-end-profile'),
-                            'desc'    => __(' Send an email to user for successful registration.', 'wp-front-end-profile'),
+                            'label'   => __('Registration success email', 'wpfep'),
+                            'desc'    => __(' Send an email to user for successful registration.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'on',
                         ],
                         [
                             'name'    => 'password_change_mail',
-                            'label'   => __('Change password email', 'wp-front-end-profile'),
-                            'desc'    => __(' Send an email to user for change password.', 'wp-front-end-profile'),
+                            'label'   => __('Change password email', 'wpfep'),
+                            'desc'    => __(' Send an email to user for change password.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'on',
                         ],
                         [
                             'name'    => 'reset_password_mail',
-                            'label'   => __('Reset password email', 'wp-front-end-profile'),
-                            'desc'    => __('Send an email to user for reset password.', 'wp-front-end-profile'),
+                            'label'   => __('Reset password email', 'wpfep'),
+                            'desc'    => __('Send an email to user for reset password.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'on',
                         ],
                         [
                             'name'    => 'new_account_admin_mail',
-                            'label'   => __('New account registration admin mail', 'wp-front-end-profile'),
-                            'desc'    => __('Send an email to admin when user has created account on site.', 'wp-front-end-profile'),
+                            'label'   => __('New account registration admin mail', 'wpfep'),
+                            'desc'    => __('Send an email to admin when user has created account on site.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'on',
                         ],
                         [
                             'name'    => 'change_password_admin_mail',
-                            'label'   => __('Change user password admin mail', 'wp-front-end-profile'),
-                            'desc'    => __('Send an email to admin when user has changed account password.', 'wp-front-end-profile'),
+                            'label'   => __('Change user password admin mail', 'wpfep'),
+                            'desc'    => __('Send an email to admin when user has changed account password.', 'wpfep'),
                             'type'    => 'checkbox',
                             'default' => 'on',
                         ],
@@ -257,22 +264,22 @@ if (!class_exists('WPFEP_Admin_Settings')) {
             $sections = [
                 [
                     'id'    => 'wpfep_profile',
-                    'title' => __('Login / Registration', 'wp-front-end-profile'),
+                    'title' => __('Login / Registration', 'wpfep'),
                     'icon'  => 'dashicons-admin-users',
                 ],
                 [
                     'id'    => 'wpfep_pages',
-                    'title' => __('Pages', 'wp-front-end-profile'),
+                    'title' => __('Pages', 'wpfep'),
                     'icon'  => 'dashicons-admin-page',
                 ],
                 [
                     'id'    => 'wpfep_emails_notification',
-                    'title' => __('Emails', 'wp-front-end-profile'),
+                    'title' => __('Emails', 'wpfep'),
                     'icon'  => 'dashicons-email',
                 ],
                 [
                     'id'    => 'wpfep_general',
-                    'title' => __('Settings', 'wp-front-end-profile'),
+                    'title' => __('Settings', 'wpfep'),
                     'icon'  => 'dashicons-admin-generic',
                 ],
             ];
@@ -298,10 +305,10 @@ if (!class_exists('WPFEP_Admin_Settings')) {
         {
             global $_registered_pages;
             // Translation issue: Hook name change due to translate menu title.
-            $this->menu_pages[] = add_menu_page(__('Frontend Profile', 'wp-front-end-profile'), __('Frontend Profile', 'wp-front-end-profile'), 'manage_options', 'wpfep-settings_dashboard', [$this, 'plugin_page'], 'dashicons-admin-users', 55);
-            $this->menu_pages[] = add_submenu_page('wpfep-settings_dashboard', __('Settings', 'wp-front-end-profile'), __('Settings', 'wp-front-end-profile'), 'manage_options', 'wpfep-settings', [$this, 'plugin_page']);
-            $this->menu_pages[] = add_submenu_page('wpfep-settings_dashboard', __('Tools', 'wp-front-end-profile'), __('Tools', 'wp-front-end-profile'), 'manage_options', 'wpfep-tools', [$this, 'tool_page']);
-            $this->menu_pages[] = add_submenu_page('wpfep-settings_dashboard', __('System Status', 'wp-front-end-profile'), __('System Status', 'wp-front-end-profile'), 'manage_options', 'wpfep-status', [$this, 'system_status']);
+            $this->menu_pages[] = add_menu_page(__('Frontend Profile', 'wpfep'), __('Frontend Profile', 'wpfep'), 'manage_options', 'wpfep-settings_dashboard', [$this, 'plugin_page'], 'dashicons-admin-users', 55);
+            $this->menu_pages[] = add_submenu_page('wpfep-settings_dashboard', __('Settings', 'wpfep'), __('Settings', 'wpfep'), 'manage_options', 'wpfep-settings', [$this, 'plugin_page']);
+            $this->menu_pages[] = add_submenu_page('wpfep-settings_dashboard', __('Tools', 'wpfep'), __('Tools', 'wpfep'), 'manage_options', 'wpfep-tools', [$this, 'tool_page']);
+            $this->menu_pages[] = add_submenu_page('wpfep-settings_dashboard', __('System Status', 'wpfep'), __('System Status', 'wpfep'), 'manage_options', 'wpfep-status', [$this, 'system_status']);
             remove_submenu_page('wpfep-settings_dashboard', 'wpfep-settings_dashboard');
         }
 

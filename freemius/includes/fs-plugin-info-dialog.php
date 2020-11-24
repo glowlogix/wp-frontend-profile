@@ -71,7 +71,9 @@
             add_filter(
                 'fs_plugins_api',
                 array( &$this, '_get_addon_info_filter' ),
-                WP_FS__DEFAULT_PRIORITY, 3);
+                WP_FS__DEFAULT_PRIORITY,
+                3
+            );
         }
 
         /**
@@ -193,7 +195,8 @@
 
             if (! $has_paid_plan && $selected_addon->is_wp_org_compliant) {
                 $repo_data = FS_Plugin_Updater::_fetch_plugin_info_from_repository(
-                    'plugin_information', (object) array(
+                    'plugin_information',
+                    (object) array(
                     'slug'   => $selected_addon->slug,
                     'is_ssl' => is_ssl(),
                     'fields' => array(
@@ -202,7 +205,8 @@
                         'downloaded'      => false,
                         'active_installs' => true
                     )
-                ));
+                )
+                );
 
                 if (! empty($repo_data)) {
                     $data                 = $repo_data;
@@ -534,7 +538,8 @@
             }
 
             return '<a class="button button-primary fs-checkout-button right" href="' . $addon_checkout_url . '" target="_parent">' .
-                   esc_html(! $plan->has_trial() ?
+                   esc_html(
+                       ! $plan->has_trial() ?
                        (
                            $api->has_purchased_license ?
                                fs_text_inline('Purchase More', 'purchase-more', $api->slug) :
@@ -1283,7 +1288,9 @@
                                         <span
                                             class="fs-annual-discount"><?php printf(
                                             /* translators: %s: Discount (e.g. discount of $5 or 10%) */
-                                                fs_esc_html_inline('Save %s', 'save-x', $api->slug), $annual_discount . '%') ?></span>
+                                                fs_esc_html_inline('Save %s', 'save-x', $api->slug),
+                $annual_discount . '%'
+            ) ?></span>
                                     <?php endif ?>
                                     <ul class="fs-licenses">
                                     </ul>
@@ -1357,14 +1364,15 @@
                                 <li>
                                     <strong><?php fs_esc_html_echo_inline('Downloaded', 'downloaded', $api->slug) ?>
                                         :</strong> <?php echo esc_html(sprintf(
-                                        ((1 == $api->downloaded) ?
+                    (
+                        (1 == $api->downloaded) ?
                                             /* translators: %s: 1 or One (Number of times downloaded) */
                                             fs_text_inline('%s time', 'x-time', $api->slug) :
                                             /* translators: %s: Number of times downloaded */
                                             fs_text_inline('%s times', 'x-times', $api->slug)
-                                        ),
-                                        number_format_i18n($api->downloaded)
-                                    )); ?>
+                    ),
+                    number_format_i18n($api->downloaded)
+                )); ?>
                                 </li>
                                 <?php
             }
@@ -1402,16 +1410,18 @@
                         'number' => $api->num_ratings
                     )); ?>
                     <small>(<?php echo esc_html(sprintf(
-                            fs_text_inline('based on %s', 'based-on-x', $api->slug),
-                            sprintf(
-                                ((1 == $api->num_ratings) ?
+                        fs_text_inline('based on %s', 'based-on-x', $api->slug),
+                        sprintf(
+                            (
+                                (1 == $api->num_ratings) ?
                                     /* translators: %s: 1 or One */
                                     fs_text_inline('%s rating', 'x-rating', $api->slug) :
                                     /* translators: %s: Number larger than 1 */
                                     fs_text_inline('%s ratings', 'x-ratings', $api->slug)
-                                ),
-                                number_format_i18n($api->num_ratings)
-                            ))) ?>)
+                            ),
+                            number_format_i18n($api->num_ratings)
+                        )
+                    )) ?>)
                     </small>
                     <?php
                 }
@@ -1421,14 +1431,15 @@
                     // Avoid div-by-zero.
                     $_rating     = $api->num_ratings ? ($ratecount / $api->num_ratings) : 0;
                     $stars_label = sprintf(
-                                ((1 == $key) ?
+                        (
+                            (1 == $key) ?
                                     /* translators: %s: 1 or One */
                                     fs_text_inline('%s star', 'x-star', $api->slug) :
                                     /* translators: %s: Number larger than 1 */
                                     fs_text_inline('%s stars', 'x-stars', $api->slug)
-                                ),
-                                number_format_i18n($key)
-                            ); ?>
+                        ),
+                        number_format_i18n($key)
+                    ); ?>
                             <div class="counter-container">
 					<span class="counter-label"><a
                             href="https://wordpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
@@ -1436,8 +1447,8 @@
                             title="<?php echo esc_attr(sprintf(
                             /* translators: %s: # of stars (e.g. 5 stars) */
                                 fs_text_inline('Click to see reviews that provided a rating of %s', 'click-to-reviews', $api->slug),
-                                $stars_label
-                            )) ?>"><?php echo $stars_label ?></a></span>
+                        $stars_label
+                    )) ?>"><?php echo $stars_label ?></a></span>
                                 <span class="counter-back">
 						<span class="counter-bar" style="width: <?php echo absint(92 * $_rating); ?>px;"></span>
 					</span>

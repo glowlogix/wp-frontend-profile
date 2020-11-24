@@ -146,7 +146,7 @@ function wpfep_save_fields($tabs, $user_id)
                 }
 
                 /* update the user meta data */
-                if ($registered_fields[$registered_field_key]['taxonomy']) {
+                if (isset($registered_fields[$registered_field_key]['taxonomy'])) {
                     $meta = wp_set_object_terms($user_id, $value, $registered_fields[$registered_field_key]['taxonomy'], false);
                 } else {
                     $meta = update_user_meta($user_id, $key, $value);
@@ -228,7 +228,7 @@ function wpfep_save_password($tabs, $user_id)
     $messages = [];
 
     /* get the posted data from the password tab */
-    if (! isset($_POST['_wpnonce']) || ! wp_verify_nonce($_POST['_wpnonce'], 'wpfep_nonce_name')) {
+    if (! isset($_POST['password']) || ! wp_verify_nonce($_POST['wpfep_nonce_name'], 'wpfep_nonce_action')) {
         return;
     }
     $data = (isset($_POST['password'])) ? $_POST['password'] : '';
