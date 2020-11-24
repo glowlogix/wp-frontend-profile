@@ -13,9 +13,9 @@ WP Frontend Profile gives you the ability to add a extensible user profile secti
 *	Frontend user login
 *	User emails
 *	Developer friendly with dozens of actions and filters
-* Added Login Widget
-* Addon for Mailchimp
-* Added Content Restriction feature for paid members.
+*   Added Login Widget
+*   Addon for Mailchimp
+*   Added Content Restriction feature for paid members.
 
 ### Plugin Extensibility
 
