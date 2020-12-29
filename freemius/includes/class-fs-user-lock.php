@@ -6,15 +6,14 @@
      * @since       2.1.0
      */
 
-    if (! defined('ABSPATH')) {
+    if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
 
     /**
      * Class FS_User_Lock
      */
-    class FS_User_Lock
-    {
+    class FS_User_Lock {
         /**
          * @var int
          */
@@ -39,9 +38,8 @@
          *
          * @return FS_User_Lock
          */
-        public static function instance()
-        {
-            if (! isset(self::$_instance)) {
+        static function instance() {
+            if ( ! isset( self::$_instance ) ) {
                 self::$_instance = new self();
             }
 
@@ -50,10 +48,9 @@
 
         #endregion
 
-        private function __construct()
-        {
+        private function __construct() {
             $this->_wp_user_id = Freemius::get_current_wp_user_id();
-            $this->_thread_id  = mt_rand(0, 32000);
+            $this->_thread_id  = mt_rand( 0, 32000 );
         }
 
 
@@ -67,17 +64,16 @@
          *
          * @return bool TRUE if successfully acquired lock.
          */
-        public function try_lock($expiration = 0)
-        {
-            if ($this->is_locked()) {
+        function try_lock( $expiration = 0 ) {
+            if ( $this->is_locked() ) {
                 // Already locked.
                 return false;
             }
 
-            set_site_transient("locked_{$this->_wp_user_id}", $this->_thread_id, $expiration);
+            set_site_transient( "locked_{$this->_wp_user_id}", $this->_thread_id, $expiration );
 
-            if ($this->has_lock()) {
-                set_site_transient("locked_{$this->_wp_user_id}", true, $expiration);
+            if ( $this->has_lock() ) {
+                set_site_transient( "locked_{$this->_wp_user_id}", true, $expiration );
 
                 return true;
             }
@@ -93,9 +89,8 @@
          *
          * @param int $expiration
          */
-        public function lock($expiration = 0)
-        {
-            set_site_transient("locked_{$this->_wp_user_id}", true, $expiration);
+        function lock( $expiration = 0 ) {
+            set_site_transient( "locked_{$this->_wp_user_id}", true, $expiration );
         }
 
         /**
@@ -106,9 +101,8 @@
          *
          * @return bool
          */
-        public function is_locked()
-        {
-            return (false !== get_site_transient("locked_{$this->_wp_user_id}"));
+        function is_locked() {
+            return ( false !== get_site_transient( "locked_{$this->_wp_user_id}" ) );
         }
 
         /**
@@ -117,9 +111,8 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.1.0
          */
-        public function unlock()
-        {
-            delete_site_transient("locked_{$this->_wp_user_id}");
+        function unlock() {
+            delete_site_transient( "locked_{$this->_wp_user_id}" );
         }
 
         /**
@@ -127,8 +120,7 @@
          *
          * @return bool
          */
-        private function has_lock()
-        {
-            return ($this->_thread_id == get_site_transient("locked_{$this->_wp_user_id}"));
+        private function has_lock() {
+            return ( $this->_thread_id == get_site_transient( "locked_{$this->_wp_user_id}" ) );
         }
     }

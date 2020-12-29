@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: WP Frontend Profile
  * Plugin URI: https://wordpress.org/plugins/wp-front-end-profile/
@@ -24,12 +25,12 @@ if (!defined('WPFEP_PLUGIN_URL')) {
     define('WPFEP_PLUGIN_URL', plugin_dir_url(__FILE__));
 }
 
-require_once WPFEP_PATH.'/inc/class-wp-frontend-profile.php';
+require_once WPFEP_PATH . '/inc/class-wp-frontend-profile.php';
 // Create a helper function for easy SDK access.
 function wfep_fs()
 {
-    global  $wfep_fs ;
-    
+    global  $wfep_fs;
+
     if (!isset($wfep_fs)) {
         // Include Freemius SDK.
         require_once dirname(__FILE__) . '/freemius/start.php';
@@ -43,13 +44,13 @@ function wfep_fs()
             'has_addons'     => true,
             'has_paid_plans' => true,
             'menu'           => array(
-            'slug'    => 'wpfep-settings_dashboard',
-            'support' => false,
-        ),
+                'slug'    => 'wpfep-settings_dashboard',
+                'support' => false,
+            ),
             'is_live'        => true,
         ));
     }
-    
+
     return $wfep_fs;
 }
 
@@ -74,15 +75,15 @@ function plugin_meta_links($links, $file)
     if (plugin_basename(__FILE__) != $file) {
         return $links;
     }
-    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="'.__('Get help', 'wp-front-end-profile').'">'.__('Support', 'wp-front-end-profile').'</a>';
-    $rate_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="'.__('Rate the plugin', 'wp-front-end-profile').'">'.__('Rate the plugin ★★★★★', 'wp-front-end-profile').'</a>';
+    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="' . __('Get help', 'wp-front-end-profile') . '">' . __('Support', 'wp-front-end-profile') . '</a>';
+    $rate_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="' . __('Rate the plugin', 'wp-front-end-profile') . '">' . __('Rate the plugin ★★★★★', 'wp-front-end-profile') . '</a>';
 
     $links[] = $support_link;
     $links[] = $rate_link;
 
     return $links;
 }
-        add_filter('plugin_row_meta', 'plugin_meta_links', 10, 5);
+add_filter('plugin_row_meta', 'plugin_meta_links', 10, 5);
 
 /**
  * Plugin action links.
@@ -94,9 +95,9 @@ function plugin_meta_links($links, $file)
 function plugin_action_links($links)
 {
     $mylinks = [
-        '<a href="'.admin_url('admin.php?page=wpfep-settings').'">Settings</a>',
+        '<a href="' . admin_url('admin.php?page=wpfep-settings') . '">Settings</a>',
     ];
 
     return array_merge($links, $mylinks);
 }
-        add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'plugin_action_links');
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'plugin_action_links');
