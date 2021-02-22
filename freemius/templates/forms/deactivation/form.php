@@ -168,9 +168,9 @@ HTML;
 
                             $subscriptionCancellationModal.find( '.fs-modal-footer .button' ).removeClass( 'disabled' );
                             $subscriptionCancellationModal.find( '.fs-modal-footer .button-primary' ).html( <?php echo json_encode(sprintf(
-                            fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
-                            ucfirst($subscription_cancellation_context)
-                        )) ?> );
+                    fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
+                    ucfirst($subscription_cancellation_context)
+                )) ?> );
                         }
                     }
                 });
@@ -512,11 +512,11 @@ HTML;
         // Reset the deactivate button's text.
         if ( 'confirm' === getCurrentPanel() ) {
             $deactivateButton.text( <?php echo json_encode(sprintf(
-                fs_text_inline('Yes - %s', 'deactivation-modal-button-confirm', $slug),
-                $fs->is_plugin() ?
+            fs_text_inline('Yes - %s', 'deactivation-modal-button-confirm', $slug),
+            $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-            )) ?> );
+        )) ?> );
 		} else {
             $deactivateButton.html( <?php echo json_encode(sprintf(
                 fs_text_inline('Skip & %s', 'skip-and-x', $slug),
