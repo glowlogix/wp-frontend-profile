@@ -1481,9 +1481,9 @@
             return call_user_func_array(
                 'apply_filters',
                 array_merge(
-                    array( "fs_{$tag}_{$module_unique_affix}" ),
-                    array_slice($args, 2)
-                )
+                array( "fs_{$tag}_{$module_unique_affix}" ),
+                array_slice($args, 2)
+            )
             );
         }
     }

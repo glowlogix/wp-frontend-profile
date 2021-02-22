@@ -45,10 +45,10 @@ if ($VARS['is_license_deactivation']) {
 
     $subscription_cancellation_text .= sprintf(
         fs_text_inline(
-            'In case you are NOT planning on using this %s on this site (or any other site) - would you like to cancel the %s as well?',
-            'cancel-subscription-message',
-            $slug
-        ),
+        'In case you are NOT planning on using this %s on this site (or any other site) - would you like to cancel the %s as well?',
+        'cancel-subscription-message',
+        $slug
+    ),
         ($VARS['is_license_deactivation'] ? fs_text_inline('license', 'license', $slug) : $module_label),
         $subscription_cancellation_context
     );
@@ -133,7 +133,7 @@ fs_enqueue_local_style('fs_dialog_boxes', '/admin/dialog-boxes.css');
             '<div class="fs-modal fs-modal-subscription-cancellation fs-modal-subscription-cancellation-<?php echo $fs->get_id() ?>">'
             + '	<div class="fs-modal-dialog">'
             + '		<div class="fs-modal-header">'
-            + '		    <h4><?php echo esc_attr(sprintf(fs_text_inline('Cancel %s?', 'cancel-x', $slug), ucfirst($subscription_cancellation_context))) ?></h4>'
+            + '		    <h4><?php echo esc_html(sprintf(fs_text_inline('Cancel %s?', 'cancel-x', $slug), ucfirst($subscription_cancellation_context))) ?></h4>'
             + '		</div>'
             + '		<div class="fs-modal-body">'
             + '			<div class="fs-modal-panel active">' + <?php echo json_encode($subscription_cancellation_html) ?> + '<p class="fs-price-increase-warning" style="display: none;">' + <?php echo json_encode($prices_increase_text) ?> + '</p></div>'

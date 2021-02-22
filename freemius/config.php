@@ -153,11 +153,11 @@
         define(
             'WP_FS__IS_HTTPS',
             (
-                WP_FS__IS_HTTP_REQUEST &&
+            WP_FS__IS_HTTP_REQUEST &&
                                      // Checks if CloudFlare's HTTPS (Flexible SSL support).
                                      isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
                                      'https' === strtolower($_SERVER['HTTP_X_FORWARDED_PROTO'])
-            ) ||
+        ) ||
                                    // Check if HTTPS request.
                                    (isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ||
                                    (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT'])
@@ -393,4 +393,7 @@
 
     if (! defined('WP_FS__DEMO_MODE')) {
         define('WP_FS__DEMO_MODE', false);
+    }
+    if (! defined('FS_SDK__SSLVERIFY')) {
+        define('FS_SDK__SSLVERIFY', false);
     }

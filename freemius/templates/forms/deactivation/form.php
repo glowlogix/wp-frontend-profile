@@ -79,8 +79,8 @@ HTML;
 ?>
 <script type="text/javascript">
 (function ($) {
-	var reasonsHtml = <?php echo json_encode($reasons_list_items_html) ?>,
-	    modalHtml =
+	var reasonsHtml                    = <?php echo json_encode($reasons_list_items_html) ?>,
+	    modalHtml                      =
 		    '<div class="fs-modal fs-modal-deactivation-feedback<?php echo empty($confirmation_message) ? ' no-confirmation-message' : ''; ?>">'
 		    + '	<div class="fs-modal-dialog">'
 		    + '		<div class="fs-modal-header">'
@@ -97,19 +97,19 @@ HTML;
 		    + '		</div>'
 		    + '	</div>'
 		    + '</div>',
-	    $modal = $(modalHtml),
-	    $deactivateLink = $('#the-list .deactivate > [data-module-id=<?php echo $fs->get_id() ?>].fs-module-id').prev(),
-	    selectedReasonID = false,
-	    redirectLink = '',
-		$anonymousFeedback    = $modal.find( '.anonymous-feedback-label' ),
-		isAnonymous           = <?php echo($is_anonymous ? 'true' : 'false'); ?>,
-		otherReasonID         = <?php echo Freemius::REASON_OTHER; ?>,
-		dontShareDataReasonID = <?php echo Freemius::REASON_DONT_LIKE_TO_SHARE_MY_INFORMATION; ?>,
-        deleteThemeUpdateData = <?php echo $fs->is_theme() && $fs->is_premium() && ! $fs->has_any_active_valid_license() ? 'true' : 'false' ?>,
+	    $modal                         = $(modalHtml),
+	    selectedReasonID               = false,
+	    redirectLink                   = '',
+		$anonymousFeedback             = $modal.find( '.anonymous-feedback-label' ),
+		isAnonymous                    = <?php echo($is_anonymous ? 'true' : 'false'); ?>,
+		otherReasonID                  = <?php echo Freemius::REASON_OTHER; ?>,
+		dontShareDataReasonID          = <?php echo Freemius::REASON_DONT_LIKE_TO_SHARE_MY_INFORMATION; ?>,
+        deleteThemeUpdateData          = <?php echo $fs->is_theme() && $fs->is_premium() && ! $fs->has_any_active_valid_license() ? 'true' : 'false' ?>,
         $subscriptionCancellationModal = $( '.fs-modal-subscription-cancellation-<?php echo $fs->get_id() ?>' ),
-        showDeactivationFeedbackForm = <?php echo($show_deactivation_feedback_form ? 'true' : 'false') ?>;
+        showDeactivationFeedbackForm   = <?php echo($show_deactivation_feedback_form ? 'true' : 'false') ?>,
+        $body                          = $( 'body' );
 
-	$modal.appendTo($('body'));
+	$modal.appendTo( $body );
 
 	if ( 0 !== $subscriptionCancellationModal.length ) {
         $subscriptionCancellationModal.on( '<?php echo $fs->get_action_tag('subscription_cancellation_action') ?>', function( evt, cancelSubscription ) {
@@ -168,9 +168,9 @@ HTML;
 
                             $subscriptionCancellationModal.find( '.fs-modal-footer .button' ).removeClass( 'disabled' );
                             $subscriptionCancellationModal.find( '.fs-modal-footer .button-primary' ).html( <?php echo json_encode(sprintf(
-                    fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
-                    ucfirst($subscription_cancellation_context)
-                )) ?> );
+                            fs_text_inline('Cancel %s & Proceed', 'cancel-x-and-proceed', $slug),
+                            ucfirst($subscription_cancellation_context)
+                        )) ?> );
                         }
                     }
                 });
@@ -181,7 +181,11 @@ HTML;
 	registerEventHandlers();
 
 	function registerEventHandlers() {
-		$deactivateLink.click(function (evt) {
+		$body.on( 'click', '#the-list .deactivate > a', function ( evt ) {
+		    if ( 0 === $( this ).next( '[data-module-id=<?php echo $fs->get_id() ?>].fs-module-id' ).length ) {
+		        return true;
+            }
+
 			evt.preventDefault();
 
             redirectLink = $(this).attr('href');
@@ -508,18 +512,18 @@ HTML;
         // Reset the deactivate button's text.
         if ( 'confirm' === getCurrentPanel() ) {
             $deactivateButton.text( <?php echo json_encode(sprintf(
-            fs_text_inline('Yes - %s', 'deactivation-modal-button-confirm', $slug),
-            $fs->is_plugin() ?
+                fs_text_inline('Yes - %s', 'deactivation-modal-button-confirm', $slug),
+                $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-        )) ?> );
+            )) ?> );
 		} else {
             $deactivateButton.html( <?php echo json_encode(sprintf(
-            fs_text_inline('Skip & %s', 'skip-and-x', $slug),
-            $fs->is_plugin() ?
+                fs_text_inline('Skip & %s', 'skip-and-x', $slug),
+                $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-        )) ?> );
+            )) ?> );
 		}
 	}
 
