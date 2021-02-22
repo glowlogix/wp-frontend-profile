@@ -6,12 +6,11 @@
      * @since       1.0.3
      */
 
-    if (! defined('ABSPATH')) {
+    if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
 
-    class FS_Site extends FS_Scope_Entity
-    {
+    class FS_Site extends FS_Scope_Entity {
         /**
          * @var number
          */
@@ -103,25 +102,31 @@
          * @var bool
          */
         public $is_uninstalled = false;
+        /**
+         * @author Edgar Melkonyan
+         *
+         * @since 2.4.2
+         *
+         * @var bool
+         */
+        public $is_beta;
 
         /**
          * @param stdClass|bool $site
          */
-        public function __construct($site = false)
-        {
-            parent::__construct($site);
+        function __construct( $site = false ) {
+            parent::__construct( $site );
 
-            if (is_object($site)) {
+            if ( is_object( $site ) ) {
                 $this->plan_id = $site->plan_id;
             }
 
-            if (! is_bool($this->is_disconnected)) {
+            if ( ! is_bool( $this->is_disconnected ) ) {
                 $this->is_disconnected = false;
             }
         }
 
-        public static function get_type()
-        {
+        static function get_type() {
             return 'install';
         }
 
@@ -133,63 +138,64 @@
          *
          * @return bool
          */
-        public static function is_localhost_by_address($url)
-        {
-            if (false !== strpos($url, '127.0.0.1') ||
-                 false !== strpos($url, 'localhost')
+        static function is_localhost_by_address( $url ) {
+            if ( false !== strpos( $url, '127.0.0.1' ) ||
+                 false !== strpos( $url, 'localhost' )
             ) {
                 return true;
             }
 
-            if (! fs_starts_with($url, 'http')) {
+            if ( ! fs_starts_with( $url, 'http' ) ) {
                 $url = 'http://' . $url;
             }
 
-            $url_parts = parse_url($url);
+            $url_parts = parse_url( $url );
 
             $subdomain = $url_parts['host'];
 
             return (
                 // Starts with.
-                fs_starts_with($subdomain, 'local.') ||
-                fs_starts_with($subdomain, 'dev.') ||
-                fs_starts_with($subdomain, 'test.') ||
-                fs_starts_with($subdomain, 'stage.') ||
-                fs_starts_with($subdomain, 'staging.') ||
+                fs_starts_with( $subdomain, 'local.' ) ||
+                fs_starts_with( $subdomain, 'dev.' ) ||
+                fs_starts_with( $subdomain, 'test.' ) ||
+                fs_starts_with( $subdomain, 'stage.' ) ||
+                fs_starts_with( $subdomain, 'staging.' ) ||
 
                 // Ends with.
-                fs_ends_with($subdomain, '.dev') ||
-                fs_ends_with($subdomain, '.test') ||
-                fs_ends_with($subdomain, '.staging') ||
-                fs_ends_with($subdomain, '.local') ||
-                fs_ends_with($subdomain, '.example') ||
-                fs_ends_with($subdomain, '.invalid') ||
+                fs_ends_with( $subdomain, '.dev' ) ||
+                fs_ends_with( $subdomain, '.test' ) ||
+                fs_ends_with( $subdomain, '.staging' ) ||
+                fs_ends_with( $subdomain, '.local' ) ||
+                fs_ends_with( $subdomain, '.example' ) ||
+                fs_ends_with( $subdomain, '.invalid' ) ||
                 // GoDaddy test/dev.
-                fs_ends_with($subdomain, '.myftpupload.com') ||
+                fs_ends_with( $subdomain, '.myftpupload.com' ) ||
                 // ngrok tunneling.
-                fs_ends_with($subdomain, '.ngrok.io') ||
+                fs_ends_with( $subdomain, '.ngrok.io' ) ||
                 // wpsandbox.
-                fs_ends_with($subdomain, '.wpsandbox.pro') ||
+                fs_ends_with( $subdomain, '.wpsandbox.pro' ) ||
                 // SiteGround staging.
-                fs_starts_with($subdomain, 'staging') ||
+                fs_starts_with( $subdomain, 'staging' ) ||
                 // WPEngine staging.
-                fs_ends_with($subdomain, '.staging.wpengine.com') ||
-                fs_ends_with($subdomain, '.dev.wpengine.com') ||
+                fs_ends_with( $subdomain, '.staging.wpengine.com' ) ||
+                fs_ends_with( $subdomain, '.dev.wpengine.com' ) ||
+                fs_ends_with( $subdomain, '.wpengine.com' ) ||
                 // Pantheon
-                (fs_ends_with($subdomain, 'pantheonsite.io') &&
-                  (fs_starts_with($subdomain, 'test-') || fs_starts_with($subdomain, 'dev-'))) ||
+                ( fs_ends_with( $subdomain, 'pantheonsite.io' ) &&
+                  ( fs_starts_with( $subdomain, 'test-' ) || fs_starts_with( $subdomain, 'dev-' ) ) ) ||
                 // Cloudways
-                fs_ends_with($subdomain, '.cloudwaysapps.com') ||
+                fs_ends_with( $subdomain, '.cloudwaysapps.com' ) ||
                 // Kinsta
-                (fs_starts_with($subdomain, 'staging-') && (fs_ends_with($subdomain, '.kinsta.com') || fs_ends_with($subdomain, '.kinsta.cloud'))) ||
+                ( fs_starts_with( $subdomain, 'staging-' ) && ( fs_ends_with( $subdomain, '.kinsta.com' ) || fs_ends_with( $subdomain, '.kinsta.cloud' ) ) ) ||
                 // DesktopServer
-                fs_ends_with($subdomain, '.dev.cc')
+                fs_ends_with( $subdomain, '.dev.cc' ) ||
+                // Pressable
+                fs_ends_with( $subdomain, '.mystagingwebsite.com' )
             );
         }
 
-        public function is_localhost()
-        {
-            return (WP_FS__IS_LOCALHOST_FOR_SERVER || self::is_localhost_by_address($this->url));
+        function is_localhost() {
+            return ( WP_FS__IS_LOCALHOST_FOR_SERVER || self::is_localhost_by_address( $this->url ) );
         }
 
         /**
@@ -200,9 +206,8 @@
          *
          * @return bool
          */
-        public function is_trial()
-        {
-            return is_numeric($this->trial_plan_id) && (strtotime($this->trial_ends) > WP_FS__SCRIPT_START_TIME);
+        function is_trial() {
+            return is_numeric( $this->trial_plan_id ) && ( strtotime( $this->trial_ends ) > WP_FS__SCRIPT_START_TIME );
         }
 
         /**
@@ -213,9 +218,8 @@
          *
          * @return bool
          */
-        public function is_trial_utilized()
-        {
-            return is_numeric($this->trial_plan_id);
+        function is_trial_utilized() {
+            return is_numeric( $this->trial_plan_id );
         }
 
         /**
@@ -224,9 +228,8 @@
          *
          * @return bool
          */
-        public function is_tracking_allowed()
-        {
-            return (true !== $this->is_disconnected);
+        function is_tracking_allowed() {
+            return ( true !== $this->is_disconnected );
         }
 
         /**
@@ -235,8 +238,16 @@
          *
          * @return bool
          */
-        public function is_tracking_prohibited()
-        {
+        function is_tracking_prohibited() {
             return ! $this->is_tracking_allowed();
+        }
+
+        /**
+         * @author Edgar Melkonyan
+         *
+         * @return bool
+         */
+        function is_beta() {
+            return ( isset( $this->is_beta ) && true === $this->is_beta );
         }
     }

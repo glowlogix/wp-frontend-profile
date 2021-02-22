@@ -1,21 +1,21 @@
 <?php
-    /**
-     * @package     Freemius
-     * @copyright   Copyright (c) 2015, Freemius, Inc.
-     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-     * @since       1.2.2.7
-     */
+	/**
+	 * @package     Freemius
+	 * @copyright   Copyright (c) 2015, Freemius, Inc.
+	 * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+	 * @since       1.2.2.7
+	 */
 
-    if (! defined('ABSPATH')) {
-        exit;
-    }
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	}
 
-    /**
-     * @var array    $VARS
-     * @var Freemius $fs
-     */
-    $fs   = freemius($VARS['id']);
-    $slug = $fs->get_slug();
+	/**
+	 * @var array    $VARS
+	 * @var Freemius $fs
+	 */
+	$fs   = freemius( $VARS['id'] );
+	$slug = $fs->get_slug();
 ?>
 <script type="text/javascript">
 	(function ($) {
@@ -46,8 +46,8 @@
 
 					$.ajax({
 						url        : ajaxurl + '?' + $.param({
-							action   : '<?php echo $fs->get_ajax_action('store_tabs') ?>',
-							security : '<?php echo $fs->get_ajax_security('store_tabs') ?>',
+							action   : '<?php echo $fs->get_ajax_action( 'store_tabs' ) ?>',
+							security : '<?php echo $fs->get_ajax_security( 'store_tabs' ) ?>',
 							module_id: '<?php echo $fs->get_id() ?>'
 						}),
 						method     : 'POST',
