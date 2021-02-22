@@ -6,11 +6,12 @@
      * @since       1.0.9
      */
 
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
-    class FS_Subscription extends FS_Entity {
+    class FS_Subscription extends FS_Entity
+    {
 
         #region Properties
 
@@ -86,11 +87,13 @@
         /**
          * @param object|bool $subscription
          */
-        function __construct( $subscription = false ) {
-            parent::__construct( $subscription );
+        public function __construct($subscription = false)
+        {
+            parent::__construct($subscription);
         }
 
-        static function get_type() {
+        public static function get_type()
+        {
             return 'subscription';
         }
 
@@ -102,14 +105,15 @@
          *
          * @return bool
          */
-        function is_active() {
-            if ( $this->is_canceled() ) {
+        public function is_active()
+        {
+            if ($this->is_canceled()) {
                 return false;
             }
 
             return (
-                ! empty( $this->next_payment ) &&
-                strtotime( $this->next_payment ) > WP_FS__SCRIPT_START_TIME
+                ! empty($this->next_payment) &&
+                strtotime($this->next_payment) > WP_FS__SCRIPT_START_TIME
             );
         }
 
@@ -119,8 +123,9 @@
          *
          * @return bool
          */
-        function is_canceled() {
-            return ! is_null( $this->canceled_at );
+        public function is_canceled()
+        {
+            return ! is_null($this->canceled_at);
         }
 
         /**
@@ -133,15 +138,17 @@
          *
          * @return bool
          */
-        function is_first_payment_pending() {
-            return ( WP_FS__TIME_24_HOURS_IN_SEC >= strtotime( $this->next_payment ) - strtotime( $this->created ) );
+        public function is_first_payment_pending()
+        {
+            return (WP_FS__TIME_24_HOURS_IN_SEC >= strtotime($this->next_payment) - strtotime($this->created));
         }
 
         /**
          * @author Vova Feldman (@svovaf)
          * @since  1.1.7
          */
-        function has_trial() {
-            return ! is_null( $this->trial_ends );
+        public function has_trial()
+        {
+            return ! is_null($this->trial_ends);
         }
     }
