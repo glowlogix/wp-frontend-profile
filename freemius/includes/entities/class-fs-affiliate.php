@@ -1,16 +1,17 @@
 <?php
-	/**
-	 * @package     Freemius
-	 * @copyright   Copyright (c) 2015, Freemius, Inc.
-	 * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-	 * @since       1.2.3
-	 */
+    /**
+     * @package     Freemius
+     * @copyright   Copyright (c) 2015, Freemius, Inc.
+     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+     * @since       1.2.3
+     */
 
-	if ( ! defined( 'ABSPATH' ) ) {
-		exit;
-	}
+    if (! defined('ABSPATH')) {
+        exit;
+    }
 
-	class FS_Affiliate extends FS_Scope_Entity {
+    class FS_Affiliate extends FS_Scope_Entity
+    {
 
         #region Properties
 
@@ -42,8 +43,9 @@
          *
          * @return bool
          */
-        function is_active() {
-            return ( 'active' === $this->status );
+        public function is_active()
+        {
+            return ('active' === $this->status);
         }
 
         /**
@@ -51,8 +53,9 @@
          *
          * @return bool
          */
-        function is_pending() {
-            return ( 'pending' === $this->status );
+        public function is_pending()
+        {
+            return ('pending' === $this->status);
         }
 
         /**
@@ -60,8 +63,9 @@
          *
          * @return bool
          */
-        function is_suspended() {
-            return ( 'suspended' === $this->status );
+        public function is_suspended()
+        {
+            return ('suspended' === $this->status);
         }
 
         /**
@@ -69,8 +73,9 @@
          *
          * @return bool
          */
-        function is_rejected() {
-            return ( 'rejected' === $this->status );
+        public function is_rejected()
+        {
+            return ('rejected' === $this->status);
         }
 
         /**
@@ -78,7 +83,8 @@
          *
          * @return bool
          */
-        function is_blocked() {
-            return ( 'blocked' === $this->status );
+        public function is_blocked()
+        {
+            return ('blocked' === $this->status);
         }
-	}
+    }
