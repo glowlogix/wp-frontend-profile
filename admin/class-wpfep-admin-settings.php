@@ -1,4 +1,5 @@
 <?php
+
 /**
  * All setting fields of plugin.
  */
@@ -42,7 +43,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
          */
         public function __construct()
         {
-            require_once dirname(dirname(__FILE__)).'/admin/class-wpfep-settings-api.php';
+            require_once dirname(dirname(__FILE__)) . '/admin/class-wpfep-settings-api.php';
             $this->settings_api = new WPFEP_Settings_API();
             add_action('admin_menu', [$this, 'admin_menu']);
             add_action('admin_init', [$this, 'admin_init']);
@@ -72,7 +73,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
             foreach ($all_roles as $key => $value) {
                 $user_roles[$key] = $value['name'];
             }
-            $radio_options = ['none'=>'--select--', 'auto_login' => 'Auto login after registration', 'activate_mail' => 'Send account activation email to registered users'];
+            $radio_options = ['none' => '--select--', 'auto_login' => 'Auto login after registration', 'activate_mail' => 'Send account activation email to registered users'];
             $settings_fields = [
                 'wpfep_profile'             => apply_filters(
                     'wpfep_options_profile',
@@ -96,6 +97,13 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                             'desc'    => __('If enabled, Admin can manually approve and deny users from backend.', 'wp-front-end-profile'),
                             'type'    => 'checkbox',
                             'default' => 'on',
+                        ],
+                        [
+                            'name'    => 'hide_fields',
+                            'label'   => __('Hide fields ', 'wp-front-end-profile'),
+                            'desc'    => __('If enabled, "Website and Biographical Info Fields" will be disable on profile edit. ', 'wp-front-end-profile'),
+                            'type'    => 'checkbox',
+                            'default' => 'off',
                         ],
                         [
                             'name'    => 'admin_profile_edit',
@@ -337,21 +345,21 @@ if (!class_exists('WPFEP_Admin_Settings')) {
          */
         public function plugin_page()
         {
-            ?>
-			<div class="wrap">
-				<h2><?php esc_html_e('Settings', 'wp-front-end-profile'); ?></h2>
-				<div class="wpfep-settings-wrap">
-					<div class="metabox-holder">
-						<form method="post" action="options.php">
-							<?php
+?>
+            <div class="wrap">
+                <h2><?php esc_html_e('Settings', 'wp-front-end-profile'); ?></h2>
+                <div class="wpfep-settings-wrap">
+                    <div class="metabox-holder">
+                        <form method="post" action="options.php">
+                            <?php
                             settings_errors();
-            $this->settings_api->show_navigation();
-            $this->settings_api->show_forms(); ?>
-						</form>
-			</div>
-				</div>
-			</div>
-			<?php
+                            $this->settings_api->show_navigation();
+                            $this->settings_api->show_forms(); ?>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php
         }
 
         /**
@@ -362,42 +370,42 @@ if (!class_exists('WPFEP_Admin_Settings')) {
             $confirmation_message = __('Are you Sure?', 'wp-front-end-profile');
 
             if (wp_verify_nonce(isset($_GET['wpfep_delete_settings']) && 1 === $_GET['wpfep_delete_settings'])) {
-                ?>
-				<div class="updated updated_wpfep">
-					<p>
-						<?php esc_html_e('Settings has been cleared!', 'wp-front-end-profile'); ?>
-					</p>
-				</div>
+            ?>
+                <div class="updated updated_wpfep">
+                    <p>
+                        <?php esc_html_e('Settings has been cleared!', 'wp-front-end-profile'); ?>
+                    </p>
+                </div>
 
-			<?php
+            <?php
             } ?>
 
-			<div class="wrap">
-				<h2>Tools</h2>
-				<div class="metabox-holder">
-					<div class="postbox">
-						<h3><?php esc_html_e('Page Installation', 'wp-front-end-profile'); ?></h3>
+            <div class="wrap">
+                <h2>Tools</h2>
+                <div class="metabox-holder">
+                    <div class="postbox">
+                        <h3><?php esc_html_e('Page Installation', 'wp-front-end-profile'); ?></h3>
 
-						<div class="inside">
-							<p><?php esc_html_e('Clicking this button will create required pages for the plugin. Note: It\'ll not delete/replace existing pages.', 'wp-front-end-profile'); ?></p>
-							<a class="button button-primary" href="<?php echo esc_url(add_query_arg(['install_wpfep_pages' => true])); ?>"><?php esc_html_e('Create Pages', 'wp-front-end-profile'); ?></a>
-						</div>
-					</div>
+                        <div class="inside">
+                            <p><?php esc_html_e('Clicking this button will create required pages for the plugin. Note: It\'ll not delete/replace existing pages.', 'wp-front-end-profile'); ?></p>
+                            <a class="button button-primary" href="<?php echo esc_url(add_query_arg(['install_wpfep_pages' => true])); ?>"><?php esc_html_e('Create Pages', 'wp-front-end-profile'); ?></a>
+                        </div>
+                    </div>
 
-					<div class="postbox">
-						<h3><?php esc_html_e('Reset Settings', 'wp-front-end-profile'); ?></h3>
+                    <div class="postbox">
+                        <h3><?php esc_html_e('Reset Settings', 'wp-front-end-profile'); ?></h3>
 
-						<div class="inside">
-							<p>
-								<strong><?php esc_html_e('Caution:', 'wp-front-end-profile'); ?></strong>
-								<?php esc_html_e('This tool will delete all the plugin settings of WP Frontend Profile', 'wp-front-end-profile'); ?>
-							</p>
-							<a class="button button-primary" href="<?php echo esc_url(add_query_arg(['wpfep_delete_settings' => 1])); ?>" onclick="return confirm('Are you sure?');"><?php esc_html_e('Reset Settings', 'wp-front-end-profile'); ?></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<?php
+                        <div class="inside">
+                            <p>
+                                <strong><?php esc_html_e('Caution:', 'wp-front-end-profile'); ?></strong>
+                                <?php esc_html_e('This tool will delete all the plugin settings of WP Frontend Profile', 'wp-front-end-profile'); ?>
+                            </p>
+                            <a class="button button-primary" href="<?php echo esc_url(add_query_arg(['wpfep_delete_settings' => 1])); ?>" onclick="return confirm('Are you sure?');"><?php esc_html_e('Reset Settings', 'wp-front-end-profile'); ?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<?php
         }
 
         /**
