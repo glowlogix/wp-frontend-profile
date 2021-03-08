@@ -45,10 +45,10 @@ if ($VARS['is_license_deactivation']) {
 
     $subscription_cancellation_text .= sprintf(
         fs_text_inline(
-        'In case you are NOT planning on using this %s on this site (or any other site) - would you like to cancel the %s as well?',
-        'cancel-subscription-message',
-        $slug
-    ),
+            'In case you are NOT planning on using this %s on this site (or any other site) - would you like to cancel the %s as well?',
+            'cancel-subscription-message',
+            $slug
+        ),
         ($VARS['is_license_deactivation'] ? fs_text_inline('license', 'license', $slug) : $module_label),
         $subscription_cancellation_context
     );

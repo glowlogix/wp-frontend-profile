@@ -322,10 +322,10 @@
                                                 $plan->title,
                                                 human_time_diff(time(), strtotime($license->expiration))
                                             )) ?> <?php if (! $license->is_block_features) {
-                                                               echo esc_attr(sprintf($after_downgrade_non_blocking_text, $plan->title, $fs->get_module_label(true)));
-                                                           } else {
-                                                               echo esc_attr(sprintf($after_downgrade_blocking_text, $plan->title));
-                                                           }?> <?php echo esc_attr($prices_increase_text) ?> <?php fs_esc_attr_echo_inline('Are you sure you want to proceed?', 'proceed-confirmation', $slug) ?>') ) this.parentNode.submit(); return false;"><i class="dashicons dashicons-download"></i> <?php echo esc_html($fs->is_only_premium() ? fs_text_inline('Cancel Subscription', 'cancel-subscription', $slug) : $downgrade_text) ?></a>
+                                                echo esc_attr(sprintf($after_downgrade_non_blocking_text, $plan->title, $fs->get_module_label(true)));
+                                            } else {
+                                                echo esc_attr(sprintf($after_downgrade_blocking_text, $plan->title));
+                                            }?> <?php echo esc_attr($prices_increase_text) ?> <?php fs_esc_attr_echo_inline('Are you sure you want to proceed?', 'proceed-confirmation', $slug) ?>') ) this.parentNode.submit(); return false;"><i class="dashicons dashicons-download"></i> <?php echo esc_html($fs->is_only_premium() ? fs_text_inline('Cancel Subscription', 'cancel-subscription', $slug) : $downgrade_text) ?></a>
                                                     </form>
                                                 </li>
                                                 <li>&nbsp;&bull;&nbsp;</li>

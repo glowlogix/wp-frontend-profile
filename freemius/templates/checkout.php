@@ -303,13 +303,13 @@
                             array(
                             'activation_url' => fs_nonce_url(
                                 $fs->_get_admin_page_url(
-                                '',
-                                array(
+                                    '',
+                                    array(
                                     'fs_action' => $fs->get_unique_affix() . '_activate_new',
                                     'plugin_id' => $plugin_id,
 
                                 )
-                            ),
+                                ),
                                 $fs->get_unique_affix() . '_activate_new'
                             )
                         )
