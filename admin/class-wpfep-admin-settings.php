@@ -345,7 +345,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
          */
         public function plugin_page()
         {
-            ?>
+?>
             <div class="wrap">
                 <h2><?php esc_html_e('Settings', 'wp-front-end-profile'); ?></h2>
                 <div class="wpfep-settings-wrap">
@@ -353,8 +353,8 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                         <form method="post" action="options.php">
                             <?php
                             settings_errors();
-            $this->settings_api->show_navigation();
-            $this->settings_api->show_forms(); ?>
+                            $this->settings_api->show_navigation();
+                            $this->settings_api->show_forms(); ?>
                         </form>
                     </div>
                 </div>
@@ -370,7 +370,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
             $confirmation_message = __('Are you Sure?', 'wp-front-end-profile');
 
             if (wp_verify_nonce(isset($_GET['wpfep_delete_settings']) && 1 === $_GET['wpfep_delete_settings'])) {
-                ?>
+            ?>
                 <div class="updated updated_wpfep">
                     <p>
                         <?php esc_html_e('Settings has been cleared!', 'wp-front-end-profile'); ?>
