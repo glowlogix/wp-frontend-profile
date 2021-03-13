@@ -80,46 +80,46 @@ function wpfep_default_tab_content($tab)
             /* start a counter */
             $counter = 1;
 
-            /* get the total number of fields in the array */
-            $total_fields = count($fields);
+        /* get the total number of fields in the array */
+        $total_fields = count($fields);
 
-            /* lets loop through our fields array */
-            foreach ($fields as $field) {
+        /* lets loop through our fields array */
+        foreach ($fields as $field) {
 
                 /* set a base counting class */
-                $count_class = ' wpfep-' . $field['type'] . '-field wpfep-field-' . $counter;
+            $count_class = ' wpfep-' . $field['type'] . '-field wpfep-field-' . $counter;
 
-                /* build our counter class - check if the counter is 1 */
-                if (1 === $counter) {
+            /* build our counter class - check if the counter is 1 */
+            if (1 === $counter) {
 
                     /* this is the first field element */
-                    $counting_class = $count_class . ' first';
+                $counting_class = $count_class . ' first';
 
-                    /* is the counter equal to the total number of fields */
-                } elseif ($counter === $total_fields) {
+            /* is the counter equal to the total number of fields */
+            } elseif ($counter === $total_fields) {
 
                     /* this is the last field element */
-                    $counting_class = $count_class . ' last';
+                $counting_class = $count_class . ' last';
 
-                    /* if not first or last */
-                } else {
+            /* if not first or last */
+            } else {
 
                     /* set to base count class only */
-                    $counting_class = $count_class;
-                }
+                $counting_class = $count_class;
+            }
 
-                /* build a var for classes to add to the wrapper */
-                $classes = (empty($field['classes'])) ? '' : ' ' . $field['classes'];
+            /* build a var for classes to add to the wrapper */
+            $classes = (empty($field['classes'])) ? '' : ' ' . $field['classes'];
 
-                /* build ful classes array */
-                $classes = $counting_class . $classes;
+            /* build ful classes array */
+            $classes = $counting_class . $classes;
 
-                /* output the field */
-                wpfep_field($field, $classes, $tab['id'], get_current_user_id());
+            /* output the field */
+            wpfep_field($field, $classes, $tab['id'], get_current_user_id());
 
-                /* increment the counter */
-                $counter++;
-            } // end for each field
+            /* increment the counter */
+            $counter++;
+        } // end for each field
 
             /* output a closing wrapper div */
             ?>
@@ -192,27 +192,27 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
             ]
         );
 
-        /* if the current field id is in the reserved list */
-        if (in_array($field['id'], $reserved_ids)) {
-            $userdata = get_userdata($user_id);
-            $current_field_value = $userdata->{$field['id']};
-            /* not a reserved id, but is a taxonomy */
-        } elseif (isset($field['taxonomy'])) {
-            $terms = wp_get_object_terms($user_id, $field['taxonomy']);
-            $current_field_value = [];
-            foreach ($terms as $term) {
-                if ($field['type'] == 'checkboxes' || $field['type'] == 'select multiple') {
-                    $current_field_value[] = $term->slug;
-                } else {
-                    $current_field_value = $term->slug;
-                }
+    /* if the current field id is in the reserved list */
+    if (in_array($field['id'], $reserved_ids)) {
+        $userdata = get_userdata($user_id);
+        $current_field_value = $userdata->{$field['id']};
+    /* not a reserved id, but is a taxonomy */
+    } elseif (isset($field['taxonomy'])) {
+        $terms = wp_get_object_terms($user_id, $field['taxonomy']);
+        $current_field_value = [];
+        foreach ($terms as $term) {
+            if ($field['type'] == 'checkboxes' || $field['type'] == 'select multiple') {
+                $current_field_value[] = $term->slug;
+            } else {
+                $current_field_value = $term->slug;
             }
-            /* not a reserved id - treat normally */
-        } else {
-            /* get the current value */
-            $current_field_value = get_user_meta(get_current_user_id(), $field['id'], true);
         }
-        /* output the input label */ ?>
+        /* not a reserved id - treat normally */
+    } else {
+        /* get the current value */
+        $current_field_value = get_user_meta(get_current_user_id(), $field['id'], true);
+    }
+    /* output the input label */ ?>
         <label for="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]"><?php echo esc_html($field['label']); ?></label>
         <?php
 
@@ -249,7 +249,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
                     /* loop through each option */
                     foreach ($options as $option) {
-                    ?>
+                        ?>
                         <option value="<?php echo esc_attr($option['value']); ?>" <?php selected($current_field_value, $option['value']); ?>><?php echo esc_html($option['name']); ?></option>
                     <?php
                     }
@@ -268,7 +268,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
                     /* loop through each option */
                     foreach ($options as $option) {
-                    ?>
+                        ?>
                         <option value="<?php echo esc_attr($option['value']); ?>" <?php selected(true, in_array($option['value'], $current_field_value)); ?>><?php echo esc_html($option['name']); ?></option>
                     <?php
                     }
@@ -284,7 +284,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
                 /* loop through each option */
                 foreach ($options as $option) {
-                ?>
+                    ?>
                     <div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>" <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
                 <?php
                 }
@@ -312,7 +312,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 <?php
                 /* loop through each option */
                 foreach ($options as $option) {
-                ?>
+                    ?>
 
                     <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value'] ?>" <?php checked($current_field_value, $option['value']); ?> />
                 <?php
@@ -331,7 +331,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
                 /* loop through each option */
                 foreach ($options as $option) {
-                ?>
+                    ?>
                     <div class="checkbox-wrapper"><label><input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" value="<?php echo esc_attr($option['value']); ?>" <?php checked(true, in_array($option['value'], $current_field_value)); ?>> <?php echo esc_html($option['name']); ?></label></div>
                 <?php
                 }
@@ -367,12 +367,12 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 
         }
 
-        /* if we have a description lets output it */
-        if ($field['desc']) {
-            ?>
+    /* if we have a description lets output it */
+    if ($field['desc']) {
+        ?>
             <p class="description"><?php echo esc_html($field['desc']); ?></p>
         <?php
-        } // end if have description
+    } // end if have description
 
         ?>
     </div>
@@ -645,7 +645,7 @@ function wpfep_format_decimal($number, $dp = false, $trim_zeros = false)
     if (false !== $dp) {
         $dp = intval('' === $dp ? wpfep_get_decimal_separator() : $dp);
         $number = number_format(floatval($number), $dp, '.', '');
-        // DP is false - don't use number format, just return a string in our format.
+    // DP is false - don't use number format, just return a string in our format.
     } elseif (is_float($number)) {
         // DP is false - don't use number format, just return a string using whatever is given. Remove scientific notation using sprintf.
         $number = str_replace($decimals, '.', sprintf('%.' . wpfep_get_rounding_precision() . 'f', $number));
@@ -745,16 +745,16 @@ function wpfep_show_profile()
             []
         );
 
-        /**
-         * Hook before tab content.
-         *
-         * @hook wpfep_before_tabs
-         * fires before the tabs list items are outputted
-         *
-         * @param (array) $tabs            is all the tabs that have been added
-         * @param (int)   $current_user_id the user if of the current user to add things targeted to a specific user only.
-         */
-        do_action('wpfep_before_tabs', $wpfep_tabs, get_current_user_id()); ?>
+    /**
+     * Hook before tab content.
+     *
+     * @hook wpfep_before_tabs
+     * fires before the tabs list items are outputted
+     *
+     * @param (array) $tabs            is all the tabs that have been added
+     * @param (int)   $current_user_id the user if of the current user to add things targeted to a specific user only.
+     */
+    do_action('wpfep_before_tabs', $wpfep_tabs, get_current_user_id()); ?>
         <ul class="wpfep-tabs" id="wpfep-tabs">
             <?php
             /**
@@ -769,39 +769,39 @@ function wpfep_show_profile()
                 'wpfep_tabs',
                 []
             );
-            /* check we have items to show */
-            if (!empty($wpfep_tabs)) {
-                /* loop through each item */
-                foreach ($wpfep_tabs as $wpfep_tab) {
-                    /* output the tab name as a tab */
-                    wpfep_tab_list_item($wpfep_tab);
-                }
-            } ?>
+    /* check we have items to show */
+    if (!empty($wpfep_tabs)) {
+        /* loop through each item */
+        foreach ($wpfep_tabs as $wpfep_tab) {
+            /* output the tab name as a tab */
+            wpfep_tab_list_item($wpfep_tab);
+        }
+    } ?>
         </ul><!-- // wpfep-tabs -->
         <?php
         global $wp;
-        /* loop through each item */
-        foreach ($wpfep_tabs as $wpfep_tab) {
+    /* loop through each item */
+    foreach ($wpfep_tabs as $wpfep_tab) {
 
             /* build the content class */
-            $content_class = '';
+        $content_class = '';
 
-            /* if we have a class provided */
-            if ('' != $wpfep_tab['content_class']) {
-                /* add the content class to our variable */
-                $content_class .= ' ' . $wpfep_tab['content_class'];
-            }
+        /* if we have a class provided */
+        if ('' != $wpfep_tab['content_class']) {
+            /* add the content class to our variable */
+            $content_class .= ' ' . $wpfep_tab['content_class'];
+        }
 
-            /**
-             * Hook before tab content.
-             *
-             * @hook wpfep_before_tab_content
-             * fires before the contents of the tab are outputted
-             *
-             * @param (string) $tab_id          the id of the tab being displayed. This can be used to target a particular tab.
-             * @param (int)    $current_user_id the user if of the current user to add things targeted to a specific user only.
-             */
-            do_action('wpfep_before_tab_content', $wpfep_tab['id'], get_current_user_id()); ?>
+        /**
+         * Hook before tab content.
+         *
+         * @hook wpfep_before_tab_content
+         * fires before the contents of the tab are outputted
+         *
+         * @param (string) $tab_id          the id of the tab being displayed. This can be used to target a particular tab.
+         * @param (int)    $current_user_id the user if of the current user to add things targeted to a specific user only.
+         */
+        do_action('wpfep_before_tab_content', $wpfep_tab['id'], get_current_user_id()); ?>
 
             <div class="tab-content<?php echo esc_attr($content_class); ?>" id="<?php echo esc_attr($wpfep_tab['id']); ?>">
                 <form method="post" action="<?php echo esc_attr(get_edit_profile_page()) . '#' . esc_attr($wpfep_tab['id']); ?>" class="wpfep-form-<?php echo esc_attr($wpfep_tab['id']); ?>">
@@ -833,7 +833,7 @@ function wpfep_show_profile()
              * @param (int)    $current_user_id the user if of the current user to add things targeted to a specific user only.
              */
             do_action('wpfep_after_tab_content', $wpfep_tab['id'], get_current_user_id());
-        } // end tabs loop
+    } // end tabs loop
         ?>
     </div><!-- // wpfep-wrapper -->
 <?php
