@@ -991,15 +991,3 @@ if ('on' == $manually_approve_user) {
     }
     add_action('load-users.php', 'update_action');
 }
-
-if (wpfep_get_option('hide_fields', 'wpfep_profile', 'on') == 'on') {
-?>
-    <style>
-        .user_url,
-        .description {
-            display: none;
-        }
-    </style>
-<?php
-
-}

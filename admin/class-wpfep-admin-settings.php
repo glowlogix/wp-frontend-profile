@@ -99,13 +99,6 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                             'default' => 'on',
                         ],
                         [
-                            'name'    => 'hide_fields',
-                            'label'   => __('Hide fields ', 'wp-front-end-profile'),
-                            'desc'    => __('If enabled, "Website and Biographical Info Fields" will be disable on profile edit. ', 'wp-front-end-profile'),
-                            'type'    => 'checkbox',
-                            'default' => 'off',
-                        ],
-                        [
                             'name'    => 'admin_profile_edit',
                             'label'   => __('Admin can edit profile', 'wp-front-end-profile'),
                             'desc'    => __('Allow administrators to edit their own profiles on the frontend.', 'wp-front-end-profile'),
