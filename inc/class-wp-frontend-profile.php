@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Main class for WP Frontend Profile.
  */
@@ -60,28 +61,29 @@ if (!class_exists('WP_Frontend_Profile')) {
          */
         public function includes()
         {
-            require_once WPFEP_PATH.'/functions/scripts.php';
-            require_once WPFEP_PATH.'/functions/default-fields.php';
-            require_once WPFEP_PATH.'/functions/tabs.php';
-            require_once WPFEP_PATH.'/functions/wpfep-functions.php';
-            require_once WPFEP_PATH.'/functions/save-fields.php';
-            require_once WPFEP_PATH.'/functions/shortcode.php';
-            require_once WPFEP_PATH.'/functions/feedback.php';
-            require_once WPFEP_PATH.'/inc/class-wpfep-user.php';
-            require_once WPFEP_PATH.'/inc/class-wpfep-roles-editor.php';
-            require_once WPFEP_PATH.'/inc/class-wpfep-login-widget.php';
+            require_once WPFEP_PATH . '/functions/scripts.php';
+            require_once WPFEP_PATH . '/functions/default-fields.php';
+            require_once WPFEP_PATH . '/functions/tabs.php';
+            require_once WPFEP_PATH . '/functions/wpfep-functions.php';
+            require_once WPFEP_PATH . '/functions/save-fields.php';
+            require_once WPFEP_PATH . '/functions/shortcode.php';
+            require_once WPFEP_PATH . '/functions/feedback.php';
+            require_once WPFEP_PATH . '/functions/wpfep-gutenberg-block.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-user.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-roles-editor.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-login-widget.php';
 
             if (is_admin()) {
-                require_once WPFEP_PATH.'/admin/class-wpfep-admin-installer.php';
-                require_once WPFEP_PATH.'/admin/class-wpfep-admin-settings.php';
-                require_once WPFEP_PATH.'/admin/class-wpfep-shortcodes-button.php';
-                require_once WPFEP_PATH.'/admin/class-wpfep-admin-help.php';
-                require_once WPFEP_PATH.'/admin/class-wpfep-system-status.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-admin-installer.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-admin-settings.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-shortcodes-button.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-admin-help.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-system-status.php';
             } else {
-                require_once WPFEP_PATH.'/inc/class-wpfep-registration.php';
-                require_once WPFEP_PATH.'/inc/class-wpfep-login.php';
-                require_once WPFEP_PATH.'/inc/class-wpfep-profile.php';
-                require_once WPFEP_PATH.'/inc/class-wpfep-captcha-recaptcha.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-registration.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-login.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-captcha-recaptcha.php';
             }
         }
 
@@ -109,7 +111,7 @@ if (!class_exists('WP_Frontend_Profile')) {
          */
         public function load_textdomain()
         {
-            load_plugin_textdomain('wp-front-end-profile', false, WPFEP_PATH.'/languages/');
+            load_plugin_textdomain('wp-front-end-profile', false, WPFEP_PATH . '/languages/');
         }
 
         /**

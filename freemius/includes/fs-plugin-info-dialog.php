@@ -1373,12 +1373,12 @@
                                     <strong><?php fs_esc_html_echo_inline('Downloaded', 'downloaded', $api->slug) ?>
                                         :</strong> <?php echo esc_html(sprintf(
                     (
-                                            (1 == $api->downloaded) ?
+                        (1 == $api->downloaded) ?
                                             /* translators: %s: 1 or One (Number of times downloaded) */
                                             fs_text_inline('%s time', 'x-time', $api->slug) :
                                             /* translators: %s: Number of times downloaded */
                                             fs_text_inline('%s times', 'x-times', $api->slug)
-                                        ),
+                    ),
                     number_format_i18n($api->downloaded)
                 )); ?>
                                 </li>
@@ -1423,15 +1423,15 @@
                     <small>(<?php echo esc_html(sprintf(
                         fs_text_inline('based on %s', 'based-on-x', $api->slug),
                         sprintf(
-                                (
+                            (
                                     (1 == $api->num_ratings) ?
                                     /* translators: %s: 1 or One */
                                     fs_text_inline('%s rating', 'x-rating', $api->slug) :
                                     /* translators: %s: Number larger than 1 */
                                     fs_text_inline('%s ratings', 'x-ratings', $api->slug)
                                 ),
-                                number_format_i18n($api->num_ratings)
-                            )
+                            number_format_i18n($api->num_ratings)
+                        )
                     )) ?>)
                     </small>
                     <?php
@@ -1443,12 +1443,12 @@
                     $_rating     = $api->num_ratings ? ($ratecount / $api->num_ratings) : 0;
                     $stars_label = sprintf(
                         (
-                                    (1 == $key) ?
+                            (1 == $key) ?
                                     /* translators: %s: 1 or One */
                                     fs_text_inline('%s star', 'x-star', $api->slug) :
                                     /* translators: %s: Number larger than 1 */
                                     fs_text_inline('%s stars', 'x-stars', $api->slug)
-                                ),
+                        ),
                         number_format_i18n($key)
                     ); ?>
                             <div class="counter-container">
@@ -1459,8 +1459,8 @@
                                 title="<?php echo esc_attr(sprintf(
                                   /* translators: %s: # of stars (e.g. 5 stars) */
                                   fs_text_inline('Click to see reviews that provided a rating of %s', 'click-to-reviews', $api->slug),
-                                $stars_label
-                            )) ?>"><?php echo $stars_label ?></a></span>
+                        $stars_label
+                    )) ?>"><?php echo $stars_label ?></a></span>
                                 <span class="counter-back">
                                 <span class="counter-bar" style="width: <?php echo absint(92 * $_rating); ?>px;"></span>
                               </span>
