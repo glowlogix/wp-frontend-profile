@@ -21,6 +21,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'desc'    => __('Edit your email address - used for resetting your password etc.', 'wp-front-end-profile'),
         'type'    => 'email',
         'classes' => 'user_email',
+        'disabled' => false,
     ];
 
     $fields[] = [
@@ -29,6 +30,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'desc'    => __('Edit your first name.', 'wp-front-end-profile'),
         'type'    => 'text',
         'classes' => 'first_name',
+        'disabled' => false,
     ];
 
     $fields[] = [
@@ -37,6 +39,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'desc'    => __('Edit your last name.', 'wp-front-end-profile'),
         'type'    => 'text',
         'classes' => 'last_name',
+        'disabled' => false,
     ];
 
     $fields[] = [
@@ -45,6 +48,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'desc'    => __('Edit your profile associated URL.', 'wp-front-end-profile'),
         'type'    => 'text',
         'classes' => 'user_url',
+        'disabled' => false,
     ];
 
     $fields[] = [
@@ -53,6 +57,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'desc'    => __('Edit your description/bio.', 'wp-front-end-profile'),
         'type'    => 'textarea',
         'classes' => 'description',
+        'disabled' => false,
     ];
 
     return $fields;

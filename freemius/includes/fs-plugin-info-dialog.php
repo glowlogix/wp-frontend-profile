@@ -1424,12 +1424,12 @@
                         fs_text_inline('based on %s', 'based-on-x', $api->slug),
                         sprintf(
                             (
-                                    (1 == $api->num_ratings) ?
+                                (1 == $api->num_ratings) ?
                                     /* translators: %s: 1 or One */
                                     fs_text_inline('%s rating', 'x-rating', $api->slug) :
                                     /* translators: %s: Number larger than 1 */
                                     fs_text_inline('%s ratings', 'x-ratings', $api->slug)
-                                ),
+                            ),
                             number_format_i18n($api->num_ratings)
                         )
                     )) ?>)
