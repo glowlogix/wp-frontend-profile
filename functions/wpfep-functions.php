@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Functions file.
  */
@@ -20,12 +21,12 @@ function wpfep_tab_list_item($tab)
     if (' ' !== $tab['tab_class']) {
 
         /* add the tab class to our variable */
-        $tab_class .= ' '.$tab['tab_class'];
+        $tab_class .= ' ' . $tab['tab_class'];
     } ?>
-	<li class="<?php echo esc_attr($tab_class); ?>">
-		<a href="#<?php echo esc_attr($tab['id']); ?>"><?php echo esc_html($tab['label']); ?></a>
-	</li>
-	<?php
+    <li class="<?php echo esc_attr($tab_class); ?>">
+        <a href="#<?php echo esc_attr($tab['id']); ?>"><?php echo esc_html($tab['label']); ?></a>
+    </li>
+    <?php
 }
 
 /**
@@ -62,7 +63,7 @@ function wpfep_default_tab_content($tab)
      * @param (integer) current user id - this can be used to add fields to certain users only
      */
     $fields = apply_filters(
-        'wpfep_fields_'.$tab['id'],
+        'wpfep_fields_' . $tab['id'],
         [],
         get_current_user_ID()
     );
@@ -72,12 +73,12 @@ function wpfep_default_tab_content($tab)
 
         /* output a wrapper div and form opener */ ?>
 
-			<div class="wpfep-fields">
+        <div class="wpfep-fields">
 
-				<?php
+            <?php
 
-                    /* start a counter */
-                    $counter = 1;
+            /* start a counter */
+            $counter = 1;
 
         /* get the total number of fields in the array */
         $total_fields = count($fields);
@@ -85,33 +86,33 @@ function wpfep_default_tab_content($tab)
         /* lets loop through our fields array */
         foreach ($fields as $field) {
 
-                        /* set a base counting class */
-            $count_class = ' wpfep-'.$field['type'].'-field wpfep-field-'.$counter;
+                /* set a base counting class */
+            $count_class = ' wpfep-' . $field['type'] . '-field wpfep-field-' . $counter;
 
             /* build our counter class - check if the counter is 1 */
             if (1 === $counter) {
 
-                            /* this is the first field element */
-                $counting_class = $count_class.' first';
+                    /* this is the first field element */
+                $counting_class = $count_class . ' first';
 
             /* is the counter equal to the total number of fields */
             } elseif ($counter === $total_fields) {
 
-                            /* this is the last field element */
-                $counting_class = $count_class.' last';
+                    /* this is the last field element */
+                $counting_class = $count_class . ' last';
 
             /* if not first or last */
             } else {
 
-                            /* set to base count class only */
+                    /* set to base count class only */
                 $counting_class = $count_class;
             }
 
             /* build a var for classes to add to the wrapper */
-            $classes = (empty($field['classes'])) ? '' : ' '.$field['classes'];
+            $classes = (empty($field['classes'])) ? '' : ' ' . $field['classes'];
 
             /* build ful classes array */
-            $classes = $counting_class.$classes;
+            $classes = $counting_class . $classes;
 
             /* output the field */
             wpfep_field($field, $classes, $tab['id'], get_current_user_id());
@@ -120,12 +121,12 @@ function wpfep_default_tab_content($tab)
             $counter++;
         } // end for each field
 
-                    /* output a closing wrapper div */
-                ?>
+            /* output a closing wrapper div */
+            ?>
 
-			</div>
+        </div>
 
-		<?php
+    <?php
     } // end if have fields.
 
     /**
@@ -178,18 +179,18 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
 {
     ?>
 
-	<div class="wpfep-field<?php echo esc_attr($classes); ?>" id="wpfep-field-<?php echo esc_attr($field['id']); ?>">
+    <div class="wpfep-field<?php echo esc_attr($classes); ?>" id="wpfep-field-<?php echo esc_attr($field['id']); ?>">
 
-		<?php
+        <?php
 
-            /* get the reserved meta ids */
-            $reserved_ids = apply_filters(
-                'wpfep_reserved_ids',
-                [
-                    'user_email',
-                    'user_url',
-                ]
-            );
+        /* get the reserved meta ids */
+        $reserved_ids = apply_filters(
+            'wpfep_reserved_ids',
+            [
+                'user_email',
+                'user_url',
+            ]
+        );
 
     /* if the current field id is in the reserved list */
     if (in_array($field['id'], $reserved_ids)) {
@@ -212,171 +213,171 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
         $current_field_value = get_user_meta(get_current_user_id(), $field['id'], true);
     }
     /* output the input label */ ?>
-		<label for="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]"><?php echo esc_html($field['label']); ?></label>
-			<?php
+        <label for="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]"><?php echo esc_html($field['label']); ?></label>
+        <?php
 
-            /* being a switch statement to alter the output depending on type */
-            switch ($field['type']) {
+        /* being a switch statement to alter the output depending on type */
+        switch ($field['type']) {
 
                 /* if this is a wysiwyg setting */
-                case 'wysiwyg':
-                    /* set some settings args for the editor */
-                    $editor_settings = [
-                        'textarea_rows' => apply_filters('wpfep_wysiwyg_textarea_rows', '5', $field['id']),
-                        'media_buttons' => apply_filters('wpfep_wysiwyg_media_buttons', false, $field['id']),
-                    ];
+            case 'wysiwyg':
+                /* set some settings args for the editor */
+                $editor_settings = [
+                    'textarea_rows' => apply_filters('wpfep_wysiwyg_textarea_rows', '5', $field['id']),
+                    'media_buttons' => apply_filters('wpfep_wysiwyg_media_buttons', false, $field['id']),
+                ];
 
-                    /* build field name. */
-                    $wysiwyg_name = $field['id'];
+                /* build field name. */
+                $wysiwyg_name = $field['id'];
 
-                    /* display the wysiwyg editor */
-                    wp_editor(
-                        $current_field_value, // default content.
-                        $wysiwyg_name, // id to give the editor element.
-                        $editor_settings // edit settings from above.
-                    );
+                /* display the wysiwyg editor */
+                wp_editor(
+                    $current_field_value, // default content.
+                    $wysiwyg_name, // id to give the editor element.
+                    $editor_settings // edit settings from above.
+                );
 
-                    break;
+                break;
 
                 /* if this should be rendered as a select input */
-                case 'select':
-                    ?>
-					<select name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>">
+            case 'select':
+        ?>
+                <select name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>">
 
-					<?php
+                    <?php
                     $options = wpfep_field_get_options($field);
 
                     /* loop through each option */
                     foreach ($options as $option) {
                         ?>
-						<option value="<?php echo esc_attr($option['value']); ?>" <?php selected($current_field_value, $option['value']); ?>><?php echo esc_html($option['name']); ?></option>
-						<?php
+                        <option value="<?php echo esc_attr($option['value']); ?>" <?php selected($current_field_value, $option['value']); ?>><?php echo esc_html($option['name']); ?></option>
+                    <?php
                     }
                     ?>
-					</select>
-					<?php
-                    break;
+                </select>
+            <?php
+                break;
 
                 /* if this should be rendered as a select input */
-                case 'select multiple':
-                    ?>
-					<select multiple name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" id="<?php echo esc_attr($field['id']); ?>">
-					<option>-</option>
-					<?php
+            case 'select multiple':
+            ?>
+                <select multiple name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" id="<?php echo esc_attr($field['id']); ?>">
+                    <option>-</option>
+                    <?php
                     $options = wpfep_field_get_options($field);
 
                     /* loop through each option */
                     foreach ($options as $option) {
                         ?>
-						<option value="<?php echo esc_attr($option['value']); ?>" <?php selected(true, in_array($option['value'], $current_field_value)); ?>><?php echo esc_html($option['name']); ?></option>
-						<?php
+                        <option value="<?php echo esc_attr($option['value']); ?>" <?php selected(true, in_array($option['value'], $current_field_value)); ?>><?php echo esc_html($option['name']); ?></option>
+                    <?php
                     }
                     ?>
-					</select>
-					<?php
+                </select>
+                <?php
 
-                    break;
+                break;
 
                 /* if this should be rendered as a set of radio buttons */
-                case 'radio':
-                    $options = wpfep_field_get_options($field);
+            case 'radio':
+                $options = wpfep_field_get_options($field);
 
-                    /* loop through each option */
-                    foreach ($options as $option) {
-                        ?>
-						<div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>"  <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
-						<?php
-                    }
+                /* loop through each option */
+                foreach ($options as $option) {
                     ?>
-					<?php
+                    <div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>" <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
+                <?php
+                }
+                ?>
+            <?php
 
-                    break;
+                break;
 
                 /* if the type is set to a textarea input */
-                case 'textarea':
-                    ?>
+            case 'textarea':
+            ?>
 
-					<textarea name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" rows="<?php echo absint(apply_filters('wpfep_textarea_rows', '5', $field['id'])); ?>" cols="50" id="<?php echo esc_attr($field['id']); ?>" class="regular-text"><?php echo esc_textarea($current_field_value); ?></textarea>
+                <textarea name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" rows="<?php echo absint(apply_filters('wpfep_textarea_rows', '5', $field['id'])); ?>" cols="50" id="<?php echo esc_attr($field['id']); ?>" class="regular-text"><?php echo esc_textarea($current_field_value); ?></textarea>
 
-					<?php
+            <?php
 
-                    /* break out of the switch statement */
-                    break;
+                /* break out of the switch statement */
+                break;
 
                 /* if the type is set to a checkbox */
-                case 'checkbox':
-                    $options = wpfep_field_get_options($field);
-                    ?>
-					<input type="hidden" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="0" <?php checked($current_field_value, '0'); ?> />
+            case 'checkbox':
+                $options = wpfep_field_get_options($field);
+            ?>
+                <input type="hidden" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="0" <?php checked($current_field_value, '0'); ?> />
                 <?php
-                    /* loop through each option */
-                    foreach ($options as $option) {
-                        ?>
+                /* loop through each option */
+                foreach ($options as $option) {
+                    ?>
 
-                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value']?>" <?php checked($current_field_value, $option['value']); ?> />
-					<?php
-                        echo $option['name'];
-                    }
+                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value'] ?>" <?php checked($current_field_value, $option['value']); ?> />
+                <?php
+                    echo $option['name'];
+                }
 
-                    /* break out of the switch statement */
-                    break;
+                /* break out of the switch statement */
+                break;
 
                 /* if this should be rendered as a set of radio buttons */
-                case 'checkboxes':
-                    ?>
-					<input type="hidden" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" value="-" />
-					<?php
-                    $options = wpfep_field_get_options($field);
+            case 'checkboxes':
+                ?>
+                <input type="hidden" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" value="-" />
+                <?php
+                $options = wpfep_field_get_options($field);
 
-                    /* loop through each option */
-                    foreach ($options as $option) {
-                        ?>
-						<div class="checkbox-wrapper"><label><input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" value="<?php echo esc_attr($option['value']); ?>" <?php checked(true, in_array($option['value'], $current_field_value)); ?>> <?php echo esc_html($option['name']); ?></label></div>
-						<?php
-                    }
+                /* loop through each option */
+                foreach ($options as $option) {
                     ?>
-					<?php
+                    <div class="checkbox-wrapper"><label><input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" value="<?php echo esc_attr($option['value']); ?>" <?php checked(true, in_array($option['value'], $current_field_value)); ?>> <?php echo esc_html($option['name']); ?></label></div>
+                <?php
+                }
+                ?>
+            <?php
 
-                    break;
+                break;
 
                 /* if the type is set to an email input */
-                case 'email':
-                    ?>
-					<input type="email" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" />
-					<?php
-                    /* break out of the switch statement */
-                    break;
+            case 'email':
+            ?>
+                <input type="email" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" />
+            <?php
+                /* break out of the switch statement */
+                break;
 
                 /* if the type is set to a password input */
-                case 'password':
-                    ?>
-					<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="" placeholder="<?php  echo __('New Password', 'wp-front-end-profile');?>" />
+            case 'password':
+            ?>
+                <input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="" placeholder="<?php echo __('New Password', 'wp-front-end-profile'); ?>" />
 
-					<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>_check]" id="<?php echo esc_attr($field['id']); ?>_check" class="regular-text" value="" placeholder=" <?php echo __('Repeat New Password', 'wp-front-end-profile');?>" />
+                <input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>_check]" id="<?php echo esc_attr($field['id']); ?>_check" class="regular-text" value="" placeholder=" <?php echo __('Repeat New Password', 'wp-front-end-profile'); ?>" />
 
-					<?php
+            <?php
 
-                    /* break out of the switch statement */
-                    break;
+                /* break out of the switch statement */
+                break;
                 /* any other type of input - treat as text input */
-                default:
-                    ?>
-					<input type="text" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" />
-					<?php
+            default:
+            ?>
+                <input type="text" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" />
+            <?php
 
-            }
+        }
 
     /* if we have a description lets output it */
     if ($field['desc']) {
         ?>
-				<p class="description"><?php echo esc_html($field['desc']); ?></p>
-				<?php
+            <p class="description"><?php echo esc_html($field['desc']); ?></p>
+        <?php
     } // end if have description
 
-            ?>
-	</div>
+        ?>
+    </div>
 
-	<?php
+<?php
 }
 
 /**
@@ -389,12 +390,12 @@ function wpfep_tab_content_save($tab, $user_id)
 {
     $profile_page = new WPFEP_Profile();
     $profile_page_obj = $profile_page->get_profile_url(); ?>
-	<div class="wpfep-save">
-		<label class="wpfep_save_description"><?php echo esc_html__('Save this tabs updated fields.', 'wp-front-end-profile'); ?></label>
-		<input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="<?php echo __('Update'); ?> <?php echo esc_attr__($tab['label']); ?>" />
-		<a class="btn" href="<?php echo esc_attr($profile_page_obj); ?>"><?php echo esc_html__('View Profile', 'wp-front-end-profile'); ?></a>
-	</div>
-	<?php
+    <div class="wpfep-save">
+        <label class="wpfep_save_description"><?php echo esc_html__('Save this tabs updated fields.', 'wp-front-end-profile'); ?></label>
+        <input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="<?php echo __('Update'); ?> <?php echo esc_attr__($tab['label']); ?>" />
+        <a class="btn" href="<?php echo esc_attr($profile_page_obj); ?>"><?php echo esc_html__('View Profile', 'wp-front-end-profile'); ?></a>
+    </div>
+<?php
 }
 
 add_action('wpfep_after_tab_fields', 'wpfep_tab_content_save', 10, 2);
@@ -477,16 +478,16 @@ function wpfep_get_pages($post_type = 'page')
  */
 function wpfep_load_template($file, $args = [])
 {
-    $child_theme_dir = get_stylesheet_directory().'/wpfep/';
-    $parent_theme_dir = get_template_directory().'/wpfep/';
-    $wpfep_dir = plugin_dir_path(__DIR__).'views/';
+    $child_theme_dir = get_stylesheet_directory() . '/wpfep/';
+    $parent_theme_dir = get_template_directory() . '/wpfep/';
+    $wpfep_dir = plugin_dir_path(__DIR__) . 'views/';
 
-    if (file_exists($child_theme_dir.$file)) {
-        include $child_theme_dir.$file;
-    } elseif (file_exists($parent_theme_dir.$file)) {
-        include $parent_theme_dir.$file;
+    if (file_exists($child_theme_dir . $file)) {
+        include $child_theme_dir . $file;
+    } elseif (file_exists($parent_theme_dir . $file)) {
+        include $parent_theme_dir . $file;
     } else {
-        include $wpfep_dir.$file;
+        include $wpfep_dir . $file;
     }
 }
 /**
@@ -577,10 +578,10 @@ function wpfep_send_feedback()
     if (isset($_POST['_wpnonce'])) {
         wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_feedback_action');
     }
-    $headers = 'Content-type: text/html;charset=utf-8'."\r\n";
+    $headers = 'Content-type: text/html;charset=utf-8' . "\r\n";
     $feedback = 'Feedback: <br>';
     $feedback .= isset($_POST['Feedback']) ? sanitize_text_field(wp_unslash($_POST['Feedback'])) : '';
-    $feedback .= '<br /><br /> site url: <a href='.site_url().'>'.site_url().'</a>';
+    $feedback .= '<br /><br /> site url: <a href=' . site_url() . '>' . site_url() . '</a>';
     $feedback .= '<br />Email Address: ';
     $feedback .= isset($_POST['EmailAddress']) ? sanitize_text_field(wp_unslash($_POST['EmailAddress'])) : '';
     wp_mail('support@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $feedback, $headers);
@@ -647,7 +648,7 @@ function wpfep_format_decimal($number, $dp = false, $trim_zeros = false)
     // DP is false - don't use number format, just return a string in our format.
     } elseif (is_float($number)) {
         // DP is false - don't use number format, just return a string using whatever is given. Remove scientific notation using sprintf.
-        $number = str_replace($decimals, '.', sprintf('%.'.wpfep_get_rounding_precision().'f', $number));
+        $number = str_replace($decimals, '.', sprintf('%.' . wpfep_get_rounding_precision() . 'f', $number));
         // We already had a float, so trailing zeros are not needed.
         $trim_zeros = true;
     }
@@ -736,13 +737,13 @@ function wpfep_show_profile()
         return ob_get_clean();
     }
     /* if you're an admin - too risky to allow frontend editing */ ?>
-	<div class="wpfep-wrapper">
-		<?php
-            /* get the tabs that have been added - see below */
-            $wpfep_tabs = apply_filters(
-                'wpfep_tabs',
-                []
-            );
+    <div class="wpfep-wrapper">
+        <?php
+        /* get the tabs that have been added - see below */
+        $wpfep_tabs = apply_filters(
+            'wpfep_tabs',
+            []
+        );
 
     /**
      * Hook before tab content.
@@ -754,20 +755,20 @@ function wpfep_show_profile()
      * @param (int)   $current_user_id the user if of the current user to add things targeted to a specific user only.
      */
     do_action('wpfep_before_tabs', $wpfep_tabs, get_current_user_id()); ?>
-		<ul class="wpfep-tabs" id="wpfep-tabs">
-			<?php
-                /**
-                 * Set an array of tab titles and ids
-                 * the id set here should match the id given to the content wrapper
-                 * which has the class tab-content included in the callback function.
-                 *
-                 * @hooked wpfep_add_profile_tab - 10
-                 * @hooked wpfep_add_password_tab - 20
-                 */
-                $wpfep_tabs = apply_filters(
-                    'wpfep_tabs',
-                    []
-                );
+        <ul class="wpfep-tabs" id="wpfep-tabs">
+            <?php
+            /**
+             * Set an array of tab titles and ids
+             * the id set here should match the id given to the content wrapper
+             * which has the class tab-content included in the callback function.
+             *
+             * @hooked wpfep_add_profile_tab - 10
+             * @hooked wpfep_add_password_tab - 20
+             */
+            $wpfep_tabs = apply_filters(
+                'wpfep_tabs',
+                []
+            );
     /* check we have items to show */
     if (!empty($wpfep_tabs)) {
         /* loop through each item */
@@ -776,9 +777,9 @@ function wpfep_show_profile()
             wpfep_tab_list_item($wpfep_tab);
         }
     } ?>
-		</ul><!-- // wpfep-tabs -->
-		<?php
-            global $wp;
+        </ul><!-- // wpfep-tabs -->
+        <?php
+        global $wp;
     /* loop through each item */
     foreach ($wpfep_tabs as $wpfep_tab) {
 
@@ -788,7 +789,7 @@ function wpfep_show_profile()
         /* if we have a class provided */
         if ('' != $wpfep_tab['content_class']) {
             /* add the content class to our variable */
-            $content_class .= ' '.$wpfep_tab['content_class'];
+            $content_class .= ' ' . $wpfep_tab['content_class'];
         }
 
         /**
@@ -802,10 +803,10 @@ function wpfep_show_profile()
          */
         do_action('wpfep_before_tab_content', $wpfep_tab['id'], get_current_user_id()); ?>
 
-			<div class="tab-content<?php echo esc_attr($content_class); ?>" id="<?php echo esc_attr($wpfep_tab['id']); ?>">
-				<form method="post" action="<?php echo esc_attr(get_edit_profile_page()).'#'.esc_attr($wpfep_tab['id']); ?>" class="wpfep-form-<?php echo esc_attr($wpfep_tab['id']); ?>">
-					<?php
-                        /* check if callback function exists */
+            <div class="tab-content<?php echo esc_attr($content_class); ?>" id="<?php echo esc_attr($wpfep_tab['id']); ?>">
+                <form method="post" action="<?php echo esc_attr(get_edit_profile_page()) . '#' . esc_attr($wpfep_tab['id']); ?>" class="wpfep-form-<?php echo esc_attr($wpfep_tab['id']); ?>">
+                    <?php
+                    /* check if callback function exists */
                     if (isset($wpfep_tab['callback']) && function_exists($wpfep_tab['callback'])) {
                         /* use custom callback function */
                         $wpfep_tab['callback']($wpfep_tab);
@@ -813,29 +814,29 @@ function wpfep_show_profile()
                         /* use default callback function */
                         wpfep_default_tab_content($wpfep_tab);
                     } ?>
-											
-					<?php
-                        wp_nonce_field(
+
+                    <?php
+                    wp_nonce_field(
                         'wpfep_nonce_action',
                         'wpfep_nonce_name'
                     ); ?>
-				</form>
-			</div>
-				<?php
-                /**
-                 * Get current user id.
-                 *
-                 * @hook wpfep_after_tab_content
-                 * fires after the contents of the tab are outputted
-                 *
-                 * @param (string) $tab_id          the id of the tab being displayed. This can be used to target a particular tab.
-                 * @param (int)    $current_user_id the user if of the current user to add things targeted to a specific user only.
-                 */
-                do_action('wpfep_after_tab_content', $wpfep_tab['id'], get_current_user_id());
+                </form>
+            </div>
+        <?php
+            /**
+             * Get current user id.
+             *
+             * @hook wpfep_after_tab_content
+             * fires after the contents of the tab are outputted
+             *
+             * @param (string) $tab_id          the id of the tab being displayed. This can be used to target a particular tab.
+             * @param (int)    $current_user_id the user if of the current user to add things targeted to a specific user only.
+             */
+            do_action('wpfep_after_tab_content', $wpfep_tab['id'], get_current_user_id());
     } // end tabs loop
         ?>
-	</div><!-- // wpfep-wrapper -->
-	<?php
+    </div><!-- // wpfep-wrapper -->
+<?php
 }
 
 /**
@@ -893,8 +894,8 @@ if ('on' == $manually_approve_user) {
         );
         $reject_link = remove_query_arg(['new_role'], $reject_link);
         $reject_link = wp_nonce_url($reject_link, 'new-user-approve');
-        $approve_action = '<a href="'.esc_url($approve_link).'">'.__('Approve', 'wp-front-end-profile').'</a>';
-        $deny_action = '<a href="'.esc_url($reject_link).'">'.__('Rejected', 'wp-front-end-profile').'</a>';
+        $approve_action = '<a href="' . esc_url($approve_link) . '">' . __('Approve', 'wp-front-end-profile') . '</a>';
+        $deny_action = '<a href="' . esc_url($reject_link) . '">' . __('Rejected', 'wp-front-end-profile') . '</a>';
         if ('pending' == $user_status) {
             $actions[] = $approve_action;
         } elseif ('approve' == $user_status) {
@@ -938,7 +939,7 @@ if ('on' == $manually_approve_user) {
      */
     function status_column($val_column, $column_name, $user)
     {
-        $status='';
+        $status = '';
 
         switch ($column_name) {
             case 'wpfep_user_status':
@@ -952,7 +953,7 @@ if ('on' == $manually_approve_user) {
                 }
 
                 return $status;
-            break;
+                break;
             default:
         }
 
@@ -973,17 +974,17 @@ if ('on' == $manually_approve_user) {
             if ('approve' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);
                 $subject = 'Approval notification';
-                $message .= 'Your account is approved by admin.'."\r\n\r\n";
-                $message .= 'Now you can log in to your account.'."\r\n\r\n";
-                $message .= 'Thank you'."\r\n\r\n";
+                $message .= 'Your account is approved by admin.' . "\r\n\r\n";
+                $message .= 'Now you can log in to your account.' . "\r\n\r\n";
+                $message .= 'Thank you' . "\r\n\r\n";
                 wp_mail($user_data->user_email, $subject, $message);
             }
             if ('rejected' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);
                 $subject = 'Denied notification';
-                $message .= 'Your account is denied by admin.'."\r\n\r\n";
-                $message .= 'Now you cannot Log In to your account.'."\r\n\r\n";
-                $message .= 'Thank you'."\r\n\r\n";
+                $message .= 'Your account is denied by admin.' . "\r\n\r\n";
+                $message .= 'Now you cannot Log In to your account.' . "\r\n\r\n";
+                $message .= 'Thank you' . "\r\n\r\n";
                 wp_mail($user_data->user_email, $subject, $message);
             }
         }

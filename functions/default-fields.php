@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Custom fiedls.
  */
@@ -50,7 +51,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'id'      => 'description',
         'label'   => __('Description/Bio', 'wp-front-end-profile'),
         'desc'    => __('Edit your description/bio.', 'wp-front-end-profile'),
-        'type'    => 'wysiwyg',
+        'type'    => 'textarea',
         'classes' => 'description',
     ];
 
