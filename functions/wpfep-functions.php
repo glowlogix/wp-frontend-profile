@@ -242,7 +242,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* if this should be rendered as a select input */
             case 'select':
         ?>
-                <select name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>">
+                <select name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?>>
 
                     <?php
                     $options = wpfep_field_get_options($field);
@@ -261,7 +261,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* if this should be rendered as a select input */
             case 'select multiple':
             ?>
-                <select multiple name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" id="<?php echo esc_attr($field['id']); ?>">
+                <select multiple name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>][]" id="<?php echo esc_attr($field['id']); ?>" <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?>>
                     <option>-</option>
                     <?php
                     $options = wpfep_field_get_options($field);
@@ -285,7 +285,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* loop through each option */
                 foreach ($options as $option) {
                 ?>
-                    <div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>" <?php checked($current_field_value, $option['value']); ?>> <?php echo esc_html($option['name']); ?></label></div>
+                    <div class="radio-wrapper"><label><input type="radio" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" value="<?php echo esc_attr($option['value']); ?>" <?php checked($current_field_value, $option['value']); ?> <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?>> <?php echo esc_html($option['name']); ?></label></div>
                 <?php
                 }
                 ?>
@@ -297,7 +297,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
             case 'textarea':
             ?>
 
-                <textarea name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" rows="<?php echo absint(apply_filters('wpfep_textarea_rows', '5', $field['id'])); ?>" cols="50" id="<?php echo esc_attr($field['id']); ?>" class="regular-text"><?php echo esc_textarea($current_field_value); ?></textarea>
+                <textarea name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" rows="<?php echo absint(apply_filters('wpfep_textarea_rows', '5', $field['id'])); ?>" cols="50" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?>><?php echo esc_textarea($current_field_value); ?></textarea>
 
             <?php
 
@@ -314,7 +314,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 foreach ($options as $option) {
                 ?>
 
-                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value'] ?>" <?php checked($current_field_value, $option['value']); ?> />
+                    <input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value'] ?>" <?php checked($current_field_value, $option['value']); ?> <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?> />
                 <?php
                     echo $option['name'];
                 }
@@ -343,7 +343,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* if the type is set to an email input */
             case 'email':
             ?>
-                <input type="email" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" />
+                <input type="email" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?> />
             <?php
                 /* break out of the switch statement */
                 break;
@@ -362,7 +362,7 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* any other type of input - treat as text input */
             default:
             ?>
-                <input type="text" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" <?php echo ($field['disabled'] == true) ? "disabled" : "enabled";  ?> />
+                <input type="text" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="<?php echo esc_attr($current_field_value); ?>" <?php echo ($field['disabled'] == true) ? "disabled" : "";  ?> />
             <?php
 
         }
