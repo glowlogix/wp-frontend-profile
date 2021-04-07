@@ -56,7 +56,7 @@ function wpfep_add_profile_tab_meta_fields($fields)
         'label'   => __('Description/Bio', 'wp-front-end-profile'),
         'desc'    => __('Edit your description/bio.', 'wp-front-end-profile'),
         'type'    => 'textarea',
-        'classes' => 'description',
+        'classes' => 'wysiwyg',
         'disabled' => false,
     ];
 

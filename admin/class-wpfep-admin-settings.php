@@ -135,7 +135,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                         [
                             'name'    => 'role_editor',
                             'label'   => __('Role', 'wp-front-end-profile'),
-                            'desc'    => __('Select to to enable or disabled user add role feature.', 'wp-front-end-profile'),
+                            'desc'    => __('Select to enable or disabled user add role feature.', 'wp-front-end-profile'),
                             'type'    => 'checkbox',
                             'default' => 'off',
 
