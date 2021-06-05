@@ -103,6 +103,14 @@
          * @var bool
          */
         public $is_uninstalled = false;
+        /**
+         * @author Edgar Melkonyan
+         *
+         * @since 2.4.2
+         *
+         * @var bool
+         */
+        public $is_beta;
 
         /**
          * @param stdClass|bool $site
@@ -175,6 +183,7 @@
                 // WPEngine staging.
                 fs_ends_with($subdomain, '.staging.wpengine.com') ||
                 fs_ends_with($subdomain, '.dev.wpengine.com') ||
+                fs_ends_with($subdomain, '.wpengine.com') ||
                 // Pantheon
                 (fs_ends_with($subdomain, 'pantheonsite.io') &&
                   (fs_starts_with($subdomain, 'test-') || fs_starts_with($subdomain, 'dev-'))) ||
@@ -183,7 +192,9 @@
                 // Kinsta
                 (fs_starts_with($subdomain, 'staging-') && (fs_ends_with($subdomain, '.kinsta.com') || fs_ends_with($subdomain, '.kinsta.cloud'))) ||
                 // DesktopServer
-                fs_ends_with($subdomain, '.dev.cc')
+                fs_ends_with($subdomain, '.dev.cc') ||
+                // Pressable
+                fs_ends_with($subdomain, '.mystagingwebsite.com')
             );
         }
 
@@ -238,5 +249,15 @@
         public function is_tracking_prohibited()
         {
             return ! $this->is_tracking_allowed();
+        }
+
+        /**
+         * @author Edgar Melkonyan
+         *
+         * @return bool
+         */
+        public function is_beta()
+        {
+            return (isset($this->is_beta) && true === $this->is_beta);
         }
     }

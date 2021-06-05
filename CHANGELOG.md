@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.4] - 2021-06-05
+### Added
+- Add option to disable input fields #59
+- Add support for Gutenberg editor #16
+
+### Fixed
+- Tested with WordPress 5.6 #64
+- Freemius plugin update #62
+
 ## [1.2.3] - 2020-11-25
 ### Added
 - Add setting to allow admin editing, add check in profile output #50
@@ -72,7 +81,8 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Added
 - Initial launch.
 
-[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.3...HEAD
+[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.4...HEAD
+[1.2.4]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.0...1.2.2
 [1.2.0]: https://github.com/glowlogix/wp-frontend-profile/compare/1.1.0...1.2.0

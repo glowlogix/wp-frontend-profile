@@ -35,7 +35,7 @@
             // Insights platform information.
             $fs->get_usage_tracking_terms_url();
 
-        $freemius_link = '<a href="' . $freemius_site_url . '" target="_blank" tabindex="0">freemius.com</a>';
+        $freemius_link = '<a href="' . $freemius_site_url . '" target="_blank" rel="noopener" tabindex="0">freemius.com</a>';
 
         $message_below_input_field = sprintf(
             fs_text_inline('The %1$s will be periodically sending data to %2$s to check for security and feature updates, and verify the validity of your license.', 'license-sync-disclaimer', $slug),
@@ -115,6 +115,8 @@ HTML;
              * @var FS_Plugin_License $license
              */
             foreach ($available_licenses as $license) {
+                $plan = $fs->_get_plan_by_id($license->plan_id);
+
                 $label = sprintf(
                     "%s-Site %s License - %s",
                     (
@@ -122,7 +124,7 @@ HTML;
                         'Single' :
                         ($license->is_unlimited() ? 'Unlimited' : $license->quota)
                     ),
-                    $fs->_get_plan_by_id($license->plan_id)->title,
+                    (is_object($plan) ? $plan->title : ''),
                     $license->get_html_escaped_masked_secret_key()
                 );
 
@@ -231,16 +233,16 @@ HTML;
 				+ '	</div>'
 				+ '</div>',
 			$modal = $(modalHtml),
-			$activateLicenseLink            = $('span.activate-license.<?php echo $unique_affix ?> a, .activate-license-trigger.<?php echo $unique_affix ?>'),
 			$activateLicenseButton          = $modal.find('.button-activate-license'),
 			$licenseKeyInput                = $modal.find( 'input.fs-license-key' ),
 			$licenseActivationMessage       = $modal.find( '.license-activation-message' ),
             isNetworkActivation             = <?php echo $is_network_activation ? 'true' : 'false' ?>,
             isUserChangeSupported           = <?php echo $is_user_change_supported ? 'true' : 'false' ?>,
             isSingleSiteActivation          = false,
-            $ownershipChangeOptionContainer = $modal.find( '.ownership-change-option-container' );
+            $ownershipChangeOptionContainer = $modal.find( '.ownership-change-option-container' ),
+            $body                           = $( 'body' );
 
-		$modal.appendTo($('body'));
+		$modal.appendTo( $body );
 
         var
             $licensesDropdown    = $modal.find( '.fs-licenses' ),
@@ -461,7 +463,7 @@ HTML;
                 });
             }
 
-            $activateLicenseLink.click(function (evt) {
+            $body.on( 'click', 'span.activate-license.<?php echo $unique_affix ?> a, .activate-license-trigger.<?php echo $unique_affix ?>', function (evt) {
 				evt.preventDefault();
 
 				showModal( evt );
@@ -637,7 +639,7 @@ HTML;
 
 		registerEventHandlers();
 
-        $('body').trigger('licenseActivationLoaded');
+        $body.trigger('licenseActivationLoaded');
 
         /**
          * @author Leo Fajardo (@leorw)
@@ -802,7 +804,7 @@ HTML;
 
 			// Display the dialog box.
 			$modal.addClass('active');
-			$('body').addClass('has-fs-modal');
+			$body.addClass('has-fs-modal');
 
             var
                 $singleInstallDetails  = $( evt.target ).parents( 'tr.fs-install-details' ),
@@ -814,7 +816,9 @@ HTML;
                 $singleInstallDetails.prev().data( 'blog-id' ) :
                 null;
 
+            <?php if ($fs->apply_filters('enable_per_site_activation', true)) : ?>
             $multisiteOptionsContainer.toggle( isNetworkActivation && ! isSingleSiteActivation );
+            <?php endif ?>
 
             if ( hasLicenseTypes ) {
                 $licenseTypes.attr( 'checked', false );
@@ -834,7 +838,7 @@ HTML;
 
 		function closeModal() {
 			$modal.removeClass('active');
-			$('body').removeClass('has-fs-modal');
+			$body.removeClass('has-fs-modal');
 		}
 
 		function resetActivateLicenseButton() {
