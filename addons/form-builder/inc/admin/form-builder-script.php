@@ -4,8 +4,7 @@ function wpfep_form_builder_footer_script()
     $form_id = $_GET["edit_form"];
     $form = get_post($form_id);
     $form_title = $form->post_title;
-    $form_fields = $form->post_content;
-    ?>
+    $form_fields = $form->post_content; ?>
 <script>
     jQuery(function($) {
     var fbTemplate = document.getElementById("fb-editor");
@@ -249,19 +248,18 @@ function wpfep_form_builder_footer_script()
                 $args = [
                     "hide_empty" => false,
                 ];
-                $categories = get_categories($args);
-                $options = "";
-                $count = 0;
-                foreach ($categories as $category) {
-                    $options .=
+    $categories = get_categories($args);
+    $options = "";
+    $count = 0;
+    foreach ($categories as $category) {
+        $options .=
                         '<option value="' .
                         $category->term_id .
                         '">' .
                         $category->name .
                         "</option>";
-                    $count++;
-                }
-                ?>
+        $count++;
+    } ?>
                 placeholder += ' <?php echo $options; ?> ';
                 var html = '<select name="wpfep-post-categories" class="' + fieldData.className + '">';
                 html += placeholder;

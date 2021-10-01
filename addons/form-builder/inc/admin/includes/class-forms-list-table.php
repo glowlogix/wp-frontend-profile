@@ -5,7 +5,7 @@
  */
 class wpfep_forms_List_Table extends WP_List_Table
 {
-    function search_box($text, $input_id)
+    public function search_box($text, $input_id)
     {
         if (empty($_REQUEST["s"]) && !$this->has_items()) {
             return;
@@ -32,8 +32,7 @@ class wpfep_forms_List_Table extends WP_List_Table
             echo '<input type="hidden" name="detached" value="' .
                 esc_attr($_REQUEST["detached"]) .
                 '" />';
-        }
-        ?>
+        } ?>
 	<p class="search-box">
 	<label class="screen-reader-text" for="<?php echo $input_id; ?>"><?php echo $text; ?>:</label>
 	<input type="search" id="<?php echo $input_id; ?>" name="s" value="<?php _admin_search_query(); ?>" />
@@ -216,7 +215,7 @@ class wpfep_forms_List_Table extends WP_List_Table
      * @uses $this->get_pagenum()
      * @uses $this->set_pagination_args()
      */
-    function prepare_items($search = "")
+    public function prepare_items($search = "")
     {
         global $wpdb; //This is used only if making any database queries
 
@@ -257,14 +256,14 @@ class wpfep_forms_List_Table extends WP_List_Table
         $loop = new WP_Query($args);
         while ($loop->have_posts()):
             $loop->the_post();
-            $shortcode = esc_html(
-                '[wpfep_form_builder id="' .
+        $shortcode = esc_html(
+            '[wpfep_form_builder id="' .
                     get_the_id() .
                     '" title="' .
                     get_the_title() .
                     '"]'
-            );
-            $data[] = [
+        );
+        $data[] = [
                 "ID" => get_the_id(),
                 "title" => get_the_title(),
                 "author" => get_the_author(),
