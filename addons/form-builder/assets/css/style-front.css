@@ -1,0 +1,67 @@
+    div#fbwfp-form-render input,
+    div#fbwfp-form-render select,
+    div#fbwfp-form-render textarea {
+        color: #222;
+    }
+    
+    div#fbwfp-form-render button {
+        color: #fff;
+    }
+    
+    div#fb-form-wrap {
+        width: 100%;
+        float: left;
+        padding: 30px 25px;
+        background: #fff;
+        border: 1px solid rgba(110, 110, 110, .43);
+    }
+    
+    div#fb-form-wrap input[type=checkbox]:after,
+    div#fb-form-wrap input[type=radio]:after {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    
+    div#fb-form-wrap label {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    
+    div#fb-form-wrap input[type="text"],
+    div#fb-form-wrap input[type="email"],
+    div#fb-form-wrap input[type="file"],
+    div#fb-form-wrap input[type="number"],
+    div#fb-form-wrap input[type="date"],
+    div#fb-form-wrap select,
+    div#fb-form-wrap textarea {
+        min-height: 41px;
+        padding: 16px 15px;
+        border: 1px solid #959595;
+        background: transparent;
+        border-radius: 0px;
+    }
+    
+    div#fb-form-wrap {
+        font-size: 16px;
+    }
+    
+    div#fbwfp-form-render input[type="checkbox"],
+    div#fbwfp-form-render input[type="radio"] {
+        position: relative;
+        background: transparent;
+        border: 1px solid #959595;
+        top: 9px;
+        margin-right: 0px;
+    }
+    
+    div#fb-form-wrap select {
+        padding: 0px 15px;
+    }
+    
+    div#fbwfp-form-render button:hover {
+        border-color: #222;
+        color: #222;
+    }

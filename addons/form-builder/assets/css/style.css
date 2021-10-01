@@ -1,0 +1,172 @@
+@keyframes toast {
+    0% {
+        transform: translate(0, 50px);
+    }
+    10% {
+        transform: translate(0, 0);
+    }
+    90% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(300px, 0);
+    }
+}
+
+.toast {
+    position: fixed;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    background: #93C54B;
+    text-shadow: 0 1px 0 #fefefe;
+    color: #fff;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1em;
+    text-align: center;
+    transform: translate(0, 80px);
+    animation: 4s toast ease-in-out;
+}
+
+.toast.error {
+    background: #d9534f;
+}
+
+.form-wrap.form-builder .frmb-control li {
+    width: 150px;
+    display: inline-block;
+    margin: 3px 2% !important;
+    padding: 20px 12px !important;
+}
+
+.form-wrap.form-builder .cb-wrap {
+    width: 30% !important;
+}
+
+.form-wrap.form-builder .stage-wrap {
+    width: calc(68% - 5px) !important;
+}
+
+.fbwfp-form-builder {
+    margin: 20px 0 20px;
+}
+
+div#fbwfp-form-render input,
+div#fbwfp-form-render select,
+div#fbwfp-form-render textarea {
+    color: #222;
+}
+
+.fbwfp-form-builder .form-name {
+    display: flex;
+}
+
+.fbwfp-form-builder .form-name>div:first-child {
+    width: 65%;
+}
+
+.fbwfp-form-builder .form-name>div:last-child {
+    width: 33%;
+}
+
+.fbwfp-form-builder .form-name>div select {
+    min-height: 48px;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    box-shadow: 0px 1px 8px -6px;
+    color: #222;
+    width: 48%;
+    float: left;
+}
+
+.fbwfp-form-builder .form-name input#form-name {
+    width: 97%;
+    padding: 6px 17px;
+    min-height: 48px;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    box-shadow: 0px 1px 8px -6px;
+}
+
+.fbwfp-form-builder div#fb-editor {
+    width: 97%;
+    background: #fff;
+    padding: 0px 24px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px -6px;
+    border-radius: 4px;
+}
+
+.fbwfp-form-builder div#fb-editor .form-wrap.form-builder>* {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.fbwfp-form-builder * {
+    box-sizing: border-box;
+}
+
+.fbwfp-form-builder .form-wrap.form-builder .cb-wrap ul li {
+    border-radius: 7px;
+    width: 46%;
+    margin: 2% 2% !important;
+}
+
+.fbwfp-form-builder .form-wrap.form-builder .cb-wrap {
+    border-right: 1px solid #c1c1c1;
+    box-shadow: 2px 0px 1px -1px #dedede;
+    padding-right: 3%;
+    left: 0 !important;
+    position: sticky !important;
+}
+
+button.btn-primary.save-template {
+    background: #2271b1;
+    color: #fff;
+    border-radius: 3px !important;
+}
+
+.btn.btn-danger {
+    background: #c33939;
+    color: #fff;
+    border-radius: 3px !important;
+}
+
+.form-wrap.form-builder .frmb {
+    padding: 8px 18px;
+}
+
+.form-wrap.form-builder .frmb li {
+    padding: 0px 15px !important;
+    border-radius: 1px !important;
+    border: none !important;
+}
+
+.form-wrap.form-builder .frmb .prev-holder select,
+.form-wrap.form-builder .frmb .prev-holder input[type='text'],
+.form-wrap.form-builder .frmb .prev-holder textarea,
+.form-wrap.form-builder .frmb .prev-holder input[type='number'],
+.form-wrap.form-builder .frmb .prev-holder input[type='date'],
+.form-wrap.form-builder .frmb .prev-holder input[type='time'] {
+    min-height: 45px !important;
+    border-color: #c3c3c3 !important;
+    border-radius: 3px;
+    width: 100% !important;
+}
+
+.form-wrap.form-builder .formbuilder-radio {
+    display: flex;
+    margin: 10px 0;
+}
+
+.form-wrap.form-builder .frmb li input[type="text"],
+.form-wrap.form-builder .frmb li select,
+.form-wrap.form-builder .frmb li textarea {
+    width: 100% !important;
+    margin: 0 0 !important;
+    max-width: 100%;
+    border: 1px solid gainsboro !important;
+    border-radius: 0px;
+    box-shadow: 1px 2px 2px -3px !important;
+}
