@@ -345,22 +345,22 @@ function fbwfp_form_builder_shortcode($atts)
           ]; ?> form-group <?php echo $fname; ?>">
             
             <?php if (isset($field["label"])) {
-                echo '<label class="formbuilder-' .
+              echo '<label class="formbuilder-' .
                     $field["type"] .
                     '-label" for="' .
                     $fname .
                     '">' .
                     $field["label"];
-                if (isset($field["required"]) && $field["required"] == true) {
-                    echo '<span class="formbuilder-required">*</span>';
-                }
-                if (isset($field["description"])) {
-                    echo '<span class="tooltip-element" tooltip="' .
+              if (isset($field["required"]) && $field["required"] == true) {
+                  echo '<span class="formbuilder-required">*</span>';
+              }
+              if (isset($field["description"])) {
+                  echo '<span class="tooltip-element" tooltip="' .
                         $field["description"] .
                         '">?</span>';
-                }
-                echo "</label>";
-            } ?>
+              }
+              echo "</label>";
+          } ?>
 
             <input 
                 type="<?php echo $field["type"]; ?>"
@@ -368,32 +368,31 @@ function fbwfp_form_builder_shortcode($atts)
                 if (isset($field["name"])) {
                     echo ' name="' . $fname . '"';
                 }
-                if (isset($field["description"])) {
-                    echo ' title="' . $field["description"] . '"';
-                }
-                if (isset($field["value"])) {
-                    echo ' value="' . $field["value"] . '"';
-                }
-                if (isset($field["className"])) {
-                    echo ' class="form-control ' . $field["className"] . '"';
-                } else {
-                    echo ' class="form-control"';
-                }
-                if (isset($field["maxlength"])) {
-                    echo ' maxlength="' . $field["maxlength"] . '"';
-                }
-                if (isset($field["required"]) && $field["required"] == true) {
-                    echo ' aria-required="true" required="' .
+            if (isset($field["description"])) {
+                echo ' title="' . $field["description"] . '"';
+            }
+            if (isset($field["value"])) {
+                echo ' value="' . $field["value"] . '"';
+            }
+            if (isset($field["className"])) {
+                echo ' class="form-control ' . $field["className"] . '"';
+            } else {
+                echo ' class="form-control"';
+            }
+            if (isset($field["maxlength"])) {
+                echo ' maxlength="' . $field["maxlength"] . '"';
+            }
+            if (isset($field["required"]) && $field["required"] == true) {
+                echo ' aria-required="true" required="' .
                         $field["required"] .
                         '"';
-                }
-                if (isset($field["name"])) {
-                    echo ' id="' . $fname . '"';
-                }
-                if (isset($field["placeholder"])) {
-                    echo ' placeholder="' . $field["placeholder"] . '"';
-                }
-                ?> 
+            }
+            if (isset($field["name"])) {
+                echo ' id="' . $fname . '"';
+            }
+            if (isset($field["placeholder"])) {
+                echo ' placeholder="' . $field["placeholder"] . '"';
+            } ?> 
               >
           </div>
         <?php
@@ -404,31 +403,31 @@ function fbwfp_form_builder_shortcode($atts)
          */
         if ($field["type"] == "post_title") { ?>
           <?php if (isset($field["name"])) {
-              $fname = $field["name"];
-          } else {
-              $fname = "";
-          } ?>
+            $fname = $field["name"];
+        } else {
+            $fname = "";
+        } ?>
           <div class="formbuilder-<?php echo $field[
               "type"
           ]; ?> form-group <?php echo $fname; ?>">
             
             <?php if (isset($field["label"])) {
-                echo '<label class="formbuilder-' .
+              echo '<label class="formbuilder-' .
                     $field["type"] .
                     '-label" for="' .
                     $fname .
                     '">' .
                     $field["label"];
-                if (isset($field["required"]) && $field["required"] == true) {
-                    echo '<span class="formbuilder-required">*</span>';
-                }
-                if (isset($field["description"])) {
-                    echo '<span class="tooltip-element" tooltip="' .
+              if (isset($field["required"]) && $field["required"] == true) {
+                  echo '<span class="formbuilder-required">*</span>';
+              }
+              if (isset($field["description"])) {
+                  echo '<span class="tooltip-element" tooltip="' .
                         $field["description"] .
                         '">?</span>';
-                }
-                echo "</label>";
-            } ?>
+              }
+              echo "</label>";
+          } ?>
 
             <input 
                 type="<?php echo $field["type"]; ?>" 
@@ -469,31 +468,31 @@ function fbwfp_form_builder_shortcode($atts)
          */
         if ($field["type"] == "post_tags") { ?>
           <?php if (isset($field["name"])) {
-              $fname = $field["name"];
-          } else {
-              $fname = "";
-          } ?>
+            $fname = $field["name"];
+        } else {
+            $fname = "";
+        } ?>
           <div class="formbuilder-<?php echo $field[
               "type"
           ]; ?> form-group <?php echo $fname; ?>">
             
             <?php if (isset($field["label"])) {
-                echo '<label class="formbuilder-' .
+              echo '<label class="formbuilder-' .
                     $field["type"] .
                     '-label" for="' .
                     $fname .
                     '">' .
                     $field["label"];
-                if (isset($field["required"]) && $field["required"] == true) {
-                    echo '<span class="formbuilder-required">*</span>';
-                }
-                if (isset($field["description"])) {
-                    echo '<span class="tooltip-element" tooltip="' .
+              if (isset($field["required"]) && $field["required"] == true) {
+                  echo '<span class="formbuilder-required">*</span>';
+              }
+              if (isset($field["description"])) {
+                  echo '<span class="tooltip-element" tooltip="' .
                         $field["description"] .
                         '">?</span>';
-                }
-                echo "</label>";
-            } ?>
+              }
+              echo "</label>";
+          } ?>
 
             <input 
                 type="<?php echo $field["type"]; ?>" 
@@ -581,8 +580,8 @@ function fbwfp_form_builder_shortcode($atts)
               echo ' placeholder="' . $field["placeholder"] . '"';
           }
           ?> ><?php if (isset($field["value"])) {
-     echo $field["value"];
- } ?></textarea>
+              echo $field["value"];
+          } ?></textarea>
         </div>
       <?php }
 
@@ -592,23 +591,23 @@ function fbwfp_form_builder_shortcode($atts)
         if ($field["type"] == "post_categories") { ?>
         <div class="formbuilder-select form-group ">
           <?php if (isset($field["label"])) {
-              $fname = $field["name"];
-              echo '<label class="formbuilder-' .
+            $fname = $field["name"];
+            echo '<label class="formbuilder-' .
                   $field["type"] .
                   '-label" for="' .
                   $fname .
                   '">' .
                   $field["label"];
-              if (isset($field["required"]) && $field["required"] == true) {
-                  echo '<span class="formbuilder-required">*</span>';
-              }
-              if (isset($field["description"])) {
-                  echo '<span class="tooltip-element" tooltip="' .
+            if (isset($field["required"]) && $field["required"] == true) {
+                echo '<span class="formbuilder-required">*</span>';
+            }
+            if (isset($field["description"])) {
+                echo '<span class="tooltip-element" tooltip="' .
                       $field["description"] .
                       '">?</span>';
-              }
-              echo "</label>";
-          } ?>
+            }
+            echo "</label>";
+        } ?>
           <?php
           if (isset($field["placeholder"])) {
               echo '<option disabled="null" selected="null">' .
@@ -677,22 +676,22 @@ function fbwfp_form_builder_shortcode($atts)
             } ?>
         <div class="formbuilder-radio-group form-group <?php echo $fname; ?>">
         <?php if (isset($field["label"])) {
-            echo '<label class="formbuilder-' .
+                echo '<label class="formbuilder-' .
                 $field["type"] .
                 '-label" for="' .
                 $fname .
                 '">' .
                 $field["label"];
-            if (isset($field["required"]) && $field["required"] == true) {
-                echo '<span class="formbuilder-required">*</span>';
-            }
-            if (isset($field["description"])) {
-                echo '<span class="tooltip-element" tooltip="' .
+                if (isset($field["required"]) && $field["required"] == true) {
+                    echo '<span class="formbuilder-required">*</span>';
+                }
+                if (isset($field["description"])) {
+                    echo '<span class="tooltip-element" tooltip="' .
                     $field["description"] .
                     '">?</span>';
-            }
-            echo "</label>";
-        } ?>
+                }
+                echo "</label>";
+            } ?>
           <div class="<?php echo $field["type"]; ?>">
               <?php
               if ($field["type"] == "radio-group") {
@@ -700,9 +699,9 @@ function fbwfp_form_builder_shortcode($atts)
               } else {
                   $field_type = "checkbox";
               }
-              if (isset($field["values"])) {
-                  foreach ($field["values"] as $key => $value) {
-                      $value = (array) $value; ?>
+            if (isset($field["values"])) {
+                foreach ($field["values"] as $key => $value) {
+                    $value = (array) $value; ?>
                   <div class="formbuilder-<?php echo $field_type; ?>-inline">
                     <input name="<?php echo $fname; ?>" id="<?php echo $fname .
     "-" .
@@ -710,20 +709,19 @@ function fbwfp_form_builder_shortcode($atts)
     isset($field["required"]) &&
     $field["required"] == true
 ) {
-    echo ' aria-required="true" required="' . $field["required"] . '"';
-} ?> value="<?php echo $value["value"]; ?>" <?php if (
+        echo ' aria-required="true" required="' . $field["required"] . '"';
+    } ?> value="<?php echo $value["value"]; ?>" <?php if (
     isset($value["selected"])
 ) {
-    echo "selected";
-} ?> type="<?php echo $field_type; ?>">
+        echo "selected";
+    } ?> type="<?php echo $field_type; ?>">
                     <label for="<?php echo $fname .
                         "-" .
                         $key; ?>"><?php echo $value["label"]; ?></label>
                   </div>
                 <?php
-                  }
-              }
-              ?>
+                }
+            } ?>
               
           </div>
         </div>
@@ -783,8 +781,8 @@ function fbwfp_form_builder_shortcode($atts)
               echo ' placeholder="' . $field["placeholder"] . '"';
           }
           ?> ><?php if (isset($field["value"])) {
-     echo $field["value"];
- } ?></textarea>
+              echo $field["value"];
+          } ?></textarea>
         </div>
       <?php }
 
@@ -805,22 +803,22 @@ function fbwfp_form_builder_shortcode($atts)
         if ($field["type"] == "select") { ?>
         <div class="formbuilder-select form-group field-select-1632720135299-0">
           <?php if (isset($field["label"])) {
-              echo '<label class="formbuilder-' .
+            echo '<label class="formbuilder-' .
                   $field["type"] .
                   '-label" for="' .
                   $fname .
                   '">' .
                   $field["label"];
-              if (isset($field["required"]) && $field["required"] == true) {
-                  echo '<span class="formbuilder-required">*</span>';
-              }
-              if (isset($field["description"])) {
-                  echo '<span class="tooltip-element" tooltip="' .
+            if (isset($field["required"]) && $field["required"] == true) {
+                echo '<span class="formbuilder-required">*</span>';
+            }
+            if (isset($field["description"])) {
+                echo '<span class="tooltip-element" tooltip="' .
                       $field["description"] .
                       '">?</span>';
-              }
-              echo "</label>";
-          } ?>
+            }
+            echo "</label>";
+        } ?>
           <select 
             <?php
             if (isset($field["multiple"])) {
@@ -860,8 +858,8 @@ function fbwfp_form_builder_shortcode($atts)
                 foreach ($field["values"] as $key => $value) {
                     $value = (array) $value; ?>
                 <option <?php if (isset($value["selected"])) {
-                    echo "selected";
-                } ?> value="<?php echo $value[
+                        echo "selected";
+                    } ?> value="<?php echo $value[
      "value"
  ]; ?>" id="<?php echo $field["name"] . "-" . $key; ?>"><?php echo $value[
     "label"
@@ -880,22 +878,22 @@ function fbwfp_form_builder_shortcode($atts)
         if ($field["type"] == "file") { ?> 
         <div class="formbuilder-file form-group field-file-1632720143051-0">
           <?php if (isset($field["label"])) {
-              echo '<label class="formbuilder-' .
+            echo '<label class="formbuilder-' .
                   $field["type"] .
                   '-label" for="' .
                   $field["name"] .
                   '">' .
                   $field["label"];
-              if (isset($field["required"]) && $field["required"] == true) {
-                  echo '<span class="formbuilder-required">*</span>';
-              }
-              if (isset($field["description"])) {
-                  echo '<span class="tooltip-element" tooltip="' .
+            if (isset($field["required"]) && $field["required"] == true) {
+                echo '<span class="formbuilder-required">*</span>';
+            }
+            if (isset($field["description"])) {
+                echo '<span class="tooltip-element" tooltip="' .
                       $field["description"] .
                       '">?</span>';
-              }
-              echo "</label>";
-          } ?>
+            }
+            echo "</label>";
+        } ?>
           <input 
           type="file" 
           <?php
@@ -937,22 +935,22 @@ function fbwfp_form_builder_shortcode($atts)
         if ($field["type"] == "post_featured_image") { ?> 
         <div class="formbuilder-file form-group">
           <?php if (isset($field["label"])) {
-              echo '<label class="formbuilder-' .
+            echo '<label class="formbuilder-' .
                   $field["type"] .
                   '-label" for="' .
                   $field["name"] .
                   '">' .
                   $field["label"];
-              if (isset($field["required"]) && $field["required"] == true) {
-                  echo '<span class="formbuilder-required">*</span>';
-              }
-              if (isset($field["description"])) {
-                  echo '<span class="tooltip-element" tooltip="' .
+            if (isset($field["required"]) && $field["required"] == true) {
+                echo '<span class="formbuilder-required">*</span>';
+            }
+            if (isset($field["description"])) {
+                echo '<span class="tooltip-element" tooltip="' .
                       $field["description"] .
                       '">?</span>';
-              }
-              echo "</label>";
-          } ?>
+            }
+            echo "</label>";
+        } ?>
           <input 
           type="file" 
           <?php

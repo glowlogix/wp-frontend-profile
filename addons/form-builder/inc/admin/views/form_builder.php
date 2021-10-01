@@ -8,32 +8,42 @@
     <div class="inner">
         <div class="form-name">
             <div><input type="text" autofocus="" id="form-name" name="form-name" placeholder="Form Title" value="Untitled Form"></div>
-            <?php 
-            $types = get_post_types( [], 'objects' );
+            <?php
+            $types = get_post_types([], 'objects');
             $options = '';
-            foreach ( $types as $type ) {
-                    $label = $type->label;
-                if ( isset( $type->rewrite->slug ) ) {
+            foreach ($types as $type) {
+                $label = $type->label;
+                if (isset($type->rewrite->slug)) {
                     $slug = $type->rewrite->slug;
-                } else{
+                } else {
                     $slug = $type->name;
                 }
                 $options .= '<option value="'.$slug.'">'.$label.'</option>';
             }
 
             $form_id = $_GET['edit_form'];
-            $post_type = get_post_meta( $form_id, '_form_type', true );
-            $post_status = get_post_meta( $form_id, '_post_status', true );
+            $post_type = get_post_meta($form_id, '_form_type', true);
+            $post_status = get_post_meta($form_id, '_post_status', true);
             ?>
             <div>
             <select id="post-type">
-                <option <?php if($post_type == 'post'){ echo 'selected'; }?> value="post">Post</option>
-                <option <?php if($post_type == 'page'){ echo 'selected'; }?> value="page">Page</option>
+                <option <?php if ($post_type == 'post') {
+                echo 'selected';
+            }?> value="post">Post</option>
+                <option <?php if ($post_type == 'page') {
+                echo 'selected';
+            }?> value="page">Page</option>
             </select>
             <select id="post-status">
-                <option <?php if($post_status == 'publish'){ echo 'selected'; } ?> value="publish">Publish</option>
-                <option <?php if($post_status == 'draft'){ echo 'selected'; } ?> value="draft">Draft</option>
-                <option <?php if($post_status == 'pending'){ echo 'selected'; } ?> value="pending">Pending</option>
+                <option <?php if ($post_status == 'publish') {
+                echo 'selected';
+            } ?> value="publish">Publish</option>
+                <option <?php if ($post_status == 'draft') {
+                echo 'selected';
+            } ?> value="draft">Draft</option>
+                <option <?php if ($post_status == 'pending') {
+                echo 'selected';
+            } ?> value="pending">Pending</option>
             </select>
         </div>
         </div>
