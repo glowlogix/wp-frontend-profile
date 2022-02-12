@@ -76,16 +76,21 @@ jQuery( document ).ready(function() {
     jQuery('.wpfep-review-ask-send-feedback').on('click', function() {
         var Feedback = jQuery('.wpfep-review-ask-feedback-explanation textarea').val();
         var EmailAddress = jQuery('.wpfep-review-ask-feedback-explanation input[name="feedback_email_address"]').val();
-        var data = 'Feedback=' + Feedback + '&EmailAddress=' + EmailAddress + '&action=wpfep_send_feedback';
-        jQuery.post(ajaxurl, data, function() {});
+        if(Feedback.trim() == ''){
+            alert('Feedback is required.');
+        }
+        else{
+            var data = 'Feedback=' + Feedback + '&EmailAddress=' + EmailAddress + '&action=wpfep_send_feedback';
+            jQuery.post(ajaxurl, data, function() {});
 
-        var data = 'Ask_Review_Date=1000&action=wpfep_hide_review_ask';
-        jQuery.post(ajaxurl, data, function() {});
+            var data = 'Ask_Review_Date=1000&action=wpfep_hide_review_ask';
+            jQuery.post(ajaxurl, data, function() {});
 
-        jQuery('.wpfep-review-ask-feedback-form').addClass('wpfep-hidden');
-        jQuery('.wpfep-review-ask-review-text').addClass('wpfep-hidden');
-        jQuery('.wpfep-review-ask-thank-you-text').removeClass('wpfep-hidden');
-        jQuery('.wpfep-main-dashboard-review-ask').delay( 1000 ).fadeOut();
+            jQuery('.wpfep-review-ask-feedback-form').addClass('wpfep-hidden');
+            jQuery('.wpfep-review-ask-review-text').addClass('wpfep-hidden');
+            jQuery('.wpfep-review-ask-thank-you-text').removeClass('wpfep-hidden');
+            jQuery('.wpfep-main-dashboard-review-ask').delay( 1000 ).fadeOut();
+        }
     });
 });
 
