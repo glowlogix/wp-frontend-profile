@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.5] - 2022-02-12
+
+### Fixed
+- Tested with WordPress 5.9
+- Fixed empty feedback message issue
+
 ## [1.2.4] - 2021-06-05
 ### Added
 - Add option to disable input fields #59
