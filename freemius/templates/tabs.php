@@ -6,7 +6,7 @@
      * @since       1.2.2.7
      */
 
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
@@ -14,7 +14,7 @@
      * @var array    $VARS
      * @var Freemius $fs
      */
-    $fs = freemius( $VARS['id'] );
+    $fs = freemius($VARS['id']);
 
     $slug = $fs->get_slug();
 
@@ -23,23 +23,23 @@
     $show_settings_with_tabs = $fs->show_settings_with_tabs();
 
     $tabs = array();
-    foreach ( $menu_items as $priority => $items ) {
-        foreach ( $items as $item ) {
-            if ( ! $item['show_submenu'] ) {
+    foreach ($menu_items as $priority => $items) {
+        foreach ($items as $item) {
+            if (! $item['show_submenu']) {
                 $submenu_name = ('wp-support-forum' === $item['menu_slug']) ?
                     'support' :
                     $item['menu_slug'];
 
-                if ( 'pricing' === $submenu_name && ! $fs->is_pricing_page_visible() ) {
+                if ('pricing' === $submenu_name && ! $fs->is_pricing_page_visible()) {
                     continue;
                 }
 
-                if ( ! $show_settings_with_tabs || ! $fs->is_submenu_item_visible( $submenu_name, true ) ) {
+                if (! $show_settings_with_tabs || ! $fs->is_submenu_item_visible($submenu_name, true)) {
                     continue;
                 }
             }
 
-            $url   = $fs->_get_admin_page_url( $item['menu_slug'] );
+            $url   = $fs->_get_admin_page_url($item['menu_slug']);
             $title = $item['menu_title'];
 
             $tab = array(
@@ -48,7 +48,7 @@
                 'slug'  => $item['menu_slug'],
             );
 
-            if ( 'pricing' === $item['menu_slug'] && $fs->is_in_trial_promotion() ) {
+            if ('pricing' === $item['menu_slug'] && $fs->is_in_trial_promotion()) {
                 $tab['href'] .= '&trial=true';
             }
 
@@ -81,7 +81,7 @@
                 }
             }
 
-            <?php if (0 < count( $tabs )) : ?>
+            <?php if (0 < count($tabs)) : ?>
             if (null == $tab) {
                 // No tabs found, therefore, create new tabs section if required.
                 var $h1 = $wrap.find('h1');
@@ -110,10 +110,10 @@
             <?php $freemius_context_page = null ?>
 
             <?php foreach ($tabs as $tab) : ?>
-            <?php $is_support_tab = ( 'wp-support-forum' == $tab['slug'] ) ?>
+            <?php $is_support_tab = ('wp-support-forum' == $tab['slug']) ?>
             // Add the Freemius tabs.
             $tabClone = $tab.clone();
-            $tabClone.html(<?php echo json_encode( $tab['label'] ) ?>)
+            $tabClone.html(<?php echo json_encode($tab['label']) ?>)
                 .attr('href', '<?php echo $is_support_tab ? $fs->get_support_forum_url() : $tab['href'] ?>')
                 .appendTo($tabsWrapper)
                 // Remove any custom click events.
@@ -129,13 +129,13 @@
             $tabClone.attr('target', '_blank');
             <?php endif ?>
 
-            <?php if ($fs->is_admin_page( $tab['slug'] )) : ?>
+            <?php if ($fs->is_admin_page($tab['slug'])) : ?>
             <?php $freemius_context_page = $tab['slug'] ?>
             // Select the relevant Freemius tab.
             $tabs.removeClass('nav-tab-active');
             $tabClone.addClass('nav-tab-active');
 
-            <?php if (in_array( $freemius_context_page, array( 'pricing', 'contact', 'checkout' ) )) : ?>
+            <?php if (in_array($freemius_context_page, array( 'pricing', 'contact', 'checkout' ))) : ?>
             // Add AJAX loader.
             $tabClone.prepend('<i class="fs-ajax-spinner"></i>');
             // Hide loader after content fully loaded.
@@ -147,7 +147,7 @@
             // Fix URLs that are starting with a hashtag.
             $tabs.each(function (j, tab) {
                 if (0 === $(tab).attr('href').indexOf('#')) {
-                    $(tab).attr('href', '<?php echo esc_js( $fs->main_menu_url() ) ?>' + $(tab).attr('href'));
+                    $(tab).attr('href', '<?php echo esc_js($fs->main_menu_url()) ?>' + $(tab).attr('href'));
                 }
             });
             <?php endif ?>
@@ -174,11 +174,11 @@
                 }
             }
 
-            <?php if (is_string( $freemius_context_page ) && in_array( $freemius_context_page, array(
+            <?php if (is_string($freemius_context_page) && in_array($freemius_context_page, array(
             'pricing',
             'contact',
             'checkout'
-        ) )) : ?>
+        ))) : ?>
             // Add margin to the upper section of the tabs to give extra space for the HTTPS header.
             // @todo This code assumes that the wrapper style is fully loaded, if there's a stylesheet that is not loaded via the HTML head, it may cause unpredicted margin-top.
             var $tabsWrap = $tabsWrapper.parents('.wrap');
