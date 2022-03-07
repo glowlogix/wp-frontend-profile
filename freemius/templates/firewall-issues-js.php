@@ -1,18 +1,18 @@
 <?php
-	/**
-	 * API connectivity issues (CloudFlare's firewall) handler for handling different
-	 * scenarios selected by the user after connectivity issue is detected, by sending
-	 * AJAX call to the server in order to make the actual actions.
-	 *
-	 * @package     Freemius
-	 * @copyright   Copyright (c) 2015, Freemius, Inc.
-	 * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-	 * @since       1.0.9
-	 */
+    /**
+     * API connectivity issues (CloudFlare's firewall) handler for handling different
+     * scenarios selected by the user after connectivity issue is detected, by sending
+     * AJAX call to the server in order to make the actual actions.
+     *
+     * @package     Freemius
+     * @copyright   Copyright (c) 2015, Freemius, Inc.
+     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+     * @since       1.0.9
+     */
 
-	if ( ! defined( 'ABSPATH' ) ) {
-		exit;
-	}
+    if (! defined('ABSPATH')) {
+        exit;
+    }
 ?>
 <script type="text/javascript">
 	jQuery( document ).ready(function( $ ) {
@@ -25,7 +25,7 @@
             var data = {
                 action   : 'fs_resolve_firewall_issues_' + ajaxActionSuffix,
                 // As such we don't need to use `wp_json_encode` method but using it to follow wp.org guideline.
-                _wpnonce : <?php echo wp_json_encode( wp_create_nonce( 'fs_resolve_firewall_issues' ) ); ?>,
+                _wpnonce : <?php echo wp_json_encode(wp_create_nonce('fs_resolve_firewall_issues')); ?>,
                 error_type: error_type
             };
 
@@ -43,7 +43,7 @@
 			if ( 'retry_ping' === error_type ) {
                 data.action   = 'fs_retry_connectivity_test_' + ajaxActionSuffix;
                 // As such we don't need to use `wp_json_encode` method but using it to follow wp.org guideline.
-                data._wpnonce = <?php echo wp_json_encode( wp_create_nonce( 'fs_retry_connectivity_test' ) ); ?>;
+                data._wpnonce = <?php echo wp_json_encode(wp_create_nonce('fs_retry_connectivity_test')); ?>;
 			}
 
 			$( this ).css({'cursor': 'wait'});
