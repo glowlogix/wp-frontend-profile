@@ -1,53 +1,53 @@
 <?php
-    /**
-     * @package   Freemius
-     * @copyright Copyright (c) 2015, Freemius, Inc.
-     * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-     * @since     2.3.1
-     */
+	/**
+	 * @package   Freemius
+	 * @copyright Copyright (c) 2015, Freemius, Inc.
+	 * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+	 * @since     2.3.1
+	 */
 
-    if (! defined('ABSPATH')) {
-        exit;
-    }
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	}
 
-    /**
+	/**
      * @var array $VARS
      *
-     * @var Freemius $fs
-     */
-    $fs                       = freemius($VARS['id']);
-    $slug                     = $fs->get_slug();
+	 * @var Freemius $fs
+	 */
+	$fs                       = freemius( $VARS['id'] );
+	$slug                     = $fs->get_slug();
     $unique_affix             = $fs->get_unique_affix();
     $last_license_user_id     = $fs->get_last_license_user_id();
-    $has_last_license_user_id = FS_User::is_valid_id($last_license_user_id);
+    $has_last_license_user_id = FS_User::is_valid_id( $last_license_user_id );
     
-    $message_above_input_field = (! $has_last_license_user_id) ?
-        fs_text_inline('Please enter the license key to enable the debug mode:', 'submit-developer-license-key-message', $slug) :
-        sprintf(
-            fs_text_inline('To enter the debug mode, please enter the secret key of the license owner (UserID = %d), which you can find in your "My Profile" section of your User Dashboard:', 'submit-addon-developer-key-message', $slug),
-            $last_license_user_id
-        );
+	$message_above_input_field = ( ! $has_last_license_user_id ) ?
+		fs_text_inline( 'Please enter the license key to enable the debug mode:', 'submit-developer-license-key-message', $slug ) :
+		sprintf(
+			fs_text_inline( 'To enter the debug mode, please enter the secret key of the license owner (UserID = %d), which you can find in your "My Profile" section of your User Dashboard:', 'submit-addon-developer-key-message', $slug ),
+			$last_license_user_id
+		);
 
-    $processing_text          = (fs_esc_js_inline('Processing', 'processing', $slug) . '...');
-    $submit_button_text       = fs_text_inline('Submit', 'submit', $slug);
-    $debug_license_link_text  = fs_esc_html_inline('Start Debug', 'start-debug-license', $slug);
-    $license_or_user_key_text = (! $has_last_license_user_id) ?
-        fs_text_inline('License key', 'license-key', $slug) :
-        fs_text_inline('User key', 'user-key', $slug);
+    $processing_text          = ( fs_esc_js_inline( 'Processing', 'processing', $slug ) . '...' );
+    $submit_button_text       = fs_text_inline( 'Submit', 'submit', $slug );
+    $debug_license_link_text  = fs_esc_html_inline( 'Start Debug', 'start-debug-license', $slug );
+    $license_or_user_key_text = ( ! $has_last_license_user_id ) ?
+        fs_text_inline( 'License key', 'license-key' , $slug ) :
+        fs_text_inline( 'User key', 'user-key' , $slug );
     $input_html               = "<input class='fs-license-or-user-key' type='password' placeholder='{$license_or_user_key_text}' tabindex='1' />";
 
-    $modal_content_html = <<< HTML
+	$modal_content_html = <<< HTML
 	<div class="notice notice-error inline license-or-user-key-submission-message"><p></p></div>
 	<p>{$message_above_input_field}</p>
 	{$input_html}
 HTML;
 
-    fs_enqueue_local_style('fs_dialog_boxes', '/admin/dialog-boxes.css');
+	fs_enqueue_local_style( 'fs_dialog_boxes', '/admin/dialog-boxes.css' );
 ?>
 <script type="text/javascript">
 ( function( $ ) {
 	$( document ).ready( function() {
-		var modalContentHtml          = <?php echo json_encode($modal_content_html) ?>,
+		var modalContentHtml          = <?php echo json_encode( $modal_content_html ) ?>,
 			modalHtml                 =
 				'<div class="fs-modal fs-modal-developer-license-debug-mode fs-modal-developer-license-debug-mode-<?php echo $unique_affix ?>">'
 				+ '	<div class="fs-modal-dialog">'
@@ -55,8 +55,8 @@ HTML;
 				+ '			<div class="fs-modal-panel active">' + modalContentHtml + '</div>'
 				+ '		</div>'
 				+ '		<div class="fs-modal-footer">'
-				+ '			<button class="button button-secondary button-close" tabindex="4"><?php fs_esc_js_echo_inline('Cancel', 'cancel', $slug) ?></button>'
-				+ '			<button class="button button-primary button-submit-license-or-user-key"  tabindex="3"><?php echo esc_js($submit_button_text) ?></button>'
+				+ '			<button class="button button-secondary button-close" tabindex="4"><?php fs_esc_js_echo_inline( 'Cancel', 'cancel', $slug ) ?></button>'
+				+ '			<button class="button button-primary button-submit-license-or-user-key"  tabindex="3"><?php echo esc_js( $submit_button_text ) ?></button>'
 				+ '		</div>'
 				+ '	</div>'
 				+ '</div>',
@@ -132,8 +132,8 @@ HTML;
 
 		function setDeveloperLicenseDebugMode( licenseOrUserKey ) {
             var data = {
-                action             : '<?php echo $fs->get_ajax_action('set_data_debug_mode') ?>',
-                security           : '<?php echo $fs->get_ajax_security('set_data_debug_mode') ?>',
+                action             : '<?php echo $fs->get_ajax_action( 'set_data_debug_mode' ) ?>',
+                security           : '<?php echo $fs->get_ajax_security( 'set_data_debug_mode' ) ?>',
                 license_or_user_key: licenseOrUserKey,
                 is_debug_mode      : isDebugMode,
                 module_id          : '<?php echo $fs->get_id() ?>'
@@ -159,7 +159,7 @@ HTML;
                     }
                 },
                 error     : function () {
-                    showError( <?php echo json_encode(fs_text_inline('An unknown error has occurred.', 'unknown-error', $slug)) ?> );
+                    showError( <?php echo json_encode( fs_text_inline( 'An unknown error has occurred.', 'unknown-error', $slug ) ) ?> );
                     resetButtons();
                 }
             });
@@ -183,8 +183,8 @@ HTML;
 
 		function resetButtons() {
 			enableSubmitButton();
-			$submitKeyButton.text( <?php echo json_encode($submit_button_text) ?> );
-			$debugLicenseLink.find('span').text( <?php echo json_encode($debug_license_link_text) ?> );
+			$submitKeyButton.text( <?php echo json_encode( $submit_button_text ) ?> );
+			$debugLicenseLink.find('span').text( <?php echo json_encode( $debug_license_link_text ) ?> );
 		}
 
 		function resetModal() {
