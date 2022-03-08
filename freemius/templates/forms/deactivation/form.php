@@ -519,11 +519,11 @@ HTML;
         )) ?> );
 		} else {
             $deactivateButton.html( <?php echo json_encode(sprintf(
-                fs_text_inline('Skip & %s', 'skip-and-x', $slug),
-                $fs->is_plugin() ?
+            fs_text_inline('Skip & %s', 'skip-and-x', $slug),
+            $fs->is_plugin() ?
                     $deactivate_text :
                     sprintf($activate_x_text, $theme_text)
-            )) ?> );
+        )) ?> );
 		}
 	}
 
