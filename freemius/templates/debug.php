@@ -383,8 +383,8 @@
             <tbody>
             <?php foreach ($sites_map as $slug => $sites) : ?>
                 <?php if (! is_array($sites)) {
-                $sites = array( $sites );
-            } ?>
+        $sites = array( $sites );
+    } ?>
                 <?php foreach ($sites as $site) : ?>
                     <tr>
                         <td><?php echo $site->id ?></td>
