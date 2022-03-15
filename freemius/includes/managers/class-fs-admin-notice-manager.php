@@ -177,7 +177,12 @@
          */
         public function dismiss_notice_ajax_callback()
         {
-            $this->_sticky_storage->remove($_POST['message_id']);
+            check_admin_referer('fs_dismiss_notice_action');
+
+            if (! is_numeric($_POST['message_id'])) {
+                $this->_sticky_storage->remove($_POST['message_id']);
+            }
+
             wp_die();
         }
 
