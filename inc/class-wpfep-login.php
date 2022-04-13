@@ -195,7 +195,6 @@ if (!class_exists('WPFEP_Login')) {
          */
         public function login_form()
         {
-            global $wp;
             $login_page = $this->get_login_url();
 
             ob_start();

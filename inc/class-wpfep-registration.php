@@ -74,7 +74,6 @@ if (!class_exists('WPFEP_Registration')) {
          */
         public function registration_form($atts)
         {
-            global $wp;
 
             $atts = shortcode_atts(
                 [
