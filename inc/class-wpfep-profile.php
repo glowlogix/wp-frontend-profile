@@ -62,7 +62,6 @@ if (!class_exists('WPFEP_Profile')) {
          */
         public function user_profile()
         {
-
             $profile_page = wpfep_get_option('profile_page', 'wpfep_pages', false);
 
             ob_start();
