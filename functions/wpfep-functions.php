@@ -779,7 +779,6 @@ function wpfep_show_profile()
     } ?>
         </ul><!-- // wpfep-tabs -->
         <?php
-        global $wp;
     /* loop through each item */
     foreach ($wpfep_tabs as $wpfep_tab) {
 
