@@ -1,8 +1,10 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Profile edit tabs.
  */
-defined('ABSPATH') || exit;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Function wpfep_add_profile_tab
@@ -12,27 +14,25 @@ defined('ABSPATH') || exit;
  *
  * @return (array) the newly modified array of tabs
  */
-function wpfep_add_profile_tab($tabs)
-{
+function wpfep_add_profile_tab( $tabs ) {
+	/* add our tab to the tabs array */
+	$tabs[] = array(
+		'id'            => 'profile', // used for the callback function, if declared or exists and the tab content wrapper id.
+		'label'         => __( 'Profile', 'wp-front-end-profile' ),
+		'tab_class'     => 'profile-tab',
+		'content_class' => 'profile-content',
+		/**
+		 * (callback) this is used to display the tab output.
+		 * if not declared or the function declared does not exist the default wpfep_default_tab_content() function is used instead.
+		 */
+		'callback'      => 'wpfep_profile_tab_content',
+	);
 
-    /* add our tab to the tabs array */
-    $tabs[] = [
-        'id'            => 'profile', // used for the callback function, if declared or exists and the tab content wrapper id.
-        'label'         => __('Profile', 'wp-front-end-profile'),
-        'tab_class'     => 'profile-tab',
-        'content_class' => 'profile-content',
-        /**
-         * (callback) this is used to display the tab output.
-         * if not declared or the function declared does not exist the default wpfep_default_tab_content() function is used instead.
-         */
-        'callback'      => 'wpfep_profile_tab_content',
-    ];
-
-    /* return all the tabs */
-    return $tabs;
+	/* return all the tabs */
+	return $tabs;
 }
 
-add_filter('wpfep_tabs', 'wpfep_add_profile_tab', 10);
+add_filter( 'wpfep_tabs', 'wpfep_add_profile_tab', 10 );
 
 /**
  * Function wpfep_add_password_tab
@@ -42,19 +42,17 @@ add_filter('wpfep_tabs', 'wpfep_add_profile_tab', 10);
  *
  * @return (array) the newly modified array of tabs
  */
-function wpfep_add_password_tab($tabs)
-{
+function wpfep_add_password_tab( $tabs ) {
+	/* add our tab to the tabs array */
+	$tabs[] = array(
+		'id'            => 'password',
+		'label'         => __( 'Password', 'wp-front-end-profile' ),
+		'tab_class'     => 'password-tab',
+		'content_class' => 'password-content',
+	);
 
-    /* add our tab to the tabs array */
-    $tabs[] = [
-        'id'            => 'password',
-        'label'         => __('Password', 'wp-front-end-profile'),
-        'tab_class'     => 'password-tab',
-        'content_class' => 'password-content',
-    ];
-
-    /* return all the tabs */
-    return $tabs;
+	/* return all the tabs */
+	return $tabs;
 }
 
-add_filter('wpfep_tabs', 'wpfep_add_password_tab', 20);
+add_filter( 'wpfep_tabs', 'wpfep_add_password_tab', 20 );
