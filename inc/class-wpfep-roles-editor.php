@@ -365,7 +365,7 @@ class WPFEP_Roles_Editor {
 			$role = get_role( $role_slug );
 
 			if ( $column_name == 'role' ) {
-				echo '<input readonly spellcheck="false" type="text" class="wpfep-role-slug-input input" value="' . $role_slug . '" />';
+				echo '<input readonly spellcheck="false" type="text" class="wpfep-role-slug-input input" value="' . esc_attr( $role_slug ) . '" />';
 			}
 
 			if ( $column_name == 'capabilities' && isset( $role ) ) {
@@ -378,7 +378,7 @@ class WPFEP_Roles_Editor {
 					$role_capabilities = $role->capabilities;
 				}
 
-				echo count( $role_capabilities );
+				echo esc_html( count( $role_capabilities ) );
 			}
 
 			if ( $column_name == 'users' && isset( $role ) ) {
@@ -388,7 +388,7 @@ class WPFEP_Roles_Editor {
 					$role_users_count = 0;
 				}
 
-				echo $role_users_count;
+				echo esc_attr( $role_users_count );
 			}
 		}
 	}

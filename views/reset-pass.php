@@ -1,7 +1,7 @@
 <?php
 /**
  * @package wp-front-end-profile
- * If you would like to edit this file, copy it to your current theme's directory and edit it there. 
+ * If you would like to edit this file, copy it to your current theme's directory and edit it there.
  * wpfep will always look in your theme's directory first, before using this default template.
  */
 
@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 				echo esc_attr( $_REQUEST['key'] ); }
 			?>
 			" />
-			<input type="hidden" name="login" id="user_login" value="<?php echo isset( $_REQUEST['login'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['login'] ) ) : ''; ?>" />
+			<input type="hidden" name="login" id="user_login" value="<?php echo isset( $_REQUEST['login'] ) ? esc_html( wp_unslash( $_REQUEST['login'] ) ) : ''; ?>" />
 			<input type="hidden" name="wpfep_reset_password" value="true" />
 		</p>
 

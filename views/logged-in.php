@@ -83,7 +83,7 @@ if ( current_user_can( 'administrator' ) && 'on' === $manually_register && is_pa
 				<?php
 				foreach ( $roles_names_array as $key => $value ) {
 					if ( in_array( $key, array( 'subscriber' ) ) ) {
-						echo '<option value="' . $key . '">' . $value . '</option>';
+						echo '<option value="' . esc_html( $key ) . '">' . esc_html( $value ) . '</option>';
 					}
 				}
 				?>
@@ -100,7 +100,7 @@ if ( current_user_can( 'administrator' ) && 'on' === $manually_register && is_pa
 					<?php
 					foreach ( $roles_names_array as $key => $value ) {
 						if ( in_array( $key, array( 'editor', 'author', 'contributor' ) ) ) {
-							echo '<option value="' . $key . '">' . $value . '</option>';
+							echo '<option value="' . esc_html( $key ) . '">' . esc_html( $value ) . '</option>';
 						}
 					}
 					?>
