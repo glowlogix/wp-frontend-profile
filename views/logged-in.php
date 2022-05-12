@@ -80,12 +80,11 @@ if (current_user_can('administrator') && 'on' === $manually_register && is_page(
     $roles_names_array = $roles_obj->get_names(); ?>
 				<select name="role" id="wpfep-custom" class="input" style="display:none">
 				<?php
-				foreach ( $roles_names_array as $key => $value ) {
-					if ( in_array( $key, array( 'subscriber' ) ) ) {
-						echo '<option value="' . esc_html( $key ) . '">' . esc_html( $value ) . '</option>';
-					}
-				}
-				?>
+                foreach ($roles_names_array as $key => $value) {
+                    if (in_array($key, array( 'subscriber' ))) {
+                        echo '<option value="' . esc_html($key) . '">' . esc_html($value) . '</option>';
+                    }
+                } ?>
 				</select>
 				<label for="wpfep-custom-role" class="wpfep-custom-role">
 				<input type="radio" class="wpfep-showform-custom" value="Custom role" name="showform" class="wpfep-role-right"/><?php esc_attr_e('Custom role', 'wp-front-end-profile'); ?></label><br><br>
@@ -96,12 +95,11 @@ if (current_user_can('administrator') && 'on' === $manually_register && is_page(
 				<select name="role" id="wfp-user-role" class="input" style="display:none">
 					<option value="" disabled selected><?php esc_attr_e('Select user role', 'wp-front-end-profile'); ?></option>
 					<?php
-					foreach ( $roles_names_array as $key => $value ) {
-						if ( in_array( $key, array( 'editor', 'author', 'contributor' ) ) ) {
-							echo '<option value="' . esc_html( $key ) . '">' . esc_html( $value ) . '</option>';
-						}
-					}
-					?>
+                    foreach ($roles_names_array as $key => $value) {
+                        if (in_array($key, array( 'editor', 'author', 'contributor' ))) {
+                            echo '<option value="' . esc_html($key) . '">' . esc_html($value) . '</option>';
+                        }
+                    } ?>
 				</select>
 			</li>
 			<li class="wpfep-form-field wpfep-default-user-bio">
