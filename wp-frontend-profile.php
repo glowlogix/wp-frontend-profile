@@ -4,7 +4,6 @@
  * Plugin URI: https://wordpress.org/plugins/wp-front-end-profile/
  * Description: This plugin allows users to easily edit their profile information on the frontend rather than having to go into the dashboard to make changes to password, email address and other user meta data.
  * Version:     1.2.6
- *
  * @package wp-front-end-profile
  * Author:      Glowlogix
  * Author URI:  https://www.glowlogix.com
