@@ -34,7 +34,7 @@ defined('ABSPATH') || exit;
             }
             ?>
 			" />
-			<input type="hidden" name="login" id="user_login" value="<?php echo isset( $_REQUEST['login'] ) ? esc_html( wp_unslash( $_REQUEST['login'] ) ) : ''; ?>" />
+			<input type="hidden" name="login" id="user_login" value="<?php echo isset($_REQUEST['login']) ? esc_html(wp_unslash($_REQUEST['login'])) : ''; ?>" />
 			<input type="hidden" name="wpfep_reset_password" value="true" />
 		</p>
 

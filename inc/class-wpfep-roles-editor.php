@@ -4,401 +4,413 @@
  * User Role Editor.
  */
 
-class WPFEP_Roles_Editor {
-
-	public function __construct() {
-		 // To Create Roles Editor CPT
-		add_action( 'init', array( $this, 'create_roles_editor_cpt' ) );
-
-		// To Create a Roles Editor CPT post for every existing role
-		add_action( 'current_screen', array( $this, 'create_post_for_role' ) );
-
-		// For Edit CPT page
-		add_filter( 'manage_wpfep-roles-editor_posts_columns', array( $this, 'add_extra_column_for_roles_editor_cpt' ) );
-		add_action( 'manage_wpfep-roles-editor_posts_custom_column', array( $this, 'custom_column_content_for_roles_editor_cpt' ), 10, 2 );
-
-		// To Add and remove meta boxes
-		add_action( 'add_meta_boxes', array( $this, 'register_meta_boxes' ), 1 );
-
-		// To Edit Publish meta box
-		add_action( 'post_submitbox_misc_actions', array( $this, 'edit_publish_meta_box' ) );
-
-		// To Enqueue scripts and styles
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_admin' ) );
-
-		// For Add role slug to the created post
-		add_action( 'save_post', array( $this, 'add_post_meta' ), 10, 2 );
-
-		add_filter( 'wp_insert_post_data', array( $this, 'modify_post_title' ), '99', 1 );
-
-		add_action( 'wp_ajax_delete_capability_permanently', array( $this, 'delete_capability_permanently' ) );
-		add_action( 'wp_ajax_update_role_capabilities', array( $this, 'update_role_capabilities' ) );
-		add_action( 'wp_ajax_get_role_capabilities', array( $this, 'get_role_capabilities' ) );
-
-		add_filter( 'months_dropdown_results', array( $this, 'remove_filter_by_month_dropdown' ), 10, 2 );
-		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
-
-		add_filter( 'bulk_actions-edit-wpfep-roles-editor', '__return_empty_array' );
-		add_filter( 'views_edit-wpfep-roles-editor', array( $this, 'edit_cpt_quick_links' ) );
-
-		add_filter( 'enter_title_here', array( $this, 'change_title_text' ) );
-		add_filter( 'post_updated_messages', array( $this, 'change_post_updated_messages' ) );
-		add_action( 'before_delete_post', array( $this, 'delete_role_permanently' ), 10 );
-
-		// To Add multiple roles checkbox to back-end Add / Edit User (as admin)
-		add_action( 'load-user-new.php', array( $this, 'actions_on_user_new' ) );
-		add_action( 'load-user-edit.php', array( $this, 'actions_on_user_edit' ) );
-	}
-
-	public function scripts_admin() {
-		global $post_type;
-		global $current_screen;
-		global $post;
-		global $wp_scripts;
-		global $wp_styles;
-
-		if ( $post_type == 'wpfep-roles-editor' ) {
-			$wp_default_scripts = $this->wp_default_scripts();
-			$scripts_exceptions = array( 'wpfep-sitewide', 'acf-field-group', 'acf-pro-field-group', 'acf-input', 'acf-pro-input' );
-			foreach ( $wp_scripts->registered as $key => $value ) {
-				if ( ! in_array( $key, $wp_default_scripts ) && ! in_array( $key, $scripts_exceptions ) ) {
-					wp_deregister_script( $key );
-				}
-			}
-
-			$wp_default_styles = $this->wp_default_styles();
-			$styles_exceptions = array( 'wpfep-serial-notice-css', 'acf-global', 'wpfep-back-end-style' );
-			foreach ( $wp_styles->registered as $key => $value ) {
-				if ( ! in_array( $key, $wp_default_styles ) && ! in_array( $key, $styles_exceptions ) ) {
-					wp_deregister_style( $key );
-				}
-			}
-
-			wp_enqueue_script( 'wpfep_select2_js', WPFEP_PLUGIN_URL . 'assets/js/select2/select2.min.js' );
-			wp_enqueue_style( 'wpfep_select2_css', WPFEP_PLUGIN_URL . '/assets/css/role.css' );
-
-			wp_enqueue_script( 'wpfep_roles_editor_js', plugin_dir_url( __FILE__ ) . '../assets/js/roles-editor.js' );
-			wp_enqueue_style( 'wpfep_roles_editor_css', plugin_dir_url( __FILE__ ) . '../assets/css/roles-editor.css' );
-
-			if ( $current_screen->id == 'wpfep-roles-editor' ) {
-				$role_slug    = $this->sanitize_role( get_post_meta( $post->ID, 'wpfep_role_slug', true ) );
-				$current_role = get_role( $role_slug );
-				$current_user = wp_get_current_user();
-
-				if ( isset( $current_role ) && is_array( $current_role->capabilities ) ) {
-					$role_capabilities = $current_role->capabilities;
-
-					// Logic conditionTrue if current user got this role
-					if ( isset( $role_slug ) && in_array( $role_slug, $current_user->roles ) ) {
-						$current_user_role = true;
-					} else {
-						$current_user_role = false;
-					}
-
-					// For Getting current role users count
-					$current_role_users_count = $this->count_role_users( $current_role->name );
-				} else {
-					$role_capabilities        = null;
-					$current_role_users_count = null;
-					$current_user_role        = false;
-				}
-			} else {
-				$role_capabilities        = null;
-				$current_role_users_count = null;
-				$current_user_role        = false;
-			}
-
-			// For Remove old WordPress levels system
-			// To Use filter and return FALSE if you need the old levels capability system
-			$remove_old_levels = apply_filters( 'wpfep_remove_old_levels', true );
-			if ( $remove_old_levels === true ) {
-				$role_capabilities = $this->remove_old_labels( $role_capabilities );
-			}
-
-			$admin_capabilities = array(
-				'manage_options',
-				'activate_plugins',
-				'delete_plugins',
-				'install_plugins',
-				'manage_network_options',
-				'manage_network',
-				'manage_network_plugins',
-				'upload_plugins',
-			);
-
-			$group_capabilities  = $this->group_capabilities();
-			$hidden_capabilities = null;
-
-			$remove_hidden_capabilities = apply_filters( 'wpfep_re_remove_hidden_caps', true );
-			if ( $remove_hidden_capabilities === true ) {
-				$group_capabilities['general']['capabilities']                  = array_diff( $group_capabilities['general']['capabilities'], $this->get_hidden_capabilities() );
-				$group_capabilities['appearance']['capabilities']               = array_diff( $group_capabilities['appearance']['capabilities'], $this->get_hidden_capabilities() );
-				$group_capabilities['plugins']['capabilities']                  = array_diff( $group_capabilities['plugins']['capabilities'], $this->get_hidden_capabilities() );
-				$group_capabilities['post_types']['attachment']['capabilities'] = array_diff( $group_capabilities['post_types']['attachment']['capabilities'], $this->get_hidden_capabilities() );
-
-				if ( $role_capabilities !== null ) {
-					$role_capabilities = array_diff_key( $role_capabilities, $this->get_hidden_capabilities() );
-				}
-
-				$hidden_capabilities = $this->get_hidden_capabilities();
-				if ( empty( $hidden_capabilities ) ) {
-					$hidden_capabilities = null;
-				}
-			}
-
-			$all_capabilities = $this->get_all_capabilities();
-
-			$custom_capabilities = get_option( 'wpfep_roles_editor_capabilities', 'not_set' );
-			if ( $custom_capabilities != 'not_set' && ! empty( $custom_capabilities['custom']['capabilities'] ) ) {
-				foreach ( $custom_capabilities['custom']['capabilities'] as $custom_capability_key => $custom_capability ) {
-					if ( ! in_array( $custom_capability, $all_capabilities ) ) {
-						$all_capabilities[ $custom_capability ] = $custom_capability;
-					}
-				}
-			}
-
-			$vars_array = array(
-				'ajaxUrl'                       => admin_url( 'admin-ajax.php' ),
-				'current_screen_action'         => $current_screen->action,
-				'capabilities'                  => $group_capabilities,
-				'current_role_capabilities'     => $role_capabilities,
-				'current_role_users_count'      => $current_role_users_count,
-				'all_capabilities'              => $all_capabilities,
-				'current_user_role'             => $current_user_role,
-				'admin_capabilities'            => $admin_capabilities,
-				'hidden_capabilities'           => $hidden_capabilities,
-				'default_role_text'             => esc_html__( 'Default Role', 'wp-front-end-profile' ),
-				'your_role_text'                => esc_html__( 'Your Role', 'wp-front-end-profile' ),
-				'role_name_required_error_text' => esc_html__( 'Role name is required.', 'wp-front-end-profile' ),
-				'no_capabilities_found_text'    => esc_html__( 'No capabilities found.', 'wp-front-end-profile' ),
-				'select2_placeholder_text'      => esc_html__( 'Select capabilities', 'wp-front-end-profile' ),
-				'delete_permanently_text'       => esc_html__( 'Delete Permanently', 'wp-front-end-profile' ),
-				'capability_perm_delete_text'   => esc_html__( "This will permanently delete the capability from your site and from every user role.\n\nIt can't be undone!", 'wp-front-end-profile' ),
-				'new_cap_update_title_text'     => esc_html__( 'This capability is not saved until you click Update!', 'wp-front-end-profile' ),
-				'new_cap_publish_title_text'    => esc_html__( 'This capability is not saved until you click Publish!', 'wp-front-end-profile' ),
-				'delete_text'                   => esc_html__( 'Delete', 'wp-front-end-profile' ),
-				'cancel_text'                   => esc_html__( 'Cancel', 'wp-front-end-profile' ),
-				'add_new_capability_text'       => esc_html__( 'Add New Capability', 'wp-front-end-profile' ),
-				'capability_text'               => esc_html__( 'Capability', 'wp-front-end-profile' ),
-				'cap_no_delete_text'            => esc_html__( 'You can\'t delete this capability from your role.', 'wwp-front-end-profile' ),
-			);
-
-			wp_localize_script( 'wpfep_roles_editor_js', 'wpfep_roles_editor_data', $vars_array );
-		}
-	}
-
-	public function count_role_users( $current_role_name ) {
-		// To Get current role users count
-		$user_count = count_users();
-
-		if ( isset( $user_count['avail_roles'][ $current_role_name ] ) ) {
-			$current_role_users_count = $user_count['avail_roles'][ $current_role_name ];
-		} else {
-			$current_role_users_count = null;
-		}
-
-		return $current_role_users_count;
-	}
-
-	public function get_role_capabilities() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			die();
-		}
-
-		check_ajax_referer( 'wpfep-re-ajax-nonce', 'security' );
-
-		$role = get_role( sanitize_text_field( $_POST['role'] ) );
-
-		if ( isset( $role ) && ! empty( $role->capabilities ) ) {
-			$role_capabilities = $role->capabilities;
-
-			// For Remove old WordPress levels system
-			// To Use filter and return FALSE if you need the old levels capability system
-			$remove_old_levels = apply_filters( 'wpfep_remove_old_levels', true );
-			if ( $remove_old_levels === true ) {
-				$role_capabilities = $this->remove_old_labels( $role_capabilities );
-			}
-
-			die( json_encode( $role_capabilities ) );
-		}
-
-		die( 'no_caps' );
-	}
-
-	public function edit_cpt_quick_links( $views ) {
-		$edited_views        = array();
-		$edited_views['all'] = $views['all'];
-
-		return $edited_views;
-	}
-
-	public function create_roles_editor_cpt() {
-		if ( is_admin() && current_user_can( 'manage_options' ) ) {
-			$labels = array(
-				'name'               => esc_html__( 'Roles Editor', 'wp-front-end-profile' ),
-				'singular_name'      => esc_html__( 'Roles Editor', 'wp-front-end-profile' ),
-				'add_new'            => esc_html__( 'Add New Role', 'wp-front-end-profile' ),
-				'add_new_item'       => esc_html__( 'Add New Role', 'wp-front-end-profile' ),
-				'edit_item'          => esc_html__( 'Edit Role', 'wp-front-end-profile' ),
-				'new_item'           => esc_html__( 'New Role', 'wp-front-end-profile' ),
-				'all_items'          => esc_html__( 'Roles Editor', 'wp-front-end-profile' ),
-				'view_item'          => esc_html__( 'View Role', 'wp-front-end-profile' ),
-				'search_items'       => esc_html__( 'Search the Roles Editor', 'wp-front-end-profile' ),
-				'not_found'          => esc_html__( 'No roles found', 'wp-front-end-profile' ),
-				'not_found_in_trash' => esc_html__( 'No roles found in trash', 'wp-front-end-profile' ),
-				'name_admin_bar'     => esc_html__( 'Role', 'wp-front-end-profile' ),
-				'parent_item_colon'  => '',
-				'menu_name'          => esc_html__( 'Roles Editor', 'wp-front-end-profile' ),
-			);
-
-			$args = array(
-				'labels'             => $labels,
-				'public'             => false,
-				'publicly_queryable' => false,
-				'show_ui'            => true,
-				'query_var'          => true,
-				'show_in_menu'       => 'users.php',
-				'has_archive'        => false,
-				'hierarchical'       => false,
-				'capability_type'    => 'post',
-				'supports'           => array( 'title' ),
-			);
-
-			register_post_type( 'wpfep-roles-editor', $args );
-		}
-	}
-
-	public function change_title_text( $title ) {
-		$screen = get_current_screen();
-
-		if ( $screen->post_type == 'wpfep-roles-editor' ) {
-			$title = esc_html__( 'Enter role name here', 'wp-front-end-profile' );
-		}
-
-		return $title;
-	}
-
-	public function change_post_updated_messages( $messages ) {
-		 global $post;
-
-		$messages['wpfep-roles-editor'] = array(
-			0  => '',
-			1  => esc_html__( 'Role updated.', 'wp-front-end-profile' ),
-			2  => esc_html__( 'Custom field updated.', 'wp-front-end-profile' ),
-			3  => esc_html__( 'Custom field deleted.', 'wp-front-end-profile' ),
-			4  => esc_html__( 'Role updated.', 'wp-front-end-profile' ),
-			5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Role restored to revision from %s' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => esc_html__( 'Role created.', 'wp-front-end-profile' ),
-			7  => esc_html__( 'Role saved.', 'wp-front-end-profile' ),
-			8  => esc_html__( 'Role submitted.', 'wp-front-end-profile' ),
-			9  => sprintf( esc_html__( 'Role scheduled for: <strong>%1$s</strong>', 'wp-front-end-profile' ), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
-			10 => esc_html__( 'Role draft updated.', 'wp-front-end-profile' ),
-		);
-
-		return $messages;
-	}
-
-	public function create_post_for_role() {
-		$screen = get_current_screen();
-
-		if ( $screen->id == 'edit-wpfep-roles-editor' ) {
-			global $wpdb;
-			global $wp_roles;
-
-			$added_posts = array();
-
-			$args  = array(
-				'numberposts' => -1,
-				'post_type'   => 'wpfep-roles-editor',
-			);
-			$posts = get_posts( $args );
-
-			foreach ( $posts as $key => $value ) {
-				$post_id        = intval( $value->ID );
-				$role_slug_meta = $this->sanitize_role( get_post_meta( $post_id, 'wpfep_role_slug', true ) );
-				if ( ! empty( $role_slug_meta ) ) {
-					if ( ! array_key_exists( $role_slug_meta, $wp_roles->role_names ) ) {
-						$post_meta = get_post_meta( $post_id );
-						foreach ( $post_meta as $post_meta_key => $post_meta_value ) {
-							delete_post_meta( $post_id, $post_meta_key );
-						}
-
-						$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->posts WHERE post_type = %s AND ID = %d", 'wpfep-roles-editor', $post_id ) );
-					} else {
-						$added_posts[] = $role_slug_meta;
-					}
-				}
-			}
-
-			foreach ( $wp_roles->role_names as $role_slug => $role_display_name ) {
-				if ( ! in_array( $role_slug, $added_posts ) ) {
-					$id = wp_insert_post(
-						array(
-							'post_title'   => $role_display_name,
-							'post_type'    => 'wpfep-roles-editor',
-							'post_content' => '',
-							'post_status'  => 'publish',
-						)
-					);
-
-					update_post_meta( $id, 'wpfep_role_slug', $role_slug );
-				}
-			}
-		}
-	}
-
-	public function add_extra_column_for_roles_editor_cpt( $columns ) {
-		 $columns = array(
-			 'title'        => esc_html__( 'Role Name', 'wp-front-end-profile' ),
-			 'role'         => esc_html__( 'Role Slug', 'wp-front-end-profile' ),
-			 'capabilities' => esc_html__( 'Capabilities', 'wp-front-end-profile' ),
-			 'users'        => esc_html__( 'Users', 'wp-front-end-profile' ),
-		 );
-
-		 return apply_filters( 'wpfep_manage_roles_columns', $columns );
-	}
-
-	public function custom_column_content_for_roles_editor_cpt( $column_name, $post_id ) {
-		$role_slug = $this->sanitize_role( get_post_meta( $post_id, 'wpfep_role_slug', true ) );
-
-		if ( isset( $role_slug ) ) {
-			$role = get_role( $role_slug );
-
-			if ( $column_name == 'role' ) {
-				echo '<input readonly spellcheck="false" type="text" class="wpfep-role-slug-input input" value="' . esc_attr( $role_slug ) . '" />';
-			}
-
-			if ( $column_name == 'capabilities' && isset( $role ) ) {
-				// To Remove old WordPress levels system
-				// For Use filter and return FALSE if you need the old levels capability system
-				$remove_old_levels = apply_filters( 'wpfep_remove_old_levels', true );
-				if ( $remove_old_levels === true ) {
-					$role_capabilities = $this->remove_old_labels( $role->capabilities );
-				} else {
-					$role_capabilities = $role->capabilities;
-				}
-
-				echo esc_html( count( $role_capabilities ) );
-			}
-
-			if ( $column_name == 'users' && isset( $role ) ) {
-				$role_users_count = $this->count_role_users( $role->name );
-
-				if ( ! isset( $role_users_count ) ) {
-					$role_users_count = 0;
-				}
-
-				echo esc_attr( $role_users_count );
-			}
-		}
-	}
-
-	public function register_meta_boxes() {
-		 remove_meta_box( 'slugdiv', 'wpfep-roles-editor', 'normal' );
-		add_meta_box( 'wpfep_edit_role_capabilities', esc_html__( 'Edit Role Capabilities', 'wp-front-end-profile' ), array( $this, 'edit_role_capabilities_meta_box_callback' ), 'wpfep-roles-editor', 'normal', 'high' );
-	}
-
-	public function edit_role_capabilities_meta_box_callback() {        ?>
+class WPFEP_Roles_Editor
+{
+    public function __construct()
+    {
+        // To Create Roles Editor CPT
+        add_action('init', array( $this, 'create_roles_editor_cpt' ));
+
+        // To Create a Roles Editor CPT post for every existing role
+        add_action('current_screen', array( $this, 'create_post_for_role' ));
+
+        // For Edit CPT page
+        add_filter('manage_wpfep-roles-editor_posts_columns', array( $this, 'add_extra_column_for_roles_editor_cpt' ));
+        add_action('manage_wpfep-roles-editor_posts_custom_column', array( $this, 'custom_column_content_for_roles_editor_cpt' ), 10, 2);
+
+        // To Add and remove meta boxes
+        add_action('add_meta_boxes', array( $this, 'register_meta_boxes' ), 1);
+
+        // To Edit Publish meta box
+        add_action('post_submitbox_misc_actions', array( $this, 'edit_publish_meta_box' ));
+
+        // To Enqueue scripts and styles
+        add_action('admin_enqueue_scripts', array( $this, 'scripts_admin' ));
+
+        // For Add role slug to the created post
+        add_action('save_post', array( $this, 'add_post_meta' ), 10, 2);
+
+        add_filter('wp_insert_post_data', array( $this, 'modify_post_title' ), '99', 1);
+
+        add_action('wp_ajax_delete_capability_permanently', array( $this, 'delete_capability_permanently' ));
+        add_action('wp_ajax_update_role_capabilities', array( $this, 'update_role_capabilities' ));
+        add_action('wp_ajax_get_role_capabilities', array( $this, 'get_role_capabilities' ));
+
+        add_filter('months_dropdown_results', array( $this, 'remove_filter_by_month_dropdown' ), 10, 2);
+        add_filter('post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2);
+
+        add_filter('bulk_actions-edit-wpfep-roles-editor', '__return_empty_array');
+        add_filter('views_edit-wpfep-roles-editor', array( $this, 'edit_cpt_quick_links' ));
+
+        add_filter('enter_title_here', array( $this, 'change_title_text' ));
+        add_filter('post_updated_messages', array( $this, 'change_post_updated_messages' ));
+        add_action('before_delete_post', array( $this, 'delete_role_permanently' ), 10);
+
+        // To Add multiple roles checkbox to back-end Add / Edit User (as admin)
+        add_action('load-user-new.php', array( $this, 'actions_on_user_new' ));
+        add_action('load-user-edit.php', array( $this, 'actions_on_user_edit' ));
+    }
+
+    public function scripts_admin()
+    {
+        global $post_type;
+        global $current_screen;
+        global $post;
+        global $wp_scripts;
+        global $wp_styles;
+
+        if ($post_type == 'wpfep-roles-editor') {
+            $wp_default_scripts = $this->wp_default_scripts();
+            $scripts_exceptions = array( 'wpfep-sitewide', 'acf-field-group', 'acf-pro-field-group', 'acf-input', 'acf-pro-input' );
+            foreach ($wp_scripts->registered as $key => $value) {
+                if (! in_array($key, $wp_default_scripts) && ! in_array($key, $scripts_exceptions)) {
+                    wp_deregister_script($key);
+                }
+            }
+
+            $wp_default_styles = $this->wp_default_styles();
+            $styles_exceptions = array( 'wpfep-serial-notice-css', 'acf-global', 'wpfep-back-end-style' );
+            foreach ($wp_styles->registered as $key => $value) {
+                if (! in_array($key, $wp_default_styles) && ! in_array($key, $styles_exceptions)) {
+                    wp_deregister_style($key);
+                }
+            }
+
+            wp_enqueue_script('wpfep_select2_js', WPFEP_PLUGIN_URL . 'assets/js/select2/select2.min.js');
+            wp_enqueue_style('wpfep_select2_css', WPFEP_PLUGIN_URL . '/assets/css/role.css');
+
+            wp_enqueue_script('wpfep_roles_editor_js', plugin_dir_url(__FILE__) . '../assets/js/roles-editor.js');
+            wp_enqueue_style('wpfep_roles_editor_css', plugin_dir_url(__FILE__) . '../assets/css/roles-editor.css');
+
+            if ($current_screen->id == 'wpfep-roles-editor') {
+                $role_slug    = $this->sanitize_role(get_post_meta($post->ID, 'wpfep_role_slug', true));
+                $current_role = get_role($role_slug);
+                $current_user = wp_get_current_user();
+
+                if (isset($current_role) && is_array($current_role->capabilities)) {
+                    $role_capabilities = $current_role->capabilities;
+
+                    // Logic conditionTrue if current user got this role
+                    if (isset($role_slug) && in_array($role_slug, $current_user->roles)) {
+                        $current_user_role = true;
+                    } else {
+                        $current_user_role = false;
+                    }
+
+                    // For Getting current role users count
+                    $current_role_users_count = $this->count_role_users($current_role->name);
+                } else {
+                    $role_capabilities        = null;
+                    $current_role_users_count = null;
+                    $current_user_role        = false;
+                }
+            } else {
+                $role_capabilities        = null;
+                $current_role_users_count = null;
+                $current_user_role        = false;
+            }
+
+            // For Remove old WordPress levels system
+            // To Use filter and return FALSE if you need the old levels capability system
+            $remove_old_levels = apply_filters('wpfep_remove_old_levels', true);
+            if ($remove_old_levels === true) {
+                $role_capabilities = $this->remove_old_labels($role_capabilities);
+            }
+
+            $admin_capabilities = array(
+                'manage_options',
+                'activate_plugins',
+                'delete_plugins',
+                'install_plugins',
+                'manage_network_options',
+                'manage_network',
+                'manage_network_plugins',
+                'upload_plugins',
+            );
+
+            $group_capabilities  = $this->group_capabilities();
+            $hidden_capabilities = null;
+
+            $remove_hidden_capabilities = apply_filters('wpfep_re_remove_hidden_caps', true);
+            if ($remove_hidden_capabilities === true) {
+                $group_capabilities['general']['capabilities']                  = array_diff($group_capabilities['general']['capabilities'], $this->get_hidden_capabilities());
+                $group_capabilities['appearance']['capabilities']               = array_diff($group_capabilities['appearance']['capabilities'], $this->get_hidden_capabilities());
+                $group_capabilities['plugins']['capabilities']                  = array_diff($group_capabilities['plugins']['capabilities'], $this->get_hidden_capabilities());
+                $group_capabilities['post_types']['attachment']['capabilities'] = array_diff($group_capabilities['post_types']['attachment']['capabilities'], $this->get_hidden_capabilities());
+
+                if ($role_capabilities !== null) {
+                    $role_capabilities = array_diff_key($role_capabilities, $this->get_hidden_capabilities());
+                }
+
+                $hidden_capabilities = $this->get_hidden_capabilities();
+                if (empty($hidden_capabilities)) {
+                    $hidden_capabilities = null;
+                }
+            }
+
+            $all_capabilities = $this->get_all_capabilities();
+
+            $custom_capabilities = get_option('wpfep_roles_editor_capabilities', 'not_set');
+            if ($custom_capabilities != 'not_set' && ! empty($custom_capabilities['custom']['capabilities'])) {
+                foreach ($custom_capabilities['custom']['capabilities'] as $custom_capability_key => $custom_capability) {
+                    if (! in_array($custom_capability, $all_capabilities)) {
+                        $all_capabilities[ $custom_capability ] = $custom_capability;
+                    }
+                }
+            }
+
+            $vars_array = array(
+                'ajaxUrl'                       => admin_url('admin-ajax.php'),
+                'current_screen_action'         => $current_screen->action,
+                'capabilities'                  => $group_capabilities,
+                'current_role_capabilities'     => $role_capabilities,
+                'current_role_users_count'      => $current_role_users_count,
+                'all_capabilities'              => $all_capabilities,
+                'current_user_role'             => $current_user_role,
+                'admin_capabilities'            => $admin_capabilities,
+                'hidden_capabilities'           => $hidden_capabilities,
+                'default_role_text'             => esc_html__('Default Role', 'wp-front-end-profile'),
+                'your_role_text'                => esc_html__('Your Role', 'wp-front-end-profile'),
+                'role_name_required_error_text' => esc_html__('Role name is required.', 'wp-front-end-profile'),
+                'no_capabilities_found_text'    => esc_html__('No capabilities found.', 'wp-front-end-profile'),
+                'select2_placeholder_text'      => esc_html__('Select capabilities', 'wp-front-end-profile'),
+                'delete_permanently_text'       => esc_html__('Delete Permanently', 'wp-front-end-profile'),
+                'capability_perm_delete_text'   => esc_html__("This will permanently delete the capability from your site and from every user role.\n\nIt can't be undone!", 'wp-front-end-profile'),
+                'new_cap_update_title_text'     => esc_html__('This capability is not saved until you click Update!', 'wp-front-end-profile'),
+                'new_cap_publish_title_text'    => esc_html__('This capability is not saved until you click Publish!', 'wp-front-end-profile'),
+                'delete_text'                   => esc_html__('Delete', 'wp-front-end-profile'),
+                'cancel_text'                   => esc_html__('Cancel', 'wp-front-end-profile'),
+                'add_new_capability_text'       => esc_html__('Add New Capability', 'wp-front-end-profile'),
+                'capability_text'               => esc_html__('Capability', 'wp-front-end-profile'),
+                'cap_no_delete_text'            => esc_html__('You can\'t delete this capability from your role.', 'wwp-front-end-profile'),
+            );
+
+            wp_localize_script('wpfep_roles_editor_js', 'wpfep_roles_editor_data', $vars_array);
+        }
+    }
+
+    public function count_role_users($current_role_name)
+    {
+        // To Get current role users count
+        $user_count = count_users();
+
+        if (isset($user_count['avail_roles'][ $current_role_name ])) {
+            $current_role_users_count = $user_count['avail_roles'][ $current_role_name ];
+        } else {
+            $current_role_users_count = null;
+        }
+
+        return $current_role_users_count;
+    }
+
+    public function get_role_capabilities()
+    {
+        if (! current_user_can('manage_options')) {
+            die();
+        }
+
+        check_ajax_referer('wpfep-re-ajax-nonce', 'security');
+
+        $role = get_role(sanitize_text_field($_POST['role']));
+
+        if (isset($role) && ! empty($role->capabilities)) {
+            $role_capabilities = $role->capabilities;
+
+            // For Remove old WordPress levels system
+            // To Use filter and return FALSE if you need the old levels capability system
+            $remove_old_levels = apply_filters('wpfep_remove_old_levels', true);
+            if ($remove_old_levels === true) {
+                $role_capabilities = $this->remove_old_labels($role_capabilities);
+            }
+
+            die(json_encode($role_capabilities));
+        }
+
+        die('no_caps');
+    }
+
+    public function edit_cpt_quick_links($views)
+    {
+        $edited_views        = array();
+        $edited_views['all'] = $views['all'];
+
+        return $edited_views;
+    }
+
+    public function create_roles_editor_cpt()
+    {
+        if (is_admin() && current_user_can('manage_options')) {
+            $labels = array(
+                'name'               => esc_html__('Roles Editor', 'wp-front-end-profile'),
+                'singular_name'      => esc_html__('Roles Editor', 'wp-front-end-profile'),
+                'add_new'            => esc_html__('Add New Role', 'wp-front-end-profile'),
+                'add_new_item'       => esc_html__('Add New Role', 'wp-front-end-profile'),
+                'edit_item'          => esc_html__('Edit Role', 'wp-front-end-profile'),
+                'new_item'           => esc_html__('New Role', 'wp-front-end-profile'),
+                'all_items'          => esc_html__('Roles Editor', 'wp-front-end-profile'),
+                'view_item'          => esc_html__('View Role', 'wp-front-end-profile'),
+                'search_items'       => esc_html__('Search the Roles Editor', 'wp-front-end-profile'),
+                'not_found'          => esc_html__('No roles found', 'wp-front-end-profile'),
+                'not_found_in_trash' => esc_html__('No roles found in trash', 'wp-front-end-profile'),
+                'name_admin_bar'     => esc_html__('Role', 'wp-front-end-profile'),
+                'parent_item_colon'  => '',
+                'menu_name'          => esc_html__('Roles Editor', 'wp-front-end-profile'),
+            );
+
+            $args = array(
+                'labels'             => $labels,
+                'public'             => false,
+                'publicly_queryable' => false,
+                'show_ui'            => true,
+                'query_var'          => true,
+                'show_in_menu'       => 'users.php',
+                'has_archive'        => false,
+                'hierarchical'       => false,
+                'capability_type'    => 'post',
+                'supports'           => array( 'title' ),
+            );
+
+            register_post_type('wpfep-roles-editor', $args);
+        }
+    }
+
+    public function change_title_text($title)
+    {
+        $screen = get_current_screen();
+
+        if ($screen->post_type == 'wpfep-roles-editor') {
+            $title = esc_html__('Enter role name here', 'wp-front-end-profile');
+        }
+
+        return $title;
+    }
+
+    public function change_post_updated_messages($messages)
+    {
+        global $post;
+
+        $messages['wpfep-roles-editor'] = array(
+            0  => '',
+            1  => esc_html__('Role updated.', 'wp-front-end-profile'),
+            2  => esc_html__('Custom field updated.', 'wp-front-end-profile'),
+            3  => esc_html__('Custom field deleted.', 'wp-front-end-profile'),
+            4  => esc_html__('Role updated.', 'wp-front-end-profile'),
+            5  => isset($_GET['revision']) ? sprintf(esc_html__('Role restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+            6  => esc_html__('Role created.', 'wp-front-end-profile'),
+            7  => esc_html__('Role saved.', 'wp-front-end-profile'),
+            8  => esc_html__('Role submitted.', 'wp-front-end-profile'),
+            9  => sprintf(esc_html__('Role scheduled for: <strong>%1$s</strong>', 'wp-front-end-profile'), date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date))),
+            10 => esc_html__('Role draft updated.', 'wp-front-end-profile'),
+        );
+
+        return $messages;
+    }
+
+    public function create_post_for_role()
+    {
+        $screen = get_current_screen();
+
+        if ($screen->id == 'edit-wpfep-roles-editor') {
+            global $wpdb;
+            global $wp_roles;
+
+            $added_posts = array();
+
+            $args  = array(
+                'numberposts' => -1,
+                'post_type'   => 'wpfep-roles-editor',
+            );
+            $posts = get_posts($args);
+
+            foreach ($posts as $key => $value) {
+                $post_id        = intval($value->ID);
+                $role_slug_meta = $this->sanitize_role(get_post_meta($post_id, 'wpfep_role_slug', true));
+                if (! empty($role_slug_meta)) {
+                    if (! array_key_exists($role_slug_meta, $wp_roles->role_names)) {
+                        $post_meta = get_post_meta($post_id);
+                        foreach ($post_meta as $post_meta_key => $post_meta_value) {
+                            delete_post_meta($post_id, $post_meta_key);
+                        }
+
+                        $wpdb->query($wpdb->prepare("DELETE FROM $wpdb->posts WHERE post_type = %s AND ID = %d", 'wpfep-roles-editor', $post_id));
+                    } else {
+                        $added_posts[] = $role_slug_meta;
+                    }
+                }
+            }
+
+            foreach ($wp_roles->role_names as $role_slug => $role_display_name) {
+                if (! in_array($role_slug, $added_posts)) {
+                    $id = wp_insert_post(
+                        array(
+                            'post_title'   => $role_display_name,
+                            'post_type'    => 'wpfep-roles-editor',
+                            'post_content' => '',
+                            'post_status'  => 'publish',
+                        )
+                    );
+
+                    update_post_meta($id, 'wpfep_role_slug', $role_slug);
+                }
+            }
+        }
+    }
+
+    public function add_extra_column_for_roles_editor_cpt($columns)
+    {
+        $columns = array(
+             'title'        => esc_html__('Role Name', 'wp-front-end-profile'),
+             'role'         => esc_html__('Role Slug', 'wp-front-end-profile'),
+             'capabilities' => esc_html__('Capabilities', 'wp-front-end-profile'),
+             'users'        => esc_html__('Users', 'wp-front-end-profile'),
+         );
+
+        return apply_filters('wpfep_manage_roles_columns', $columns);
+    }
+
+    public function custom_column_content_for_roles_editor_cpt($column_name, $post_id)
+    {
+        $role_slug = $this->sanitize_role(get_post_meta($post_id, 'wpfep_role_slug', true));
+
+        if (isset($role_slug)) {
+            $role = get_role($role_slug);
+
+            if ($column_name == 'role') {
+                echo '<input readonly spellcheck="false" type="text" class="wpfep-role-slug-input input" value="' . esc_attr($role_slug) . '" />';
+            }
+
+            if ($column_name == 'capabilities' && isset($role)) {
+                // To Remove old WordPress levels system
+                // For Use filter and return FALSE if you need the old levels capability system
+                $remove_old_levels = apply_filters('wpfep_remove_old_levels', true);
+                if ($remove_old_levels === true) {
+                    $role_capabilities = $this->remove_old_labels($role->capabilities);
+                } else {
+                    $role_capabilities = $role->capabilities;
+                }
+
+                echo esc_html(count($role_capabilities));
+            }
+
+            if ($column_name == 'users' && isset($role)) {
+                $role_users_count = $this->count_role_users($role->name);
+
+                if (! isset($role_users_count)) {
+                    $role_users_count = 0;
+                }
+
+                echo esc_attr($role_users_count);
+            }
+        }
+    }
+
+    public function register_meta_boxes()
+    {
+        remove_meta_box('slugdiv', 'wpfep-roles-editor', 'normal');
+        add_meta_box('wpfep_edit_role_capabilities', esc_html__('Edit Role Capabilities', 'wp-front-end-profile'), array( $this, 'edit_role_capabilities_meta_box_callback' ), 'wpfep-roles-editor', 'normal', 'high');
+    }
+
+    public function edit_role_capabilities_meta_box_callback() {        ?>
 
 				   <div id="wpfep-role-edit-caps-div" style="margin: 15px 0 5px; 0;">
 			<div class="wpfep-capabilitiy">
