@@ -1,29 +1,31 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * If you would like to edit this file, copy it to your current theme's directory and edit it there.
  * wpfep will always look in your theme's directory first, before using this default template.
  */
+
 defined('ABSPATH') || exit;
 ?>
 <?php
 $message = apply_filters('registration_message', '');
 
-if (!empty($message)) {
-    echo esc_html($message)."\n";
+if (! empty($message)) {
+    echo esc_html($message) . "\n";
 }
 if (isset($_GET['success']) && 'yes' == $_GET['success']) {
-    echo "<div class='wpfep-success'>".esc_html('Registration has been successful!', 'wp-front-end-profile').'</div>';
+    echo "<div class='wpfep-success'>" . esc_html('Registration has been successful!', 'wp-front-end-profile') . '</div>';
 }
 if (isset($_GET['success']) && 'notactivated' == $_GET['success']) {
-    echo "<div class='wpfep-success'>".esc_html(esc_attr__('Registration has been successful! Please activate your account from e-mail.', 'wp-front-end-profile')).'</div>';
+    echo "<div class='wpfep-success'>" . esc_html(esc_attr__('Registration has been successful! Please activate your account from e-mail.', 'wp-front-end-profile')) . '</div>';
 }
 if (isset($_GET['success']) && 'notapproved' == $_GET['success']) {
-    echo "<div class='wpfep-success'>".esc_html(esc_attr__('Registration has been successful!. Please wait for admin approval.', 'wp-front-end-profile')).'</div>';
+    echo "<div class='wpfep-success'>" . esc_html(esc_attr__('Registration has been successful!. Please wait for admin approval.', 'wp-front-end-profile')) . '</div>';
 }
 
 $register_page = wpfep_get_option('register_page', 'wpfep_pages');
-$action_url = get_permalink($register_page);
-$register_obj = WPFEP_Registration::init();
+$action_url    = get_permalink($register_page);
+$register_obj  = WPFEP_Registration::init();
 ?>
 
 <?php echo esc_html($register_obj->show_errors()); ?>

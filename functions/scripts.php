@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Enqueuing scripts.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -10,7 +12,6 @@ defined('ABSPATH') || exit;
  */
 function wpfep_register_scripts()
 {
-
     /* make sure that jquery is enqueued */
     wp_enqueue_script('jquery');
 
@@ -19,7 +20,7 @@ function wpfep_register_scripts()
 
     /* if we should output styles - enqueue them */
     if (true == $style_output) {
-        wp_enqueue_style('wpfep_styles', plugins_url('/assets/css/wpfep-style.css', dirname(__FILE__)), [], WPFEP_VERSION, 'all');
+        wp_enqueue_style('wpfep_styles', plugins_url('/assets/css/wpfep-style.css', dirname(__FILE__)), array(), WPFEP_VERSION, 'all');
     }
 
     /* make a filter to allow turning off tab js */
@@ -27,7 +28,7 @@ function wpfep_register_scripts()
 
     /* if we turn ob tab js - enqueue them */
     if (true == $tab_js_output) {
-        wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), 'jquery', [], true);
+        wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), 'jquery', array(), true);
     }
 }
 add_action('wp_enqueue_scripts', 'wpfep_register_scripts');

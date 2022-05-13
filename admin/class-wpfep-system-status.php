@@ -1,10 +1,12 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * System status.
  */
+
 defined('ABSPATH') || exit;
 
-if (!class_exists('Wpfep_System_Status')) {
+if (! class_exists('Wpfep_System_Status')) {
     /**
      * Wpfep status functions.
      *
@@ -14,6 +16,7 @@ if (!class_exists('Wpfep_System_Status')) {
      */
     class Wpfep_System_Status
     {
+
         /**
          * Display Error message.
          *
@@ -43,11 +46,11 @@ if (!class_exists('Wpfep_System_Status')) {
         {
             global $wpdb;
 
-            $environment = self::wpfep_get_environment_info();
-            $database = self::wpfep_get_database_info();
+            $environment    = self::wpfep_get_environment_info();
+            $database       = self::wpfep_get_database_info();
             $active_plugins = self::wpfep_get_active_plugins();
-            $theme = self::wpfep_get_theme_info();
-            $security = self::wpfep_get_security_info(); ?>
+            $theme          = self::wpfep_get_theme_info();
+            $security       = self::wpfep_get_security_info(); ?>
 			<style type="text/css"></style>
 			<div class="wrap">
 				<h2><?php esc_attr_e('System Status', 'wp-front-end-profile'); ?></h2>
@@ -93,9 +96,9 @@ if (!class_exists('Wpfep_System_Status')) {
 						<?php
                         if ($environment['wp_memory_limit'] < 67108864) {
                             /* translators: %1s: WordPress environment */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html__('%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'wp-front-end-profile'), esc_html(size_format($environment['wp_memory_limit'])), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">'.esc_html__('Increasing memory allocated to PHP', 'wp-front-end-profile').'</a>').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'wp-front-end-profile'), esc_html(size_format($environment['wp_memory_limit'])), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__('Increasing memory allocated to PHP', 'wp-front-end-profile') . '</a>') . '</mark>';
                         } else {
-                            echo '<mark class="yes">'.esc_html(size_format($environment['wp_memory_limit'])).'</mark>';
+                            echo '<mark class="yes">' . esc_html(size_format($environment['wp_memory_limit'])) . '</mark>';
                         } ?>
 							</td>
 					</tr>
@@ -143,9 +146,9 @@ if (!class_exists('Wpfep_System_Status')) {
 						<?php
                         if (version_compare($environment['php_version'], '5.6', '<')) {
                             /* translators: %1$s: php version */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('%1$s - We recommend a minimum PHP version of 5.6.', 'wp-front-end-profile'), esc_html($environment['php_version'])).'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%1$s - We recommend a minimum PHP version of 5.6.', 'wp-front-end-profile'), esc_html($environment['php_version'])) . '</mark>';
                         } else {
-                            echo '<mark class="yes">'.esc_html($environment['php_version']).'</mark>';
+                            echo '<mark class="yes">' . esc_html($environment['php_version']) . '</mark>';
                         } ?>
 							</td>
 					</tr>
@@ -178,20 +181,20 @@ if (!class_exists('Wpfep_System_Status')) {
             } else {
                 $ver = $wpdb->db_version();
             }
-            if (!empty($wpdb->is_mysql) && !stristr($ver, 'MariaDB')) {
+            if (! empty($wpdb->is_mysql) && ! stristr($ver, 'MariaDB')) {
                 ?>
 						<tr>
 							<td data-export-label="<?php esc_attr_e('MySQL Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('MySQL version', 'wp-front-end-profile'); ?>:</td>
 							<td>
 								<?php
                                 if (version_compare($environment['mysql_version'], '5.6', '<')) {
-                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('%1$s - We recommend a minimum MySQL version of 5.6. See: %2$s', 'wp-front-end-profile'), esc_html($environment['mysql_version']), '<a href="https://wordpress.org/about/requirements/" target="_blank">'.esc_html('WordPress requirements', 'wp-front-end-profile').'</a>').'</mark>';
+                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%1$s - We recommend a minimum MySQL version of 5.6. See: %2$s', 'wp-front-end-profile'), esc_html($environment['mysql_version']), '<a href="https://wordpress.org/about/requirements/" target="_blank">' . esc_html('WordPress requirements', 'wp-front-end-profile') . '</a>') . '</mark>';
                                 } else {
-                                    echo '<mark class="yes">'.esc_html($environment['mysql_version']).'</mark>';
+                                    echo '<mark class="yes">' . esc_html($environment['mysql_version']) . '</mark>';
                                 } ?>
 							</td>
 						</tr>
-					<?php
+							<?php
             } ?>
 					<tr>
 						<td data-export-label="<?php esc_attr_e('Max Upload Size', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Max upload size', 'wp-front-end-profile'); ?>:</td>
@@ -203,7 +206,7 @@ if (!class_exists('Wpfep_System_Status')) {
 						<?php
                         if ('UTC' !== $environment['default_timezone']) {
                             /* translators: %s: default timezone */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_attr_e('Default timezone is %s - it should be UTC', 'wp-front-end-profile'), esc_html($environment['default_timezone'])).'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_attr_e('Default timezone is %s - it should be UTC', 'wp-front-end-profile'), esc_html($environment['default_timezone'])) . '</mark>';
                         } else {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } ?>
@@ -216,7 +219,7 @@ if (!class_exists('Wpfep_System_Status')) {
                         if ($environment['fsockopen_or_curl_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.esc_html_e('Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'wp-front-end-profile').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html_e('Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'wp-front-end-profile') . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -228,7 +231,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_attr_e('Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_attr_e('Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -240,7 +243,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('Your server does not have the %s class enabled - HTML/Multipart emails, and also some extensions, will not work without DOMDocument.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/class.domdocument.php">DOMDocument</a>').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not have the %s class enabled - HTML/Multipart emails, and also some extensions, will not work without DOMDocument.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/class.domdocument.php">DOMDocument</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -252,7 +255,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('Your server does not support the %s function - this is required to use the GeoIP database from MaxMind.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/zlib.installation.php">gzopen</a>').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not support the %s function - this is required to use the GeoIP database from MaxMind.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/zlib.installation.php">gzopen</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -264,7 +267,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('Your server does not have enabled %s - this is required for image processing.', 'wp-front-end-profile'), '<a href="https://secure.php.net/manual/en/image.installation.php">GD Library</a>').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not have enabled %s - this is required for image processing.', 'wp-front-end-profile'), '<a href="https://secure.php.net/manual/en/image.installation.php">GD Library</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -276,7 +279,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('Your server does not support the %s functions - this is required for better character encoding. Some fallbacks will be used instead for it.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/mbstring.installation.php">mbstring</a>').'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not support the %s functions - this is required for better character encoding. Some fallbacks will be used instead for it.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/mbstring.installation.php">mbstring</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -288,7 +291,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html('%s failed. Contact your hosting provider.', 'wp-front-end-profile'), 'wp_remote_post()').' '.esc_html($environment['remote_post_response']).'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%s failed. Contact your hosting provider.', 'wp-front-end-profile'), 'wp_remote_post()') . ' ' . esc_html($environment['remote_post_response']) . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -300,20 +303,20 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html__('%s failed. Contact your hosting provider.', 'wp-front-end-profile'), 'wp_remote_get()').' '.esc_html($environment['remote_get_response']).'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%s failed. Contact your hosting provider.', 'wp-front-end-profile'), 'wp_remote_get()') . ' ' . esc_html($environment['remote_get_response']) . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<?php
-                    $rows = apply_filters('wpfep_system_status_environment_rows', []);
+                    $rows = apply_filters('wpfep_system_status_environment_rows', array());
             if (count($rows) > 0) {
                 foreach ($rows as $row) {
-                    if (!empty($row['success'])) {
+                    if (! empty($row['success'])) {
                         $css_class = 'yes';
-                        $icon = '<span class="dashicons dashicons-yes"></span>';
+                        $icon      = '<span class="dashicons dashicons-yes"></span>';
                     } else {
                         $css_class = 'error';
-                        $icon = '<span class="dashicons dashicons-no-alt"></span>';
+                        $icon      = '<span class="dashicons dashicons-no-alt"></span>';
                     } ?>
 							<tr>
 							<td data-export-label="<?php echo esc_attr($row['name']); ?>"><?php echo esc_html($row['name']); ?>
@@ -324,14 +327,14 @@ if (!class_exists('Wpfep_System_Status')) {
 									<?php
                                     echo wp_kses(
                         $icon,
-                        [
-                                            'span' => [
+                        array(
+                                            'span' => array(
 
-                                                'class' => [],
-                                            ],
-                                        ]
+                                                'class' => array(),
+                                            ),
+                                        )
                     ); ?>
-								<?php echo !empty($row['note']) ? wp_kses_data($row['note']) : ''; ?>
+								<?php echo ! empty($row['note']) ? wp_kses_data($row['note']) : ''; ?>
 								</mark>
 							</td>
 							</tr>
@@ -382,9 +385,9 @@ if (!class_exists('Wpfep_System_Status')) {
 						<?php
                         if (strlen($database['database_prefix']) > 20) {
                             /* translators: %1s: database prefix */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> '.sprintf(esc_html__('%1$s - We recommend using a prefix with less than 20 characters.', 'wp-front-end-profile'), esc_html($database['database_prefix'])).'</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%1$s - We recommend using a prefix with less than 20 characters.', 'wp-front-end-profile'), esc_html($database['database_prefix'])) . '</mark>';
                         } else {
-                            echo '<mark class="yes">'.esc_html($database['database_prefix']).'</mark>';
+                            echo '<mark class="yes">' . esc_html($database['database_prefix']) . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -451,59 +454,59 @@ if (!class_exists('Wpfep_System_Status')) {
 					<tbody>
 					<?php
                     foreach ($active_plugins as $plugin) {
-                        if (!empty($plugin['name'])) {
+                        if (! empty($plugin['name'])) {
                             $dirname = dirname($plugin['plugin']);
 
                             // Link the plugin name to the plugin url if available.
                             $plugin_name = esc_html($plugin['name'], 'wp-front-end-profile');
-                            if (!empty($plugin['url'])) {
-                                $plugin_name = '<a href="'.esc_url($plugin['url']).'" aria-label="'.esc_attr__('Visit plugin homepage', 'wp-front-end-profile').'" target="_blank">'.esc_attr($plugin_name).'</a>';
+                            if (! empty($plugin['url'])) {
+                                $plugin_name = '<a href="' . esc_url($plugin['url']) . '" aria-label="' . esc_attr__('Visit plugin homepage', 'wp-front-end-profile') . '" target="_blank">' . esc_attr($plugin_name) . '</a>';
                             }
 
                             $version_string = '';
                             $network_string = '';
-                            if (!empty($plugin['latest_verison']) && version_compare($plugin['latest_verison'], $plugin['version'], '>')) {
+                            if (! empty($plugin['latest_verison']) && version_compare($plugin['latest_verison'], $plugin['version'], '>')) {
                                 /* translators: %s: plugin latest version */
-                                $version_string = ' &ndash; <strong style="color:red;">'.sprintf(esc_html__('%s is available', 'wp-front-end-profile'), $plugin['latest_verison']).'</strong>';
+                                $version_string = ' &ndash; <strong style="color:red;">' . sprintf(esc_html__('%s is available', 'wp-front-end-profile'), $plugin['latest_verison']) . '</strong>';
                             }
 
                             if (false !== $plugin['network_activated']) {
-                                $network_string = ' &ndash; <strong style="color:black;">'.esc_attr__('Network enabled', 'wp-front-end-profile').'</strong>';
+                                $network_string = ' &ndash; <strong style="color:black;">' . esc_attr__('Network enabled', 'wp-front-end-profile') . '</strong>';
                             } ?>
 							<tr>
 								<td>
 								<?php
                                 echo wp_kses(
                                 $plugin_name,
-                                [
-                                        'a' => [
-                                            'href'  => [],
-                                            'id'    => [],
-                                            'class' => [],
-                                        ],
-                                    ]
+                                array(
+                                        'a' => array(
+                                            'href'  => array(),
+                                            'id'    => array(),
+                                            'class' => array(),
+                                        ),
+                                    )
                             ); ?>
 			</td>
 								<td>
 								<?php
                                     /* translators: %s: plugin author */
                                     printf(esc_attr__('by %s', 'wp-front-end-profile'), esc_html($plugin['author_name']));
-                            echo ' &ndash; '.esc_html($plugin['version']).wp_kses(
+                            echo ' &ndash; ' . esc_html($plugin['version']) . wp_kses(
                                 $version_string,
-                                [
-                                            'strong' => [
-                                                'style' => [],
+                                array(
+                                        'strong' => array(
+                                            'style' => array(),
 
-                                            ],
-                                        ]
-                            ).wp_kses(
+                                        ),
+                                    )
+                            ) . wp_kses(
                                 $network_string,
-                                [
-                                            'strong' => [
-                                                'style' => [],
+                                array(
+                                    'strong' => array(
+                                        'style' => array(),
 
-                                            ],
-                                        ]
+                                    ),
+                                )
                             )
                                 ?>
 									</td>
@@ -531,7 +534,7 @@ if (!class_exists('Wpfep_System_Status')) {
                             echo esc_html($theme['version']);
             if (version_compare($theme['version'], $theme['latest_verison'], '<')) {
                 /* translators: %s: theme latest version */
-                echo ' &ndash; <strong style="color:red;">'.sprintf(esc_attr__('%s is available', 'wp-front-end-profile'), esc_html($theme['latest_verison'])).'</strong>';
+                echo ' &ndash; <strong style="color:red;">' . sprintf(esc_attr__('%s is available', 'wp-front-end-profile'), esc_html($theme['latest_verison'])) . '</strong>';
             } ?>
 							</td>
 					</tr>
@@ -544,19 +547,19 @@ if (!class_exists('Wpfep_System_Status')) {
 						<td>
 						<?php
                         /* translators: %s: child theme */
-                            $theme_name = $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; '.sprintf(__('If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wp-front-end-profile'), 'https://codex.wordpress.org/Child_Themes');
+                            $theme_name = $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf(__('If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wp-front-end-profile'), 'https://codex.wordpress.org/Child_Themes');
             echo wp_kses(
                 $theme_name,
-                [
-                                    'span' => [
+                array(
+                                'span' => array(
 
-                                        'class' => [],
-                                    ],
-                                    'a'    => [
-                                        'href'   => [],
-                                        'target' => [],
-                                    ],
-                                ]
+                                    'class' => array(),
+                                ),
+                                'a'    => array(
+                                    'href'   => array(),
+                                    'target' => array(),
+                                ),
+                            )
             ); ?>
 							</td>
 					</tr>
@@ -574,7 +577,7 @@ if (!class_exists('Wpfep_System_Status')) {
                                 echo esc_html($theme['parent_version']);
                         if (version_compare($theme['parent_version'], $theme['parent_latest_verison'], '<')) {
                             /* translators: %s: parent theme latest version */
-                            echo ' &ndash; <strong style="color:red;">'.sprintf(esc_attr__('%s is available', 'wp-front-end-profile'), esc_html($theme['parent_latest_verison'])).'</strong>';
+                            echo ' &ndash; <strong style="color:red;">' . sprintf(esc_attr__('%s is available', 'wp-front-end-profile'), esc_html($theme['parent_latest_verison'])) . '</strong>';
                         } ?>
 								</td>
 						</tr>
@@ -582,7 +585,7 @@ if (!class_exists('Wpfep_System_Status')) {
 							<td data-export-label="<?php esc_attr_e('Parent Theme Author URL', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Parent theme author URL', 'wp-front-end-profile'); ?>:</td>
 							<td><?php echo esc_html($theme['parent_author_url']); ?></td>
 						</tr>
-					<?php
+						<?php
                     } ?>
 					</tbody>
 				</table>
@@ -594,7 +597,7 @@ if (!class_exists('Wpfep_System_Status')) {
 					</thead>
 					<tbody>
 					<?php
-                    if (!empty($theme['overrides'])) {
+                    if (! empty($theme['overrides'])) {
                         ?>
 						<tr>
 							<td data-export-label="<?php esc_attr_e('Overrides', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Overrides', 'wp-front-end-profile'); ?></td>
@@ -602,19 +605,18 @@ if (!class_exists('Wpfep_System_Status')) {
 								<?php
                                 $total_overrides = count($theme['overrides']);
                         for ($i = 0; $i < $total_overrides; $i++) {
-                            $override = $theme['overrides'][$i];
+                            $override = $theme['overrides'][ $i ];
                             if (isset($override['core_version']) && (empty($override['version']) || version_compare($override['version'], $override['core_version'], '<'))) {
                                 $current_version = $override['version'] ? $override['version'] : '-';
                                 printf(
-
                                             /*
                                              * Translators: %1s: current version
                                              * Translators: %2s: your version
                                              * Translators: %3s: core version
                                              */
                                             esc_html__('%1$s version %2$s is out of date. The core version is %3$s', 'wp-front-end-profile'),
-                                    '<code>'.esc_html($override['file']).'</code>',
-                                    '<strong style="color:red">'.esc_html($current_version).'</strong>',
+                                    '<code>' . esc_html($override['file']) . '</code>',
+                                    '<strong style="color:red">' . esc_html($current_version) . '</strong>',
                                     esc_html($override['core_version'])
                                 );
                             } else {
@@ -667,7 +669,7 @@ if (!class_exists('Wpfep_System_Status')) {
             $curl_version = '';
             if (function_exists('curl_version')) {
                 $curl_version = curl_version();
-                $curl_version = $curl_version['version'].', '.$curl_version['ssl_version'];
+                $curl_version = $curl_version['version'] . ', ' . $curl_version['ssl_version'];
             }
 
             // WP memory limit.
@@ -679,40 +681,40 @@ if (!class_exists('Wpfep_System_Status')) {
             // User agent.
             $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
             // Test POST requests.
-            $post_response = wp_safe_remote_post(
+            $post_response            = wp_safe_remote_post(
                 'http://api.wordpress.org/core/browse-happy/1.1/',
-                [
+                array(
                     'timeout'     => 10,
-                    'user-agent'  => 'WordPress/'.get_bloginfo('version').'; '.home_url(),
+                    'user-agent'  => 'WordPress/' . get_bloginfo('version') . '; ' . home_url(),
                     'httpversion' => '1.1',
-                    'body'        => [
+                    'body'        => array(
                         'useragent' => $user_agent,
-                    ],
-                ]
+                    ),
+                )
             );
-            $post_response_body = null;
+            $post_response_body       = null;
             $post_response_successful = false;
-            if (!is_wp_error($post_response) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300) {
+            if (! is_wp_error($post_response) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300) {
                 $post_response_successful = true;
-                $post_response_body = json_decode(wp_remote_retrieve_body($post_response), true);
+                $post_response_body       = json_decode(wp_remote_retrieve_body($post_response), true);
             }
 
             // Test GET requests.
-            $get_response = wp_safe_remote_get(
+            $get_response            = wp_safe_remote_get(
                 'https://plugins.svn.wordpress.org/wpptm/trunk/readme.txt',
-                [
+                array(
                     'timeout'     => 10,
-                    'user-agent'  => 'wpfep/'.WPFEP_VERSION,
+                    'user-agent'  => 'wpfep/' . WPFEP_VERSION,
                     'httpversion' => '1.1',
-                ]
+                )
             );
             $get_response_successful = false;
-            if (!is_wp_error($post_response) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300) {
+            if (! is_wp_error($post_response) && $post_response['response']['code'] >= 200 && $post_response['response']['code'] < 300) {
                 $get_response_successful = true;
             }
 
             // Return all environment info. Described by JSON Schema.
-            return [
+            return array(
                 'home_url'                  => get_option('home'),
                 'site_url'                  => get_option('siteurl'),
                 'version'                   => WPFEP_VERSION,
@@ -720,7 +722,7 @@ if (!class_exists('Wpfep_System_Status')) {
                 'wp_multisite'              => is_multisite(),
                 'wp_memory_limit'           => $wp_memory_limit,
                 'wp_debug_mode'             => (defined('WP_DEBUG') && WP_DEBUG),
-                'wp_cron'                   => !(defined('DISABLE_WP_CRON') && DISABLE_WP_CRON),
+                'wp_cron'                   => ! (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON),
                 'language'                  => get_locale(),
                 'server_info'               => isset($_SERVER['SERVER_SOFTWARE']) ? sanitize_text_field(wp_unslash($_SERVER['SERVER_SOFTWARE'])) : '',
                 'php_version'               => phpversion(),
@@ -730,7 +732,7 @@ if (!class_exists('Wpfep_System_Status')) {
                 'curl_version'              => $curl_version,
                 'suhosin_installed'         => extension_loaded('suhosin'),
                 'max_upload_size'           => wp_max_upload_size(),
-                'mysql_version'             => (!empty($wpdb->is_mysql) ? $wpdb->db_version() : ''),
+                'mysql_version'             => (! empty($wpdb->is_mysql) ? $wpdb->db_version() : ''),
                 'default_timezone'          => date_default_timezone_get(),
                 'fsockopen_or_curl_enabled' => (function_exists('fsockopen') || function_exists('curl_init')),
                 'soapclient_enabled'        => class_exists('SoapClient'),
@@ -742,11 +744,11 @@ if (!class_exists('Wpfep_System_Status')) {
                 'remote_post_response'      => (is_wp_error($post_response) ? $post_response->get_error_message() : $post_response['response']['code']),
                 'remote_get_successful'     => $get_response_successful,
                 'remote_get_response'       => (is_wp_error($get_response) ? $get_response->get_error_message() : $get_response['response']['code']),
-                'platform'                  => !empty($post_response_body['platform']) ? $post_response_body['platform'] : '-',
-                'browser_name'              => !empty($post_response_body['name']) ? $post_response_body['name'] : '-',
-                'browser_version'           => !empty($post_response_body['version']) ? $post_response_body['version'] : '-',
+                'platform'                  => ! empty($post_response_body['platform']) ? $post_response_body['platform'] : '-',
+                'browser_name'              => ! empty($post_response_body['name']) ? $post_response_body['name'] : '-',
+                'browser_version'           => ! empty($post_response_body['version']) ? $post_response_body['version'] : '-',
                 'user_agent'                => $user_agent,
-            ];
+            );
         }
 
         /**
@@ -758,28 +760,28 @@ if (!class_exists('Wpfep_System_Status')) {
          */
         public static function wpfep_get_active_plugins()
         {
-            require_once ABSPATH.'wp-admin/includes/plugin.php';
-            require_once ABSPATH.'wp-admin/includes/update.php';
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            require_once ABSPATH . 'wp-admin/includes/update.php';
 
-            if (!function_exists('get_plugin_updates')) {
-                return [];
+            if (! function_exists('get_plugin_updates')) {
+                return array();
             }
 
             // Get both site plugins and network plugins.
-            $active_plugins = (array) get_option('active_plugins', []);
+            $active_plugins = (array) get_option('active_plugins', array());
             if (is_multisite()) {
-                $network_activated_plugins = array_keys(get_site_option('active_sitewide_plugins', []));
-                $active_plugins = array_merge($active_plugins, $network_activated_plugins);
+                $network_activated_plugins = array_keys(get_site_option('active_sitewide_plugins', array()));
+                $active_plugins            = array_merge($active_plugins, $network_activated_plugins);
             }
 
-            $active_plugins_data = [];
-            $available_updates = get_plugin_updates();
+            $active_plugins_data = array();
+            $available_updates   = get_plugin_updates();
 
             foreach ($active_plugins as $plugin) {
-                $data = get_plugin_data(WP_PLUGIN_DIR.'/'.$plugin);
+                $data = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);
 
                 // Convert plugin data to json response format.
-                $active_plugins_data[] = [
+                $active_plugins_data[] = array(
                     'plugin'            => $plugin,
                     'name'              => $data['Name'],
                     'version'           => $data['Version'],
@@ -787,8 +789,8 @@ if (!class_exists('Wpfep_System_Status')) {
                     'author_name'       => $data['AuthorName'],
                     'author_url'        => esc_url_raw($data['AuthorURI']),
                     'network_activated' => $data['Network'],
-                    'latest_verison'    => (array_key_exists($plugin, $available_updates)) ? $available_updates[$plugin]->update->new_version : $data['Version'],
-                ];
+                    'latest_verison'    => (array_key_exists($plugin, $available_updates)) ? $available_updates[ $plugin ]->update->new_version : $data['Version'],
+                );
             }
 
             return $active_plugins_data;
@@ -825,34 +827,34 @@ if (!class_exists('Wpfep_System_Status')) {
              *
              * To ensure we include all WPFEP tables, even if they do not exist, pre-populate the WPFEP array with all the tables.
              */
-            $tables = [
-                'other' => [],
-            ];
+            $tables = array(
+                'other' => array(),
+            );
 
-            $database_size = [
+            $database_size = array(
                 'data'  => 0,
                 'index' => 0,
-            ];
+            );
 
             foreach ($database_table_sizes as $table) {
                 $table_type = 'other';
 
-                $tables[$table_type][$table->name] = [
+                $tables[ $table_type ][ $table->name ] = array(
                     'data'  => $table->data,
                     'index' => $table->index,
-                ];
+                );
 
-                $database_size['data'] += $table->data;
+                $database_size['data']  += $table->data;
                 $database_size['index'] += $table->index;
             }
 
             // Return all database info. Described by JSON Schema.
-            return [
+            return array(
                 'wpfep_db_version' => get_option('wpfep_db_version'),
                 'database_prefix'  => $wpdb->prefix,
                 'database_tables'  => $tables,
                 'database_size'    => $database_size,
-            ];
+            );
         }
 
         /**
@@ -866,10 +868,10 @@ if (!class_exists('Wpfep_System_Status')) {
         {
             $check_page = get_home_url();
 
-            return [
+            return array(
                 'secure_connection' => 'https' === substr($check_page, 0, 5),
-                'hide_errors'       => !(defined('WP_DEBUG') && defined('WP_DEBUG_DISPLAY') && WP_DEBUG && WP_DEBUG_DISPLAY) || 0 === intval(ini_get('display_errors')),
-            ];
+                'hide_errors'       => ! (defined('WP_DEBUG') && defined('WP_DEBUG_DISPLAY') && WP_DEBUG && WP_DEBUG_DISPLAY) || 0 === intval(ini_get('display_errors')),
+            );
         }
 
         /**
@@ -883,23 +885,23 @@ if (!class_exists('Wpfep_System_Status')) {
          */
         public static function get_latest_theme_version($theme)
         {
-            include_once ABSPATH.'wp-admin/includes/theme.php';
+            include_once ABSPATH . 'wp-admin/includes/theme.php';
 
             $api = themes_api(
                 'theme_information',
-                [
+                array(
                     'slug'   => $theme->get_stylesheet(),
-                    'fields' => [
+                    'fields' => array(
                         'sections' => false,
                         'tags'     => false,
-                    ],
-                ]
+                    ),
+                )
             );
 
             $update_theme_version = 0;
 
             // Check .org for updates.
-            if (is_object($api) && !is_wp_error($api)) {
+            if (is_object($api) && ! is_wp_error($api)) {
                 $update_theme_version = $api->version;
             }
 
@@ -916,15 +918,15 @@ if (!class_exists('Wpfep_System_Status')) {
         public static function scan_template_files($template_path)
         {
             $files = @scandir($template_path); // @codingStandardsIgnoreLine.
-            $result = [];
+            $result = array();
 
-            if (!empty($files)) {
+            if (! empty($files)) {
                 foreach ($files as $key => $value) {
-                    if (!in_array($value, ['.', '..'], true)) {
-                        if (is_dir($template_path.DIRECTORY_SEPARATOR.$value)) {
-                            $sub_files = self::scan_template_files($template_path.DIRECTORY_SEPARATOR.$value);
+                    if (! in_array($value, array( '.', '..' ), true)) {
+                        if (is_dir($template_path . DIRECTORY_SEPARATOR . $value)) {
+                            $sub_files = self::scan_template_files($template_path . DIRECTORY_SEPARATOR . $value);
                             foreach ($sub_files as $sub_file) {
-                                $result[] = $value.DIRECTORY_SEPARATOR.$sub_file;
+                                $result[] = $value . DIRECTORY_SEPARATOR . $sub_file;
                             }
                         } else {
                             $result[] = $value;
@@ -948,60 +950,60 @@ if (!class_exists('Wpfep_System_Status')) {
             // Get parent theme info if this theme is a child theme, otherwise
             // pass empty info in the response.
             if (is_child_theme()) {
-                $parent_theme = wp_get_theme($active_theme->template);
-                $parent_theme_info = [
+                $parent_theme      = wp_get_theme($active_theme->template);
+                $parent_theme_info = array(
                     'parent_name'           => $parent_theme->name,
                     'parent_version'        => $parent_theme->version,
                     'parent_latest_verison' => self::get_latest_theme_version($parent_theme),
                     'parent_author_url'     => $parent_theme->{'Author URI'},
-                ];
+                );
             } else {
-                $parent_theme_info = [
+                $parent_theme_info = array(
                     'parent_name'           => '',
                     'parent_version'        => '',
                     'parent_latest_verison' => '',
                     'parent_author_url'     => '',
-                ];
+                );
             }
 
             /**
              * Scan the theme directory for all WPFEP templates to see if our theme
              * overrides any of them.
              */
-            $override_files = [];
+            $override_files     = array();
             $outdated_templates = false;
-            $scan_files = self::scan_template_files(WPFEP_PATH.'views/');
+            $scan_files         = self::scan_template_files(WPFEP_PATH . 'views/');
 
             foreach ($scan_files as $file) {
-                if (file_exists(get_stylesheet_directory().'/'.$file)) {
-                    $theme_file = get_stylesheet_directory().'/'.$file;
-                } elseif (file_exists(get_stylesheet_directory().'/wpfep/'.$file)) {
-                    $theme_file = get_stylesheet_directory().'/wpfep/'.$file;
-                } elseif (file_exists(get_template_directory().'/'.$file)) {
-                    $theme_file = get_template_directory().'/'.$file;
-                } elseif (file_exists(get_template_directory().'/wpfep/'.$file)) {
-                    $theme_file = get_template_directory().'/wpfep/'.$file;
+                if (file_exists(get_stylesheet_directory() . '/' . $file)) {
+                    $theme_file = get_stylesheet_directory() . '/' . $file;
+                } elseif (file_exists(get_stylesheet_directory() . '/wpfep/' . $file)) {
+                    $theme_file = get_stylesheet_directory() . '/wpfep/' . $file;
+                } elseif (file_exists(get_template_directory() . '/' . $file)) {
+                    $theme_file = get_template_directory() . '/' . $file;
+                } elseif (file_exists(get_template_directory() . '/wpfep/' . $file)) {
+                    $theme_file = get_template_directory() . '/wpfep/' . $file;
                 } else {
                     $theme_file = false;
                 }
 
-                if (!empty($theme_file)) {
-                    $core_version = self::get_file_version(WPFEP_PATH.'/views/'.$file);
+                if (! empty($theme_file)) {
+                    $core_version  = self::get_file_version(WPFEP_PATH . '/views/' . $file);
                     $theme_version = self::get_file_version($theme_file);
                     if ($core_version && (empty($theme_version) || version_compare($theme_version, $core_version, '<'))) {
-                        if (!$outdated_templates) {
+                        if (! $outdated_templates) {
                             $outdated_templates = true;
                         }
                     }
-                    $override_files[] = [
-                        'file'         => str_replace(WP_CONTENT_DIR.'/themes/', '', $theme_file),
+                    $override_files[] = array(
+                        'file'         => str_replace(WP_CONTENT_DIR . '/themes/', '', $theme_file),
                         'version'      => $theme_version,
                         'core_version' => $core_version,
-                    ];
+                    );
                 }
             }
 
-            $active_theme_info = [
+            $active_theme_info = array(
                 'name'                   => $active_theme->name,
                 'version'                => $active_theme->version,
                 'latest_verison'         => self::get_latest_theme_version($active_theme),
@@ -1009,7 +1011,7 @@ if (!class_exists('Wpfep_System_Status')) {
                 'is_child_theme'         => is_child_theme(),
                 'has_outdated_templates' => $outdated_templates,
                 'overrides'              => $override_files,
-            ];
+            );
 
             return array_merge($active_theme_info, $parent_theme_info);
         }
@@ -1025,9 +1027,8 @@ if (!class_exists('Wpfep_System_Status')) {
          */
         public static function get_file_version($file)
         {
-
             // Avoid notices if file does not exist.
-            if (!file_exists($file)) {
+            if (! file_exists($file)) {
                 return '';
             }
 
@@ -1042,9 +1043,9 @@ if (!class_exists('Wpfep_System_Status')) {
 
             // Make sure we catch CR-only line endings.
             $file_data = str_replace("\r", "\n", $file_data);
-            $version = '';
+            $version   = '';
 
-            if (preg_match('/^[ \t\/*#@]*'.preg_quote('@version', '/').'(.*)$/mi', $file_data, $match) && $match[1]) {
+            if (preg_match('/^[ \t\/*#@]*' . preg_quote('@version', '/') . '(.*)$/mi', $file_data, $match) && $match[1]) {
                 $version = _cleanup_header_comment($match[1]);
             }
 

@@ -1,8 +1,10 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * If you would like to edit this file, copy it to your current theme's directory and edit it there.
  * wpfep will always look in your theme's directory first, before using this default template.
  */
+
 defined('ABSPATH') || exit;
 ?>
 <div class="login" id="wpfep-login-form">
@@ -10,21 +12,21 @@ defined('ABSPATH') || exit;
 	<?php
 
     $message = apply_filters('login_message', '');
-    if (!empty($message)) {
-        echo esc_html($message)."\n";
+    if (! empty($message)) {
+        echo esc_html($message) . "\n";
     }
     if (isset($_GET['key'])) {
-        $user_id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        $user_id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 1 ) ));
         if ($user_id) {
-            $code = get_user_meta($user_id, 'has_to_be_activated', true);
+            $code                  = get_user_meta($user_id, 'has_to_be_activated', true);
             $manually_approve_user = wpfep_get_option('admin_manually_approve', 'wpfep_profile', 'on');
             if ($code == $_GET['key']) {
-                echo "<div class='wpfep-success'>".esc_html(esc_attr__('Congratulations! Your account has been verified.', 'wp-front-end-profile')).'</div>';
+                echo "<div class='wpfep-success'>" . esc_html(esc_attr__('Congratulations! Your account has been verified.', 'wp-front-end-profile')) . '</div>';
                 update_user_meta($user_id, 'verify', 'Yes');
             }
         }
     }
-    $login_obj = WPFEP_Login::init();
+    $login_obj    = WPFEP_Login::init();
     $register_obj = WPFEP_Registration::init();
     ?>
 
@@ -72,14 +74,14 @@ defined('ABSPATH') || exit;
     $lostpass = $login_obj->lost_password_links();
             echo wp_kses(
                 $lostpass,
-                [
-                    'a' => [
-                        'href'  => [],
-                        'title' => [],
-                        'id'    => [],
-                        'class' => [],
-                    ],
-                ]
+                array(
+                    'a' => array(
+                        'href'  => array(),
+                        'title' => array(),
+                        'id'    => array(),
+                        'class' => array(),
+                    ),
+                )
             );
             ?>
 </div>

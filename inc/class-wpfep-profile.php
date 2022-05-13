@@ -1,30 +1,33 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * User Profile Class.
  */
+
 defined('ABSPATH') || exit;
 
 /**
  * User Profile handler class.
  */
-if (!class_exists('WPFEP_Profile')) {
+if (! class_exists('WPFEP_Profile')) {
     /**
      * User Profile handler class.
      */
     class WPFEP_Profile
     {
+
         /**
          * Error array.
          *
          * @var array
          */
-        private $login_errors = [];
+        private $login_errors = array();
         /**
          * Message array.
          *
          * @var array
          */
-        private $messages = [];
+        private $messages = array();
         /**
          * Singleton object.
          *
@@ -37,8 +40,8 @@ if (!class_exists('WPFEP_Profile')) {
          */
         public function __construct()
         {
-            add_shortcode('wpfep-profile', [$this, 'user_profile']);
-            add_action('wpfep_profile_pagination', [$this, 'get_profile_pagination']);
+            add_shortcode('wpfep-profile', array( $this, 'user_profile' ));
+            add_action('wpfep_profile_pagination', array( $this, 'get_profile_pagination' ));
         }
 
         /**
@@ -48,7 +51,7 @@ if (!class_exists('WPFEP_Profile')) {
          */
         public static function init()
         {
-            if (!self::$_instance) {
+            if (! self::$_instance) {
                 self::$_instance = new self();
             }
 
@@ -134,34 +137,33 @@ if (!class_exists('WPFEP_Profile')) {
          *
          * @return void
          */
-        public function get_profile_pagination($total)
-        {
-            ?>
+        public function get_profile_pagination($total) {          ?>
 			<div class="wpfep-pagination">
 				<?php
-                $big = 999999999; // need an unlikely integer.
+                $big        = 999999999; // need an unlikely integer.
                 $translated = __('Page', 'wp-front-end-profile'); // Supply translatable string.
 
                 $paginate_links = paginate_links(
-                    [
+                    array(
                         'base'               => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
                         'format'             => '?paged=%#%',
                         'current'            => max(1, get_query_var('paged')),
                         'total'              => $total,
-                        'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
+                        'before_page_number' => '<span class="screen-reader-text">' . $translated . ' </span>',
                         'type'               => 'list',
-                    ]
+                    )
                 );
-            echo wp_kses(
-                $paginate_links,
-                [
-                        'a' => [
-                            'class' => [],
-                            'href'  => [],
-                        ],
+                echo wp_kses(
+                    $paginate_links,
+                    array(
+                        'a' => array(
+                            'class' => array(),
+                            'href'  => array(),
+                        ),
 
-                    ]
-            ); ?>
+                    )
+                );
+                ?>
 			</div>
 			<?php
         }
@@ -175,7 +177,7 @@ if (!class_exists('WPFEP_Profile')) {
         {
             $page_id = wpfep_get_option('profile_page', 'wpfep_pages', false);
 
-            if (!$page_id) {
+            if (! $page_id) {
                 return false;
             }
 

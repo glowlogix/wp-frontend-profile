@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Register shortcode.
  */
+
 defined('ABSPATH') || exit;
 
 /**

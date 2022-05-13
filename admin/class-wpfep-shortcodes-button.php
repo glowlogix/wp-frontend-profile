@@ -1,10 +1,12 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Adding shortcode through tinymice.
  */
+
 defined('ABSPATH') || exit;
 
-if (!class_exists('WPFEP_Admin_Help')) {
+if (! class_exists('WPFEP_Admin_Help')) {
     /**
      * Wpfep tinyMce Shortcode Button class.
      *
@@ -12,16 +14,17 @@ if (!class_exists('WPFEP_Admin_Help')) {
      */
     class WPFEP_Shortcodes_Button
     {
+
         /**
          * Constructor for shortcode class.
          */
         public function __construct()
         {
-            add_filter('mce_external_plugins', [$this, 'enqueue_plugin_scripts']);
-            add_filter('mce_buttons', [$this, 'register_buttons_editor']);
+            add_filter('mce_external_plugins', array( $this, 'enqueue_plugin_scripts' ));
+            add_filter('mce_buttons', array( $this, 'register_buttons_editor' ));
 
-            add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
-            add_action('admin_enqueue_scripts', [$this, 'localize_shortcodes_script']);
+            add_action('admin_enqueue_scripts', array( $this, 'enqueue_scripts' ));
+            add_action('admin_enqueue_scripts', array( $this, 'localize_shortcodes_script' ));
         }
 
         /**
@@ -32,7 +35,7 @@ if (!class_exists('WPFEP_Admin_Help')) {
             global $pagenow;
             $posttype = get_post_type(get_the_ID());
             if (('page' === $posttype && 'post.php' === $pagenow) || ('page' === $posttype && 'post-new.php' === $pagenow)) {
-                wp_enqueue_script('wpfep_shortcode_handle', plugins_url('/assets/js/wpfep-tmc-button.js', dirname(__FILE__)), ['jquery'], WPFEP_VERSION, true);
+                wp_enqueue_script('wpfep_shortcode_handle', plugins_url('/assets/js/wpfep-tmc-button.js', dirname(__FILE__)), array( 'jquery' ), WPFEP_VERSION, true);
             }
         }
 
@@ -41,24 +44,24 @@ if (!class_exists('WPFEP_Admin_Help')) {
          */
         public function localize_shortcodes_script()
         {
-            $shortcodes = [
-                'wpfep-register' => [
+            $shortcodes = array(
+                'wpfep-register' => array(
                     'title'   => __('Register', 'wp-front-end-profile'),
                     'content' => '[wpfep-register]',
-                ],
-                'wpfep-edit'     => [
+                ),
+                'wpfep-edit'     => array(
                     'title'   => __('Edit', 'wp-front-end-profile'),
                     'content' => '[wpfep]',
-                ],
-                'wpfep-login'    => [
+                ),
+                'wpfep-login'    => array(
                     'title'   => __('Login', 'wp-front-end-profile'),
                     'content' => '[wpfep-login]',
-                ],
-                'wpfep-profile'  => [
+                ),
+                'wpfep-profile'  => array(
                     'title'   => __('Profile', 'wp-front-end-profile'),
                     'content' => '[wpfep-profile]',
-                ],
-            ];
+                ),
+            );
             $assets_url = WPFEP_PLUGIN_URL;
             wp_localize_script('wpfep_shortcode_handle', 'wpfep_shortcode', $shortcodes);
             wp_localize_script('wpfep_shortcode_handle', 'wpfep_assets_url', $assets_url);
@@ -75,7 +78,7 @@ if (!class_exists('WPFEP_Admin_Help')) {
         {
             static $instance = false;
 
-            if (!$instance) {
+            if (! $instance) {
                 $instance = new self();
             }
 

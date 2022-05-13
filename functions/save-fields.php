@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Feilds for user.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -13,14 +15,13 @@ defined('ABSPATH') || exit;
  */
 function wpfep_save_fields($tabs, $user_id)
 {
-
     /* check the nonce */
-    if (!isset($_POST['wpfep_nonce_name']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_nonce_name'])), 'wpfep_nonce_action')) {
+    if (! isset($_POST['wpfep_nonce_name']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_nonce_name'])), 'wpfep_nonce_action')) {
         return;
     }
 
     /* set an array to store messages in */
-    $messages = [];
+    $messages = array();
 
     /* get the POST data */
     $tabs_data = $_POST;
@@ -48,19 +49,19 @@ function wpfep_save_fields($tabs, $user_id)
      */
     $reserved_ids = apply_filters(
         'wpfep_reserved_ids',
-        [
+        array(
             'user_email',
             'user_url',
-        ]
+        )
     );
     /**
      * Set an array of registered fields.
      */
-    $registered_fields = [];
+    $registered_fields = array();
     foreach ($tabs as $tab) {
-        $tab_fields = apply_filters(
-            'wpfep_fields_'.$tab['id'],
-            [],
+        $tab_fields        = apply_filters(
+            'wpfep_fields_' . $tab['id'],
+            array(),
             $user_id
         );
         $registered_fields = array_merge($registered_fields, $tab_fields);
@@ -84,7 +85,7 @@ function wpfep_save_fields($tabs, $user_id)
             }
 
             /* if the key is not in our list of registered keys - move to next in array */
-            if (!in_array($key, $registered_keys)) {
+            if (! in_array($key, $registered_keys)) {
                 continue;
             }
 
@@ -92,10 +93,10 @@ function wpfep_save_fields($tabs, $user_id)
 
             if (in_array($key, $reserved_ids)) {
                 $user_id = wp_update_user(
-                    [
+                    array(
                         'ID' => $user_id,
                         $key => $value,
-                    ]
+                    )
                 );
 
                 /* check for errors */
@@ -111,7 +112,7 @@ function wpfep_save_fields($tabs, $user_id)
                 /* lookup field options by key */
                 $registered_field_key = array_search($key, array_column($registered_fields, 'id'));
                 /* sanitize user input based on field type */
-                switch ($registered_fields[$registered_field_key]['type']) {
+                switch ($registered_fields[ $registered_field_key ]['type']) {
                     case 'wysiwyg':
                         $value = wp_filter_post_kses($value);
                         break;
@@ -130,7 +131,7 @@ function wpfep_save_fields($tabs, $user_id)
                     case 'checkboxes':
                     case 'select multiple':
                         $oldvalue = $value;
-                        $value = [];
+                        $value    = array();
                         foreach ($oldvalue as $v) {
                             if ($v === '-') {
                                 continue;
@@ -146,8 +147,8 @@ function wpfep_save_fields($tabs, $user_id)
                 }
 
                 /* update the user meta data */
-                if (isset($registered_fields[$registered_field_key]['taxonomy'])) {
-                    $meta = wp_set_object_terms($user_id, $value, $registered_fields[$registered_field_key]['taxonomy'], false);
+                if (isset($registered_fields[ $registered_field_key ]['taxonomy'])) {
+                    $meta = wp_set_object_terms($user_id, $value, $registered_fields[ $registered_field_key ]['taxonomy'], false);
                 } else {
                     $meta = update_user_meta($user_id, $key, $value);
                 }
@@ -165,10 +166,10 @@ function wpfep_save_fields($tabs, $user_id)
     // update user bio.
     if (isset($_POST['description'])) {
         wp_update_user(
-            [
+            array(
                 'ID'          => $user_id,
                 'description' => sanitize_text_field(wp_unslash($_POST['description'])),
-            ]
+            )
         );
     }
 
@@ -184,12 +185,12 @@ function wpfep_save_fields($tabs, $user_id)
             /* output the message */
             echo wp_kses(
                 $message,
-                [
+                array(
 
-                    'p' => [
-                        'class' => [],
-                    ],
-                ]
+                    'p' => array(
+                        'class' => array(),
+                    ),
+                )
             );
         } ?>
 		</div><!-- // messages -->
@@ -223,9 +224,8 @@ add_action('wpfep_before_tabs', 'wpfep_save_fields', 5, 2);
  */
 function wpfep_save_password($tabs, $user_id)
 {
-
     /* set an array to store messages in */
-    $messages = [];
+    $messages = array();
 
     /* get the posted data from the password tab */
     if (! isset($_POST['password']) || ! wp_verify_nonce($_POST['wpfep_nonce_name'], 'wpfep_nonce_action')) {
@@ -237,14 +237,14 @@ function wpfep_save_password($tabs, $user_id)
         return;
     }
     /* store both password for ease of access */
-    $password = $data['user_pass'];
+    $password       = $data['user_pass'];
     $password_check = $data['user_pass_check'];
 
     /* now lets check the password match */
     if ($password != $password_check) {
 
         /* add message indicating no match */
-        $messages['password_mismatch'] = '<p class="error">'.sprintf(__('Please make sure the passwords match', 'wp-front-end-profile')).'.</p>';
+        $messages['password_mismatch'] = '<p class="error">' . sprintf(__('Please make sure the passwords match', 'wp-front-end-profile')) . '.</p>';
     }
 
     $enable_strong_pwd = wpfep_get_option('strong_password', 'wpfep_general');
@@ -256,7 +256,7 @@ function wpfep_save_password($tabs, $user_id)
         /* check the password match the correct length */
         if ($pass_length < apply_filters('wpfep_password_length', 12)) {
             /* translators: %s: password length term */
-            $messages['password_length'] = '<p class="error">'.sprintf(__('Please make sure your password is a minimum of %s characters long.', 'wp-front-end-profile'), apply_filters('wpfep_password_length', 12)).'</p>';
+            $messages['password_length'] = '<p class="error">' . sprintf(__('Please make sure your password is a minimum of %s characters long.', 'wp-front-end-profile'), apply_filters('wpfep_password_length', 12)) . '</p>';
         }
 
         /**
@@ -269,7 +269,7 @@ function wpfep_save_password($tabs, $user_id)
         if (false == $pass_complexity) {
 
             /* add message indicating complexity issue */
-            $messages['password_complexity'] = '<p class="error">'.__('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wp-front-end-profile').'.</p>';
+            $messages['password_complexity'] = '<p class="error">' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wp-front-end-profile') . '.</p>';
         }
     }
 
@@ -281,31 +281,31 @@ function wpfep_save_password($tabs, $user_id)
          */
         wp_set_password($password, $user_id);
         /* translators: %s: login link */
-        $successfully_msg = '<div class="messages"><p class="updated">'.sprintf(__('You\'re password was successfully changed and you have been logged out. Please <a href="%s">login again here</a>.', 'wp-front-end-profile'), esc_url(wp_login_url())).'</p></div>';
+        $successfully_msg = '<div class="messages"><p class="updated">' . sprintf(__('You\'re password was successfully changed and you have been logged out. Please <a href="%s">login again here</a>.', 'wp-front-end-profile'), esc_url(wp_login_url())) . '</p></div>';
         echo wp_kses(
             $successfully_msg,
-            [
-                'div' => [
-                    'class' => [],
-                ],
-                'p'   => [
-                    'class' => [],
-                ],
-                'a'   => [
-                    'href' => [],
-                ],
-            ]
+            array(
+                'div' => array(
+                    'class' => array(),
+                ),
+                'p'   => array(
+                    'class' => array(),
+                ),
+                'a'   => array(
+                    'href' => array(),
+                ),
+            )
         );
         // User password change email to admin.
-        $user = wp_get_current_user();
-        $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+        $user                       = wp_get_current_user();
+        $blogname                   = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
         $change_password_admin_mail = wpfep_get_option('change_password_admin_mail', 'wpfep_emails_notification', 'on');
         if ('off' != $change_password_admin_mail) {
             wp_password_change_notification($user);
         }
         // User password change email to admin.
-        $message = $user->user_login.' Your password has been changed.';
-        $subject = '['.$blogname.'] Password changed';
+        $message              = $user->user_login . ' Your password has been changed.';
+        $subject              = '[' . $blogname . '] Password changed';
         $password_change_mail = wpfep_get_option('password_change_mail', 'wpfep_emails_notification', 'on');
         if ('off' != $password_change_mail) {
             wp_mail($user->user_email, $subject, $message);
@@ -328,12 +328,12 @@ function wpfep_save_password($tabs, $user_id)
             /* output the message */
             echo wp_kses(
                 $message,
-                [
+                array(
 
-                    'p' => [
-                        'class' => [],
-                    ],
-                ]
+                    'p' => array(
+                        'class' => array(),
+                    ),
+                )
             );
         } ?>
 		</div><!-- // messages -->

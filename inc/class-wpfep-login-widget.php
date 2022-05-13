@@ -1,10 +1,13 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Login Widget.
  * Main widget class.
  */
+
 class wpfep_login_Widget extends WP_Widget
 {
+
     /**
      *  Refresh widget actions.
      */
@@ -27,24 +30,25 @@ class wpfep_login_Widget extends WP_Widget
         );
         // Parse current settings with defaults.
         extract(wp_parse_args((array) $instance, $defaults)); ?>
-        <?php // Widget Title.
-            $field_id ='' ;
+		<?php
+        // Widget Title.
+            $field_id = '';
         if (! empty($this->get_field_id('title'))) {
             $field_id = $this->get_field_id('title');
         }
-        $field_name ='' ;
+        $field_name = '';
         if (! empty($this->get_field_name('title'))) {
             $field_name = $this->get_field_name('title');
         }
-        $instance_title ='' ;
+        $instance_title = '';
         if (! empty($instance['title'])) {
             $instance_title = $instance['title'];
         } ?>
-            <p>
-            <label for="<?php echo $field_id; ?>"><?php _e('Title:', 'wp-front-end-profile'); ?></label>
-            <input id="<?php echo $field_id; ?>" class="widefat" type="text" name="<?php echo $field_name; ?>" value="<?php echo $instance_title; ?>" style="width:100%;" />
-        </p>
-        <?php
+			<p>
+			<label for="<?php echo esc_html($field_id); ?>"><?php _e('Title:', 'wp-front-end-profile'); ?></label>
+			<input id="<?php echo esc_html($field_id); ?>" class="widefat" type="text" name="<?php echo esc_html($field_name); ?>" value="<?php echo esc_html($instance_title); ?>" style="width:100%;" />
+		</p>
+		<?php
     }
     /**
      * update widget title.

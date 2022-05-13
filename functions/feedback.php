@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Feedbacks.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -11,7 +13,7 @@ defined('ABSPATH') || exit;
  */
 function wpfep_error_notices()
 {
-    $current_user = wp_get_current_user();
+    $current_user    = wp_get_current_user();
     $ask_review_date = get_option('wpfep_Ask_Review_Date');
     if (get_option('wpfep_Install_Time') == '') {
         update_option('wpfep_Install_Time', time());
@@ -33,15 +35,15 @@ function wpfep_error_notices()
 
                     echo wp_kses(
                         $feed_line,
-                        [
-                            'p'    => [
-                                'class' => [],
+                        array(
+                            'p'    => array(
+                                'class' => array(),
 
-                            ],
-                            'br'   => [],
-                            'span' => [],
+                            ),
+                            'br'   => array(),
+                            'span' => array(),
 
-                        ]
+                        )
                     );
                     ?>
 					</span></p>
