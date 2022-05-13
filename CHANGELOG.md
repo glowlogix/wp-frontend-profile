@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.2.6] - 2022-04-05
+## [1.2.6] - 2022-04-22
 
 ### Fixed
 - Tested with WordPress 5.9.3
