@@ -500,14 +500,14 @@ if (! class_exists('Wpfep_System_Status')) {
                                         ),
                                     )
                             ) . wp_kses(
-                                    $network_string,
-                                    array(
-                                        'strong' => array(
-                                            'style' => array(),
+                                $network_string,
+                                array(
+                                    'strong' => array(
+                                        'style' => array(),
 
-                                        ),
-                                    )
+                                    ),
                                 )
+                            )
                                 ?>
 									</td>
 							</tr>
