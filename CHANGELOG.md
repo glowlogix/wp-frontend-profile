@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 ## [1.2.6] - 2022-04-05
 
 ### Fixed
-- Tested with WordPress 5.9
+- Tested with WordPress 5.9.3
 - Updated SDK
 
 ## [1.2.5] - 2022-02-12
