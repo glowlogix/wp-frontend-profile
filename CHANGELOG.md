@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.2.9] - 2022-11-05
+
+### Fixed
+- Tested with WordPress 6.1 #100
+- Fixed shortcode issue on elementor builder #97
+- Fixed Wp_localize_script synatx
+- Fixed Profile edit shortcode issue
+
 ## [1.2.6] - 2022-04-22
 
 ### Fixed
