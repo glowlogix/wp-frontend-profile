@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+
 ## [1.2.9] - 2023-01-04
 
 ### Fixed
@@ -14,6 +15,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Fixed Profile edit shortcode issue
 
 ## [1.2.6] - 2022-04-22
+
 
 ### Fixed
 - Tested with WordPress 5.9.3
