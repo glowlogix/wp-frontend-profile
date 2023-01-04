@@ -179,7 +179,7 @@ if (! class_exists('WPFEP_Profile')) {
 
             $url = get_permalink($page_id);
             
-            if(!$url){
+            if (!$url) {
                 return false;
             }
             return apply_filters('wpfep_profile_url', $url);
