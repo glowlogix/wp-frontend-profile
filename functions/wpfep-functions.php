@@ -974,7 +974,7 @@ if ('on' == $manually_approve_user) {
             if ('approve' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);
                 $subject  = 'Approval notification';
-                $message .= 'Your account is approved by admin.' . "\r\n\r\n";
+                $message  = 'Your account is approved by admin.' . "\r\n\r\n";
                 $message .= 'Now you can log in to your account.' . "\r\n\r\n";
                 $message .= 'Thank you' . "\r\n\r\n";
                 wp_mail($user_data->user_email, $subject, $message);
@@ -982,7 +982,7 @@ if ('on' == $manually_approve_user) {
             if ('rejected' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);
                 $subject  = 'Denied notification';
-                $message .= 'Your account is denied by admin.' . "\r\n\r\n";
+                $message  = 'Your account is denied by admin.' . "\r\n\r\n";
                 $message .= 'Now you cannot Log In to your account.' . "\r\n\r\n";
                 $message .= 'Thank you' . "\r\n\r\n";
                 wp_mail($user_data->user_email, $subject, $message);
