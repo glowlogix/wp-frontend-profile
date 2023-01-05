@@ -75,6 +75,7 @@ if (! class_exists('WP_Frontend_Profile')) {
             require_once WPFEP_PATH . '/inc/class-wpfep-user.php';
             require_once WPFEP_PATH . '/inc/class-wpfep-roles-editor.php';
             require_once WPFEP_PATH . '/inc/class-wpfep-login-widget.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
 
             if (is_admin()) {
                 require_once WPFEP_PATH . '/admin/class-wpfep-admin-installer.php';

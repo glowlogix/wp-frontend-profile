@@ -177,13 +177,12 @@ if (! class_exists('WPFEP_Profile')) {
         {
             $page_id = wpfep_get_option('profile_page', 'wpfep_pages', false);
 
-            if (! $page_id) {
+            $url = get_permalink($page_id);
+            
+            if (!$url) {
                 return false;
             }
-
-            $url = get_permalink($page_id);
-
-            return apply_filters('wpfep_profile_url', $url, $page_id);
+            return apply_filters('wpfep_profile_url', $url);
         }
     }
 }
