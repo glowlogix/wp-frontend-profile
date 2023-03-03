@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Frontend Profile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 08:38+0100\n"
-"PO-Revision-Date: 2023-03-03 11:25+0100\n"
+"POT-Creation-Date: 2023-03-03 11:23+0100\n"
+"PO-Revision-Date: 2023-03-03 11:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: crushed eyes\n"
 "Language: de_DE\n"
@@ -71,7 +71,7 @@ msgstr ""
 "Login, Profilbearbeitung) erstellen, um korrekt zu funktionieren."
 
 #: admin/class-wpfep-admin-installer.php:46
-#: admin/class-wpfep-admin-settings.php:389
+#: admin/class-wpfep-admin-settings.php:391
 msgid "Create Pages"
 msgstr "Seiten erstellen"
 
@@ -89,7 +89,7 @@ msgstr "Glückwunsch!"
 
 #: admin/class-wpfep-admin-installer.php:105
 #: admin/class-wpfep-shortcodes-button.php:49 views/logged-in.php:111
-#: views/registration.php:123
+#: views/registration.php:90
 msgid "Register"
 msgstr "Registrieren"
 
@@ -124,64 +124,64 @@ msgstr "WPFP-Profilbearbeitungsseite"
 msgid "WPFP Profile Page"
 msgstr "WPFP-Profilseite"
 
-#: admin/class-wpfep-admin-settings.php:79
+#: admin/class-wpfep-admin-settings.php:80
 msgid "--select--"
 msgstr "--auswählen--"
 
-#: admin/class-wpfep-admin-settings.php:80
+#: admin/class-wpfep-admin-settings.php:81
 msgid "Auto login after registration"
 msgstr "Automatische Anmeldung nach der Registrierung"
 
-#: admin/class-wpfep-admin-settings.php:81
+#: admin/class-wpfep-admin-settings.php:82
 msgid "Send account activation email to registered users"
 msgstr "Senden einer E-Mail zur Kontoaktivierung an registrierte Benutzer"
 
-#: admin/class-wpfep-admin-settings.php:89
+#: admin/class-wpfep-admin-settings.php:90
 msgid "New user behaviour on registration "
 msgstr "Verhalten bei der Registrierung neuer Benutzer "
 
-#: admin/class-wpfep-admin-settings.php:95
+#: admin/class-wpfep-admin-settings.php:96
 msgid "Admin can register user manually"
 msgstr "Admin kann Benutzer manuell registrieren"
 
-#: admin/class-wpfep-admin-settings.php:96
+#: admin/class-wpfep-admin-settings.php:97
 msgid "If enabled, Admin can add users manually from frontend."
 msgstr ""
 "Wenn diese Option aktiviert ist, kann Admin Benutzer manuell vom Frontend "
 "aus hinzufügen."
 
-#: admin/class-wpfep-admin-settings.php:102
+#: admin/class-wpfep-admin-settings.php:103
 msgid "Admin can Manually Approve User"
 msgstr "Administrator kann Benutzer manuell genehmigen"
 
-#: admin/class-wpfep-admin-settings.php:103
+#: admin/class-wpfep-admin-settings.php:104
 msgid "If enabled, Admin can manually approve and deny users from backend."
 msgstr ""
 "Wenn diese Option aktiviert ist, muss der Administrator Benutzer im Backend "
 "manuell genehmigen."
 
-#: admin/class-wpfep-admin-settings.php:109
+#: admin/class-wpfep-admin-settings.php:110
 msgid "Admin can edit profile"
 msgstr "Administrator kann Profil bearbeiten"
 
-#: admin/class-wpfep-admin-settings.php:110
+#: admin/class-wpfep-admin-settings.php:111
 msgid "Allow administrators to edit their own profiles on the frontend."
 msgstr ""
 "Erlauben Sie Administratoren, ihre eigenen Profile im Frontend zu bearbeiten."
 
-#: admin/class-wpfep-admin-settings.php:116
+#: admin/class-wpfep-admin-settings.php:117
 msgid "Redirect After Login"
 msgstr "Weiterleiten nach Login"
 
-#: admin/class-wpfep-admin-settings.php:117
+#: admin/class-wpfep-admin-settings.php:118
 msgid "After successful login, where the page will redirect to"
 msgstr "Weiterleitungsziel nach erfolgreichem Login"
 
-#: admin/class-wpfep-admin-settings.php:123
+#: admin/class-wpfep-admin-settings.php:124
 msgid "Redirect After Registration"
 msgstr "Umleitung nach der Registrierung"
 
-#: admin/class-wpfep-admin-settings.php:124
+#: admin/class-wpfep-admin-settings.php:125
 msgid ""
 "After successful registration, where the page will redirect to, Make sure "
 "you have checked auto login after registration."
@@ -190,44 +190,44 @@ msgstr ""
 "dass Sie die Option 'automatische Anmeldung nach der Registrierung' "
 "aktiviert haben."
 
-#: admin/class-wpfep-admin-settings.php:135
+#: admin/class-wpfep-admin-settings.php:136
 msgid "Show Admin Bar"
 msgstr "Admin Leiste anzeigen"
 
-#: admin/class-wpfep-admin-settings.php:136
+#: admin/class-wpfep-admin-settings.php:137
 msgid "Select user by roles, who can view admin bar in frontend."
 msgstr ""
 "Wählen Sie den Benutzer nach Rollen aus, der die Admin Leiste im Frontend "
 "anzeigen kann."
 
-#: admin/class-wpfep-admin-settings.php:143
+#: admin/class-wpfep-admin-settings.php:144
 #: inc/class-wpfep-roles-editor.php:255
 msgid "Role"
 msgstr "Rolle"
 
-#: admin/class-wpfep-admin-settings.php:144
+#: admin/class-wpfep-admin-settings.php:145
 msgid "Select to enable or disabled user add role feature."
 msgstr ""
 "Wählen Sie diese Option aus, um die Funktion zum Hinzufügen einer Rolle "
 "durch Benutzer zu aktivieren oder zu deaktivieren."
 
-#: admin/class-wpfep-admin-settings.php:151
+#: admin/class-wpfep-admin-settings.php:152
 msgid "Enable Strong Password"
 msgstr "Starkes Passwort aktivieren"
 
-#: admin/class-wpfep-admin-settings.php:152
+#: admin/class-wpfep-admin-settings.php:153
 msgid "Check to enable strong password."
 msgstr "Aktivieren Sie das erzwingen von sicheren Kennwörtern."
 
-#: admin/class-wpfep-admin-settings.php:158
+#: admin/class-wpfep-admin-settings.php:159
 msgid "reCAPTCHA Site Key"
 msgstr "reCAPTCHA öffentlicher Schlüssel"
 
-#: admin/class-wpfep-admin-settings.php:162
+#: admin/class-wpfep-admin-settings.php:163
 msgid "reCAPTCHA Secret Key"
 msgstr "reCAPTCHA Geheimschlüssel"
 
-#: admin/class-wpfep-admin-settings.php:163
+#: admin/class-wpfep-admin-settings.php:164
 msgid ""
 "<a target=\"_blank\" href=\"https://www.google.com/recaptcha/\">Register "
 "here</a> to get reCaptcha Site and Secret keys."
@@ -235,27 +235,27 @@ msgstr ""
 "<a target=\"_blank\" href=\"https://www.google.com/recaptcha/\">Registrieren "
 "Sie sich hier</a> , um die reCaptcha Site- und Geheimschlüssel zu erhalten."
 
-#: admin/class-wpfep-admin-settings.php:167
+#: admin/class-wpfep-admin-settings.php:168
 msgid "reCAPTCHA Login Form"
 msgstr "reCAPTCHA Anmeldeformular"
 
-#: admin/class-wpfep-admin-settings.php:168
+#: admin/class-wpfep-admin-settings.php:169
 msgid "Check to enable reCAPTCHA in login form."
 msgstr "Aktivieren Sie reCAPTCHA im Anmeldeformular."
 
-#: admin/class-wpfep-admin-settings.php:174
+#: admin/class-wpfep-admin-settings.php:175
 msgid "reCAPTCHA Registration Form"
 msgstr "reCAPTCHA Anmeldeformular"
 
-#: admin/class-wpfep-admin-settings.php:175
+#: admin/class-wpfep-admin-settings.php:176
 msgid "Check to enable reCAPTCHA in registration form"
 msgstr "Aktivieren Sie reCAPTCHA im Registrierungsformular"
 
-#: admin/class-wpfep-admin-settings.php:181
+#: admin/class-wpfep-admin-settings.php:182
 msgid "Remove Data on Uninstall?"
 msgstr "Daten beim De-Installieren entfernen?"
 
-#: admin/class-wpfep-admin-settings.php:182
+#: admin/class-wpfep-admin-settings.php:183
 msgid ""
 "Check this box if you would like WP Frontend Profile to completely remove "
 "all of its data when the plugin is deleted."
@@ -263,128 +263,128 @@ msgstr ""
 "Aktivieren Sie dieses Kontrollkästchen, wenn Sie möchten, dass WP Frontend "
 "Profile alle Daten vollständig entfernt, wenn das Plugin gelöscht wird."
 
-#: admin/class-wpfep-admin-settings.php:193
+#: admin/class-wpfep-admin-settings.php:194
 msgid "Registration Page"
 msgstr "Registrationsseite"
 
-#: admin/class-wpfep-admin-settings.php:194
+#: admin/class-wpfep-admin-settings.php:195
 msgid "Select the page which contains [wpfep-register] shortcode"
 msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep-register] enthält"
 
-#: admin/class-wpfep-admin-settings.php:200
+#: admin/class-wpfep-admin-settings.php:201
 msgid "Login Page"
 msgstr "Login-Seite"
 
-#: admin/class-wpfep-admin-settings.php:201
+#: admin/class-wpfep-admin-settings.php:202
 msgid "Select the page which contains [wpfep-login] shortcode"
 msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep-login] enthält"
 
-#: admin/class-wpfep-admin-settings.php:207
+#: admin/class-wpfep-admin-settings.php:208
 msgid "Profile Edit Page"
 msgstr "Seite \"Profil bearbeiten\""
 
-#: admin/class-wpfep-admin-settings.php:208
+#: admin/class-wpfep-admin-settings.php:209
 msgid "Select the page which contains [wpfep] shortcode"
 msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep] enthält"
 
-#: admin/class-wpfep-admin-settings.php:214
+#: admin/class-wpfep-admin-settings.php:215
 msgid "Profile Page"
 msgstr "Profil-Seite"
 
-#: admin/class-wpfep-admin-settings.php:215
+#: admin/class-wpfep-admin-settings.php:216
 msgid "Select the page which contains [wpfep-profile] shortcode"
 msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep-profile] enthält"
 
-#: admin/class-wpfep-admin-settings.php:226
+#: admin/class-wpfep-admin-settings.php:227
 msgid "Registration success email"
 msgstr "E-Mail erfolgreiche Registrierung"
 
-#: admin/class-wpfep-admin-settings.php:227
+#: admin/class-wpfep-admin-settings.php:228
 msgid " Send an email to user for successful registration."
 msgstr ""
 " Senden Sie eine E-Mail an den Benutzer, wenn die Registrierung erfolgreich "
 "ist."
 
-#: admin/class-wpfep-admin-settings.php:233
+#: admin/class-wpfep-admin-settings.php:234
 msgid "Change password email"
 msgstr "Email-Benachrichtigung über Passwortänderung"
 
-#: admin/class-wpfep-admin-settings.php:234
+#: admin/class-wpfep-admin-settings.php:235
 msgid " Send an email to user for change password."
 msgstr " Senden Sie eine E-Mail an den Benutzer, um das Passwort zu ändern."
 
-#: admin/class-wpfep-admin-settings.php:240
+#: admin/class-wpfep-admin-settings.php:241
 msgid "Reset password email"
 msgstr "Email zum Zurücksetzen des Passwortes"
 
-#: admin/class-wpfep-admin-settings.php:241
+#: admin/class-wpfep-admin-settings.php:242
 msgid "Send an email to user for reset password."
 msgstr "Senden Sie eine E-Mail an den Benutzer zum Zurücksetzen des Kennworts."
 
-#: admin/class-wpfep-admin-settings.php:247
+#: admin/class-wpfep-admin-settings.php:248
 msgid "New account registration admin mail"
 msgstr "Administrator-E-Mail für die Registrierung eines neuen Kontos"
 
-#: admin/class-wpfep-admin-settings.php:248
+#: admin/class-wpfep-admin-settings.php:249
 msgid "Send an email to admin when user has created account on site."
 msgstr ""
 "Senden Sie eine E-Mail an den Administrator, wenn der Benutzer ein Konto vor "
 "Ort erstellt hat."
 
-#: admin/class-wpfep-admin-settings.php:254
+#: admin/class-wpfep-admin-settings.php:255
 msgid "Change user password admin mail"
 msgstr "Ändern des Benutzerkennworts admin mail"
 
-#: admin/class-wpfep-admin-settings.php:255
+#: admin/class-wpfep-admin-settings.php:256
 msgid "Send an email to admin when user has changed account password."
 msgstr ""
 "Senden Sie eine E-Mail an den Administrator, wenn der Benutzer das "
 "Kontokennwort geändert hat."
 
-#: admin/class-wpfep-admin-settings.php:274
+#: admin/class-wpfep-admin-settings.php:275
 msgid "Login / Registration"
 msgstr "Login / Registrierung"
 
-#: admin/class-wpfep-admin-settings.php:279
+#: admin/class-wpfep-admin-settings.php:280
 msgid "Pages"
 msgstr "Seiten"
 
-#: admin/class-wpfep-admin-settings.php:284
+#: admin/class-wpfep-admin-settings.php:285
 msgid "Emails"
 msgstr "E-Mails"
 
-#: admin/class-wpfep-admin-settings.php:289
-#: admin/class-wpfep-admin-settings.php:316
-#: admin/class-wpfep-admin-settings.php:347
+#: admin/class-wpfep-admin-settings.php:290
+#: admin/class-wpfep-admin-settings.php:317
+#: admin/class-wpfep-admin-settings.php:349
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: admin/class-wpfep-admin-settings.php:315
+#: admin/class-wpfep-admin-settings.php:316
 msgid "Frontend Profile"
 msgstr "Frontend-Profil"
 
-#: admin/class-wpfep-admin-settings.php:317
+#: admin/class-wpfep-admin-settings.php:318
 msgid "Tools"
 msgstr "Werkzeuge"
 
-#: admin/class-wpfep-admin-settings.php:318
+#: admin/class-wpfep-admin-settings.php:319
 #: admin/class-wpfep-system-status.php:56
 msgid "System Status"
 msgstr "Systemstatus"
 
-#: admin/class-wpfep-admin-settings.php:368
+#: admin/class-wpfep-admin-settings.php:370
 msgid "Are you Sure?"
 msgstr "Sind Sie sicher?"
 
-#: admin/class-wpfep-admin-settings.php:374
+#: admin/class-wpfep-admin-settings.php:376
 msgid "Settings has been cleared!"
 msgstr "Einstellungen wurden gelöscht!"
 
-#: admin/class-wpfep-admin-settings.php:385
+#: admin/class-wpfep-admin-settings.php:387
 msgid "Page Installation"
 msgstr "Seiteninstallation"
 
-#: admin/class-wpfep-admin-settings.php:388
+#: admin/class-wpfep-admin-settings.php:390
 msgid ""
 "Clicking this button will create required pages for the plugin. Note: It'll "
 "not delete/replace existing pages."
@@ -392,16 +392,16 @@ msgstr ""
 "Durch Anklicken dieser Schaltfläche werden benötigten Seiten für das Plugin "
 "erstellt. Hinweis: Vorhandene Seiten werden nicht gelöscht / ersetzt."
 
-#: admin/class-wpfep-admin-settings.php:394
-#: admin/class-wpfep-admin-settings.php:401
+#: admin/class-wpfep-admin-settings.php:396
+#: admin/class-wpfep-admin-settings.php:403
 msgid "Reset Settings"
 msgstr "Einstellungen zurücksetzen"
 
-#: admin/class-wpfep-admin-settings.php:398
+#: admin/class-wpfep-admin-settings.php:400
 msgid "Caution:"
 msgstr "Achtung:"
 
-#: admin/class-wpfep-admin-settings.php:399
+#: admin/class-wpfep-admin-settings.php:401
 msgid "This tool will delete all the plugin settings of WP Frontend Profile"
 msgstr "Dieses Tool löscht alle Plugin-Einstellungen von WP Frontend Profile"
 
@@ -866,7 +866,7 @@ msgstr ""
 "usw. verwendet."
 
 #: functions/default-fields.php:30 views/logged-in.php:37
-#: views/registration.php:70
+#: views/registration.php:37
 msgid "First Name"
 msgstr "Vorname"
 
@@ -875,7 +875,7 @@ msgid "Edit your first name."
 msgstr "Bearbeiten Sie Ihren Vornamen."
 
 #: functions/default-fields.php:39 views/logged-in.php:42
-#: views/registration.php:75
+#: views/registration.php:42
 msgid "Last Name"
 msgstr "Nachname"
 
@@ -900,7 +900,7 @@ msgid "Edit your description/bio."
 msgstr "Bearbeiten Sie Ihre Beschreibung/Biografie."
 
 #: functions/default-fields.php:104 functions/tabs.php:51
-#: views/logged-in.php:59 views/login.php:45 views/registration.php:92
+#: views/logged-in.php:59 views/login.php:45 views/registration.php:59
 msgid "Password"
 msgstr "Passwort"
 
@@ -960,7 +960,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass Ihr Passwort mindestens %s Zeichen lang ist."
 
 #: functions/save-fields.php:272 inc/class-wpfep-login.php:475
-#: inc/class-wpfep-registration.php:232
+#: inc/class-wpfep-registration.php:189
 msgid ""
 "Your password must contain at least 1 uppercase, 1 lowercase letter and at "
 "least 1 number."
@@ -1073,11 +1073,11 @@ msgstr ""
 msgid "You are now logged out."
 msgstr "Sie haben sich erfolgreich abgemeldet."
 
-#: inc/class-wpfep-login.php:282
+#: inc/class-wpfep-login.php:282 inc/class-wpfep-registration.php:143
 msgid "Username is required."
 msgstr "Benutzername erforderlich."
 
-#: inc/class-wpfep-login.php:288 inc/class-wpfep-registration.php:192
+#: inc/class-wpfep-login.php:288 inc/class-wpfep-registration.php:149
 msgid "Password is required."
 msgstr "Passwort ist erforderlich."
 
@@ -1088,13 +1088,11 @@ msgstr "Das reCaptcha-Feld ist leer"
 #: inc/class-wpfep-login.php:314 inc/class-wpfep-login.php:319
 #: inc/class-wpfep-login.php:324 inc/class-wpfep-login.php:331
 #: inc/class-wpfep-login.php:460 inc/class-wpfep-login.php:475
-#: inc/class-wpfep-registration.php:132 inc/class-wpfep-registration.php:142
-#: inc/class-wpfep-registration.php:148 inc/class-wpfep-registration.php:160
-#: inc/class-wpfep-registration.php:166 inc/class-wpfep-registration.php:174
-#: inc/class-wpfep-registration.php:186 inc/class-wpfep-registration.php:192
-#: inc/class-wpfep-registration.php:198 inc/class-wpfep-registration.php:204
-#: inc/class-wpfep-registration.php:217 inc/class-wpfep-registration.php:232
-#: inc/class-wpfep-registration.php:289 inc/class-wpfep-registration.php:300
+#: inc/class-wpfep-registration.php:131 inc/class-wpfep-registration.php:137
+#: inc/class-wpfep-registration.php:143 inc/class-wpfep-registration.php:149
+#: inc/class-wpfep-registration.php:155 inc/class-wpfep-registration.php:161
+#: inc/class-wpfep-registration.php:174 inc/class-wpfep-registration.php:189
+#: inc/class-wpfep-registration.php:246 inc/class-wpfep-registration.php:257
 msgid "Error"
 msgstr "Fehler"
 
@@ -1104,13 +1102,13 @@ msgstr "Bitte geben Sie Ihr Passwort ein."
 
 #: inc/class-wpfep-login.php:319
 msgid "Your account hasn't been approved by the administrator."
-msgstr "Account wurde aktiviert"
+msgstr "Account wurde aktiviert."
 
 #: inc/class-wpfep-login.php:324
 msgid "Your account was not approved by the administrator."
 msgstr "Ihr Konto wurde nicht vom Administrator genehmigt."
 
-#: inc/class-wpfep-login.php:331 inc/class-wpfep-registration.php:300
+#: inc/class-wpfep-login.php:331 inc/class-wpfep-registration.php:257
 msgid "A user could not be found with this email address."
 msgstr "Kein Benutzer mit dieser E-Mail-Adresse gefunden."
 
@@ -1196,8 +1194,8 @@ msgstr "[%s] Ihr Benutzername und Passwort"
 #. translators: %s: username term
 #. translators: %s: user login
 #: inc/class-wpfep-login.php:746 inc/class-wpfep-login.php:853
-#: inc/class-wpfep-registration.php:337 inc/class-wpfep-registration.php:354
-#: inc/class-wpfep-registration.php:376 inc/class-wpfep-user.php:216
+#: inc/class-wpfep-registration.php:294 inc/class-wpfep-registration.php:311
+#: inc/class-wpfep-registration.php:333 inc/class-wpfep-user.php:216
 #, php-format
 msgid "Username: %s"
 msgstr "Benutzername: %s"
@@ -1263,68 +1261,48 @@ msgstr ""
 msgid "Page"
 msgstr "Seite"
 
-#: inc/class-wpfep-registration.php:142
-msgid "Mitgliedsnummer wird benötigt."
-msgstr "Mitgliedsnummer wird benötigt."
-
-#: inc/class-wpfep-registration.php:148
-msgid "Freischaltcode wird benötigt."
-msgstr "Freischaltcode wird benötigt."
-
-#: inc/class-wpfep-registration.php:160
-msgid "Für diese Mitgliedsnummer ist bereits ein Benutzer registriert."
-msgstr "Für diese Mitgliedsnummer ist bereits ein Benutzer registriert."
-
-#: inc/class-wpfep-registration.php:166
-msgid "Ihre Mitgliedsnummer ist eine fünfstellige Zahl."
-msgstr "Ihre Mitgliedsnummer ist eine fünfstellige Zahl."
-
-#: inc/class-wpfep-registration.php:174
-msgid "Der Freischaltcode ist nicht korrekt."
-msgstr "Der Freischaltcode ist nicht korrekt."
-
-#: inc/class-wpfep-registration.php:186
+#: inc/class-wpfep-registration.php:137
 msgid "Email is required."
 msgstr "E-Mail ist erforderlich."
 
-#: inc/class-wpfep-registration.php:198
+#: inc/class-wpfep-registration.php:155
 msgid "Confirm Password is required."
 msgstr "Bestätigen Sie, dass das Passwort erforderlich ist."
 
-#: inc/class-wpfep-registration.php:204
+#: inc/class-wpfep-registration.php:161
 msgid "Passwords are not same."
 msgstr "Passwörter sind nicht identisch."
 
-#: inc/class-wpfep-registration.php:217
+#: inc/class-wpfep-registration.php:174
 msgid "Please make sure your password is a minimum of 12 characters long"
 msgstr ""
 "Bitte stellen Sie sicher, dass Ihr Passwort mindestens 12 Zeichen lang ist"
 
-#: inc/class-wpfep-registration.php:277
+#: inc/class-wpfep-registration.php:234
 msgid "reCaptcha is required"
 msgstr "reCaptcha ist erforderlich"
 
-#: inc/class-wpfep-registration.php:289
+#: inc/class-wpfep-registration.php:246
 msgid "A user with same username already exists."
 msgstr "Ein Benutzer mit demselben Benutzernamen ist bereits vorhanden."
 
 #. translators: %s: search term
 #. translators: %s: admin mail
-#: inc/class-wpfep-registration.php:335 inc/class-wpfep-registration.php:374
+#: inc/class-wpfep-registration.php:292 inc/class-wpfep-registration.php:331
 #: inc/class-wpfep-user.php:214
 #, php-format
 msgid "New user registration on your site %s:"
 msgstr "Neue Benutzerregistrierung auf der Webseite %s:"
 
 #. translators: %s: user email
-#: inc/class-wpfep-registration.php:339 inc/class-wpfep-registration.php:356
-#: inc/class-wpfep-registration.php:378 inc/class-wpfep-user.php:218
+#: inc/class-wpfep-registration.php:296 inc/class-wpfep-registration.php:313
+#: inc/class-wpfep-registration.php:335 inc/class-wpfep-user.php:218
 #, php-format
 msgid "E-mail: %s"
 msgstr "E-Mail: %s"
 
 #. translators: %s: user pass
-#: inc/class-wpfep-registration.php:341 inc/class-wpfep-registration.php:379
+#: inc/class-wpfep-registration.php:298 inc/class-wpfep-registration.php:336
 msgid "New User Registration"
 msgstr "Neue Benutzerregistrierung"
 
@@ -1332,21 +1310,21 @@ msgstr "Neue Benutzerregistrierung"
 #. translators: %1s: user login
 #. translators: %s: user email
 #. translators: %1s: user login
-#: inc/class-wpfep-registration.php:348 inc/class-wpfep-registration.php:366
-#: inc/class-wpfep-registration.php:386 inc/class-wpfep-registration.php:399
+#: inc/class-wpfep-registration.php:305 inc/class-wpfep-registration.php:323
+#: inc/class-wpfep-registration.php:343 inc/class-wpfep-registration.php:356
 #: inc/class-wpfep-user.php:223
 #, php-format
 msgid "[%1$s] %2$s"
 msgstr "[%1$s] %2$s"
 
 #. translators: %s: user login
-#: inc/class-wpfep-registration.php:351 inc/class-wpfep-registration.php:389
+#: inc/class-wpfep-registration.php:308 inc/class-wpfep-registration.php:346
 #, php-format
 msgid "Hi, %s"
 msgstr "Hallo %s"
 
 #. translators: %s: user pass
-#: inc/class-wpfep-registration.php:358
+#: inc/class-wpfep-registration.php:315
 #, php-format
 msgid "Password %s"
 msgstr "Passwort %s"
@@ -1536,13 +1514,11 @@ msgstr "Sie können keine versteckte Funktion hinzufügen!"
 
 #: inc/class-wpfep-roles-editor.php:442
 msgid "This capability already exists!"
-msgstr "Die %s Berechtigung ist bereits vorhanden."
+msgstr "Die Berechtigung ist bereits vorhanden!"
 
 #: inc/class-wpfep-roles-editor.php:449
 msgid "-All"
-msgstr ""
-"Aktivieren Sie dieses Kontrollkästchen, wenn Sie möchten, dass WP Frontend "
-"Profile alle Daten vollständig entfernt, wenn das Plugin gelöscht wird."
+msgstr "-Alle"
 
 #: inc/class-wpfep-roles-editor.php:453
 msgid "-General"
@@ -1644,19 +1620,19 @@ msgstr "Der Benutzer wurde erfolgreich manuell registriert."
 msgid "Registration has done successfully"
 msgstr "E-Mail erfolgreiche Registrierung"
 
-#: views/logged-in.php:47 views/profile.php:45 views/registration.php:80
+#: views/logged-in.php:47 views/profile.php:45 views/registration.php:47
 msgid "Email"
 msgstr "E-Mail"
 
-#: views/logged-in.php:53 views/registration.php:86
+#: views/logged-in.php:53 views/registration.php:53
 msgid "Username"
 msgstr "Benutzername"
 
-#: views/logged-in.php:65 views/registration.php:98
+#: views/logged-in.php:65 views/registration.php:65
 msgid "Confirm Password"
 msgstr "Passwort bestätigen"
 
-#: views/logged-in.php:71 views/profile.php:47 views/registration.php:104
+#: views/logged-in.php:71 views/profile.php:47 views/registration.php:71
 msgid "Website"
 msgstr "Webseite"
 
@@ -1672,7 +1648,7 @@ msgstr "Benutzerdefinierte Rolle"
 msgid "Select user role"
 msgstr "Wähle Benutzerrolle"
 
-#: views/logged-in.php:106 views/registration.php:110
+#: views/logged-in.php:106 views/registration.php:77
 msgid "Biographical Info"
 msgstr "Biografische Informationen"
 
@@ -1683,7 +1659,7 @@ msgstr "Sie sind derzeit eingeloggt. Sie benötigen kein weiteres Konto. %s"
 
 #: views/login.php:24
 msgid "Congratulations! Your account has been verified."
-msgstr "Account wurde aktiviert"
+msgstr "Herzlichen Glückwunsch. Ihr Account wurde verifiziert."
 
 #: views/login.php:41
 msgid "Username or Email"
@@ -1717,29 +1693,17 @@ msgstr "Profil bearbeiten"
 msgid "Post not Found"
 msgstr "Beitrag nicht gefunden"
 
-#: views/registration.php:21
+#: views/registration.php:20
 msgid ""
 "Registration has been successful! Please activate your account from e-mail."
 msgstr ""
 "Die Registrierung war erfolgreich! Bitte aktivieren Sie Ihr Konto per E-Mail."
 
-#: views/registration.php:24
+#: views/registration.php:23
 msgid "Registration has been successful!. Please wait for admin approval."
 msgstr ""
 "Die Registrierung war erfolgreich! Bitte warten Sie auf die Genehmigung "
 "durch den Administrator."
-
-#: views/registration.php:39
-msgid "Mitgliedsnummer"
-msgstr "Mitgliedsnummer"
-
-#: views/registration.php:45
-msgid "Freischaltcode"
-msgstr "Freischaltcode"
-
-#: views/registration.php:51
-msgid "Zur Registrierung"
-msgstr "Registrieren"
 
 #: views/reset-pass.php:17
 msgid "New password"
@@ -1795,6 +1759,30 @@ msgstr "Glowlogix"
 #. Author URI of the plugin/theme
 msgid "https://www.glowlogix.com"
 msgstr "https://www.glowlogix.com"
+
+#~ msgid "Mitgliedsnummer wird benötigt."
+#~ msgstr "Mitgliedsnummer wird benötigt."
+
+#~ msgid "Freischaltcode wird benötigt."
+#~ msgstr "Freischaltcode wird benötigt."
+
+#~ msgid "Für diese Mitgliedsnummer ist bereits ein Benutzer registriert."
+#~ msgstr "Für diese Mitgliedsnummer ist bereits ein Benutzer registriert."
+
+#~ msgid "Ihre Mitgliedsnummer ist eine fünfstellige Zahl."
+#~ msgstr "Ihre Mitgliedsnummer ist eine fünfstellige Zahl."
+
+#~ msgid "Der Freischaltcode ist nicht korrekt."
+#~ msgstr "Der Freischaltcode ist nicht korrekt."
+
+#~ msgid "Mitgliedsnummer"
+#~ msgstr "Mitgliedsnummer"
+
+#~ msgid "Freischaltcode"
+#~ msgstr "Freischaltcode"
+
+#~ msgid "Zur Registrierung"
+#~ msgstr "Registrieren"
 
 #~ msgid "If enabled, users after registration will be logged in to the system"
 #~ msgstr ""
