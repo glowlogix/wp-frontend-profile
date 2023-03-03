@@ -46,19 +46,19 @@ if (! class_exists('WPFEP_Admin_Help')) {
         {
             $shortcodes = array(
                 'wpfep-register' => array(
-                    'title'   => __('Register', 'wp-front-end-profile'),
+                    'title'   => __('Register', 'wpfep'),
                     'content' => '[wpfep-register]',
                 ),
                 'wpfep-edit'     => array(
-                    'title'   => __('Edit', 'wp-front-end-profile'),
+                    'title'   => __('Edit', 'wpfep'),
                     'content' => '[wpfep]',
                 ),
                 'wpfep-login'    => array(
-                    'title'   => __('Login', 'wp-front-end-profile'),
+                    'title'   => __('Login', 'wpfep'),
                     'content' => '[wpfep-login]',
                 ),
                 'wpfep-profile'  => array(
-                    'title'   => __('Profile', 'wp-front-end-profile'),
+                    'title'   => __('Profile', 'wpfep'),
                     'content' => '[wpfep-profile]',
                 ),
             );

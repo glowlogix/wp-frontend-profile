@@ -40,12 +40,12 @@ if (! class_exists('WPFEP_Admin_Installer')) {
                 ?>
 				<div class="updated error updated_wpfep">
 					<p>
-						<?php esc_attr_e('WP Frontend Profile needs to create several pages (User Profile, Registration, Login, Profile Edit) to function correctly.', 'wp-front-end-profile'); ?>
+						<?php esc_attr_e('WP Frontend Profile needs to create several pages (User Profile, Registration, Login, Profile Edit) to function correctly.', 'wpfep'); ?>
 					</p>
 					<p class="submit">
-						<a class="button button-primary" href="<?php echo esc_url(add_query_arg(array( 'install_wpfep_pages' => true ), admin_url('admin.php?page=wpfep-settings'))); ?>"><?php esc_attr_e('Create Pages', 'wp-front-end-profile'); ?></a>
-						<?php esc_attr_e('or', 'wp-front-end-profile'); ?>
-						<a class="button" href="<?php echo esc_url(add_query_arg(array( 'wpfep_hide_page_nag' => true ))); ?>"><?php esc_attr_e('Skip Setup', 'wp-front-end-profile'); ?></a>
+						<a class="button button-primary" href="<?php echo esc_url(add_query_arg(array( 'install_wpfep_pages' => true ), admin_url('admin.php?page=wpfep-settings'))); ?>"><?php esc_attr_e('Create Pages', 'wpfep'); ?></a>
+						<?php esc_attr_e('or', 'wpfep'); ?>
+						<a class="button" href="<?php echo esc_url(add_query_arg(array( 'wpfep_hide_page_nag' => true ))); ?>"><?php esc_attr_e('Skip Setup', 'wpfep'); ?></a>
 					</p>
 				</div>
 				<?php
@@ -54,7 +54,7 @@ if (! class_exists('WPFEP_Admin_Installer')) {
                 ?>
 				<div class="updated wpfep_updated">
 					<p>
-						<strong><?php esc_attr_e('Congratulations!', 'wp-front-end-profile'); ?></strong> 
+						<strong><?php esc_attr_e('Congratulations!', 'wpfep'); ?></strong> 
 						<?php
                         $page_success = 'Pages for 
 <strong>WP Frontend Profile</strong> has been successfully installed and saved!';
@@ -102,13 +102,13 @@ if (! class_exists('WPFEP_Admin_Installer')) {
         public function init_pages()
         {
             // create a Register page.
-            $register_page = $this->create_page(__('Register', 'wp-front-end-profile'), '[wpfep-register]');
+            $register_page = $this->create_page(__('Register', 'wpfep'), '[wpfep-register]');
             // edit Account.
-            $edit_page = $this->create_page(__('Profile Edit', 'wp-front-end-profile'), '[wpfep]');
+            $edit_page = $this->create_page(__('Profile Edit', 'wpfep'), '[wpfep]');
             // login page.
-            $login_page = $this->create_page(__('Login', 'wp-front-end-profile'), '[wpfep-login]');
+            $login_page = $this->create_page(__('Login', 'wpfep'), '[wpfep-login]');
             // profile page.
-            $profile_page = $this->create_page(__('Profile', 'wp-front-end-profile'), '[wpfep-profile]');
+            $profile_page = $this->create_page(__('Profile', 'wpfep'), '[wpfep-profile]');
             // profile pages.
             $profile_options = array();
             $reg_page        = false;
@@ -198,19 +198,19 @@ if (! class_exists('WPFEP_Admin_Installer')) {
             $wpfep_options = get_option('wpfep_pages');
 
             if (! empty($wpfep_options['login_page']) && $wpfep_options['login_page'] === $post->ID) {
-                $post_states[] = __('WPFP Login Page', 'wp-front-end-profile');
+                $post_states[] = __('WPFP Login Page', 'wpfep');
             }
 
             if (! empty($wpfep_options['register_page']) && $wpfep_options['register_page'] === $post->ID) {
-                $post_states[] = __('WPFP Register Page', 'wp-front-end-profile');
+                $post_states[] = __('WPFP Register Page', 'wpfep');
             }
 
             if (! empty($wpfep_options['profile_edit_page']) && $wpfep_options['profile_edit_page'] === $post->ID) {
-                $post_states[] = __('WPFP Profile Edit Page', 'wp-front-end-profile');
+                $post_states[] = __('WPFP Profile Edit Page', 'wpfep');
             }
 
             if (! empty($wpfep_options['profile_page']) && $wpfep_options['profile_page'] === $post->ID) {
-                $post_states[] = __('WPFP Profile Page', 'wp-front-end-profile');
+                $post_states[] = __('WPFP Profile Page', 'wpfep');
             }
 
             return $post_states;

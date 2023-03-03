@@ -43,7 +43,7 @@ if (! function_exists('wfep_fs')) {
             $wfep_fs = fs_dynamic_init(
                 array(
                     'id'                  => '5837',
-                    'slug'                => 'wp-front-end-profile',
+                    'slug'                => 'wpfep',
                     'premium_slug'        => 'wp-frontend-profile-premium',
                     'type'                => 'plugin',
                     'public_key'          => 'pk_ac83abfabd6c3c1498e82893f4a23',
@@ -89,8 +89,8 @@ function plugin_meta_links($links, $file)
     if (plugin_basename(__FILE__) != $file) {
         return $links;
     }
-    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="' . __('Get help', 'wp-front-end-profile') . '">' . __('Support', 'wp-front-end-profile') . '</a>';
-    $rate_link    = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="' . __('Rate the plugin', 'wp-front-end-profile') . '">' . __('Rate the plugin ★★★★★', 'wp-front-end-profile') . '</a>';
+    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="' . __('Get help', 'wpfep') . '">' . __('Support', 'wpfep') . '</a>';
+    $rate_link    = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="' . __('Rate the plugin', 'wpfep') . '">' . __('Rate the plugin ★★★★★', 'wpfep') . '</a>';
 
     $links[] = $support_link;
     $links[] = $rate_link;

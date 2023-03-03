@@ -14,19 +14,19 @@ defined('ABSPATH') || exit;
 
 	<form name="resetpasswordform" id="resetpasswordform" action="" method="post">
 		<p>
-			<label for="wpfep-pass1"><?php esc_attr_e('New password', 'wp-front-end-profile'); ?></label>
+			<label for="wpfep-pass1"><?php esc_attr_e('New password', 'wpfep'); ?></label>
 			<input autocomplete="off" name="pass1" id="wpfep-pass1" class="input" size="20" value="" type="password" autocomplete="off" />
 		</p>
 
 		<p>
-			<label for="wpfep-pass2"><?php esc_attr_e('Confirm new password', 'wp-front-end-profile'); ?></label>
+			<label for="wpfep-pass2"><?php esc_attr_e('Confirm new password', 'wpfep'); ?></label>
 			<input autocomplete="off" name="pass2" id="wpfep-pass2" class="input" size="20" value="" type="password" autocomplete="off" />
 		</p>
 
 		<?php do_action('resetpassword_form'); ?>
 
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Reset Password', 'wp-front-end-profile'); ?>" />
+			<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Reset Password', 'wpfep'); ?>" />
 			<input type="hidden" name="key" value="
 			<?php
             if (! empty($_REQUEST['key'])) {
