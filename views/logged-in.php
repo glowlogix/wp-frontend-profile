@@ -1,6 +1,9 @@
 <?php
+
 /**
  * @package wp-front-end-profile
+ * If you would like to edit this file, copy it to your current theme's directory in a subfolder 'wpfep' and edit it there.
+ * wpfep will always look in your theme's directory first, before using this default template.
  * Logged-in user.
  */
 

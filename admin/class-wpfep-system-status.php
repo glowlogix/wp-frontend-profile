@@ -975,12 +975,13 @@ if (! class_exists('Wpfep_System_Status')) {
             $scan_files         = self::scan_template_files(WPFEP_PATH . 'views/');
 
             foreach ($scan_files as $file) {
-                if (file_exists(get_stylesheet_directory() . '/' . $file)) {
-                    $theme_file = get_stylesheet_directory() . '/' . $file;
-                } elseif (file_exists(get_stylesheet_directory() . '/wpfep/' . $file)) {
+                // if (file_exists(get_stylesheet_directory() . '/' . $file)) {
+                //     $theme_file = get_stylesheet_directory() . '/' . $file;
+                // } else
+                if (file_exists(get_stylesheet_directory() . '/wpfep/' . $file)) {
                     $theme_file = get_stylesheet_directory() . '/wpfep/' . $file;
-                } elseif (file_exists(get_template_directory() . '/' . $file)) {
-                    $theme_file = get_template_directory() . '/' . $file;
+                // } elseif (file_exists(get_template_directory() . '/' . $file)) {
+                //     $theme_file = get_template_directory() . '/' . $file;
                 } elseif (file_exists(get_template_directory() . '/wpfep/' . $file)) {
                     $theme_file = get_template_directory() . '/wpfep/' . $file;
                 } else {
