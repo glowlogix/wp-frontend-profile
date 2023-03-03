@@ -1,29 +1,24 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Frontend Profile\n"
-"POT-Creation-Date: 2023-03-03 11:23+0100\n"
-"PO-Revision-Date: 2023-03-03 11:23+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-03 08:38+0100\n"
+"PO-Revision-Date: 2023-03-03 11:25+0100\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: crushed eyes\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
+"X-Loco-Version: 2.3.1; wp-5.2.4\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: wp-frontend-profile.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
 #: admin/class-wpfep-admin-help.php:52 admin/class-wpfep-admin-help.php:53
 msgid "Help &amp; Support"
-msgstr ""
+msgstr "Hilfe &amp; Support"
 
 #. translators: %s: Documentation URL
 #: admin/class-wpfep-admin-help.php:56
@@ -32,6 +27,8 @@ msgid ""
 "Should you need help understanding, using, or extending WP Frontend Profile, "
 "<a href=\"%s\">please read our documentation</a>."
 msgstr ""
+"Sollten Sie Hilfe beim Verstehen, Verwenden oder Erweitern von WP Frontend "
+"Profile benötigen, <a href=\"%s\">lesen Sie bitte unsere Dokumentation</a>."
 
 #. translators: %s: Forum URL
 #: admin/class-wpfep-admin-help.php:61
@@ -40,14 +37,16 @@ msgid ""
 "For further assistance with WP Frontend Profile core you can use the <a "
 "href=\"%1$s\">community forum</a>. "
 msgstr ""
+"Für weitere Unterstützung mit WP Frontend Profile core können Sie das <a "
+"href=\"%1$s\">Community-Forum</a> verwenden. "
 
 #: admin/class-wpfep-admin-help.php:64
 msgid "Community forum"
-msgstr ""
+msgstr "Community-Forum"
 
 #: admin/class-wpfep-admin-help.php:70 admin/class-wpfep-admin-help.php:71
 msgid "Found a bug?"
-msgstr ""
+msgstr "Einen Fehler gefunden?"
 
 #. translators: 1: GitHub issues URL 2: GitHub contribution guide URL 3: System status report URL
 #: admin/class-wpfep-admin-help.php:73
@@ -56,526 +55,560 @@ msgid ""
 "If you find a bug within WP Frontend Profile core you can create a ticket "
 "via <a href=\"%1$s\">Github issues</a>."
 msgstr ""
+"Wenn Sie einen Fehler im WP-Frontend-Profile core finden, können Sie ein "
+"Ticket über <a href=\"%1$s\">Github-Probleme</a> erstellen."
 
 #: admin/class-wpfep-admin-help.php:74
 msgid "Report a bug"
-msgstr ""
+msgstr "Fehler melden"
 
 #: admin/class-wpfep-admin-installer.php:43
 msgid ""
 "WP Frontend Profile needs to create several pages (User Profile, "
 "Registration, Login, Profile Edit) to function correctly."
 msgstr ""
+"WP Frontend Profile muss mehrere Seiten (Benutzerprofil, Registrierung, "
+"Login, Profilbearbeitung) erstellen, um korrekt zu funktionieren."
 
 #: admin/class-wpfep-admin-installer.php:46
-#: admin/class-wpfep-admin-settings.php:391
+#: admin/class-wpfep-admin-settings.php:389
 msgid "Create Pages"
-msgstr ""
+msgstr "Seiten erstellen"
 
 #: admin/class-wpfep-admin-installer.php:47
 msgid "or"
-msgstr ""
+msgstr "oder"
 
 #: admin/class-wpfep-admin-installer.php:48
 msgid "Skip Setup"
-msgstr ""
+msgstr "Setup überspringen"
 
 #: admin/class-wpfep-admin-installer.php:57
 msgid "Congratulations!"
-msgstr ""
+msgstr "Glückwunsch!"
 
 #: admin/class-wpfep-admin-installer.php:105
 #: admin/class-wpfep-shortcodes-button.php:49 views/logged-in.php:111
-#: views/registration.php:90
+#: views/registration.php:123
 msgid "Register"
-msgstr ""
+msgstr "Registrieren"
 
 #: admin/class-wpfep-admin-installer.php:107
 msgid "Profile Edit"
-msgstr ""
+msgstr "Profil bearbeiten"
 
 #: admin/class-wpfep-admin-installer.php:109
 #: admin/class-wpfep-shortcodes-button.php:57
 #: inc/class-wpfep-login-widget.php:29
 msgid "Login"
-msgstr ""
+msgstr "Anmelden"
 
 #: admin/class-wpfep-admin-installer.php:111
 #: admin/class-wpfep-shortcodes-button.php:61 functions/tabs.php:22
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: admin/class-wpfep-admin-installer.php:201
 msgid "WPFP Login Page"
-msgstr ""
+msgstr "WPFP-Anmeldeseite"
 
 #: admin/class-wpfep-admin-installer.php:205
 msgid "WPFP Register Page"
-msgstr ""
+msgstr "WPFP-Registrierungsseite"
 
 #: admin/class-wpfep-admin-installer.php:209
 msgid "WPFP Profile Edit Page"
-msgstr ""
+msgstr "WPFP-Profilbearbeitungsseite"
 
 #: admin/class-wpfep-admin-installer.php:213
 msgid "WPFP Profile Page"
-msgstr ""
+msgstr "WPFP-Profilseite"
+
+#: admin/class-wpfep-admin-settings.php:79
+msgid "--select--"
+msgstr "--auswählen--"
 
 #: admin/class-wpfep-admin-settings.php:80
-msgid "--select--"
-msgstr ""
+msgid "Auto login after registration"
+msgstr "Automatische Anmeldung nach der Registrierung"
 
 #: admin/class-wpfep-admin-settings.php:81
-msgid "Auto login after registration"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:82
 msgid "Send account activation email to registered users"
-msgstr ""
+msgstr "Senden einer E-Mail zur Kontoaktivierung an registrierte Benutzer"
 
-#: admin/class-wpfep-admin-settings.php:90
+#: admin/class-wpfep-admin-settings.php:89
 msgid "New user behaviour on registration "
-msgstr ""
+msgstr "Verhalten bei der Registrierung neuer Benutzer "
+
+#: admin/class-wpfep-admin-settings.php:95
+msgid "Admin can register user manually"
+msgstr "Admin kann Benutzer manuell registrieren"
 
 #: admin/class-wpfep-admin-settings.php:96
-msgid "Admin can register user manually"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:97
 msgid "If enabled, Admin can add users manually from frontend."
 msgstr ""
+"Wenn diese Option aktiviert ist, kann Admin Benutzer manuell vom Frontend "
+"aus hinzufügen."
+
+#: admin/class-wpfep-admin-settings.php:102
+msgid "Admin can Manually Approve User"
+msgstr "Administrator kann Benutzer manuell genehmigen"
 
 #: admin/class-wpfep-admin-settings.php:103
-msgid "Admin can Manually Approve User"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:104
 msgid "If enabled, Admin can manually approve and deny users from backend."
 msgstr ""
+"Wenn diese Option aktiviert ist, muss der Administrator Benutzer im Backend "
+"manuell genehmigen."
+
+#: admin/class-wpfep-admin-settings.php:109
+msgid "Admin can edit profile"
+msgstr "Administrator kann Profil bearbeiten"
 
 #: admin/class-wpfep-admin-settings.php:110
-msgid "Admin can edit profile"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:111
 msgid "Allow administrators to edit their own profiles on the frontend."
 msgstr ""
+"Erlauben Sie Administratoren, ihre eigenen Profile im Frontend zu bearbeiten."
+
+#: admin/class-wpfep-admin-settings.php:116
+msgid "Redirect After Login"
+msgstr "Weiterleiten nach Login"
 
 #: admin/class-wpfep-admin-settings.php:117
-msgid "Redirect After Login"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:118
 msgid "After successful login, where the page will redirect to"
-msgstr ""
+msgstr "Weiterleitungsziel nach erfolgreichem Login"
+
+#: admin/class-wpfep-admin-settings.php:123
+msgid "Redirect After Registration"
+msgstr "Umleitung nach der Registrierung"
 
 #: admin/class-wpfep-admin-settings.php:124
-msgid "Redirect After Registration"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:125
 msgid ""
 "After successful registration, where the page will redirect to, Make sure "
 "you have checked auto login after registration."
 msgstr ""
+"Weiterleitungsziel nach erfolgreicher Registrierung. Stellen Sie sicher, "
+"dass Sie die Option 'automatische Anmeldung nach der Registrierung' "
+"aktiviert haben."
+
+#: admin/class-wpfep-admin-settings.php:135
+msgid "Show Admin Bar"
+msgstr "Admin Leiste anzeigen"
 
 #: admin/class-wpfep-admin-settings.php:136
-msgid "Show Admin Bar"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:137
 msgid "Select user by roles, who can view admin bar in frontend."
 msgstr ""
+"Wählen Sie den Benutzer nach Rollen aus, der die Admin Leiste im Frontend "
+"anzeigen kann."
 
-#: admin/class-wpfep-admin-settings.php:144
+#: admin/class-wpfep-admin-settings.php:143
 #: inc/class-wpfep-roles-editor.php:255
 msgid "Role"
-msgstr ""
+msgstr "Rolle"
 
-#: admin/class-wpfep-admin-settings.php:145
+#: admin/class-wpfep-admin-settings.php:144
 msgid "Select to enable or disabled user add role feature."
 msgstr ""
+"Wählen Sie diese Option aus, um die Funktion zum Hinzufügen einer Rolle "
+"durch Benutzer zu aktivieren oder zu deaktivieren."
+
+#: admin/class-wpfep-admin-settings.php:151
+msgid "Enable Strong Password"
+msgstr "Starkes Passwort aktivieren"
 
 #: admin/class-wpfep-admin-settings.php:152
-msgid "Enable Strong Password"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:153
 msgid "Check to enable strong password."
-msgstr ""
+msgstr "Aktivieren Sie das erzwingen von sicheren Kennwörtern."
 
-#: admin/class-wpfep-admin-settings.php:159
+#: admin/class-wpfep-admin-settings.php:158
 msgid "reCAPTCHA Site Key"
-msgstr ""
+msgstr "reCAPTCHA öffentlicher Schlüssel"
+
+#: admin/class-wpfep-admin-settings.php:162
+msgid "reCAPTCHA Secret Key"
+msgstr "reCAPTCHA Geheimschlüssel"
 
 #: admin/class-wpfep-admin-settings.php:163
-msgid "reCAPTCHA Secret Key"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:164
 msgid ""
 "<a target=\"_blank\" href=\"https://www.google.com/recaptcha/\">Register "
 "here</a> to get reCaptcha Site and Secret keys."
 msgstr ""
+"<a target=\"_blank\" href=\"https://www.google.com/recaptcha/\">Registrieren "
+"Sie sich hier</a> , um die reCaptcha Site- und Geheimschlüssel zu erhalten."
+
+#: admin/class-wpfep-admin-settings.php:167
+msgid "reCAPTCHA Login Form"
+msgstr "reCAPTCHA Anmeldeformular"
 
 #: admin/class-wpfep-admin-settings.php:168
-msgid "reCAPTCHA Login Form"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:169
 msgid "Check to enable reCAPTCHA in login form."
-msgstr ""
+msgstr "Aktivieren Sie reCAPTCHA im Anmeldeformular."
+
+#: admin/class-wpfep-admin-settings.php:174
+msgid "reCAPTCHA Registration Form"
+msgstr "reCAPTCHA Anmeldeformular"
 
 #: admin/class-wpfep-admin-settings.php:175
-msgid "reCAPTCHA Registration Form"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:176
 msgid "Check to enable reCAPTCHA in registration form"
-msgstr ""
+msgstr "Aktivieren Sie reCAPTCHA im Registrierungsformular"
+
+#: admin/class-wpfep-admin-settings.php:181
+msgid "Remove Data on Uninstall?"
+msgstr "Daten beim De-Installieren entfernen?"
 
 #: admin/class-wpfep-admin-settings.php:182
-msgid "Remove Data on Uninstall?"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:183
 msgid ""
 "Check this box if you would like WP Frontend Profile to completely remove "
 "all of its data when the plugin is deleted."
 msgstr ""
+"Aktivieren Sie dieses Kontrollkästchen, wenn Sie möchten, dass WP Frontend "
+"Profile alle Daten vollständig entfernt, wenn das Plugin gelöscht wird."
+
+#: admin/class-wpfep-admin-settings.php:193
+msgid "Registration Page"
+msgstr "Registrationsseite"
 
 #: admin/class-wpfep-admin-settings.php:194
-msgid "Registration Page"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:195
 msgid "Select the page which contains [wpfep-register] shortcode"
-msgstr ""
+msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep-register] enthält"
+
+#: admin/class-wpfep-admin-settings.php:200
+msgid "Login Page"
+msgstr "Login-Seite"
 
 #: admin/class-wpfep-admin-settings.php:201
-msgid "Login Page"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:202
 msgid "Select the page which contains [wpfep-login] shortcode"
-msgstr ""
+msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep-login] enthält"
+
+#: admin/class-wpfep-admin-settings.php:207
+msgid "Profile Edit Page"
+msgstr "Seite \"Profil bearbeiten\""
 
 #: admin/class-wpfep-admin-settings.php:208
-msgid "Profile Edit Page"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:209
 msgid "Select the page which contains [wpfep] shortcode"
-msgstr ""
+msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep] enthält"
+
+#: admin/class-wpfep-admin-settings.php:214
+msgid "Profile Page"
+msgstr "Profil-Seite"
 
 #: admin/class-wpfep-admin-settings.php:215
-msgid "Profile Page"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:216
 msgid "Select the page which contains [wpfep-profile] shortcode"
-msgstr ""
+msgstr "Wählen Sie die Seite aus, die den Shortcode [wpfep-profile] enthält"
+
+#: admin/class-wpfep-admin-settings.php:226
+msgid "Registration success email"
+msgstr "E-Mail erfolgreiche Registrierung"
 
 #: admin/class-wpfep-admin-settings.php:227
-msgid "Registration success email"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:228
 msgid " Send an email to user for successful registration."
 msgstr ""
+" Senden Sie eine E-Mail an den Benutzer, wenn die Registrierung erfolgreich "
+"ist."
+
+#: admin/class-wpfep-admin-settings.php:233
+msgid "Change password email"
+msgstr "Email-Benachrichtigung über Passwortänderung"
 
 #: admin/class-wpfep-admin-settings.php:234
-msgid "Change password email"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:235
 msgid " Send an email to user for change password."
-msgstr ""
+msgstr " Senden Sie eine E-Mail an den Benutzer, um das Passwort zu ändern."
+
+#: admin/class-wpfep-admin-settings.php:240
+msgid "Reset password email"
+msgstr "Email zum Zurücksetzen des Passwortes"
 
 #: admin/class-wpfep-admin-settings.php:241
-msgid "Reset password email"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:242
 msgid "Send an email to user for reset password."
-msgstr ""
+msgstr "Senden Sie eine E-Mail an den Benutzer zum Zurücksetzen des Kennworts."
+
+#: admin/class-wpfep-admin-settings.php:247
+msgid "New account registration admin mail"
+msgstr "Administrator-E-Mail für die Registrierung eines neuen Kontos"
 
 #: admin/class-wpfep-admin-settings.php:248
-msgid "New account registration admin mail"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:249
 msgid "Send an email to admin when user has created account on site."
 msgstr ""
+"Senden Sie eine E-Mail an den Administrator, wenn der Benutzer ein Konto vor "
+"Ort erstellt hat."
+
+#: admin/class-wpfep-admin-settings.php:254
+msgid "Change user password admin mail"
+msgstr "Ändern des Benutzerkennworts admin mail"
 
 #: admin/class-wpfep-admin-settings.php:255
-msgid "Change user password admin mail"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:256
 msgid "Send an email to admin when user has changed account password."
 msgstr ""
+"Senden Sie eine E-Mail an den Administrator, wenn der Benutzer das "
+"Kontokennwort geändert hat."
 
-#: admin/class-wpfep-admin-settings.php:275
+#: admin/class-wpfep-admin-settings.php:274
 msgid "Login / Registration"
-msgstr ""
+msgstr "Login / Registrierung"
 
-#: admin/class-wpfep-admin-settings.php:280
+#: admin/class-wpfep-admin-settings.php:279
 msgid "Pages"
-msgstr ""
+msgstr "Seiten"
 
-#: admin/class-wpfep-admin-settings.php:285
+#: admin/class-wpfep-admin-settings.php:284
 msgid "Emails"
-msgstr ""
+msgstr "E-Mails"
 
-#: admin/class-wpfep-admin-settings.php:290
-#: admin/class-wpfep-admin-settings.php:317
-#: admin/class-wpfep-admin-settings.php:349
-msgid "Settings"
-msgstr ""
-
+#: admin/class-wpfep-admin-settings.php:289
 #: admin/class-wpfep-admin-settings.php:316
+#: admin/class-wpfep-admin-settings.php:347
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: admin/class-wpfep-admin-settings.php:315
 msgid "Frontend Profile"
-msgstr ""
+msgstr "Frontend-Profil"
+
+#: admin/class-wpfep-admin-settings.php:317
+msgid "Tools"
+msgstr "Werkzeuge"
 
 #: admin/class-wpfep-admin-settings.php:318
-msgid "Tools"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:319
 #: admin/class-wpfep-system-status.php:56
 msgid "System Status"
-msgstr ""
+msgstr "Systemstatus"
 
-#: admin/class-wpfep-admin-settings.php:370
+#: admin/class-wpfep-admin-settings.php:368
 msgid "Are you Sure?"
-msgstr ""
+msgstr "Sind Sie sicher?"
 
-#: admin/class-wpfep-admin-settings.php:376
+#: admin/class-wpfep-admin-settings.php:374
 msgid "Settings has been cleared!"
-msgstr ""
+msgstr "Einstellungen wurden gelöscht!"
 
-#: admin/class-wpfep-admin-settings.php:387
+#: admin/class-wpfep-admin-settings.php:385
 msgid "Page Installation"
-msgstr ""
+msgstr "Seiteninstallation"
 
-#: admin/class-wpfep-admin-settings.php:390
+#: admin/class-wpfep-admin-settings.php:388
 msgid ""
 "Clicking this button will create required pages for the plugin. Note: It'll "
 "not delete/replace existing pages."
 msgstr ""
+"Durch Anklicken dieser Schaltfläche werden benötigten Seiten für das Plugin "
+"erstellt. Hinweis: Vorhandene Seiten werden nicht gelöscht / ersetzt."
 
-#: admin/class-wpfep-admin-settings.php:396
-#: admin/class-wpfep-admin-settings.php:403
-msgid "Reset Settings"
-msgstr ""
-
-#: admin/class-wpfep-admin-settings.php:400
-msgid "Caution:"
-msgstr ""
-
+#: admin/class-wpfep-admin-settings.php:394
 #: admin/class-wpfep-admin-settings.php:401
+msgid "Reset Settings"
+msgstr "Einstellungen zurücksetzen"
+
+#: admin/class-wpfep-admin-settings.php:398
+msgid "Caution:"
+msgstr "Achtung:"
+
+#: admin/class-wpfep-admin-settings.php:399
 msgid "This tool will delete all the plugin settings of WP Frontend Profile"
-msgstr ""
+msgstr "Dieses Tool löscht alle Plugin-Einstellungen von WP Frontend Profile"
 
 #: admin/class-wpfep-settings-api.php:463
 msgid "Edit Page"
-msgstr ""
+msgstr "Seite bearbeiten"
 
 #: admin/class-wpfep-settings-api.php:464
 msgid "View Page"
-msgstr ""
+msgstr "Seite ansehen"
 
 #: admin/class-wpfep-settings-api.php:574
 msgid "Choose File"
-msgstr ""
+msgstr "Datei wählen"
 
 #: admin/class-wpfep-shortcodes-button.php:53
 #: inc/class-wpfep-roles-editor.php:852
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: admin/class-wpfep-system-status.php:31
 msgid "$class"
-msgstr ""
+msgstr "$class"
 
 #: admin/class-wpfep-system-status.php:58
 msgid ""
 "Please copy and paste this information in your ticket when contacting "
 "support:"
 msgstr ""
+"Bitte kopieren Sie diese Informationen in Ihr Ticket, wenn Sie den Support "
+"kontaktieren:"
 
 #: admin/class-wpfep-system-status.php:59
 msgid "Get system report"
-msgstr ""
+msgstr "Systembericht abrufen"
 
 #: admin/class-wpfep-system-status.php:62
 msgid "Copy for Support"
-msgstr ""
+msgstr "Kopie für Support"
 
 #: admin/class-wpfep-system-status.php:63
 msgid "Copying to clipboard failed. Please press Ctrl/Cmd+C to copy."
 msgstr ""
+"Kopieren in die Zwischenablage fehlgeschlagen. Bitte drücken Sie STRG/CMD+C "
+"zum Kopieren."
 
 #: admin/class-wpfep-system-status.php:69
 msgid "WordPress Environment"
-msgstr ""
+msgstr "WordPress-Umgebung"
 
 #: admin/class-wpfep-system-status.php:74
 msgid "Home URL"
-msgstr ""
+msgstr "Home URL"
 
 #: admin/class-wpfep-system-status.php:78
 msgid "Site URL"
-msgstr ""
+msgstr "Seiten URL"
 
 #: admin/class-wpfep-system-status.php:82
 msgid "WP Frontend Profile Version"
-msgstr ""
+msgstr "WP Frontend Profile Version"
 
 #: admin/class-wpfep-system-status.php:86
 msgid "WP version"
-msgstr ""
+msgstr "WP-Version"
 
 #: admin/class-wpfep-system-status.php:90
 msgid "WP Multisite"
-msgstr ""
+msgstr "WP Multisite"
 
 #: admin/class-wpfep-system-status.php:90
 msgid "WP multisite"
-msgstr ""
+msgstr "WP Multisite"
 
 #: admin/class-wpfep-system-status.php:94
 msgid "WP Memory Limit"
-msgstr ""
+msgstr "WP-Speicher-Limit"
 
 #: admin/class-wpfep-system-status.php:94
 msgid "WP memory limit"
-msgstr ""
+msgstr "WordPress Memory Limit"
 
 #. translators: %1s: WordPress environment
 #: admin/class-wpfep-system-status.php:99
 #, php-format
 msgid "%1$s - We recommend setting memory to at least 64MB. See: %2$s"
 msgstr ""
+"%1$s - Wir empfehlen das PHP Speicher-Limit (memory_limit) auf mindestens 64 "
+"MB zu setzen. Siehe: %2$s"
 
 #: admin/class-wpfep-system-status.php:99
 msgid "Increasing memory allocated to PHP"
-msgstr ""
+msgstr "PHP Speicherlimit erhöhen"
 
 #: admin/class-wpfep-system-status.php:106
 msgid "WP Debug Mode"
-msgstr ""
+msgstr "WP Debug Modus"
 
 #: admin/class-wpfep-system-status.php:106
 msgid "WP debug mode"
-msgstr ""
+msgstr "WordPress Debug-Modus"
 
 #: admin/class-wpfep-system-status.php:116
 msgid "Wp Cron"
-msgstr ""
+msgstr "Wp Cron"
 
 #: admin/class-wpfep-system-status.php:116
 msgid "WP cron"
-msgstr ""
+msgstr "WP Cron"
 
 #: admin/class-wpfep-system-status.php:126
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: admin/class-wpfep-system-status.php:135
 msgid "Server Environment"
-msgstr ""
+msgstr "Server Umgebung"
 
 #: admin/class-wpfep-system-status.php:140
 msgid "Server Info"
-msgstr ""
+msgstr "Server Info"
 
 #: admin/class-wpfep-system-status.php:140
 msgid "Server info"
-msgstr ""
+msgstr "Server Info"
 
 #: admin/class-wpfep-system-status.php:144
 msgid "PHP Version"
-msgstr ""
+msgstr "PHP Version"
 
 #: admin/class-wpfep-system-status.php:144
 msgid "PHP version"
-msgstr ""
+msgstr "PHP-Version"
 
 #: admin/class-wpfep-system-status.php:157
 msgid "PHP Post Max Size"
-msgstr ""
+msgstr "PHP Post Max Size"
 
 #: admin/class-wpfep-system-status.php:157
 msgid "PHP post max size"
-msgstr ""
+msgstr "PHP post max size"
 
 #: admin/class-wpfep-system-status.php:161
 msgid "PHP Time Limit"
-msgstr ""
+msgstr "PHP Zeitlimit"
 
 #: admin/class-wpfep-system-status.php:161
 msgid "PHP time limit"
-msgstr ""
+msgstr "PHP Zeitlimit"
 
 #: admin/class-wpfep-system-status.php:165
 msgid "PHP Max Input Vars"
-msgstr ""
+msgstr "PHP Max Input Vars"
 
 #: admin/class-wpfep-system-status.php:165
 msgid "PHP max input vars"
-msgstr ""
+msgstr "PHP max input vars"
 
 #: admin/class-wpfep-system-status.php:169
 msgid "cURL Version"
-msgstr ""
+msgstr "cURL Version"
 
 #: admin/class-wpfep-system-status.php:169
 msgid "cURL version"
-msgstr ""
+msgstr "cURL Version"
 
 #: admin/class-wpfep-system-status.php:173
 msgid "SUHOSIN Installed"
-msgstr ""
+msgstr "SUHOSIN installiert"
 
 #: admin/class-wpfep-system-status.php:173
 msgid "SUHOSIN installed"
-msgstr ""
+msgstr "SUHOSIN installiert"
 
 #: admin/class-wpfep-system-status.php:187
 msgid "MySQL Version"
-msgstr ""
+msgstr "MySQL Version"
 
 #: admin/class-wpfep-system-status.php:187
 msgid "MySQL version"
-msgstr ""
+msgstr "MySQL version"
 
 #: admin/class-wpfep-system-status.php:200
 msgid "Max Upload Size"
-msgstr ""
+msgstr "Maximale Uploadgröße"
 
 #: admin/class-wpfep-system-status.php:200
 msgid "Max upload size"
-msgstr ""
+msgstr "Maximale Dateigröße für den Upload"
 
 #: admin/class-wpfep-system-status.php:204
 msgid "Default Timezone is UTC"
-msgstr ""
+msgstr "Standard-Zeitzone ist UTC"
 
 #: admin/class-wpfep-system-status.php:204
 msgid "Default timezone is UTC"
-msgstr ""
+msgstr "Standard-Zeitzone ist UTC"
 
 #. translators: %s: default timezone
 #: admin/class-wpfep-system-status.php:209
 #, php-format
 msgid "Default timezone is %s - it should be UTC"
-msgstr ""
+msgstr "Standardzeitzone ist %s - es sollte UTC sein"
 
 #: admin/class-wpfep-system-status.php:216
 msgid "fsockopen/cURL"
-msgstr ""
+msgstr "fsockopen/cURL"
 
 #: admin/class-wpfep-system-status.php:222
 msgid ""
@@ -583,10 +616,14 @@ msgid ""
 "scripts which communicate with other servers will not work. Contact your "
 "hosting provider."
 msgstr ""
+"Ihr Webserver hat weder <code>fsockopen</code> noch <code>cURL</code> "
+"aktiviert. Die sofortige Zahlungsbestätigung bei PayPal (IPN) und andere "
+"Skripte, welche mit anderen Servern kommunizieren, werden daher nicht "
+"funktionieren. Kontaktieren Sie Ihren Webhosting-Anbieter."
 
 #: admin/class-wpfep-system-status.php:227
 msgid "SoapClient"
-msgstr ""
+msgstr "Soap-Client"
 
 #. translators: %s: search term
 #: admin/class-wpfep-system-status.php:234
@@ -595,126 +632,129 @@ msgid ""
 "Your server does not have the %s class enabled - some gateway plugins which "
 "use SOAP may not work as expected."
 msgstr ""
+"Ihr Server verfügt nicht über eine lauffähige Version der %s Klasse - einige "
+"Zahlungsschnittstellen, welche SOAP nutzen, funktionieren unter Umständen "
+"nicht korrekt."
 
 #: admin/class-wpfep-system-status.php:239
 msgid "DOMDocument"
-msgstr ""
+msgstr "DOMDocument"
 
 #: admin/class-wpfep-system-status.php:251
 msgid "GZip"
-msgstr ""
+msgstr "Gzip"
 
 #: admin/class-wpfep-system-status.php:263
 msgid "GD Library"
-msgstr ""
+msgstr "GD Bibliothek"
 
 #: admin/class-wpfep-system-status.php:275
 msgid "Multibyte String"
-msgstr ""
+msgstr "Multibyte String"
 
 #: admin/class-wpfep-system-status.php:275
 msgid "Multibyte string"
-msgstr ""
+msgstr "Multibyte-String (mbstring)"
 
 #: admin/class-wpfep-system-status.php:287
 msgid "Remote POST"
-msgstr ""
+msgstr "Remote Post"
 
 #: admin/class-wpfep-system-status.php:299
 msgid "Remote GET"
-msgstr ""
+msgstr "Remote Get"
 
 #. translators: %s: search term
 #: admin/class-wpfep-system-status.php:306
 #, php-format
 msgid "%s failed. Contact your hosting provider."
-msgstr ""
+msgstr "%s fehlgeschlagen. Kontaktieren Sie Ihren Hosting-Provider."
 
 #: admin/class-wpfep-system-status.php:349
 msgid "User Platform"
-msgstr ""
+msgstr "Benutzerplattform"
 
 #: admin/class-wpfep-system-status.php:354
 msgid "Platform"
-msgstr ""
+msgstr "Plattform"
 
 #: admin/class-wpfep-system-status.php:358
 msgid "Browser name"
-msgstr ""
+msgstr "Browsername"
 
 #: admin/class-wpfep-system-status.php:362
 msgid "Browser version"
-msgstr ""
+msgstr "Browser-Version"
 
 #: admin/class-wpfep-system-status.php:366
 msgid "User agent"
-msgstr ""
+msgstr "User Agent"
 
 #: admin/class-wpfep-system-status.php:374
 msgid "Database"
-msgstr ""
+msgstr "Datenbank"
 
 #: admin/class-wpfep-system-status.php:379
 msgid "WPFEP Database Version"
-msgstr ""
+msgstr "WPFEP-Datenbankversion"
 
 #: admin/class-wpfep-system-status.php:379
 msgid "WPFEP database version"
-msgstr ""
+msgstr "WPFEP-Datenbankversion"
 
 #: admin/class-wpfep-system-status.php:383
 msgid "Database Prefix"
-msgstr ""
+msgstr "Datenbankpräfix"
 
 #. translators: %1s: database prefix
 #: admin/class-wpfep-system-status.php:388
 #, php-format
 msgid "%1$s - We recommend using a prefix with less than 20 characters."
-msgstr ""
+msgstr "%1$s - Wir empfehlen einen Präfix mit weniger als 20 Zeichen."
 
 #: admin/class-wpfep-system-status.php:395
 msgid "Total Database Size"
-msgstr ""
+msgstr "Datenbank-Gesamtgröße"
 
 #: admin/class-wpfep-system-status.php:399
 msgid "Database Data Size"
-msgstr ""
+msgstr "Datenbankdatengröße"
 
 #: admin/class-wpfep-system-status.php:403
 msgid "Database Index Size"
-msgstr ""
+msgstr "Datenbank-Indexgröße"
 
 #: admin/class-wpfep-system-status.php:422
 msgid "Security"
-msgstr ""
+msgstr "Sicherheit"
 
 #: admin/class-wpfep-system-status.php:427
 msgid "Secure Connection (HTTPS)"
-msgstr ""
+msgstr "Sichere Verbindung (HTTPS)"
 
 #: admin/class-wpfep-system-status.php:427
 msgid "Secure connection (HTTPS)"
-msgstr ""
+msgstr "Sichere Verbindung (HTTPS)"
 
 #: admin/class-wpfep-system-status.php:432
 msgid "Your site is not using HTTPS."
-msgstr ""
+msgstr "Deine Website verwendet kein HTTPS."
 
 #: admin/class-wpfep-system-status.php:437
 msgid "Hide errors from visitors"
-msgstr ""
+msgstr "Fehler für Besucher ausblenden"
 
 #: admin/class-wpfep-system-status.php:442
 msgid "Error messages should not be shown to visitors."
-msgstr ""
+msgstr "Fehlermeldungen sollten nicht für Besucher angezeigt werden."
 
 #: admin/class-wpfep-system-status.php:451
 msgid "Active Plugins"
-msgstr ""
+msgstr "Aktive Plugins"
 
 #: admin/class-wpfep-system-status.php:463
 msgid "Visit plugin homepage"
-msgstr ""
+msgstr "Plugin-Homepage besuchen"
 
 #. translators: %s: plugin latest version
 #. translators: %s: theme latest version
@@ -724,37 +764,37 @@ msgstr ""
 #: admin/class-wpfep-system-status.php:580
 #, php-format
 msgid "%s is available"
-msgstr ""
+msgstr "%s ist verfügbar"
 
 #: admin/class-wpfep-system-status.php:474
 msgid "Network enabled"
-msgstr ""
+msgstr "Netzwerk aktiviert"
 
 #. translators: %s: plugin author
 #: admin/class-wpfep-system-status.php:493
 #, php-format
 msgid "by %s"
-msgstr ""
+msgstr "von %s"
 
 #: admin/class-wpfep-system-status.php:522
 msgid "Theme"
-msgstr ""
+msgstr "Theme"
 
 #: admin/class-wpfep-system-status.php:527
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: admin/class-wpfep-system-status.php:531
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: admin/class-wpfep-system-status.php:542
 msgid "Author URL"
-msgstr ""
+msgstr "URL des Autors"
 
 #: admin/class-wpfep-system-status.php:546
 msgid "Child theme"
-msgstr ""
+msgstr "Child Theme"
 
 #. translators: %s: child theme
 #: admin/class-wpfep-system-status.php:550
@@ -764,158 +804,169 @@ msgid ""
 "personally we recommend using a child theme. See: <a href=\"%s\" "
 "target=\"_blank\">How to create a child theme</a>"
 msgstr ""
+"Wenn Sie wpfep an einem übergeordneten Thema ändern, das Sie nicht "
+"persönlich erstellt haben, empfehlen wir die Verwendung eines "
+"untergeordneten Themas. Siehe: <a href=\"%s\" target=\"_blank\">So erstellen "
+"Sie ein untergeordnetes Design</a>"
 
 #: admin/class-wpfep-system-status.php:570
 msgid "Parent Theme Name"
-msgstr ""
+msgstr "Name des übergeordneten Theme"
 
 #: admin/class-wpfep-system-status.php:570
 msgid "Parent theme name"
-msgstr ""
+msgstr "Name des übergeordneten Themes"
 
 #: admin/class-wpfep-system-status.php:574
 msgid "Parent Theme Version"
-msgstr ""
+msgstr "Version des übergeordneten Theme"
 
 #: admin/class-wpfep-system-status.php:574
 msgid "Parent theme version"
-msgstr ""
+msgstr "Version des übergeordneten Themes"
 
 #: admin/class-wpfep-system-status.php:585
 msgid "Parent Theme Author URL"
-msgstr ""
+msgstr "Autoren-URL des übergeordneten Themes"
 
 #: admin/class-wpfep-system-status.php:585
 msgid "Parent theme author URL"
-msgstr ""
+msgstr "URL des Autors des Parent Themes"
 
 #: admin/class-wpfep-system-status.php:595
 msgid "Templates"
-msgstr ""
+msgstr "Vorlagen"
 
 #: admin/class-wpfep-system-status.php:603
 #: admin/class-wpfep-system-status.php:636
 msgid "Overrides"
-msgstr ""
+msgstr "Überschreibt"
 
 #: admin/class-wpfep-system-status.php:617
 #, php-format
 msgid "%1$s version %2$s is out of date. The core version is %3$s"
-msgstr ""
+msgstr "%1$s Version %2$s ist veraltet. Die aktuelle Version ist %3$s"
 
 #: admin/class-wpfep-system-status.php:645
 msgid "Outdated Templates"
-msgstr ""
+msgstr "Veraltete Vorlagen"
 
 #: admin/class-wpfep-system-status.php:645
 msgid "Outdated templates"
-msgstr ""
+msgstr "Veraltete Vorlagen"
 
 #: functions/default-fields.php:21
 msgid "Email Address"
-msgstr ""
+msgstr "E-Mail Adresse"
 
 #: functions/default-fields.php:22
 msgid "Edit your email address - used for resetting your password etc."
 msgstr ""
+"Bearbeiten Sie Ihre E-Mail-Adresse - wird zum Zurücksetzen Ihres Passworts "
+"usw. verwendet."
 
 #: functions/default-fields.php:30 views/logged-in.php:37
-#: views/registration.php:37
+#: views/registration.php:70
 msgid "First Name"
-msgstr ""
+msgstr "Vorname"
 
 #: functions/default-fields.php:31
 msgid "Edit your first name."
-msgstr ""
+msgstr "Bearbeiten Sie Ihren Vornamen."
 
 #: functions/default-fields.php:39 views/logged-in.php:42
-#: views/registration.php:42
+#: views/registration.php:75
 msgid "Last Name"
-msgstr ""
+msgstr "Nachname"
 
 #: functions/default-fields.php:40
 msgid "Edit your last name."
-msgstr ""
+msgstr "Bearbeiten Sie Ihren Nachnamen."
 
 #: functions/default-fields.php:48
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: functions/default-fields.php:49
 msgid "Edit your profile associated URL."
-msgstr ""
+msgstr "Bearbeiten Sie die mit Ihrem Profil verknüpfte URL."
 
 #: functions/default-fields.php:57
 msgid "Description/Bio"
-msgstr ""
+msgstr "Beschreibung/Bio"
 
 #: functions/default-fields.php:58
 msgid "Edit your description/bio."
-msgstr ""
+msgstr "Bearbeiten Sie Ihre Beschreibung/Biografie."
 
 #: functions/default-fields.php:104 functions/tabs.php:51
-#: views/logged-in.php:59 views/login.php:45 views/registration.php:59
+#: views/logged-in.php:59 views/login.php:45 views/registration.php:92
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: functions/default-fields.php:105 functions/wpfep-functions.php:356
 msgid "New Password"
-msgstr ""
+msgstr "Neues Passwort"
 
 #: functions/feedback.php:30
 msgid "Enjoying using the WP Frontend Profile plugin"
-msgstr ""
+msgstr "Genießen Sie die Verwendung des WP Frontend Profile Plugins"
 
 #: functions/feedback.php:31
 msgid ""
 "Help us make the plugin better! Please take a minute to rate the plugin. "
 "Thanks!"
 msgstr ""
+"Hilf uns, das Plugin besser zu machen! Bitte nehmen Sie sich eine Minute "
+"Zeit, um das Plugin zu bewerten. Danke!"
 
 #: functions/feedback.php:50
 msgid "Thank you for taking the time to help us!"
-msgstr ""
+msgstr "Vielen Dank, dass Sie sich die Zeit genommen haben, uns zu helfen!"
 
 #: functions/feedback.php:53
 msgid "Not Really"
-msgstr ""
+msgstr "Nicht wirklich"
 
 #: functions/feedback.php:54
 msgid "Yes!"
-msgstr ""
+msgstr "Ja!"
 
 #: functions/feedback.php:55
 msgid "No Thanks"
-msgstr ""
+msgstr "Nein danke"
 
 #: functions/feedback.php:57
 msgid "OK, Sure"
-msgstr ""
+msgstr "OK, sicher"
 
 #: functions/feedback.php:66
 msgid "Submit"
-msgstr ""
+msgstr "Senden"
 
 #: functions/save-fields.php:200
 msgid "Yours profile was updated successfully!"
-msgstr ""
+msgstr "Ihr Profil wurde erfolgreich aktualisiert!"
 
 #: functions/save-fields.php:247
 msgid "Please make sure the passwords match"
-msgstr ""
+msgstr "Bitte stellen Sie sicher, dass die Passwörter übereinstimmen"
 
 #. translators: %s: password length term
 #: functions/save-fields.php:259
 #, php-format
 msgid "Please make sure your password is a minimum of %s characters long."
 msgstr ""
+"Bitte stellen Sie sicher, dass Ihr Passwort mindestens %s Zeichen lang ist."
 
 #: functions/save-fields.php:272 inc/class-wpfep-login.php:475
-#: inc/class-wpfep-registration.php:189
+#: inc/class-wpfep-registration.php:232
 msgid ""
 "Your password must contain at least 1 uppercase, 1 lowercase letter and at "
 "least 1 number."
 msgstr ""
+"Ihr Passwort muss mindestens 1 Großbuchstaben, 1 Kleinbuchstaben und "
+"mindestens 1 Zahl enthalten."
 
 #. translators: %s: login link
 #: functions/save-fields.php:284
@@ -924,166 +975,181 @@ msgid ""
 "You're password was successfully changed and you have been logged out. "
 "Please <a href=\"%s\">login again here</a>."
 msgstr ""
+"Ihr Passwort wurde erfolgreich geändert und Sie wurden abgemeldet. Bitte <a "
+"href=\"%s\">loggen Sie sich hier erneut ein</a>."
 
 #: functions/wpfep-functions.php:358
 msgid "Repeat New Password"
-msgstr ""
+msgstr "Neues Passwort wiederholen"
 
 #: functions/wpfep-functions.php:396
 msgid "Save this tabs updated fields."
-msgstr ""
+msgstr "Speichern Sie auf dieser Registerkarte aktualisierte Felder."
 
 #: functions/wpfep-functions.php:397
 msgid "Update"
-msgstr ""
+msgstr "Aktualisieren"
 
 #: functions/wpfep-functions.php:398
 msgid "View Profile"
-msgstr ""
+msgstr "Profil anzeigen"
 
 #: functions/wpfep-functions.php:454
 msgid "-- select --"
-msgstr ""
+msgstr "-- auswählen --"
 
 #. translators: %s: Login link
 #: functions/wpfep-functions.php:724
 #, php-format
 msgid "This page is restricted. Please %s to view this page."
 msgstr ""
+"Diese Seite hat eine Zugriffsbeschränkung. Bitte %s, um diese Seite zu sehen."
 
 #: functions/wpfep-functions.php:735
 msgid ""
 "Frontend editing is disabled for administrators because of security risks."
 msgstr ""
+"Die Frontend-Bearbeitung ist für Administratoren aufgrund von "
+"Sicherheitsrisiken deaktiviert."
 
 #: functions/wpfep-functions.php:897
 msgid "Approve"
-msgstr ""
+msgstr "Genehmigen"
 
 #: functions/wpfep-functions.php:898 functions/wpfep-functions.php:952
 msgid "Rejected"
-msgstr ""
+msgstr "Abgelehnt"
 
 #: functions/wpfep-functions.php:921
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: functions/wpfep-functions.php:948
 msgid "Approved"
-msgstr ""
+msgstr "Genehmigt"
 
 #: functions/wpfep-functions.php:950
 msgid "pending"
-msgstr ""
+msgstr "ausstehend"
 
 #: inc/class-wpfep-login-widget.php:18
 msgid "WP Frontend profile Widget"
-msgstr ""
+msgstr "WP Frontend Profile Widget"
 
 #: inc/class-wpfep-login-widget.php:48
 msgid "Title:"
-msgstr ""
+msgstr "Titel:"
 
 #: inc/class-wpfep-login.php:189
 msgid "Lost Password"
-msgstr ""
+msgstr "Passwort vergessen"
 
 #: inc/class-wpfep-login.php:220
 msgid ""
 "Please enter your username or email address. You will receive a link to "
 "create a new password via email."
 msgstr ""
+"Bitte geben Sie Ihre E-Mail-Adresse hier ein. Sie bekommen eine E-Mail "
+"zugesandt, mit deren Hilfe Sie ein neues Passwort erstellen können."
 
 #: inc/class-wpfep-login.php:228
 msgid "Your password has been reset."
-msgstr ""
+msgstr "Ihr Passwort wurde zurückgesetzt."
 
 #: inc/class-wpfep-login.php:233
 msgid "Enter your new password below.."
 msgstr ""
+"Geben Sie unten Ihr neues Passwort unten ein. Ein sicheres Passwort zeichnet "
+"sich durch die Länge aus. Bitte wählen Sie ein Passwort mit mehr als 10 "
+"Zeichen und enthalten außerdem Ziffern und Sonderzeichen."
 
 #: inc/class-wpfep-login.php:242
 msgid "Check your e-mail for the confirmation link."
 msgstr ""
+"Bitte überprüfen Sie Ihren Posteingang. Sie haben eine E-Mail mit "
+"Bestätigungslink erhalten."
 
 #: inc/class-wpfep-login.php:246
 msgid "You are now logged out."
-msgstr ""
+msgstr "Sie haben sich erfolgreich abgemeldet."
 
-#: inc/class-wpfep-login.php:282 inc/class-wpfep-registration.php:143
+#: inc/class-wpfep-login.php:282
 msgid "Username is required."
-msgstr ""
+msgstr "Benutzername erforderlich."
 
-#: inc/class-wpfep-login.php:288 inc/class-wpfep-registration.php:149
+#: inc/class-wpfep-login.php:288 inc/class-wpfep-registration.php:192
 msgid "Password is required."
-msgstr ""
+msgstr "Passwort ist erforderlich."
 
 #: inc/class-wpfep-login.php:295
 msgid "Empty reCaptcha Field"
-msgstr ""
+msgstr "Das reCaptcha-Feld ist leer"
 
 #: inc/class-wpfep-login.php:314 inc/class-wpfep-login.php:319
 #: inc/class-wpfep-login.php:324 inc/class-wpfep-login.php:331
 #: inc/class-wpfep-login.php:460 inc/class-wpfep-login.php:475
-#: inc/class-wpfep-registration.php:131 inc/class-wpfep-registration.php:137
-#: inc/class-wpfep-registration.php:143 inc/class-wpfep-registration.php:149
-#: inc/class-wpfep-registration.php:155 inc/class-wpfep-registration.php:161
-#: inc/class-wpfep-registration.php:174 inc/class-wpfep-registration.php:189
-#: inc/class-wpfep-registration.php:246 inc/class-wpfep-registration.php:257
+#: inc/class-wpfep-registration.php:132 inc/class-wpfep-registration.php:142
+#: inc/class-wpfep-registration.php:148 inc/class-wpfep-registration.php:160
+#: inc/class-wpfep-registration.php:166 inc/class-wpfep-registration.php:174
+#: inc/class-wpfep-registration.php:186 inc/class-wpfep-registration.php:192
+#: inc/class-wpfep-registration.php:198 inc/class-wpfep-registration.php:204
+#: inc/class-wpfep-registration.php:217 inc/class-wpfep-registration.php:232
+#: inc/class-wpfep-registration.php:289 inc/class-wpfep-registration.php:300
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: inc/class-wpfep-login.php:314
 msgid "Please verify your account."
-msgstr ""
+msgstr "Bitte geben Sie Ihr Passwort ein."
 
 #: inc/class-wpfep-login.php:319
 msgid "Your account hasn't been approved by the administrator."
-msgstr ""
+msgstr "Account wurde aktiviert"
 
 #: inc/class-wpfep-login.php:324
 msgid "Your account was not approved by the administrator."
-msgstr ""
+msgstr "Ihr Konto wurde nicht vom Administrator genehmigt."
 
-#: inc/class-wpfep-login.php:331 inc/class-wpfep-registration.php:257
+#: inc/class-wpfep-login.php:331 inc/class-wpfep-registration.php:300
 msgid "A user could not be found with this email address."
-msgstr ""
+msgstr "Kein Benutzer mit dieser E-Mail-Adresse gefunden."
 
 #: inc/class-wpfep-login.php:439
 msgid "Please enter your password."
-msgstr ""
+msgstr "Bitte geben Sie Ihr Passwort ein."
 
 #: inc/class-wpfep-login.php:445
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Passwörter stimmen nicht überein."
 
 #: inc/class-wpfep-login.php:460
 msgid "Please make sure your password is a minimum of 12  characters long"
 msgstr ""
+"Bitte stellen Sie sicher, dass Ihr Passwort mindestens 12 Zeichen lang ist"
 
 #: inc/class-wpfep-login.php:519
 msgid "Enter a username or e-mail address."
-msgstr ""
+msgstr "Geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein."
 
 #: inc/class-wpfep-login.php:526
 msgid "There is no user registered with that email address."
-msgstr ""
+msgstr "Es ist kein Benutzer mit dieser E-Mail registriert."
 
 #: inc/class-wpfep-login.php:544
 msgid "Invalid username or e-mail."
-msgstr ""
+msgstr "Ungültiger Benutzername oder E-Mail-Adresse."
 
 #: inc/class-wpfep-login.php:558
 msgid "Password reset is not allowed for this user"
-msgstr ""
+msgstr "Für diesen Benutzer ist es nicht erlaubt, das Passwort zurückzusetzen"
 
 #: inc/class-wpfep-login.php:616 inc/class-wpfep-login.php:630
 msgid "Invalid key"
-msgstr ""
+msgstr "Ungültiger Schlüssel"
 
 #: inc/class-wpfep-login.php:622
 msgid "Invalid Login"
-msgstr ""
+msgstr "Ungültiger Login"
 
 #. translators: %s: activation link
 #: inc/class-wpfep-login.php:656
@@ -1093,189 +1159,221 @@ msgid ""
 "activation link. <br><a href=\"%s\">Click here</a> to resend the activation "
 "link"
 msgstr ""
+"<strong>Ihr Konto ist noch nicht aktiv</strong>.<br>Bitte Aktivierung mit "
+"dem E-Mail-Link bestätigen.<br><a href=“%s”>Klicken Sie hier</a> um den "
+"Aktivierungslink erneut zuzusenden"
 
 #: inc/class-wpfep-login.php:678 inc/class-wpfep-login.php:703
 msgid "Activation URL is not valid"
-msgstr ""
+msgstr "Die Aktivierungs-URL ist nicht gültig"
 
 #: inc/class-wpfep-login.php:689
 msgid "Invalid User activation url"
-msgstr ""
+msgstr "Ungültige Benutzer Aktivierung URL"
 
 #: inc/class-wpfep-login.php:695
 msgid "User already verified"
-msgstr ""
+msgstr "Der Benutzer ist bereits verifiziert"
 
 #: inc/class-wpfep-login.php:711 inc/class-wpfep-login.php:784
 msgid "Your account has been verified"
-msgstr ""
+msgstr "Dein Konto wurde überprüft"
 
 #: inc/class-wpfep-login.php:714
 msgid ""
 "Your account has been verified , but you can't login until manually approved "
 "your account by an administrator."
 msgstr ""
+"Ihr Account wurde überprüft, Sie können sich jedoch erst anmelden, wenn Ihr "
+"Account manuell von einem Administrator genehmigt wurde."
 
 #. translators: %s: username value
 #: inc/class-wpfep-login.php:744
 #, php-format
 msgid "[%s] Your username and password info"
-msgstr ""
+msgstr "[%s] Ihr Benutzername und Passwort"
 
 #. translators: %s: username term
 #. translators: %s: user login
 #: inc/class-wpfep-login.php:746 inc/class-wpfep-login.php:853
-#: inc/class-wpfep-registration.php:294 inc/class-wpfep-registration.php:311
-#: inc/class-wpfep-registration.php:333 inc/class-wpfep-user.php:216
+#: inc/class-wpfep-registration.php:337 inc/class-wpfep-registration.php:354
+#: inc/class-wpfep-registration.php:376 inc/class-wpfep-user.php:216
 #, php-format
 msgid "Username: %s"
-msgstr ""
+msgstr "Benutzername: %s"
 
 #: inc/class-wpfep-login.php:747
 msgid "To set your password, visit the following address:"
-msgstr ""
+msgstr "Unter der folgenden Adresse können Sie Ihr Passwort festlegen:"
 
 #. translators: %s: blogname term
 #: inc/class-wpfep-login.php:758
 #, php-format
 msgid "[%s] Account has been activated"
-msgstr ""
+msgstr "[%s] Das Konto wurde aktiviert"
 
 #. translators: %s: current user
 #: inc/class-wpfep-login.php:760
 #, php-format
 msgid "Hi %s,"
-msgstr ""
+msgstr "Hallo %s,"
 
 #: inc/class-wpfep-login.php:761
 msgid ""
 "Congrats! Your account has been verified. To login visit the following url:"
 msgstr ""
+"Super! Dein Account wurde aktiviert. Um Dich anzumelden, besuche folgende "
+"URL:"
 
 #: inc/class-wpfep-login.php:763
 msgid "Thanks"
-msgstr ""
+msgstr "Danke"
 
 #: inc/class-wpfep-login.php:850
 msgid "Someone requested that the password be reset for the following account:"
 msgstr ""
+"Jemand hat das Zurücksetzen des Passworts für folgendes Konto beantragt:"
 
 #: inc/class-wpfep-login.php:854
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
+"Falls Sie diese E-Mail irrtümlich erhalten haben, ignorieren Sie sie bitte "
+"und es wird nichts weiter passieren."
 
 #: inc/class-wpfep-login.php:855
 msgid "To reset your password, visit the following address:"
-msgstr ""
+msgstr "Um Ihr Passwort zurückzusetzen, besuchen Sie die folgende Adresse:"
 
 #. translators: %s: blogname term
 #: inc/class-wpfep-login.php:864
 #, php-format
 msgid "[%s] Password Reset"
-msgstr ""
+msgstr "[%s] Passwort zurücksetzen"
 
 #: inc/class-wpfep-login.php:870
 msgid "The e-mail could not be sent."
-msgstr ""
+msgstr "Die E-Mail konnte nicht gesendet werden."
 
 #: inc/class-wpfep-login.php:870
 msgid "Possible reason: your host may have disabled the mail() function."
 msgstr ""
+"Mögliche Ursache: Ihr Gastgeber kann die Mail() Funktion deaktiviert haben."
 
 #: inc/class-wpfep-profile.php:144
 msgid "Page"
-msgstr ""
+msgstr "Seite"
 
-#: inc/class-wpfep-registration.php:137
-msgid "Email is required."
-msgstr ""
+#: inc/class-wpfep-registration.php:142
+msgid "Mitgliedsnummer wird benötigt."
+msgstr "Mitgliedsnummer wird benötigt."
 
-#: inc/class-wpfep-registration.php:155
-msgid "Confirm Password is required."
-msgstr ""
+#: inc/class-wpfep-registration.php:148
+msgid "Freischaltcode wird benötigt."
+msgstr "Freischaltcode wird benötigt."
 
-#: inc/class-wpfep-registration.php:161
-msgid "Passwords are not same."
-msgstr ""
+#: inc/class-wpfep-registration.php:160
+msgid "Für diese Mitgliedsnummer ist bereits ein Benutzer registriert."
+msgstr "Für diese Mitgliedsnummer ist bereits ein Benutzer registriert."
+
+#: inc/class-wpfep-registration.php:166
+msgid "Ihre Mitgliedsnummer ist eine fünfstellige Zahl."
+msgstr "Ihre Mitgliedsnummer ist eine fünfstellige Zahl."
 
 #: inc/class-wpfep-registration.php:174
+msgid "Der Freischaltcode ist nicht korrekt."
+msgstr "Der Freischaltcode ist nicht korrekt."
+
+#: inc/class-wpfep-registration.php:186
+msgid "Email is required."
+msgstr "E-Mail ist erforderlich."
+
+#: inc/class-wpfep-registration.php:198
+msgid "Confirm Password is required."
+msgstr "Bestätigen Sie, dass das Passwort erforderlich ist."
+
+#: inc/class-wpfep-registration.php:204
+msgid "Passwords are not same."
+msgstr "Passwörter sind nicht identisch."
+
+#: inc/class-wpfep-registration.php:217
 msgid "Please make sure your password is a minimum of 12 characters long"
 msgstr ""
+"Bitte stellen Sie sicher, dass Ihr Passwort mindestens 12 Zeichen lang ist"
 
-#: inc/class-wpfep-registration.php:234
+#: inc/class-wpfep-registration.php:277
 msgid "reCaptcha is required"
-msgstr ""
+msgstr "reCaptcha ist erforderlich"
 
-#: inc/class-wpfep-registration.php:246
+#: inc/class-wpfep-registration.php:289
 msgid "A user with same username already exists."
-msgstr ""
+msgstr "Ein Benutzer mit demselben Benutzernamen ist bereits vorhanden."
 
 #. translators: %s: search term
 #. translators: %s: admin mail
-#: inc/class-wpfep-registration.php:292 inc/class-wpfep-registration.php:331
+#: inc/class-wpfep-registration.php:335 inc/class-wpfep-registration.php:374
 #: inc/class-wpfep-user.php:214
 #, php-format
 msgid "New user registration on your site %s:"
-msgstr ""
+msgstr "Neue Benutzerregistrierung auf der Webseite %s:"
 
 #. translators: %s: user email
-#: inc/class-wpfep-registration.php:296 inc/class-wpfep-registration.php:313
-#: inc/class-wpfep-registration.php:335 inc/class-wpfep-user.php:218
+#: inc/class-wpfep-registration.php:339 inc/class-wpfep-registration.php:356
+#: inc/class-wpfep-registration.php:378 inc/class-wpfep-user.php:218
 #, php-format
 msgid "E-mail: %s"
-msgstr ""
+msgstr "E-Mail: %s"
 
 #. translators: %s: user pass
-#: inc/class-wpfep-registration.php:298 inc/class-wpfep-registration.php:336
+#: inc/class-wpfep-registration.php:341 inc/class-wpfep-registration.php:379
 msgid "New User Registration"
-msgstr ""
+msgstr "Neue Benutzerregistrierung"
 
 #. translators: %s: user email
 #. translators: %1s: user login
 #. translators: %s: user email
 #. translators: %1s: user login
-#: inc/class-wpfep-registration.php:305 inc/class-wpfep-registration.php:323
-#: inc/class-wpfep-registration.php:343 inc/class-wpfep-registration.php:356
+#: inc/class-wpfep-registration.php:348 inc/class-wpfep-registration.php:366
+#: inc/class-wpfep-registration.php:386 inc/class-wpfep-registration.php:399
 #: inc/class-wpfep-user.php:223
 #, php-format
 msgid "[%1$s] %2$s"
-msgstr ""
+msgstr "[%1$s] %2$s"
 
 #. translators: %s: user login
-#: inc/class-wpfep-registration.php:308 inc/class-wpfep-registration.php:346
+#: inc/class-wpfep-registration.php:351 inc/class-wpfep-registration.php:389
 #, php-format
 msgid "Hi, %s"
-msgstr ""
+msgstr "Hallo %s"
 
 #. translators: %s: user pass
-#: inc/class-wpfep-registration.php:315
+#: inc/class-wpfep-registration.php:358
 #, php-format
 msgid "Password %s"
-msgstr ""
+msgstr "Passwort %s"
 
 #: inc/class-wpfep-roles-editor.php:172
 msgid "Default Role"
-msgstr ""
+msgstr "Voreingestellte Rolle"
 
 #: inc/class-wpfep-roles-editor.php:173
 msgid "Your Role"
-msgstr ""
+msgstr "Ihre Rolle"
 
 #: inc/class-wpfep-roles-editor.php:174
 msgid "Role name is required."
-msgstr ""
+msgstr "Rollenname ist erforderlich."
 
 #: inc/class-wpfep-roles-editor.php:175
 msgid "No capabilities found."
-msgstr ""
+msgstr "Es wurden keine Funktionen gefunden."
 
 #: inc/class-wpfep-roles-editor.php:176
 msgid "Select capabilities"
-msgstr ""
+msgstr "Berechtigungen auswählen"
 
 #: inc/class-wpfep-roles-editor.php:177
 msgid "Delete Permanently"
-msgstr ""
+msgstr "Dauerhaft löschen"
 
 #: inc/class-wpfep-roles-editor.php:178
 msgid ""
@@ -1284,371 +1382,400 @@ msgid ""
 "\n"
 "It can't be undone!"
 msgstr ""
+"Dadurch wird die Funktion dauerhaft von Ihrer Site und von jeder "
+"Benutzerrolle gelöscht.\n"
+"\n"
+"Es kann nicht rückgängig gemacht werden!"
 
 #: inc/class-wpfep-roles-editor.php:179
 msgid "This capability is not saved until you click Update!"
 msgstr ""
+"Diese Funktion wird erst gespeichert, wenn du auf Aktualisieren klickst!"
 
 #: inc/class-wpfep-roles-editor.php:180
 msgid "This capability is not saved until you click Publish!"
 msgstr ""
+"Diese Funktion wird erst gespeichert, wenn du auf Veröffentlichen klickst!"
 
 #: inc/class-wpfep-roles-editor.php:181 inc/class-wpfep-roles-editor.php:880
 #: inc/class-wpfep-roles-editor.php:892 inc/class-wpfep-roles-editor.php:905
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: inc/class-wpfep-roles-editor.php:182
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: inc/class-wpfep-roles-editor.php:183 inc/class-wpfep-roles-editor.php:437
 msgid "Add New Capability"
-msgstr ""
+msgstr "Neue Fähigkeit hinzufügen"
 
 #: inc/class-wpfep-roles-editor.php:184
 msgid "Capability"
-msgstr ""
+msgstr "Berechtigungen"
 
 #: inc/class-wpfep-roles-editor.php:185
 msgid "You can't delete this capability from your role."
-msgstr ""
+msgstr "Du kannst diese Funktion nicht aus deiner Rolle löschen."
 
 #: inc/class-wpfep-roles-editor.php:244 inc/class-wpfep-roles-editor.php:245
 #: inc/class-wpfep-roles-editor.php:250 inc/class-wpfep-roles-editor.php:257
 msgid "Roles Editor"
-msgstr ""
+msgstr "Rollen-Editor"
 
 #: inc/class-wpfep-roles-editor.php:246 inc/class-wpfep-roles-editor.php:247
 msgid "Add New Role"
-msgstr ""
+msgstr "Neue Rolle hinzufügen"
 
 #: inc/class-wpfep-roles-editor.php:248
 msgid "Edit Role"
-msgstr ""
+msgstr "Rolle bearbeiten"
 
 #: inc/class-wpfep-roles-editor.php:249
 msgid "New Role"
-msgstr ""
+msgstr "Neue Benutzerrolle erstellen"
 
 #: inc/class-wpfep-roles-editor.php:251
 msgid "View Role"
-msgstr ""
+msgstr "Rolle anzeigen"
 
 #: inc/class-wpfep-roles-editor.php:252
 msgid "Search the Roles Editor"
-msgstr ""
+msgstr "Durchsuchen des Rollen-Editors"
 
 #: inc/class-wpfep-roles-editor.php:253
 msgid "No roles found"
-msgstr ""
+msgstr "Keine Benutzerrollen gefunden"
 
 #: inc/class-wpfep-roles-editor.php:254
 msgid "No roles found in trash"
-msgstr ""
+msgstr "Keine Benutzerrollen im Müll"
 
 #: inc/class-wpfep-roles-editor.php:282
 msgid "Enter role name here"
-msgstr ""
+msgstr "Gib hier den Rollennamen ein"
 
 #: inc/class-wpfep-roles-editor.php:294 inc/class-wpfep-roles-editor.php:297
 msgid "Role updated."
-msgstr ""
+msgstr "Rolle aktualisiert."
 
 #: inc/class-wpfep-roles-editor.php:295
 msgid "Custom field updated."
-msgstr ""
+msgstr "Benutzerdefiniertes Feld aktualisiert."
 
 #: inc/class-wpfep-roles-editor.php:296
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Benutzerdefiniertes Feld gelöscht."
 
 #: inc/class-wpfep-roles-editor.php:298
 #, php-format
 msgid "Role restored to revision from %s"
-msgstr ""
+msgstr "Rolle aus %s in Revision wiederhergestellt"
 
 #: inc/class-wpfep-roles-editor.php:299
 msgid "Role created."
-msgstr ""
+msgstr "Benutzerrolle erstellt."
 
 #: inc/class-wpfep-roles-editor.php:300
 msgid "Role saved."
-msgstr ""
+msgstr "Benutzerrolle gespeichert."
 
 #: inc/class-wpfep-roles-editor.php:301
 msgid "Role submitted."
-msgstr ""
+msgstr "Benutzerrolle übermittelt."
 
 #: inc/class-wpfep-roles-editor.php:302
 #, php-format
 msgid "Role scheduled for: <strong>%1$s</strong>"
-msgstr ""
+msgstr "Geplante Rolle für: <strong>%1$s</strong>"
 
 #: inc/class-wpfep-roles-editor.php:302
 msgid "M j, Y @ G:i"
-msgstr ""
+msgstr "M j, Y @ G:i"
 
 #: inc/class-wpfep-roles-editor.php:303
 msgid "Role draft updated."
-msgstr ""
+msgstr "Benutzerrolle-Entwurf aktualisiert."
 
 #: inc/class-wpfep-roles-editor.php:362
 msgid "Role Name"
-msgstr ""
+msgstr "Rollenname"
 
 #: inc/class-wpfep-roles-editor.php:363 inc/class-wpfep-roles-editor.php:526
 msgid "Role Slug"
-msgstr ""
+msgstr "Rolle Slug"
 
 #: inc/class-wpfep-roles-editor.php:364 inc/class-wpfep-roles-editor.php:424
 msgid "Capabilities"
-msgstr ""
+msgstr "Berechtigungen"
 
 #: inc/class-wpfep-roles-editor.php:365 inc/class-wpfep-roles-editor.php:420
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: inc/class-wpfep-roles-editor.php:410
 msgid "Edit Role Capabilities"
-msgstr ""
+msgstr "Bearbeiten von Rollenfunktionen"
 
 #: inc/class-wpfep-roles-editor.php:430
 msgid "Add a new capability"
-msgstr ""
+msgstr "Neue Funktion hinzufügen"
 
 #: inc/class-wpfep-roles-editor.php:433
 msgid "Add Capability"
-msgstr ""
+msgstr "Berechtigung hinzufügen"
 
 #: inc/class-wpfep-roles-editor.php:440
 msgid "Please select an existing capability or add a new one!"
 msgstr ""
+"Bitte wählen Sie eine vorhandene Funktion aus oder fügen Sie eine neue hinzu!"
 
 #: inc/class-wpfep-roles-editor.php:441
 msgid "You can't add a hidden capability!"
-msgstr ""
+msgstr "Sie können keine versteckte Funktion hinzufügen!"
 
 #: inc/class-wpfep-roles-editor.php:442
 msgid "This capability already exists!"
-msgstr ""
+msgstr "Die %s Berechtigung ist bereits vorhanden."
 
 #: inc/class-wpfep-roles-editor.php:449
 msgid "-All"
 msgstr ""
+"Aktivieren Sie dieses Kontrollkästchen, wenn Sie möchten, dass WP Frontend "
+"Profile alle Daten vollständig entfernt, wenn das Plugin gelöscht wird."
 
 #: inc/class-wpfep-roles-editor.php:453
 msgid "-General"
-msgstr ""
+msgstr "-Allgemein"
 
 #: inc/class-wpfep-roles-editor.php:457
 msgid "-Posts"
-msgstr ""
+msgstr "-Beiträge"
 
 #: inc/class-wpfep-roles-editor.php:461
 msgid "-Pages"
-msgstr ""
+msgstr "Seiten"
 
 #: inc/class-wpfep-roles-editor.php:465
 msgid "-Media"
-msgstr ""
+msgstr "-Medien"
 
 #: inc/class-wpfep-roles-editor.php:469
 msgid "-Taxonomies"
-msgstr ""
+msgstr "-Taxonomien"
 
 #: inc/class-wpfep-roles-editor.php:473
 msgid "-Appearance"
-msgstr ""
+msgstr "-Aussehen"
 
 #: inc/class-wpfep-roles-editor.php:477
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #: inc/class-wpfep-roles-editor.php:481
 msgid "-Users"
-msgstr ""
+msgstr "-Benutzer"
 
 #: inc/class-wpfep-roles-editor.php:485
 msgid "-Custom"
-msgstr ""
+msgstr "-Gewohnheit"
 
 #: inc/class-wpfep-roles-editor.php:871
 msgid "Clone"
-msgstr ""
+msgstr "Duplizieren"
 
 #: inc/class-wpfep-roles-editor.php:880
 msgid "You can't delete your role."
-msgstr ""
+msgstr "Sie können Ihre Rolle nicht löschen."
 
 #: inc/class-wpfep-roles-editor.php:890
 msgid "Change Default"
-msgstr ""
+msgstr "Standard ändern"
 
 #: inc/class-wpfep-roles-editor.php:892
 msgid "You can't delete the default role. Change it first."
-msgstr ""
+msgstr "Du kannst die Standardrolle nicht löschen. Ändere dies zuerst."
 
 #: inc/class-wpfep-roles-editor.php:904
 msgid ""
 "Are you sure?\\nThis will permanently delete the role and cannot be undone!"
 "\\nUsers assigned only on this role will be moved to the default role."
 msgstr ""
+"Sind Sie sicher?\\nDies löscht die Rolle dauerhaft und kann nicht rückgängig "
+"gemacht werden!\\nBenutzer, die nur dieser Rolle zugewiesen sind, werden in "
+"die Standardrolle verschoben."
 
 #: inc/class-wpfep-roles-editor.php:1278
 msgid "Edit User Roles"
-msgstr ""
+msgstr "Bearbeiten von Benutzerrollen"
 
 #. translators: %s: user email
 #: inc/class-wpfep-user.php:172
 #, php-format
 msgid "Congrats! You are Successfully registered to: %s"
-msgstr ""
+msgstr "Glückwunsch! Sie sind erfolgreich registriert für: %s"
 
 #: inc/class-wpfep-user.php:174
 msgid "Click on the link to activate your account"
-msgstr ""
+msgstr "Klicken Sie auf den Link, um Ihr Konto zu aktivieren"
 
 #. translators: %s: user subject
 #: inc/class-wpfep-user.php:220
 msgid "New user registration"
-msgstr ""
+msgstr "Neue Nutzerregistrierung"
 
 #: views/logged-in.php:10
 msgid "User has been successfully registered."
-msgstr ""
+msgstr "Der Benutzer wurde erfolgreich registriert."
 
 #: views/logged-in.php:13
 msgid ""
 "User has been successfully registered manually. Activation email has been "
 "sent to user successfully."
 msgstr ""
+"Der Benutzer wurde erfolgreich manuell registriert. Die Aktivierungs-E-Mail "
+"wurde erfolgreich an den Benutzer gesendet."
 
 #: views/logged-in.php:16 views/logged-in.php:19
 msgid "User has been successfully registered manually."
-msgstr ""
+msgstr "Der Benutzer wurde erfolgreich manuell registriert."
 
 #: views/logged-in.php:22
 msgid "Registration has done successfully"
-msgstr ""
+msgstr "E-Mail erfolgreiche Registrierung"
 
-#: views/logged-in.php:47 views/profile.php:45 views/registration.php:47
+#: views/logged-in.php:47 views/profile.php:45 views/registration.php:80
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
-#: views/logged-in.php:53 views/registration.php:53
+#: views/logged-in.php:53 views/registration.php:86
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
-#: views/logged-in.php:65 views/registration.php:65
+#: views/logged-in.php:65 views/registration.php:98
 msgid "Confirm Password"
-msgstr ""
+msgstr "Passwort bestätigen"
 
-#: views/logged-in.php:71 views/profile.php:47 views/registration.php:71
+#: views/logged-in.php:71 views/profile.php:47 views/registration.php:104
 msgid "Website"
-msgstr ""
+msgstr "Webseite"
 
 #: views/logged-in.php:77
 msgid "Default role"
-msgstr ""
+msgstr "Standartrolle"
 
 #: views/logged-in.php:90
 msgid "Custom role"
-msgstr ""
+msgstr "Benutzerdefinierte Rolle"
 
 #: views/logged-in.php:96
 msgid "Select user role"
-msgstr ""
+msgstr "Wähle Benutzerrolle"
 
-#: views/logged-in.php:106 views/registration.php:77
+#: views/logged-in.php:106 views/registration.php:110
 msgid "Biographical Info"
-msgstr ""
+msgstr "Biografische Informationen"
 
 #: views/logged-in.php:126
 #, php-format
 msgid "You are currently logged in. You don't need another account. %s"
-msgstr ""
+msgstr "Sie sind derzeit eingeloggt. Sie benötigen kein weiteres Konto. %s"
 
 #: views/login.php:24
 msgid "Congratulations! Your account has been verified."
-msgstr ""
+msgstr "Account wurde aktiviert"
 
 #: views/login.php:41
 msgid "Username or Email"
-msgstr ""
+msgstr "Benutzername oder E-Mail"
 
 #: views/login.php:58
 msgid "Remember Me"
-msgstr ""
+msgstr "Angemeldet bleiben"
 
 #: views/login.php:62
 msgid "Log In"
-msgstr ""
+msgstr "Anmelden"
 
 #: views/lost-pass.php:17
 msgid "Username or E-mail:"
-msgstr ""
+msgstr "Benutzername oder E-Mail-Adresse:"
 
 #: views/lost-pass.php:24
 msgid "Get New Password"
-msgstr ""
+msgstr "Neues Passwort anfordern"
 
 #: views/profile.php:51
 msgid "User Bio"
-msgstr ""
+msgstr "Benutzer-Biografie"
 
 #: views/profile.php:57
 msgid "Edit Profile"
-msgstr ""
+msgstr "Profil bearbeiten"
 
 #: views/profile.php:105
 msgid "Post not Found"
-msgstr ""
+msgstr "Beitrag nicht gefunden"
 
-#: views/registration.php:20
+#: views/registration.php:21
 msgid ""
 "Registration has been successful! Please activate your account from e-mail."
 msgstr ""
+"Die Registrierung war erfolgreich! Bitte aktivieren Sie Ihr Konto per E-Mail."
 
-#: views/registration.php:23
+#: views/registration.php:24
 msgid "Registration has been successful!. Please wait for admin approval."
 msgstr ""
+"Die Registrierung war erfolgreich! Bitte warten Sie auf die Genehmigung "
+"durch den Administrator."
+
+#: views/registration.php:39
+msgid "Mitgliedsnummer"
+msgstr "Mitgliedsnummer"
+
+#: views/registration.php:45
+msgid "Freischaltcode"
+msgstr "Freischaltcode"
+
+#: views/registration.php:51
+msgid "Zur Registrierung"
+msgstr "Registrieren"
 
 #: views/reset-pass.php:17
 msgid "New password"
-msgstr ""
+msgstr "Neues Passwort"
 
 #: views/reset-pass.php:22
 msgid "Confirm new password"
-msgstr ""
+msgstr "Neues Passwort bestätigen"
 
 #: views/reset-pass.php:29
 msgid "Reset Password"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: wp-frontend-profile.php:92
 msgid "Get help"
-msgstr ""
+msgstr "Hilfe anfordern"
 
 #: wp-frontend-profile.php:92
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: wp-frontend-profile.php:93
 msgid "Rate the plugin"
-msgstr ""
+msgstr "Bewerte das Plugin"
 
 #: wp-frontend-profile.php:93
 msgid "Rate the plugin ★★★★★"
-msgstr ""
+msgstr "Bewerte das Plugin ★★★★★"
 
 #. Plugin Name of the plugin/theme
 msgid "WP Frontend Profile"
-msgstr ""
+msgstr "WP Frontend Profile"
 
 #. Plugin URI of the plugin/theme
 msgid "https://wordpress.org/plugins/wp-front-end-profile/"
-msgstr ""
+msgstr "https://wordpress.org/plugins/wp-front-end-profile/"
 
 #. Description of the plugin/theme
 msgid ""
@@ -1656,11 +1783,26 @@ msgid ""
 "frontend rather than having to go into the dashboard to make changes to "
 "password, email address and other user meta data."
 msgstr ""
+"Dieses Plugin ermöglicht es Benutzern, ihre Profilinformationen einfach im "
+"Frontend zu bearbeiten, anstatt in das Dashboard gehen zu müssen, um "
+"Änderungen an Passwort, E-Mail-Adresse und anderen Benutzermetadaten "
+"vorzunehmen."
 
 #. Author of the plugin/theme
 msgid "Glowlogix"
-msgstr ""
+msgstr "Glowlogix"
 
 #. Author URI of the plugin/theme
 msgid "https://www.glowlogix.com"
-msgstr ""
+msgstr "https://www.glowlogix.com"
+
+#~ msgid "If enabled, users after registration will be logged in to the system"
+#~ msgstr ""
+#~ "Wenn diese Funktion aktiviert ist, werden die Nutzer nach der Anmeldung "
+#~ "im System angemeldet"
+
+#~ msgid "Send Feedback"
+#~ msgstr "Feedback senden"
+
+#~ msgid "wpfep version"
+#~ msgstr "WPFEP-Version"
