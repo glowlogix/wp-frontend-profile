@@ -197,7 +197,7 @@ function wpfep_save_fields($tabs, $user_id)
 		<?php
     } else {
         ?>
-		<div class="messages"><p class="updated"><?php esc_html_e('Yours profile was updated successfully!', 'wp-front-end-profile'); ?></p></div>
+		<div class="messages"><p class="updated"><?php esc_html_e('Yours profile was updated successfully!', 'wpfep'); ?></p></div>
 
 		<?php
     } ?>
@@ -244,7 +244,7 @@ function wpfep_save_password($tabs, $user_id)
     if ($password != $password_check) {
 
         /* add message indicating no match */
-        $messages['password_mismatch'] = '<p class="error">' . sprintf(__('Please make sure the passwords match', 'wp-front-end-profile')) . '.</p>';
+        $messages['password_mismatch'] = '<p class="error">' . sprintf(__('Please make sure the passwords match', 'wpfep')) . '.</p>';
     }
 
     $enable_strong_pwd = wpfep_get_option('strong_password', 'wpfep_general');
@@ -256,7 +256,7 @@ function wpfep_save_password($tabs, $user_id)
         /* check the password match the correct length */
         if ($pass_length < apply_filters('wpfep_password_length', 12)) {
             /* translators: %s: password length term */
-            $messages['password_length'] = '<p class="error">' . sprintf(__('Please make sure your password is a minimum of %s characters long.', 'wp-front-end-profile'), apply_filters('wpfep_password_length', 12)) . '</p>';
+            $messages['password_length'] = '<p class="error">' . sprintf(__('Please make sure your password is a minimum of %s characters long.', 'wpfep'), apply_filters('wpfep_password_length', 12)) . '</p>';
         }
 
         /**
@@ -269,7 +269,7 @@ function wpfep_save_password($tabs, $user_id)
         if (false == $pass_complexity) {
 
             /* add message indicating complexity issue */
-            $messages['password_complexity'] = '<p class="error">' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wp-front-end-profile') . '.</p>';
+            $messages['password_complexity'] = '<p class="error">' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep') . '.</p>';
         }
     }
 
@@ -281,7 +281,7 @@ function wpfep_save_password($tabs, $user_id)
          */
         wp_set_password($password, $user_id);
         /* translators: %s: login link */
-        $successfully_msg = '<div class="messages"><p class="updated">' . sprintf(__('You\'re password was successfully changed and you have been logged out. Please <a href="%s">login again here</a>.', 'wp-front-end-profile'), esc_url(wp_login_url())) . '</p></div>';
+        $successfully_msg = '<div class="messages"><p class="updated">' . sprintf(__('You\'re password was successfully changed and you have been logged out. Please <a href="%s">login again here</a>.', 'wpfep'), esc_url(wp_login_url())) . '</p></div>';
         echo wp_kses(
             $successfully_msg,
             array(
