@@ -370,7 +370,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
             $confirmation_message = __('Are you Sure?', 'wpfep');
 
             if (wp_verify_nonce(isset($_GET['wpfep_delete_settings']) && 1 === $_GET['wpfep_delete_settings'])) {
-            ?>
+                ?>
                 <div class="updated updated_wpfep">
                     <p>
                         <?php esc_html_e('Settings has been cleared!', 'wpfep'); ?>
