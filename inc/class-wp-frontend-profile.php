@@ -115,7 +115,7 @@ if (! class_exists('WP_Frontend_Profile')) {
          */
         public function load_textdomain()
         {
-            load_plugin_textdomain('wpfep', false, 'wp-frontend-profile/languages');
+            load_plugin_textdomain('wpfep', false, plugin_basename(dirname(__DIR__)).'/languages');
         }
 
         /**

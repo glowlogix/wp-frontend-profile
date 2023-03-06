@@ -480,12 +480,18 @@ function wpfep_get_pages($post_type = 'page')
  */
 function wpfep_load_template($file, $args = array())
 {
+    $child_theme_root_dir  = get_stylesheet_directory() . '/';
     $child_theme_dir  = get_stylesheet_directory() . '/wpfep/';
+    $parent_theme_root_dir = get_template_directory() . '/';
     $parent_theme_dir = get_template_directory() . '/wpfep/';
     $wpfep_dir        = plugin_dir_path(__DIR__) . 'views/';
 
-    if (file_exists($child_theme_dir . $file)) {
+    if (file_exists($child_theme_root_dir . $file)) {
+        include $child_theme_root_dir . $file;
+    } elseif (file_exists($child_theme_dir . $file)) {
         include $child_theme_dir . $file;
+    } elseif (file_exists($parent_theme_root_dir . $file)) {
+        include $parent_theme_root_dir . $file;
     } elseif (file_exists($parent_theme_dir . $file)) {
         include $parent_theme_dir . $file;
     } else {
