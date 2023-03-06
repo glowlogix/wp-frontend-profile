@@ -1,8 +1,9 @@
 <?php
-
 /**
+ * @package wp-front-end-profile
  * Custom fiedls.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -15,50 +16,50 @@ defined('ABSPATH') || exit;
  */
 function wpfep_add_profile_tab_meta_fields($fields)
 {
-    $fields[] = [
-        'id'      => 'user_email',
-        'label'   => __('Email Address', 'wp-front-end-profile'),
-        'desc'    => __('Edit your email address - used for resetting your password etc.', 'wp-front-end-profile'),
-        'type'    => 'email',
-        'classes' => 'user_email',
-        'disabled' => false,
-    ];
+    $fields[] = array(
+         'id'       => 'user_email',
+         'label'    => __('Email Address', 'wp-front-end-profile'),
+         'desc'     => __('Edit your email address - used for resetting your password etc.', 'wp-front-end-profile'),
+         'type'     => 'email',
+         'classes'  => 'user_email',
+         'disabled' => false,
+     );
 
-    $fields[] = [
-        'id'      => 'first_name',
-        'label'   => __('First Name', 'wp-front-end-profile'),
-        'desc'    => __('Edit your first name.', 'wp-front-end-profile'),
-        'type'    => 'text',
-        'classes' => 'first_name',
-        'disabled' => false,
-    ];
+    $fields[] = array(
+         'id'       => 'first_name',
+         'label'    => __('First Name', 'wp-front-end-profile'),
+         'desc'     => __('Edit your first name.', 'wp-front-end-profile'),
+         'type'     => 'text',
+         'classes'  => 'first_name',
+         'disabled' => false,
+     );
 
-    $fields[] = [
-        'id'      => 'last_name',
-        'label'   => __('Last Name', 'wp-front-end-profile'),
-        'desc'    => __('Edit your last name.', 'wp-front-end-profile'),
-        'type'    => 'text',
-        'classes' => 'last_name',
-        'disabled' => false,
-    ];
+    $fields[] = array(
+         'id'       => 'last_name',
+         'label'    => __('Last Name', 'wp-front-end-profile'),
+         'desc'     => __('Edit your last name.', 'wp-front-end-profile'),
+         'type'     => 'text',
+         'classes'  => 'last_name',
+         'disabled' => false,
+     );
 
-    $fields[] = [
-        'id'      => 'user_url',
-        'label'   => __('URL', 'wp-front-end-profile'),
-        'desc'    => __('Edit your profile associated URL.', 'wp-front-end-profile'),
-        'type'    => 'text',
-        'classes' => 'user_url',
-        'disabled' => false,
-    ];
+    $fields[] = array(
+         'id'       => 'user_url',
+         'label'    => __('URL', 'wp-front-end-profile'),
+         'desc'     => __('Edit your profile associated URL.', 'wp-front-end-profile'),
+         'type'     => 'text',
+         'classes'  => 'user_url',
+         'disabled' => false,
+     );
 
-    $fields[] = [
-        'id'      => 'description',
-        'label'   => __('Description/Bio', 'wp-front-end-profile'),
-        'desc'    => __('Edit your description/bio.', 'wp-front-end-profile'),
-        'type'    => 'textarea',
-        'classes' => 'wysiwyg',
-        'disabled' => false,
-    ];
+    $fields[] = array(
+         'id'       => 'description',
+         'label'    => __('Description/Bio', 'wp-front-end-profile'),
+         'desc'     => __('Edit your description/bio.', 'wp-front-end-profile'),
+         'type'     => 'textarea',
+         'classes'  => 'wysiwyg',
+         'disabled' => false,
+     );
 
     return $fields;
 }
@@ -78,7 +79,7 @@ function wpfep_disable_email_for_admins($fields, $userid)
     if ($user->has_cap('manage_options')) {
         foreach ($fields as $i => $field) {
             if ($field['id'] == 'user_email') {
-                unset($fields[$i]);
+                unset($fields[ $i ]);
             }
         }
     }
@@ -98,13 +99,13 @@ add_filter('wpfep_fields_profile', 'wpfep_disable_email_for_admins', 20, 2);
  */
 function wpfep_add_password_tab_fields($fields)
 {
-    $fields[] = [
-        'id'      => 'user_pass',
-        'label'   => __('Password', 'wp-front-end-profile'),
-        'desc'    => __('New Password', 'wp-front-end-profile'),
-        'type'    => 'password',
-        'classes' => 'user_pass',
-    ];
+    $fields[] = array(
+         'id'      => 'user_pass',
+         'label'   => __('Password', 'wp-front-end-profile'),
+         'desc'    => __('New Password', 'wp-front-end-profile'),
+         'type'    => 'password',
+         'classes' => 'user_pass',
+     );
 
     return $fields;
 }

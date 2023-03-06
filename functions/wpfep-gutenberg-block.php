@@ -1,14 +1,16 @@
 <?php
+/**
+ * @package wp-front-end-profile
+ * WPFEP Gutenberg block
+ */
 defined('ABSPATH') || exit;
 
-
-// WPFEP Gutenberg block
 function wpfep_gutenberg_block()
 {
     wp_enqueue_script(
         'wpfep-gutenberg-block',
         plugins_url('assets/js/block.js', __DIR__),
-        array('wp-blocks', 'wp-element')
+        array( 'wp-blocks', 'wp-element' )
     );
 }
 

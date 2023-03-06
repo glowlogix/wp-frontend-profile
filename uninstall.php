@@ -4,10 +4,11 @@
  *
  * @link       https://glowlogix.com/
  * @since      1.0.0
+ * @package wp-front-end-profile
  */
 
 // If uninstall not called from WordPress, then exit.
-if (!defined('WP_UNINSTALL_PLUGIN')) {
+if (! defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
 

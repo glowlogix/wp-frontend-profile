@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Register shortcode.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -10,6 +12,8 @@ defined('ABSPATH') || exit;
  */
 function wpfep_register_shortcode()
 {
-    return wpfep_show_profile();
+    ob_start();
+    wpfep_show_profile();
+    return ob_get_clean();
 }
 add_shortcode('wpfep', 'wpfep_register_shortcode');

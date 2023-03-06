@@ -1,8 +1,10 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * If you would like to edit this file, copy it to your current theme's directory and edit it there.
  * wpfep will always look in your theme's directory first, before using this default template.
  */
+
 defined('ABSPATH') || exit;
 ?>
 <div class="login" id="wpfep-login-form">

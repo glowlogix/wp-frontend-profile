@@ -1,11 +1,13 @@
 <?php
 
 /**
+ * @package wp-front-end-profile
  * Main class for WP Frontend Profile.
  */
+
 defined('ABSPATH') || exit;
 
-if (!class_exists('WP_Frontend_Profile')) {
+if (! class_exists('WP_Frontend_Profile')) {
     /**
      * WP_Frontend_Profile main class.
      *
@@ -13,12 +15,13 @@ if (!class_exists('WP_Frontend_Profile')) {
      */
     class WP_Frontend_Profile
     {
+
         /**
          * Holds various class instances.
          *
          * @var array
          */
-        private $container = [];
+        private $container = array();
 
         /**
          * The singleton instance.
@@ -44,14 +47,14 @@ if (!class_exists('WP_Frontend_Profile')) {
          */
         public function init_hooks()
         {
-            add_action('plugins_loaded', [$this, 'instantiate']);
-            add_action('init', [$this, 'load_textdomain']);
-            add_filter('show_admin_bar', [$this, 'show_admin_bar']);
+            add_action('plugins_loaded', array( $this, 'instantiate' ));
+            add_action('init', array( $this, 'load_textdomain' ));
+            add_filter('show_admin_bar', array( $this, 'show_admin_bar' ));
 
             add_action('admin_notices', 'wpfep_error_notices');
 
             /* When plugin is activated */
-            register_activation_hook(__FILE__, [&$this, 'wpfep_install_time']);
+            register_activation_hook(__FILE__, array( &$this, 'wpfep_install_time' ));
         }
 
         /**
@@ -72,6 +75,7 @@ if (!class_exists('WP_Frontend_Profile')) {
             require_once WPFEP_PATH . '/inc/class-wpfep-user.php';
             require_once WPFEP_PATH . '/inc/class-wpfep-roles-editor.php';
             require_once WPFEP_PATH . '/inc/class-wpfep-login-widget.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
 
             if (is_admin()) {
                 require_once WPFEP_PATH . '/admin/class-wpfep-admin-installer.php';
@@ -95,14 +99,14 @@ if (!class_exists('WP_Frontend_Profile')) {
         public function instantiate()
         {
             if (is_admin()) {
-                $this->container['settings'] = WPFEP_Admin_Settings::init();
+                $this->container['settings']        = WPFEP_Admin_Settings::init();
                 $this->container['admin_installer'] = new WPFEP_Admin_Installer();
-                $this->container['System_Status'] = new Wpfep_System_Status();
+                $this->container['System_Status']   = new Wpfep_System_Status();
             } else {
                 $this->container['registration'] = WPFEP_Registration::init();
-                $this->container['login'] = WPFEP_Login::init();
-                $this->container['profile'] = WPFEP_Profile::init();
-                $this->container['captcha'] = WPFEP_Captcha_Recaptcha::initialize();
+                $this->container['login']        = WPFEP_Login::init();
+                $this->container['profile']      = WPFEP_Profile::init();
+                $this->container['captcha']      = WPFEP_Captcha_Recaptcha::initialize();
             }
         }
 
@@ -121,7 +125,7 @@ if (!class_exists('WP_Frontend_Profile')) {
          */
         public static function init()
         {
-            if (!self::$instance) {
+            if (! self::$instance) {
                 self::$instance = new self();
             }
 
@@ -139,16 +143,16 @@ if (!class_exists('WP_Frontend_Profile')) {
          */
         public function show_admin_bar($show)
         {
-            if (!is_user_logged_in()) {
+            if (! is_user_logged_in()) {
                 return false;
             }
 
-            $roles = wpfep_get_option('show_admin_bar_to_roles', 'wpfep_general', ['administrator', 'editor', 'author', 'contributor', 'subscriber']);
-            $roles = $roles ? $roles : [];
+            $roles        = wpfep_get_option('show_admin_bar_to_roles', 'wpfep_general', array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ));
+            $roles        = $roles ? $roles : array();
             $current_user = wp_get_current_user();
 
             if (isset($current_user->roles[0])) {
-                if (!in_array($current_user->roles[0], $roles)) {
+                if (! in_array($current_user->roles[0], $roles)) {
                     return false;
                 }
             }

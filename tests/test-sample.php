@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Class SampleTest.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -9,6 +11,7 @@ defined('ABSPATH') || exit;
  */
 class SampleTest extends WP_UnitTestCase
 {
+
     /**
      * A single example test.
      */

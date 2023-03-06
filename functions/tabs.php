@@ -1,7 +1,9 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Profile edit tabs.
  */
+
 defined('ABSPATH') || exit;
 
 /**
@@ -14,9 +16,8 @@ defined('ABSPATH') || exit;
  */
 function wpfep_add_profile_tab($tabs)
 {
-
     /* add our tab to the tabs array */
-    $tabs[] = [
+    $tabs[] = array(
         'id'            => 'profile', // used for the callback function, if declared or exists and the tab content wrapper id.
         'label'         => __('Profile', 'wp-front-end-profile'),
         'tab_class'     => 'profile-tab',
@@ -26,7 +27,7 @@ function wpfep_add_profile_tab($tabs)
          * if not declared or the function declared does not exist the default wpfep_default_tab_content() function is used instead.
          */
         'callback'      => 'wpfep_profile_tab_content',
-    ];
+    );
 
     /* return all the tabs */
     return $tabs;
@@ -44,14 +45,13 @@ add_filter('wpfep_tabs', 'wpfep_add_profile_tab', 10);
  */
 function wpfep_add_password_tab($tabs)
 {
-
     /* add our tab to the tabs array */
-    $tabs[] = [
+    $tabs[] = array(
         'id'            => 'password',
         'label'         => __('Password', 'wp-front-end-profile'),
         'tab_class'     => 'password-tab',
         'content_class' => 'password-content',
-    ];
+    );
 
     /* return all the tabs */
     return $tabs;

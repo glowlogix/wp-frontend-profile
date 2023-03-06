@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+
+## [1.2.9] - 2023-01-04
+
+### Fixed
+- Tested with WordPress 6.2 #100
+- Fixed invoked filter WPFEP_Profile::get_profile_url() #98
+- Fixed shortcode issue on elementor builder #97
+- Fixed Wp_localize_script synatx
+- Fixed Profile edit shortcode issue
+
+## [1.2.6] - 2022-04-22
+
+
+### Fixed
+- Tested with WordPress 5.9.3
+- Updated SDK
+
 ## [1.2.5] - 2022-02-12
 
 ### Fixed
@@ -87,7 +104,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Added
 - Initial launch.
 
-[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.4...HEAD
+[Unreleased]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.6...HEAD
+[1.2.6]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.5...1.2.6
+[1.2.5]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/glowlogix/wp-frontend-profile/compare/1.2.0...1.2.2

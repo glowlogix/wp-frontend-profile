@@ -1,21 +1,23 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * If you would like to edit this file, copy it to your current theme's directory and edit it there.
  * wpfep will always look in your theme's directory first, before using this default template.
  */
+
 defined('ABSPATH') || exit;
 
 $user_id = get_current_user_id();
-$user = get_userdata($user_id);
-$args = [
+$user    = get_userdata($user_id);
+$args    = array(
     'post_type' => 'post',
     'author'    => $user_id,
-];
+);
 
 $current_user_posts = get_posts($args);
-$total = count($current_user_posts); ?>
+$total              = count($current_user_posts); ?>
 <?php
-if (!is_user_logged_in()) {
+if (! is_user_logged_in()) {
     echo "<div class='wpfep-login-alert'>";
     printf(esc_attr('This page is restricted. Please %s to view this page.', 'wp-front-end-profile'), wp_loginout('', false));
     echo '</div>';
@@ -32,16 +34,17 @@ if (!is_user_logged_in()) {
 			<br>
 			<img src="<?php echo esc_url(get_avatar_url($user_id)); ?>" alt="avatar" style="width:100%"/>
 			<?php
-        } ?>
+        }
+        ?>
 		<div class="wpfep_user_details">
 			<?php
             if ('' != $user->display_name) {
-                echo '<h5>'.esc_html($user->display_name).'</h5>';
+                echo '<h5>' . esc_html($user->display_name) . '</h5>';
             }
             ?>
 			<p><strong><?php esc_attr_e('Email', 'wp-front-end-profile'); ?>: </strong><?php echo esc_html($user->user_email); ?></p>
 			<?php if ('' != $user->user_url) { ?>
-			<p><strong><?php esc_attr_e('Website', 'wp-front-end-profile'); ?>: </strong><?php echo '<a href='.esc_html($user->user_url).'>'.esc_html($user->user_url).'</a>'; ?></p>
+			<p><strong><?php esc_attr_e('Website', 'wp-front-end-profile'); ?>: </strong><?php echo '<a href=' . esc_html($user->user_url) . '>' . esc_html($user->user_url) . '</a>'; ?></p>
 			<?php } if ('' != $user->description) { ?>
 			<div class="wpfep_user_bio">
 				<p>
@@ -60,18 +63,20 @@ if (!is_user_logged_in()) {
 			<?php
             $wpfep_paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
 
-            $args = [
+            $args = array(
                 'post_status'    => 'publish',
                 'posts_per_page' => 5,
                 'author'         => $user_id,
                 'paged'          => $wpfep_paged,
-            ];
+            );
 
             // The Query.
-            $the_query = new WP_Query($args); ?>
+            $the_query = new WP_Query($args);
+            ?>
 			<ul class="wpfep-profile-item-ul">
 			<h4><?php esc_html('My Posts', 'wp-front-end-profile'); ?></h4>
-            <?php // The Loop.
+			<?php
+            // The Loop.
             if ($the_query->have_posts()) {
                 while ($the_query->have_posts()) {
                     $the_query->the_post(); ?>
@@ -81,12 +86,12 @@ if (!is_user_logged_in()) {
 									<a href="<?php echo esc_html(get_the_permalink()); ?>"><?php echo esc_html(get_the_title()); ?></a>
 								</h5>
 								<time class="wpfep-profile-item-time published" datetime="<?php echo esc_html(get_the_time('c')); ?>">
-								    <?php echo get_the_date(); ?>
+									<?php echo get_the_date(); ?>
 								</time>
-                                <div class="wpfep-profile-item-summary">
-                                    <?php
+								<div class="wpfep-profile-item-summary">
+									<?php
                                     $excerpt = strip_shortcodes(wp_trim_words(get_the_excerpt(), 15, '...')); ?>
-                                    <p><?php esc_html($excerpt); ?></p>
+									<p><?php esc_html($excerpt); ?></p>
 								</div>
 							</div>
 						</li>
@@ -97,9 +102,9 @@ if (!is_user_logged_in()) {
                 do_action('wpfep_profile_pagination', $the_query->max_num_pages);
             } else {
                 // no posts found.
-                echo '<p>'.esc_attr_e('Post not Found', 'wp-front-end-profile').'</p>';
+                echo '<p>' . esc_attr_e('Post not Found', 'wp-front-end-profile') . '</p>';
             }
             ?>
-        </ul>
+		</ul>
 	</div>
 </div>

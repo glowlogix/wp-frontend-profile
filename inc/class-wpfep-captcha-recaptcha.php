@@ -1,18 +1,21 @@
 <?php
 /**
+ * @package wp-front-end-profile
  * Login Class.
  */
+
 defined('ABSPATH') || exit;
 
 /**
  * Captcha Recaptcha class.
  */
-if (!class_exists('WPFEP_Captcha_Recaptcha')) {
+if (! class_exists('WPFEP_Captcha_Recaptcha')) {
     /**
      * Captcha Recaptcha class.
      */
     class WPFEP_Captcha_Recaptcha
     {
+
         /**
          * Captcha Recaptcha class.
          *
@@ -54,11 +57,11 @@ if (!class_exists('WPFEP_Captcha_Recaptcha')) {
 
             self::$script_handle = 'wpfep-recaptcha';
 
-            add_action('plugins_loaded', [__CLASS__, 'load_plugin_textdomain']);
+            add_action('plugins_loaded', array( __CLASS__, 'load_plugin_textdomain' ));
 
             // initialize if login is activated.
             if ((wpfep_get_option('enable_captcha_login', 'wpfep_general') === 'on') || (wpfep_get_option('enable_captcha_registration', 'wpfep_general') === 'on')) {
-                add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_header_script']);
+                add_action('wp_enqueue_scripts', array( __CLASS__, 'enqueue_header_script' ));
             }
         }
 
@@ -82,7 +85,7 @@ if (!class_exists('WPFEP_Captcha_Recaptcha')) {
                 esc_attr(self::$error_message);
             }
 
-            echo '<div class="g-recaptcha" data-sitekey="'.esc_attr(self::$site_key).'"></div>';
+            echo '<div class="g-recaptcha" data-sitekey="' . esc_attr(self::$site_key) . '"></div>';
         }
 
         /**
@@ -93,9 +96,9 @@ if (!class_exists('WPFEP_Captcha_Recaptcha')) {
         public static function captcha_verification()
         {
             $response = isset($_POST['g-recaptcha-response']) ? wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['g-recaptcha-response']))) : '';
-            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
                 $remote_ip = isset($_SERVER['HTTP_CLIENT_IP']) ? intval($_SERVER['HTTP_CLIENT_IP']) : '';
-            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            } elseif (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
                 $remote_ip = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? intval($_SERVER['HTTP_X_FORWARDED_FOR']) : '';
             } else {
                 $remote_ip = isset($_SERVER['REMOTE_ADDR']) ? intval($_SERVER['REMOTE_ADDR']) : '';
@@ -103,7 +106,7 @@ if (!class_exists('WPFEP_Captcha_Recaptcha')) {
 
             // make a GET request to the Google reCAPTCHA Server.
             $request = wp_remote_get(
-                'https://www.google.com/recaptcha/api/siteverify?secret='.self::$secret_key.'&response='.$response.'&remoteip='.$remote_ip
+                'https://www.google.com/recaptcha/api/siteverify?secret=' . self::$secret_key . '&response=' . $response . '&remoteip=' . $remote_ip
             );
 
             // get the request response body.
@@ -114,14 +117,14 @@ if (!class_exists('WPFEP_Captcha_Recaptcha')) {
                 $status = true;
             } else {
                 $status = false;
-                $error = (isset($result['error-codes'])) ? $result['error-codes']
+                $error  = (isset($result['error-codes'])) ? $result['error-codes']
                     : 'invalid-input-response';
             }
 
-            return [
+            return array(
                 'success'     => $status,
                 'error-codes' => (isset($error)) ? $error : null,
-            ];
+            );
         }
     }
 }
