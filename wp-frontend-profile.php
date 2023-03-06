@@ -43,7 +43,7 @@ if (! function_exists('wfep_fs')) {
             $wfep_fs = fs_dynamic_init(
                 array(
                     'id'                  => '5837',
-                    'slug'                => 'wpfep',
+                    'slug'                => 'wp-front-end-profile',
                     'premium_slug'        => 'wp-frontend-profile-premium',
                     'type'                => 'plugin',
                     'public_key'          => 'pk_ac83abfabd6c3c1498e82893f4a23',
