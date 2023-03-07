@@ -225,10 +225,11 @@ if (! class_exists('WPFEP_Login')) {
                     case 'rp':
                     case 'resetpass':
                         if ('true' == isset($_GET['reset']) && sanitize_text_field(wp_unslash($_GET['reset']))) {
-                            printf('<div class="wpfep-message">' . esc_html__('Your password has been reset.', 'wpfep') . '</div>');
+                            //printf('<div class="wpfep-message">' . esc_html__('Your password has been reset.', 'wpfep') . '</div>');
+                            $this->messages[] = __('Your password has been reset.', 'wpfep');
                             wpfep_load_template('login.php', $args);
 
-                            return;
+                            //return;
                         } else {
                             $this->messages[] = __('Enter your new password below..', 'wpfep');
 
@@ -607,6 +608,8 @@ if (! class_exists('WPFEP_Login')) {
         {
             global $wpdb;
 
+            $key = trim($key); //invalid key bugfix, see issue #101
+
             // keeping backward compatible.
             if (strlen($key) == 20) {
                 $key = preg_replace('/[^a-z0-9]/i', '', $key);
@@ -852,7 +855,7 @@ if (! class_exists('WPFEP_Login')) {
             /* translators: %s: username term */
             $message .= sprintf(esc_html__('Username: %s', 'wpfep'), $user_login) . "\r\n\r\n";
             $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'wpfep') . "\r\n\r\n";
-            $message .= esc_html_e('To reset your password, visit the following address:', 'wpfep') . "\r\n\r\n";
+            $message .= esc_html__('To reset your password, visit the following address:', 'wpfep') . "\r\n\r\n";
             $message .= ' ' . $reset_url . " \r\n";
 
             $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
