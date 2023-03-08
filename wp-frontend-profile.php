@@ -3,7 +3,7 @@
  * Plugin Name: WP Frontend Profile
  * Plugin URI: https://wordpress.org/plugins/wp-front-end-profile/
  * Description: This plugin allows users to easily edit their profile information on the frontend rather than having to go into the dashboard to make changes to password, email address and other user meta data.
- * Version:     1.2.9
+ * Version:     1.3.0
  * @package wp-front-end-profile
  * Author:      Glowlogix
  * Author URI:  https://www.glowlogix.com
@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Main class for WP Frontend Profile.
  */
 if (! defined('WPFEP_VERSION')) {
-    define('WPFEP_VERSION', '1.2.9');
+    define('WPFEP_VERSION', '1.3.0');
 }
 if (! defined('WPFEP_PATH')) {
     define('WPFEP_PATH', plugin_dir_path(__FILE__));
@@ -89,8 +89,8 @@ function plugin_meta_links($links, $file)
     if (plugin_basename(__FILE__) != $file) {
         return $links;
     }
-    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="' . __('Get help', 'wp-front-end-profile') . '">' . __('Support', 'wp-front-end-profile') . '</a>';
-    $rate_link    = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="' . __('Rate the plugin', 'wp-front-end-profile') . '">' . __('Rate the plugin ★★★★★', 'wp-front-end-profile') . '</a>';
+    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/" title="' . __('Get help', 'wpfep') . '">' . __('Support', 'wpfep') . '</a>';
+    $rate_link    = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-front-end-profile/reviews/#new-post" title="' . __('Rate the plugin', 'wpfep') . '">' . __('Rate the plugin ★★★★★', 'wpfep') . '</a>';
 
     $links[] = $support_link;
     $links[] = $rate_link;

@@ -15,7 +15,7 @@ class wpfep_login_Widget extends WP_Widget
     {
         parent::__construct(
             'wpfep-login-widget',
-            __('WP Frontend profile Widget', 'wp-front-end-profile'),
+            __('WP Frontend profile Widget', 'wpfep'),
             array(
                 'customize_selective_refresh' => true,
             )
@@ -26,7 +26,7 @@ class wpfep_login_Widget extends WP_Widget
     {
         // Set widget defaults.
         $defaults = array(
-            'title' => __('Login', 'wp-front-end-profile'),
+            'title' => __('Login', 'wpfep'),
         );
         // Parse current settings with defaults.
         extract(wp_parse_args((array) $instance, $defaults)); ?>
@@ -45,7 +45,7 @@ class wpfep_login_Widget extends WP_Widget
             $instance_title = $instance['title'];
         } ?>
 			<p>
-			<label for="<?php echo esc_html($field_id); ?>"><?php _e('Title:', 'wp-front-end-profile'); ?></label>
+			<label for="<?php echo esc_html($field_id); ?>"><?php _e('Title:', 'wpfep'); ?></label>
 			<input id="<?php echo esc_html($field_id); ?>" class="widefat" type="text" name="<?php echo esc_html($field_name); ?>" value="<?php echo esc_html($instance_title); ?>" style="width:100%;" />
 		</p>
 		<?php
