@@ -28,7 +28,7 @@ if (! class_exists('Wpfep_System_Status')) {
         public function wpfep_status_wrap_error_message($message, $class)
         {
             ob_start(); ?>
-			<div class="notice inline notice-<?php esc_attr_e('$class', 'wp-front-end-profile'); ?> notice-alt">
+			<div class="notice inline notice-<?php esc_attr_e('$class', 'wpfep'); ?> notice-alt">
 				<p><?php echo esc_html($message); ?></p>
 			</div>
 			<?php
@@ -53,57 +53,57 @@ if (! class_exists('Wpfep_System_Status')) {
             $security       = self::wpfep_get_security_info(); ?>
 			<style type="text/css"></style>
 			<div class="wrap">
-				<h2><?php esc_attr_e('System Status', 'wp-front-end-profile'); ?></h2>
+				<h2><?php esc_attr_e('System Status', 'wpfep'); ?></h2>
 				<div class="notice notice_system_status_wpfep">
-					<p><?php esc_attr_e('Please copy and paste this information in your ticket when contacting support:', 'wp-front-end-profile'); ?> </p>
-					<p class="submit"><a href="javascript:void" class="button-primary debug-report"><?php esc_attr_e('Get system report', 'wp-front-end-profile'); ?></a></p>
+					<p><?php esc_attr_e('Please copy and paste this information in your ticket when contacting support:', 'wpfep'); ?> </p>
+					<p class="submit"><a href="javascript:void" class="button-primary debug-report"><?php esc_attr_e('Get system report', 'wpfep'); ?></a></p>
 					<div id="debug-report">
 						<textarea readonly="readonly"></textarea>
-						<p class="submit"><button id="copy-for-system-support" class="button-primary" href="javascript:void"><?php esc_attr_e('Copy for Support', 'wp-front-end-profile'); ?></button></p>
-						<p class="copy-error hidden"><?php esc_attr_e('Copying to clipboard failed. Please press Ctrl/Cmd+C to copy.', 'wp-front-end-profile'); ?></p>
+						<p class="submit"><button id="copy-for-system-support" class="button-primary" href="javascript:void"><?php esc_attr_e('Copy for Support', 'wpfep'); ?></button></p>
+						<p class="copy-error hidden"><?php esc_attr_e('Copying to clipboard failed. Please press Ctrl/Cmd+C to copy.', 'wpfep'); ?></p>
 					</div>
 				</div>
 				<table class="wpfep-status-table widefat">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="WordPress Environment"><h2><?php esc_attr_e('WordPress Environment', 'wp-front-end-profile'); ?></h2></th>
+						<th colspan="3" data-export-label="WordPress Environment"><h2><?php esc_attr_e('WordPress Environment', 'wpfep'); ?></h2></th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Home URL', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Home URL', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Home URL', 'wpfep'); ?>"><?php esc_attr_e('Home URL', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['home_url']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Site URL', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Site URL', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Site URL', 'wpfep'); ?>"><?php esc_attr_e('Site URL', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['site_url']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('WP Frontend Profile Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WP Frontend Profile Version', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('WP Frontend Profile Version', 'wpfep'); ?>"><?php esc_attr_e('WP Frontend Profile Version', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['version']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('WP version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WP version', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('WP version', 'wpfep'); ?>"><?php esc_attr_e('WP version', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['wp_version']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('WP Multisite', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WP multisite', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('WP Multisite', 'wpfep'); ?>"><?php esc_attr_e('WP multisite', 'wpfep'); ?>:</td>
 						<td><?php echo ($environment['wp_multisite']) ? '<span class="dashicons dashicons-yes"></span>' : '&ndash;'; ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('WP Memory Limit', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WP memory limit', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('WP Memory Limit', 'wpfep'); ?>"><?php esc_attr_e('WP memory limit', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['wp_memory_limit'] < 67108864) {
                             /* translators: %1s: WordPress environment */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'wp-front-end-profile'), esc_html(size_format($environment['wp_memory_limit'])), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__('Increasing memory allocated to PHP', 'wp-front-end-profile') . '</a>') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'wpfep'), esc_html(size_format($environment['wp_memory_limit'])), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__('Increasing memory allocated to PHP', 'wpfep') . '</a>') . '</mark>';
                         } else {
                             echo '<mark class="yes">' . esc_html(size_format($environment['wp_memory_limit'])) . '</mark>';
                         } ?>
 							</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('WP Debug Mode', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WP debug mode', 'wp-front-end-profilep'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('WP Debug Mode', 'wpfep'); ?>"><?php esc_attr_e('WP debug mode', 'wp-front-end-profilep'); ?>:</td>
 						<td>
 							<?php if ($environment['wp_debug_mode']) { ?>
 								<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
@@ -113,7 +113,7 @@ if (! class_exists('Wpfep_System_Status')) {
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Wp Cron', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WP cron', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Wp Cron', 'wpfep'); ?>"><?php esc_attr_e('WP cron', 'wpfep'); ?>:</td>
 						<td>
 							<?php if ($environment['wp_cron']) { ?>
 								<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
@@ -123,7 +123,7 @@ if (! class_exists('Wpfep_System_Status')) {
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Language', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Language', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Language', 'wpfep'); ?>"><?php esc_attr_e('Language', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['language']); ?></td>
 					</tr>
 					</tbody>
@@ -137,16 +137,16 @@ if (! class_exists('Wpfep_System_Status')) {
 					</thead>
 					<tbody>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Server Info', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Server info', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Server Info', 'wpfep'); ?>"><?php esc_attr_e('Server info', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['server_info']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('PHP Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('PHP version', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('PHP Version', 'wpfep'); ?>"><?php esc_attr_e('PHP version', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if (version_compare($environment['php_version'], '5.6', '<')) {
                             /* translators: %1$s: php version */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%1$s - We recommend a minimum PHP version of 5.6.', 'wp-front-end-profile'), esc_html($environment['php_version'])) . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%1$s - We recommend a minimum PHP version of 5.6.', 'wpfep'), esc_html($environment['php_version'])) . '</mark>';
                         } else {
                             echo '<mark class="yes">' . esc_html($environment['php_version']) . '</mark>';
                         } ?>
@@ -154,23 +154,23 @@ if (! class_exists('Wpfep_System_Status')) {
 					</tr>
 					<?php if (function_exists('ini_get')) { ?>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('PHP Post Max Size', 'wp-front-end-profile'); ?>"><?php esc_attr_e('PHP post max size', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('PHP Post Max Size', 'wpfep'); ?>"><?php esc_attr_e('PHP post max size', 'wpfep'); ?>:</td>
 							<td><?php echo esc_html(size_format($environment['php_post_max_size'])); ?></td>
 						</tr>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('PHP Time Limit', 'wp-front-end-profile'); ?>"><?php esc_attr_e('PHP time limit', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('PHP Time Limit', 'wpfep'); ?>"><?php esc_attr_e('PHP time limit', 'wpfep'); ?>:</td>
 							<td><?php echo esc_html($environment['php_max_execution_time']); ?></td>
 						</tr>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('PHP Max Input Vars', 'wp-front-end-profile'); ?>"><?php esc_attr_e('PHP max input vars', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('PHP Max Input Vars', 'wpfep'); ?>"><?php esc_attr_e('PHP max input vars', 'wpfep'); ?>:</td>
 							<td><?php echo esc_html($environment['php_max_input_vars']); ?></td>
 						</tr>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('cURL Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('cURL version', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('cURL Version', 'wpfep'); ?>"><?php esc_attr_e('cURL version', 'wpfep'); ?>:</td>
 							<td><?php echo esc_html($environment['curl_version']); ?></td>
 						</tr>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('SUHOSIN Installed', 'wp-front-end-profile'); ?>"><?php esc_attr_e('SUHOSIN installed', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('SUHOSIN Installed', 'wpfep'); ?>"><?php esc_attr_e('SUHOSIN installed', 'wpfep'); ?>:</td>
 							<td><?php echo $environment['suhosin_installed'] ? '<span class="dashicons dashicons-yes"></span>' : '&ndash;'; ?></td>
 						</tr>
 						<?php
@@ -184,11 +184,11 @@ if (! class_exists('Wpfep_System_Status')) {
             if (! empty($wpdb->is_mysql) && ! stristr($ver, 'MariaDB')) {
                 ?>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('MySQL Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('MySQL version', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('MySQL Version', 'wpfep'); ?>"><?php esc_attr_e('MySQL version', 'wpfep'); ?>:</td>
 							<td>
 								<?php
                                 if (version_compare($environment['mysql_version'], '5.6', '<')) {
-                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%1$s - We recommend a minimum MySQL version of 5.6. See: %2$s', 'wp-front-end-profile'), esc_html($environment['mysql_version']), '<a href="https://wordpress.org/about/requirements/" target="_blank">' . esc_html('WordPress requirements', 'wp-front-end-profile') . '</a>') . '</mark>';
+                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%1$s - We recommend a minimum MySQL version of 5.6. See: %2$s', 'wpfep'), esc_html($environment['mysql_version']), '<a href="https://wordpress.org/about/requirements/" target="_blank">' . esc_html('WordPress requirements', 'wpfep') . '</a>') . '</mark>';
                                 } else {
                                     echo '<mark class="yes">' . esc_html($environment['mysql_version']) . '</mark>';
                                 } ?>
@@ -197,113 +197,113 @@ if (! class_exists('Wpfep_System_Status')) {
 							<?php
             } ?>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Max Upload Size', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Max upload size', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Max Upload Size', 'wpfep'); ?>"><?php esc_attr_e('Max upload size', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html(size_format($environment['max_upload_size'])); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Default Timezone is UTC', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Default timezone is UTC', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Default Timezone is UTC', 'wpfep'); ?>"><?php esc_attr_e('Default timezone is UTC', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ('UTC' !== $environment['default_timezone']) {
                             /* translators: %s: default timezone */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_attr_e('Default timezone is %s - it should be UTC', 'wp-front-end-profile'), esc_html($environment['default_timezone'])) . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_attr_e('Default timezone is %s - it should be UTC', 'wpfep'), esc_html($environment['default_timezone'])) . '</mark>';
                         } else {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('fsockopen/cURL', 'wp-front-end-profilep'); ?>"><?php esc_attr_e('fsockopen/cURL', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('fsockopen/cURL', 'wp-front-end-profilep'); ?>"><?php esc_attr_e('fsockopen/cURL', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['fsockopen_or_curl_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html_e('Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'wp-front-end-profile') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html_e('Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'wpfep') . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('SoapClient', 'wp-front-end-profile'); ?>"><?php esc_attr_e('SoapClient', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('SoapClient', 'wpfep'); ?>"><?php esc_attr_e('SoapClient', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['soapclient_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_attr_e('Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_attr_e('Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'wpfep'), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('DOMDocument', 'wp-front-end-profile'); ?>"><?php esc_attr_e('DOMDocument', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('DOMDocument', 'wpfep'); ?>"><?php esc_attr_e('DOMDocument', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['domdocument_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not have the %s class enabled - HTML/Multipart emails, and also some extensions, will not work without DOMDocument.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/class.domdocument.php">DOMDocument</a>') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not have the %s class enabled - HTML/Multipart emails, and also some extensions, will not work without DOMDocument.', 'wpfep'), '<a href="https://php.net/manual/en/class.domdocument.php">DOMDocument</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('GZip', 'wp-front-end-profile'); ?>"><?php esc_attr_e('GZip', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('GZip', 'wpfep'); ?>"><?php esc_attr_e('GZip', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['gzip_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not support the %s function - this is required to use the GeoIP database from MaxMind.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/zlib.installation.php">gzopen</a>') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not support the %s function - this is required to use the GeoIP database from MaxMind.', 'wpfep'), '<a href="https://php.net/manual/en/zlib.installation.php">gzopen</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('GD Library', 'wp-front-end-profile'); ?>"><?php esc_attr_e('GD Library', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('GD Library', 'wpfep'); ?>"><?php esc_attr_e('GD Library', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['gd_library']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not have enabled %s - this is required for image processing.', 'wp-front-end-profile'), '<a href="https://secure.php.net/manual/en/image.installation.php">GD Library</a>') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not have enabled %s - this is required for image processing.', 'wpfep'), '<a href="https://secure.php.net/manual/en/image.installation.php">GD Library</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Multibyte String', 'wp-front-end-profilep'); ?>"><?php esc_attr_e('Multibyte string', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Multibyte String', 'wp-front-end-profilep'); ?>"><?php esc_attr_e('Multibyte string', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['mbstring_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not support the %s functions - this is required for better character encoding. Some fallbacks will be used instead for it.', 'wp-front-end-profile'), '<a href="https://php.net/manual/en/mbstring.installation.php">mbstring</a>') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('Your server does not support the %s functions - this is required for better character encoding. Some fallbacks will be used instead for it.', 'wpfep'), '<a href="https://php.net/manual/en/mbstring.installation.php">mbstring</a>') . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Remote POST', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Remote POST', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Remote POST', 'wpfep'); ?>"><?php esc_attr_e('Remote POST', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['remote_post_successful']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%s failed. Contact your hosting provider.', 'wp-front-end-profile'), 'wp_remote_post()') . ' ' . esc_html($environment['remote_post_response']) . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html('%s failed. Contact your hosting provider.', 'wpfep'), 'wp_remote_post()') . ' ' . esc_html($environment['remote_post_response']) . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Remote GET', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Remote GET', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Remote GET', 'wpfep'); ?>"><?php esc_attr_e('Remote GET', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         if ($environment['remote_get_successful']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
                             /* translators: %s: search term */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%s failed. Contact your hosting provider.', 'wp-front-end-profile'), 'wp_remote_get()') . ' ' . esc_html($environment['remote_get_response']) . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%s failed. Contact your hosting provider.', 'wpfep'), 'wp_remote_get()') . ' ' . esc_html($environment['remote_get_response']) . '</mark>';
                         } ?>
 						</td>
 					</tr>
@@ -346,24 +346,24 @@ if (! class_exists('Wpfep_System_Status')) {
 				<table class="wpfep-status-table widefat" cellspacing="0">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="<?php esc_attr_e('User Platform', 'wp-front-end-profile'); ?>"><h2><?php esc_attr_e('User Platform', 'wp-front-end-profile'); ?></h2></th>
+						<th colspan="3" data-export-label="<?php esc_attr_e('User Platform', 'wpfep'); ?>"><h2><?php esc_attr_e('User Platform', 'wpfep'); ?></h2></th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Platform', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Platform', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Platform', 'wpfep'); ?>"><?php esc_attr_e('Platform', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['platform']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Browser name', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Browser name', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Browser name', 'wpfep'); ?>"><?php esc_attr_e('Browser name', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['browser_name']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Browser version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Browser version', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Browser version', 'wpfep'); ?>"><?php esc_attr_e('Browser version', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['browser_version']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('User agent', 'wp-front-end-profile'); ?>"><?php esc_attr_e('User agent', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('User agent', 'wpfep'); ?>"><?php esc_attr_e('User agent', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($environment['user_agent']); ?></td>
 					</tr>
 					</tbody>
@@ -371,36 +371,36 @@ if (! class_exists('Wpfep_System_Status')) {
 				<table class="wpfep-status-table widefat" cellspacing="0">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="<?php esc_attr_e('Database', 'wp-front-end-profile'); ?>"><h2><?php esc_attr_e('Database', 'wp-front-end-profile'); ?></h2></th>
+						<th colspan="3" data-export-label="<?php esc_attr_e('Database', 'wpfep'); ?>"><h2><?php esc_attr_e('Database', 'wpfep'); ?></h2></th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('WPFEP Database Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('WPFEP database version', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('WPFEP Database Version', 'wpfep'); ?>"><?php esc_attr_e('WPFEP database version', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html(WPFEP_VERSION); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Database Prefix', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Database Prefix', 'wp-front-end-profile'); ?></td>
+						<td data-export-label="<?php esc_attr_e('Database Prefix', 'wpfep'); ?>"><?php esc_attr_e('Database Prefix', 'wpfep'); ?></td>
 						<td>
 						<?php
                         if (strlen($database['database_prefix']) > 20) {
                             /* translators: %1s: database prefix */
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%1$s - We recommend using a prefix with less than 20 characters.', 'wp-front-end-profile'), esc_html($database['database_prefix'])) . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf(esc_html__('%1$s - We recommend using a prefix with less than 20 characters.', 'wpfep'), esc_html($database['database_prefix'])) . '</mark>';
                         } else {
                             echo '<mark class="yes">' . esc_html($database['database_prefix']) . '</mark>';
                         } ?>
 						</td>
 					</tr>
 					<tr>
-						<td><?php esc_attr_e('Total Database Size', 'wp-front-end-profile'); ?></td>
+						<td><?php esc_attr_e('Total Database Size', 'wpfep'); ?></td>
 						<td><?php printf('%.2fMB', esc_html($database['database_size']['data']) + esc_html($database['database_size']['index'])); ?></td>
 					</tr>
 					<tr>
-						<td><?php esc_attr_e('Database Data Size', 'wp-front-end-profile'); ?></td>
+						<td><?php esc_attr_e('Database Data Size', 'wpfep'); ?></td>
 						<td><?php printf('%.2fMB', esc_html($database['database_size']['data'])); ?></td>
 					</tr>
 					<tr>
-						<td><?php esc_attr_e('Database Index Size', 'wp-front-end-profile'); ?></td>
+						<td><?php esc_attr_e('Database Index Size', 'wpfep'); ?></td>
 						<td><?php printf('%.2fMB', esc_html($database['database_size']['index'])); ?></td>
 					</tr>
 					<?php foreach ($database['database_tables']['other'] as $table => $table_data) { ?>
@@ -409,7 +409,7 @@ if (! class_exists('Wpfep_System_Status')) {
 							<td>
 								<?php
                                 /* translators: %s: search term */
-                                printf(esc_html('Data: %1$.2fMB + Index: %2$.2fMB', 'wp-front-end-profile'), esc_html(wpfep_format_decimal($table_data['data'], 2)), esc_html(wpfep_format_decimal($table_data['index'], 2)));
+                                printf(esc_html('Data: %1$.2fMB + Index: %2$.2fMB', 'wpfep'), esc_html(wpfep_format_decimal($table_data['data'], 2)), esc_html(wpfep_format_decimal($table_data['index'], 2)));
                                 ?>
 							</td>
 						</tr>
@@ -419,27 +419,27 @@ if (! class_exists('Wpfep_System_Status')) {
 				<table class="wpfep-status-table widefat" cellspacing="0">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="Security"><h2><?php esc_attr_e('Security', 'wp-front-end-profile'); ?></h2></th>
+						<th colspan="3" data-export-label="Security"><h2><?php esc_attr_e('Security', 'wpfep'); ?></h2></th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Secure Connection (HTTPS)', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Secure connection (HTTPS)', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Secure Connection (HTTPS)', 'wpfep'); ?>"><?php esc_attr_e('Secure connection (HTTPS)', 'wpfep'); ?>:</td>
 						<td>
 							<?php if ($security['secure_connection']) { ?>
 								<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
 							<?php } else { ?>
-								<mark class="error"><span class="dashicons dashicons-warning"></span><?php echo esc_attr_e('Your site is not using HTTPS.', 'wp-front-end-profile'); ?></mark>
+								<mark class="error"><span class="dashicons dashicons-warning"></span><?php echo esc_attr_e('Your site is not using HTTPS.', 'wpfep'); ?></mark>
 							<?php } ?>
 						</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Hide errors from visitors', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Hide errors from visitors', 'wp-front-end-profile'); ?></td>
+						<td data-export-label="<?php esc_attr_e('Hide errors from visitors', 'wpfep'); ?>"><?php esc_attr_e('Hide errors from visitors', 'wpfep'); ?></td>
 						<td>
 							<?php if ($security['hide_errors']) { ?>
 								<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
 							<?php } else { ?>
-								<mark class="error"><span class="dashicons dashicons-warning"></span><?php esc_attr_e('Error messages should not be shown to visitors.', 'wp-front-end-profile'); ?></mark>
+								<mark class="error"><span class="dashicons dashicons-warning"></span><?php esc_attr_e('Error messages should not be shown to visitors.', 'wpfep'); ?></mark>
 							<?php } ?>
 						</td>
 					</tr>
@@ -448,7 +448,7 @@ if (! class_exists('Wpfep_System_Status')) {
 				<table class="wpfep-status-table widefat" cellspacing="0">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="Active Plugins (<?php echo count($active_plugins); ?>)"><h2><?php esc_attr_e('Active Plugins', 'wp-front-end-profile'); ?> (<?php echo count($active_plugins); ?>)</h2></th>
+						<th colspan="3" data-export-label="Active Plugins (<?php echo count($active_plugins); ?>)"><h2><?php esc_attr_e('Active Plugins', 'wpfep'); ?> (<?php echo count($active_plugins); ?>)</h2></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -458,20 +458,20 @@ if (! class_exists('Wpfep_System_Status')) {
                             $dirname = dirname($plugin['plugin']);
 
                             // Link the plugin name to the plugin url if available.
-                            $plugin_name = esc_html($plugin['name'], 'wp-front-end-profile');
+                            $plugin_name = esc_html($plugin['name'], 'wpfep');
                             if (! empty($plugin['url'])) {
-                                $plugin_name = '<a href="' . esc_url($plugin['url']) . '" aria-label="' . esc_attr__('Visit plugin homepage', 'wp-front-end-profile') . '" target="_blank">' . esc_attr($plugin_name) . '</a>';
+                                $plugin_name = '<a href="' . esc_url($plugin['url']) . '" aria-label="' . esc_attr__('Visit plugin homepage', 'wpfep') . '" target="_blank">' . esc_attr($plugin_name) . '</a>';
                             }
 
                             $version_string = '';
                             $network_string = '';
                             if (! empty($plugin['latest_verison']) && version_compare($plugin['latest_verison'], $plugin['version'], '>')) {
                                 /* translators: %s: plugin latest version */
-                                $version_string = ' &ndash; <strong style="color:red;">' . sprintf(esc_html__('%s is available', 'wp-front-end-profile'), $plugin['latest_verison']) . '</strong>';
+                                $version_string = ' &ndash; <strong style="color:red;">' . sprintf(esc_html__('%s is available', 'wpfep'), $plugin['latest_verison']) . '</strong>';
                             }
 
                             if (false !== $plugin['network_activated']) {
-                                $network_string = ' &ndash; <strong style="color:black;">' . esc_attr__('Network enabled', 'wp-front-end-profile') . '</strong>';
+                                $network_string = ' &ndash; <strong style="color:black;">' . esc_attr__('Network enabled', 'wpfep') . '</strong>';
                             } ?>
 							<tr>
 								<td>
@@ -490,7 +490,7 @@ if (! class_exists('Wpfep_System_Status')) {
 								<td>
 								<?php
                                     /* translators: %s: plugin author */
-                                    printf(esc_attr__('by %s', 'wp-front-end-profile'), esc_html($plugin['author_name']));
+                                    printf(esc_attr__('by %s', 'wpfep'), esc_html($plugin['author_name']));
                             echo ' &ndash; ' . esc_html($plugin['version']) . wp_kses(
                                 $version_string,
                                 array(
@@ -519,35 +519,35 @@ if (! class_exists('Wpfep_System_Status')) {
 				<table class="wpfep-status-table widefat" cellspacing="0">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="<?php esc_attr_e('Theme', 'wp-front-end-profile'); ?>"><h2><?php esc_attr_e('Theme', 'wp-front-end-profile'); ?></h2></th>
+						<th colspan="3" data-export-label="<?php esc_attr_e('Theme', 'wpfep'); ?>"><h2><?php esc_attr_e('Theme', 'wpfep'); ?></h2></th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Name', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Name', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Name', 'wpfep'); ?>"><?php esc_attr_e('Name', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($theme['name']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Version', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Version', 'wpfep'); ?>"><?php esc_attr_e('Version', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                             echo esc_html($theme['version']);
             if (version_compare($theme['version'], $theme['latest_verison'], '<')) {
                 /* translators: %s: theme latest version */
-                echo ' &ndash; <strong style="color:red;">' . sprintf(esc_attr__('%s is available', 'wp-front-end-profile'), esc_html($theme['latest_verison'])) . '</strong>';
+                echo ' &ndash; <strong style="color:red;">' . sprintf(esc_attr__('%s is available', 'wpfep'), esc_html($theme['latest_verison'])) . '</strong>';
             } ?>
 							</td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Author URL', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Author URL', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Author URL', 'wpfep'); ?>"><?php esc_attr_e('Author URL', 'wpfep'); ?>:</td>
 						<td><?php echo esc_html($theme['author_url']); ?></td>
 					</tr>
 					<tr>
-						<td data-export-label="<?php esc_attr_e('Child theme', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Child theme', 'wp-front-end-profile'); ?>:</td>
+						<td data-export-label="<?php esc_attr_e('Child theme', 'wpfep'); ?>"><?php esc_attr_e('Child theme', 'wpfep'); ?>:</td>
 						<td>
 						<?php
                         /* translators: %s: child theme */
-                            $theme_name = $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf(__('If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wp-front-end-profile'), 'https://codex.wordpress.org/Child_Themes');
+                            $theme_name = $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf(__('If you are modifying wpfep on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'wpfep'), 'https://codex.wordpress.org/Child_Themes');
             echo wp_kses(
                 $theme_name,
                 array(
@@ -567,22 +567,22 @@ if (! class_exists('Wpfep_System_Status')) {
                     if ($theme['is_child_theme']) {
                         ?>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('Parent Theme Name', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Parent theme name', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('Parent Theme Name', 'wpfep'); ?>"><?php esc_attr_e('Parent theme name', 'wpfep'); ?>:</td>
 							<td><?php echo esc_html($theme['parent_name']); ?></td>
 						</tr>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('Parent Theme Version', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Parent theme version', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('Parent Theme Version', 'wpfep'); ?>"><?php esc_attr_e('Parent theme version', 'wpfep'); ?>:</td>
 							<td>
 							<?php
                                 echo esc_html($theme['parent_version']);
                         if (version_compare($theme['parent_version'], $theme['parent_latest_verison'], '<')) {
                             /* translators: %s: parent theme latest version */
-                            echo ' &ndash; <strong style="color:red;">' . sprintf(esc_attr__('%s is available', 'wp-front-end-profile'), esc_html($theme['parent_latest_verison'])) . '</strong>';
+                            echo ' &ndash; <strong style="color:red;">' . sprintf(esc_attr__('%s is available', 'wpfep'), esc_html($theme['parent_latest_verison'])) . '</strong>';
                         } ?>
 								</td>
 						</tr>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('Parent Theme Author URL', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Parent theme author URL', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('Parent Theme Author URL', 'wpfep'); ?>"><?php esc_attr_e('Parent theme author URL', 'wpfep'); ?>:</td>
 							<td><?php echo esc_html($theme['parent_author_url']); ?></td>
 						</tr>
 						<?php
@@ -592,7 +592,7 @@ if (! class_exists('Wpfep_System_Status')) {
 				<table class="wpfep-status-table widefat" cellspacing="0">
 					<thead>
 					<tr>
-						<th colspan="3" data-export-label="<?php esc_attr_e('Templates', 'wp-front-end-profile'); ?>"><h2><?php esc_attr_e('Templates', 'wp-front-end-profile'); ?></h2></th>
+						<th colspan="3" data-export-label="<?php esc_attr_e('Templates', 'wpfep'); ?>"><h2><?php esc_attr_e('Templates', 'wpfep'); ?></h2></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -600,7 +600,7 @@ if (! class_exists('Wpfep_System_Status')) {
                     if (! empty($theme['overrides'])) {
                         ?>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('Overrides', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Overrides', 'wp-front-end-profile'); ?></td>
+							<td data-export-label="<?php esc_attr_e('Overrides', 'wpfep'); ?>"><?php esc_attr_e('Overrides', 'wpfep'); ?></td>
 							<td>
 								<?php
                                 $total_overrides = count($theme['overrides']);
@@ -614,7 +614,7 @@ if (! class_exists('Wpfep_System_Status')) {
                                              * Translators: %2s: your version
                                              * Translators: %3s: core version
                                              */
-                                            esc_html__('%1$s version %2$s is out of date. The core version is %3$s', 'wp-front-end-profile'),
+                                            esc_html__('%1$s version %2$s is out of date. The core version is %3$s', 'wpfep'),
                                     '<code>' . esc_html($override['file']) . '</code>',
                                     '<strong style="color:red">' . esc_html($current_version) . '</strong>',
                                     esc_html($override['core_version'])
@@ -633,7 +633,7 @@ if (! class_exists('Wpfep_System_Status')) {
                     } else {
                         ?>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('Overrides', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Overrides', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('Overrides', 'wpfep'); ?>"><?php esc_attr_e('Overrides', 'wpfep'); ?>:</td>
 							<td>&ndash;</td>
 						</tr>
 						<?php
@@ -642,7 +642,7 @@ if (! class_exists('Wpfep_System_Status')) {
             if (true === $theme['has_outdated_templates']) {
                 ?>
 						<tr>
-							<td data-export-label="<?php esc_attr_e('Outdated Templates', 'wp-front-end-profile'); ?>"><?php esc_attr_e('Outdated templates', 'wp-front-end-profile'); ?>:</td>
+							<td data-export-label="<?php esc_attr_e('Outdated Templates', 'wpfep'); ?>"><?php esc_attr_e('Outdated templates', 'wpfep'); ?>:</td>
 							<td><mark class="error"><span class="dashicons dashicons-warning"></span></mark></td>
 						</tr>
 						<?php
