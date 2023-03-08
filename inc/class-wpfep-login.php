@@ -229,7 +229,7 @@ if (! class_exists('WPFEP_Login')) {
                             $this->messages[] = __('Your password has been reset.', 'wpfep');
                             wpfep_load_template('login.php', $args);
 
-                            //return;
+                        //return;
                         } else {
                             $this->messages[] = __('Enter your new password below..', 'wpfep');
 
