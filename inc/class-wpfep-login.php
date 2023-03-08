@@ -225,14 +225,10 @@ if (! class_exists('WPFEP_Login')) {
                     case 'rp':
                     case 'resetpass':
                         if ('true' == isset($_GET['reset']) && sanitize_text_field(wp_unslash($_GET['reset']))) {
-                            //printf('<div class="wpfep-message">' . esc_html__('Your password has been reset.', 'wpfep') . '</div>');
                             $this->messages[] = __('Your password has been reset.', 'wpfep');
                             wpfep_load_template('login.php', $args);
-
-                        //return;
                         } else {
                             $this->messages[] = __('Enter your new password below..', 'wpfep');
-
                             wpfep_load_template('reset-pass.php', $args);
                         }
 
