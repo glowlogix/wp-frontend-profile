@@ -12,7 +12,6 @@
 
     class FS_Billing extends FS_Entity
     {
-
         #region Properties
 
         /**

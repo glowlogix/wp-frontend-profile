@@ -14,7 +14,6 @@ if (! class_exists('WPFEP_Admin_Help')) {
      */
     class WPFEP_Shortcodes_Button
     {
-
         /**
          * Constructor for shortcode class.
          */

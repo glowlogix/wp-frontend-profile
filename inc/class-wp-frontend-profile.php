@@ -15,7 +15,6 @@ if (! class_exists('WP_Frontend_Profile')) {
      */
     class WP_Frontend_Profile
     {
-
         /**
          * Holds various class instances.
          *

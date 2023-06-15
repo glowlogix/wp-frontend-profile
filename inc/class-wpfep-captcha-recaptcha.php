@@ -15,7 +15,6 @@ if (! class_exists('WPFEP_Captcha_Recaptcha')) {
      */
     class WPFEP_Captcha_Recaptcha
     {
-
         /**
          * Captcha Recaptcha class.
          *

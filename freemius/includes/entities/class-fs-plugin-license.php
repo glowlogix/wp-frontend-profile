@@ -15,7 +15,6 @@
      */
     class FS_Plugin_License extends FS_Entity
     {
-
         #region Properties
 
         /**

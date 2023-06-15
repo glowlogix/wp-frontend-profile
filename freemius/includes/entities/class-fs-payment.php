@@ -12,7 +12,6 @@
 
     class FS_Payment extends FS_Entity
     {
-
         #region Properties
 
         /**
