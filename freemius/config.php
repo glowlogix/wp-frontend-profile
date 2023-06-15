@@ -289,7 +289,7 @@
     if (! defined('WP_FS__TIME_10_MIN_IN_SEC')) {
         define('WP_FS__TIME_10_MIN_IN_SEC', 600);
     }
-//	define( 'WP_FS__TIME_15_MIN_IN_SEC', 900 );
+    //	define( 'WP_FS__TIME_15_MIN_IN_SEC', 900 );
     if (! defined('WP_FS__TIME_12_HOURS_IN_SEC')) {
         define('WP_FS__TIME_12_HOURS_IN_SEC', 43200);
     }

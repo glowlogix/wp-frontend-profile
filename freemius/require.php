@@ -18,7 +18,7 @@
     require_once WP_FS__DIR_INCLUDES . '/class-fs-logger.php';
     require_once WP_FS__DIR_INCLUDES . '/debug/debug-bar-start.php';
 
-//		require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-abstract-manager.php';
+    //		require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-abstract-manager.php';
     require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-option-manager.php';
     require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-gdpr-manager.php';
     require_once WP_FS__DIR_INCLUDES . '/managers/class-fs-cache-manager.php';

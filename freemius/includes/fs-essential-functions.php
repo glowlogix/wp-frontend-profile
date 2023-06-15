@@ -181,8 +181,8 @@
             _deprecated_function(__FUNCTION__, '2.0.0', 'fs_text()');
 
             global $fs_text,
-                   $fs_module_info_text,
-                   $fs_text_overrides;
+            $fs_module_info_text,
+            $fs_text_overrides;
 
             if (isset($fs_text_overrides[ $slug ])) {
                 if (isset($fs_text_overrides[ $slug ][ $key ])) {
@@ -492,7 +492,7 @@
                 if (! $is_module_active || ! $is_sdk_exists) {
                     unset($fs_active_plugins->plugins[ $sdk_relative_path ]);
 
-                // No need to store the data since it will be stored in fs_update_sdk_newest_version()
+                    // No need to store the data since it will be stored in fs_update_sdk_newest_version()
                     // or explicitly with update_option().
                 } else {
                     $newest_sdk_data = $data;

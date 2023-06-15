@@ -12,7 +12,6 @@
 
     class FS_Affiliate extends FS_Scope_Entity
     {
-
         #region Properties
 
         /**
