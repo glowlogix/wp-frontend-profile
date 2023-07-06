@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Tested with WordPress version 6.2 #109
 - select2 update #110
 - Feedback form Issue #111
+- edit profile page issue #115
 
 ## [1.3.0] - 2023-03-08
 

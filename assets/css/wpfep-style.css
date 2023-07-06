@@ -56,6 +56,7 @@ p.forgetmenot label {
 }
 .wpfep-wrapper p.updated {
     display: block !important;
+	margin-bottom:5px !important ;
 }
 /* field styles
 -------------------------------------------------------------- */
@@ -129,6 +130,7 @@ label.wpfep_save_description {
 .wpfep-field .quicktags-toolbar {
 	border-bottom: none;
 }
+
 p.error,
 p.updated {
 	background-color: #F2F2F2;

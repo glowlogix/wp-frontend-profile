@@ -66,6 +66,7 @@ function wpfep_save_fields($tabs, $user_id)
         );
         $registered_fields = array_merge($registered_fields, $tab_fields);
     }
+    $email_exists = false; // Flag variable to track email existence
 
     /* set an array of registered keys */
     $registered_keys = wp_list_pluck($registered_fields, 'id');
@@ -78,6 +79,13 @@ function wpfep_save_fields($tabs, $user_id)
          * the value is the value we want to actually save.
          */
         foreach ($tab_data as $key => $value) {
+
+            if ($key === 'user_email') {
+                $existing_user = email_exists($value);
+                if ($existing_user && $existing_user !== $user_id) {
+                    $email_exists = true; // Set the flag to true if email exists
+                }
+            }
 
             /* if the key is the save submit - move to next in array */
             if ('wpfep_save' == $key || 'wpfep_nonce_action' == $key) {
@@ -163,6 +171,9 @@ function wpfep_save_fields($tabs, $user_id)
         } // end tab loop.
     } // end data loop.
 
+     
+
+
     // update user bio.
     if (isset($_POST['description'])) {
         wp_update_user(
@@ -195,7 +206,13 @@ function wpfep_save_fields($tabs, $user_id)
         } ?>
 		</div><!-- // messages -->
 		<?php
-    } else {
+    } 
+        // Check the flag variable and display error message if necessary
+if ($email_exists) {?>
+    <div class="messages"><p  class="error"><?php esc_html_e('Email already exists. Please choose a different email address.', 'wpfep'); ?></p></div>
+    <?php 
+   
+}else {
         ?>
 		<div class="messages"><p class="updated"><?php esc_html_e('Yours profile was updated successfully!', 'wpfep'); ?></p></div>
 
