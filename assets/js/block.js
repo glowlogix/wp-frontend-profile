@@ -45,7 +45,8 @@ wp.blocks.registerBlockType('wpfep/frontend-profile', {
          },
          el("option", {value: "[wpfep-register]" }, "Register"),
          el("option", {value: "[wpfep-login]" }, "Login"),
-         el("option", {value: "[wpfep-profile]" }, "Profile")
+         el("option", {value: "[wpfep-profile]" }, "Profile"),
+         el("option", {value: "[wpfep]" }, "Profile Edit")
       ),
       
       el(

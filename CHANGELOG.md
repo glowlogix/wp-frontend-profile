@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [1.3.1] - 2023-06-15
 
+### Added
+- profile edit option added in frontend widget in gutenberg editor 
+
 ### Fixed
 - fixed issue  #108
 - Tested with WordPress version 6.2 #109
