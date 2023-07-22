@@ -6,11 +6,12 @@
      * @since       1.0.3
      */
 
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
-    class FS_Plugin extends FS_Scope_Entity {
+    class FS_Plugin extends FS_Scope_Entity
+    {
         /**
          * @since 1.0.6
          * @var null|number
@@ -117,22 +118,23 @@
         /**
          * @param stdClass|bool $plugin
          */
-        function __construct( $plugin = false ) {
-            parent::__construct( $plugin );
+        public function __construct($plugin = false)
+        {
+            parent::__construct($plugin);
 
             $this->is_premium = false;
             $this->is_live    = true;
 
-            if ( empty( $this->premium_slug ) && ! empty( $plugin->slug ) ) {
+            if (empty($this->premium_slug) && ! empty($plugin->slug)) {
                 $this->premium_slug = "{$this->slug}-premium";
             }
 
-            if ( empty( $this->premium_suffix ) ) {
+            if (empty($this->premium_suffix)) {
                 $this->premium_suffix = '(Premium)';
             }
 
-            if ( isset( $plugin->info ) && is_object( $plugin->info ) ) {
-                $this->info = new FS_Plugin_Info( $plugin->info );
+            if (isset($plugin->info) && is_object($plugin->info)) {
+                $this->info = new FS_Plugin_Info($plugin->info);
             }
         }
 
@@ -144,8 +146,9 @@
          *
          * @return bool
          */
-        function is_addon() {
-            return isset( $this->parent_plugin_id ) && is_numeric( $this->parent_plugin_id );
+        public function is_addon()
+        {
+            return isset($this->parent_plugin_id) && is_numeric($this->parent_plugin_id);
         }
 
         /**
@@ -154,11 +157,13 @@
          *
          * @return bool
          */
-        function has_affiliate_program() {
-            return ( ! empty( $this->affiliate_moderation ) );
+        public function has_affiliate_program()
+        {
+            return (! empty($this->affiliate_moderation));
         }
 
-        static function get_type() {
+        public static function get_type()
+        {
             return 'plugin';
         }
     }
