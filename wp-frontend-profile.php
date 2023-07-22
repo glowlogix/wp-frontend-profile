@@ -28,41 +28,36 @@ if (! defined('WPFEP_PLUGIN_URL')) {
 
 require_once WPFEP_PATH . '/inc/class-wp-frontend-profile.php';
 
-if (! function_exists('wfep_fs')) {
-    /**
-     * Create a helper function for easy SDK access.
-     */
-    function wfep_fs()
-    {
+if ( ! function_exists( 'wfep_fs' ) ) {
+    // Create a helper function for easy SDK access.
+    function wfep_fs() {
         global $wfep_fs;
 
-        if (! isset($wfep_fs)) {
+        if ( ! isset( $wfep_fs ) ) {
             // Include Freemius SDK.
             require_once dirname(__FILE__) . '/freemius/start.php';
 
-            $wfep_fs = fs_dynamic_init(
-                array(
-                    'id'                  => '5837',
-                    'slug'                => 'wp-front-end-profile',
-                    'premium_slug'        => 'wp-frontend-profile-premium',
-                    'type'                => 'plugin',
-                    'public_key'          => 'pk_ac83abfabd6c3c1498e82893f4a23',
-                    'is_premium'          => true,
-                    // If your plugin is a serviceware, set this option to false.
-                    'has_premium_version' => true,
-                    'has_addons'          => true,
-                    'has_paid_plans'      => true,
-                    'trial'               => array(
-                        'days'               => 7,
-                        'is_require_payment' => false,
-                    ),
-                    'menu'                => array(
-                        'slug'    => 'wpfep-settings_dashboard',
-                        'support' => false,
-                    ),
-
-                )
-            );
+            $wfep_fs = fs_dynamic_init( array(
+                'id'                  => '5837',
+                'slug'                => 'wp-front-end-profile',
+                'premium_slug'        => 'wp-frontend-profile-premium',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_ac83abfabd6c3c1498e82893f4a23',
+                'is_premium'          => true,
+                // If your plugin is a serviceware, set this option to false.
+                'has_premium_version' => true,
+                'has_addons'          => false,
+                'has_paid_plans'      => true,
+                'trial'               => array(
+                    'days'               => 14,
+                    'is_require_payment' => false,
+                ),
+                'has_affiliation'     => 'selected',
+                'menu'                => array(
+                    'slug'           => 'wpfep-settings_dashboard',
+                    'support'        => false,
+                ),
+            ) );
         }
 
         return $wfep_fs;
@@ -71,9 +66,8 @@ if (! function_exists('wfep_fs')) {
     // Init Freemius.
     wfep_fs();
     // Signal that SDK was initiated.
-    do_action('wfep_fs_loaded');
+    do_action( 'wfep_fs_loaded' );
 }
-
 /**
  * Add links to plugin's description in plugins table.
  *
