@@ -6,11 +6,12 @@
      * @since       2.1.0
      */
 
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
-    class FS_GDPR_Manager {
+    class FS_GDPR_Manager
+    {
         /**
          * @var FS_Option_Manager
          */
@@ -48,8 +49,9 @@
         /**
          * @return FS_GDPR_Manager
          */
-        public static function instance() {
-            if ( ! isset( self::$_instance ) ) {
+        public static function instance()
+        {
+            if (! isset(self::$_instance)) {
                 self::$_instance = new self();
             }
 
@@ -58,14 +60,15 @@
 
         #endregion
 
-        private function __construct() {
-            $this->_storage     = FS_Option_Manager::get_manager( WP_FS__GDPR_OPTION_NAME, true, true );
+        private function __construct()
+        {
+            $this->_storage     = FS_Option_Manager::get_manager(WP_FS__GDPR_OPTION_NAME, true, true);
             $this->_wp_user_id  = Freemius::get_current_wp_user_id();
             $this->_option_name = "u{$this->_wp_user_id}";
-            $this->_data        = $this->_storage->get_option( $this->_option_name, array() );
-            $this->_notices     = FS_Admin_Notices::instance( 'all_admins', '', '', true );
+            $this->_data        = $this->_storage->get_option($this->_option_name, array());
+            $this->_notices     = FS_Admin_Notices::instance('all_admins', '', '', true);
 
-            if ( ! is_array( $this->_data ) ) {
+            if (! is_array($this->_data)) {
                 $this->_data = array();
             }
         }
@@ -79,10 +82,11 @@
          * @param string $name
          * @param mixed  $value
          */
-        private function update_option( $name, $value ) {
+        private function update_option($name, $value)
+        {
             $this->_data[ $name ] = $value;
 
-            $this->_storage->set_option( $this->_option_name, $this->_data, true );
+            $this->_storage->set_option($this->_option_name, $this->_data, true);
         }
 
         /**
@@ -91,8 +95,9 @@
          *
          * @param bool $is_required
          */
-        public function store_is_required( $is_required ) {
-            $this->update_option( 'required', $is_required );
+        public function store_is_required($is_required)
+        {
+            $this->update_option('required', $is_required);
         }
 
         /**
@@ -103,8 +108,9 @@
          *
          * @return bool
          */
-        public function is_opt_in_notice_shown() {
-            return $this->_notices->has_sticky( "gdpr_optin_actions_{$this->_wp_user_id}", true );
+        public function is_opt_in_notice_shown()
+        {
+            return $this->_notices->has_sticky("gdpr_optin_actions_{$this->_wp_user_id}", true);
         }
 
         /**
@@ -113,8 +119,9 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.1.0
          */
-        public function remove_opt_in_notice() {
-            $this->_notices->remove_sticky( "gdpr_optin_actions_{$this->_wp_user_id}", true );
+        public function remove_opt_in_notice()
+        {
+            $this->_notices->remove_sticky("gdpr_optin_actions_{$this->_wp_user_id}", true);
 
             $this->disable_opt_in_notice();
         }
@@ -125,8 +132,9 @@
          * @author Leo Fajardo (@leorw)
          * @since  2.1.0
          */
-        public function disable_opt_in_notice() {
-            $this->update_option( 'show_opt_in_notice', false );
+        public function disable_opt_in_notice()
+        {
+            $this->update_option('show_opt_in_notice', false);
         }
 
         /**
@@ -137,9 +145,10 @@
          *
          * @return bool
          */
-        public function should_show_opt_in_notice() {
+        public function should_show_opt_in_notice()
+        {
             return (
-                ! isset( $this->_data['show_opt_in_notice'] ) ||
+                ! isset($this->_data['show_opt_in_notice']) ||
                 true === $this->_data['show_opt_in_notice']
             );
         }
@@ -152,8 +161,9 @@
          *
          * @return false|int
          */
-        public function last_time_notice_was_shown() {
-            return isset( $this->_data['notice_shown_at'] ) ?
+        public function last_time_notice_was_shown()
+        {
+            return isset($this->_data['notice_shown_at']) ?
                 $this->_data['notice_shown_at'] :
                 false;
         }
@@ -164,8 +174,9 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.1.0
          */
-        public function notice_was_just_shown() {
-            $this->update_option( 'notice_shown_at', WP_FS__SCRIPT_START_TIME );
+        public function notice_was_just_shown()
+        {
+            $this->update_option('notice_shown_at', WP_FS__SCRIPT_START_TIME);
         }
 
         /**
@@ -175,7 +186,8 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.1.0
          */
-        public function add_opt_in_sticky_notice( $message, $plugin_title = null ) {
+        public function add_opt_in_sticky_notice($message, $plugin_title = null)
+        {
             $this->_notices->add_sticky(
                 $message,
                 "gdpr_optin_actions_{$this->_wp_user_id}",
