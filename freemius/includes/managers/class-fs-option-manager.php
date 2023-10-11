@@ -170,7 +170,6 @@
                 $cache_group = $this->get_cache_group();
 
                 if (WP_FS__DEBUG_SDK) {
-
                     // Don't use cache layer in DEBUG mode.
                     $load_options = empty($this->_options);
                 } else {

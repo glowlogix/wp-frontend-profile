@@ -14,7 +14,6 @@ if (! class_exists('WPFEP_User')) {
      */
     class WPFEP_User
     {
-
         /**
          * User ID.
          *

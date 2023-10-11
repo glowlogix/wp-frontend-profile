@@ -12,7 +12,6 @@ if (! class_exists('WPFEP_Admin_Help')) {
      */
     class WPFEP_Admin_Help
     {
-
         /**
          * Hook in tabs.
          */

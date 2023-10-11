@@ -12,7 +12,6 @@
 
     class FS_Subscription extends FS_Entity
     {
-
         #region Properties
 
         /**

@@ -12,7 +12,6 @@ if (! class_exists('WPFEP_Registration')) {
      */
     class WPFEP_Registration
     {
-
         /**
          * Error array.
          *
@@ -184,7 +183,6 @@ if (! class_exists('WPFEP_Registration')) {
 
                     /* check whether the password passed the regex check of complexity */
                     if (false == $pass_complexity) {
-
                         /* add message indicating complexity issue */
                         $this->registration_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep');
 

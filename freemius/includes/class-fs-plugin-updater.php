@@ -14,7 +14,6 @@
 
     class FS_Plugin_Updater
     {
-
         /**
          * @var Freemius
          * @since 1.0.4

@@ -15,7 +15,6 @@ if (! class_exists('WPFEP_Login')) {
      */
     class WPFEP_Login
     {
-
         /**
          * Login error messages array.
          *
@@ -420,12 +419,10 @@ if (! class_exists('WPFEP_Login')) {
 
             // process reset password form.
             if (isset($_POST['pass1']) && isset($_POST['pass2']) && isset($_POST['key']) && isset($_POST['login']) && isset($_POST['_wpnonce'])) {
-
                 // verify reset key again.
                 $user = $this->check_password_reset_key($_POST['key'], sanitize_text_field(wp_unslash($_POST['login'])));
 
                 if (is_object($user)) {
-
                     // save these values into the form again in case of errors.
                     $args['key']   = $_POST['key'];
                     $args['login'] = sanitize_text_field(wp_unslash($_POST['login']));
@@ -451,7 +448,6 @@ if (! class_exists('WPFEP_Login')) {
 
                         /* check the password match the correct length */
                         if ($pass_length < 12) {
-
                             /* add message indicating length issue!! */
 
                             $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Please make sure your password is a minimum of 12  characters long', 'wpfep');
@@ -467,7 +463,6 @@ if (! class_exists('WPFEP_Login')) {
 
                         /* check whether the password passed the regex check of complexity */
                         if (false == $pass_complexity) {
-
                             /* add message indicating complexity issue */
                             $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep');
 
@@ -564,7 +559,6 @@ if (! class_exists('WPFEP_Login')) {
             $key = $wpdb->get_var($wpdb->prepare("SELECT user_activation_key FROM $wpdb->users WHERE user_login = %s", $user_login));
 
             if (empty($key)) {
-
                 // Generate something random for a key...
                 $key = wp_generate_password(20, false);
 
