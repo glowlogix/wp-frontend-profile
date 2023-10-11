@@ -17,7 +17,6 @@
      */
     class FS_Plugin_Plan extends FS_Entity
     {
-
         #region Properties
 
         /**

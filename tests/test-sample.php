@@ -11,7 +11,6 @@ defined('ABSPATH') || exit;
  */
 class SampleTest extends WP_UnitTestCase
 {
-
     /**
      * A single example test.
      */
