@@ -1,19 +1,19 @@
 <?php
-    /**
-     * @package     Freemius
-     * @copyright   Copyright (c) 2015, Freemius, Inc.
-     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-     * @since       2.1.0
-     */
+	/**
+	 * @package     Freemius
+	 * @copyright   Copyright (c) 2015, Freemius, Inc.
+	 * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+	 * @since       2.1.0
+	 */
 
-    if (! defined('ABSPATH')) {
-        exit;
-    }
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	}
 
     /**
      * @var array $VARS
      */
-    $fs = freemius($VARS['id']);
+    $fs = freemius( $VARS['id'] );
 ?>
 <script type="text/javascript">
     (function( $ ) {
@@ -29,7 +29,8 @@
                     allowMarketing = $this.hasClass( 'allow-marketing' ),
                     cursor         = $this.css( 'cursor' ),
                     $products      = $gdprOptinNotice.find( 'span[data-plugin-id]' ),
-                    pluginIDs      = [];
+                    pluginIDs      = [],
+                    ajaxUrl        = <?php echo Freemius::ajax_url() ?>;
 
                 if ( $products.length > 0 ) {
                     $products.each(function() {
@@ -38,9 +39,9 @@
                 }
 
                 $.ajax({
-                    url       : ajaxurl + '?' + $.param({
-                        action   : '<?php echo $fs->get_ajax_action('gdpr_optin_action') ?>',
-                        security : '<?php echo $fs->get_ajax_security('gdpr_optin_action') ?>',
+                        url      : ajaxUrl + (ajaxUrl.includes('?') ? '&' : '?') + $.param({
+                        action   : '<?php echo $fs->get_ajax_action( 'gdpr_optin_action' ) ?>',
+                        security : '<?php echo $fs->get_ajax_security( 'gdpr_optin_action' ) ?>',
                         module_id: '<?php echo $fs->get_id() ?>'
                     }),
                     method    : 'POST',
@@ -49,7 +50,7 @@
                         plugin_ids          : pluginIDs
                     },
                     beforeSend: function() {
-                        $this.text( <?php fs_json_encode_echo_inline('Thanks, please wait', 'thanks-please-wait', $fs->get_slug()) ?> + '...' );
+                        $this.text( <?php fs_json_encode_echo_inline( 'Thanks, please wait', 'thanks-please-wait', $fs->get_slug() ) ?> + '...' );
                         $this.css({'cursor': 'wait'});
 
                         $gdprOptinNotice.find( '.button' ).addClass( 'disabled' );

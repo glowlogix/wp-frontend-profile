@@ -146,7 +146,7 @@
     #--------------------------------------------------------------------------------
 
     if (! defined('WP_FS__IS_HTTP_REQUEST')) {
-        define('WP_FS__IS_HTTP_REQUEST', isset($_SERVER['HTTP_HOST']));
+        define('WP_FS__IS_HTTP_REQUEST', isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_METHOD']));
     }
 
     if (! defined('WP_FS__IS_HTTPS')) {
@@ -154,13 +154,13 @@
             'WP_FS__IS_HTTPS',
             (
                 WP_FS__IS_HTTP_REQUEST &&
-                                     // Checks if CloudFlare's HTTPS (Flexible SSL support).
-                                     isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-                                     'https' === strtolower($_SERVER['HTTP_X_FORWARDED_PROTO'])
+                                         // Checks if CloudFlare's HTTPS (Flexible SSL support).
+                                         isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+                                         'https' === strtolower($_SERVER['HTTP_X_FORWARDED_PROTO'])
             ) ||
-                                   // Check if HTTPS request.
-                                   (isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ||
-                                   (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT'])
+            // Check if HTTPS request.
+            (isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ||
+            (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT'])
         );
     }
 
@@ -362,11 +362,11 @@
                 is_network_admin() ||
               ((
                   defined('DOING_AJAX') && DOING_AJAX &&
-                  (isset($_REQUEST['_fs_network_admin']) /*||
+                  (isset($_REQUEST['_fs_network_admin']) && 'true' === $_REQUEST['_fs_network_admin'] /*||
                     ( ! empty( $_REQUEST['action'] ) && 'delete-plugin' === $_REQUEST['action'] )*/)
               ) ||
-                // Plugin uninstall.
-                defined('WP_UNINSTALL_PLUGIN'))
+              // Plugin uninstall.
+              defined('WP_UNINSTALL_PLUGIN'))
             )
         );
     }

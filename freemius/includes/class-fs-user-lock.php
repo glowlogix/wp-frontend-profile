@@ -10,19 +10,17 @@
         exit;
     }
 
+    require_once WP_FS__DIR_INCLUDES . '/class-fs-lock.php';
+
     /**
      * Class FS_User_Lock
      */
     class FS_User_Lock
     {
         /**
-         * @var int
+         * @var FS_Lock
          */
-        private $_wp_user_id;
-        /**
-         * @var int
-         */
-        private $_thread_id;
+        private $_lock;
 
         #--------------------------------------------------------------------------------
         #region Singleton
@@ -52,10 +50,10 @@
 
         private function __construct()
         {
-            $this->_wp_user_id = Freemius::get_current_wp_user_id();
-            $this->_thread_id  = mt_rand(0, 32000);
-        }
+            $current_user_id = Freemius::get_current_wp_user_id();
 
+            $this->_lock = new FS_Lock("locked_{$current_user_id}");
+        }
 
         /**
          * Try to acquire lock. If the lock is already set or is being acquired by another locker, don't do anything.
@@ -69,20 +67,7 @@
          */
         public function try_lock($expiration = 0)
         {
-            if ($this->is_locked()) {
-                // Already locked.
-                return false;
-            }
-
-            set_site_transient("locked_{$this->_wp_user_id}", $this->_thread_id, $expiration);
-
-            if ($this->has_lock()) {
-                set_site_transient("locked_{$this->_wp_user_id}", true, $expiration);
-
-                return true;
-            }
-
-            return false;
+            return $this->_lock->try_lock($expiration);
         }
 
         /**
@@ -95,20 +80,7 @@
          */
         public function lock($expiration = 0)
         {
-            set_site_transient("locked_{$this->_wp_user_id}", true, $expiration);
-        }
-
-        /**
-         * Checks if lock is currently acquired.
-         *
-         * @author Vova Feldman (@svovaf)
-         * @since  2.1.0
-         *
-         * @return bool
-         */
-        public function is_locked()
-        {
-            return (false !== get_site_transient("locked_{$this->_wp_user_id}"));
+            $this->_lock->lock($expiration);
         }
 
         /**
@@ -119,16 +91,6 @@
          */
         public function unlock()
         {
-            delete_site_transient("locked_{$this->_wp_user_id}");
-        }
-
-        /**
-         * Checks if lock is currently acquired by the current locker.
-         *
-         * @return bool
-         */
-        private function has_lock()
-        {
-            return ($this->_thread_id == get_site_transient("locked_{$this->_wp_user_id}"));
+            $this->_lock->unlock();
         }
     }
