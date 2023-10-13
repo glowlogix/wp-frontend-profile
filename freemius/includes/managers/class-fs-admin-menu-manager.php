@@ -12,7 +12,6 @@
 
     class FS_Admin_Menu_Manager
     {
-
         #region Properties
 
         /**
@@ -204,10 +203,10 @@
                      *  - Has custom admin menu ('page')
                      *  - CPT menu type ('cpt')
                      */
-//					$this->_is_top_level = in_array( $this->_type, array(
-//						'cpt',
-//						'page'
-//					) );
+                    //					$this->_is_top_level = in_array( $this->_type, array(
+                    //						'cpt',
+                    //						'page'
+                    //					) );
                 }
 
                 $first_path = $this->get_option($menu, 'first-path', false);

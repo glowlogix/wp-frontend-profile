@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.1] - 2023-10-14
+- Tested with WordPress version 6.3.2 #121
+- Update Freemius SDK version #121
+- Update select2 library #121
+- Fix error on plugin deletion #121
+- Fix error on profile form when updating email with existing email #121
+
 ## [1.3.0] - 2023-03-08
 
 ### Added

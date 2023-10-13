@@ -315,6 +315,7 @@
             return $this->get($k, null);
         }
 
+        #[ReturnTypeWillChange]
         public function offsetSet($k, $v)
         {
             if (is_null($k)) {
@@ -324,16 +325,19 @@
             }
         }
 
+        #[ReturnTypeWillChange]
         public function offsetExists($k)
         {
             return array_key_exists($k, $this->_data);
         }
 
+        #[ReturnTypeWillChange]
         public function offsetUnset($k)
         {
             unset($this->$k);
         }
 
+        #[ReturnTypeWillChange]
         public function offsetGet($k)
         {
             return $this->get($k, null);
@@ -346,6 +350,7 @@
          * @link http://php.net/manual/en/iterator.current.php
          * @return mixed Can return any type.
          */
+        #[ReturnTypeWillChange]
         public function current()
         {
             return current($this->_data);
@@ -358,6 +363,7 @@
          * @link http://php.net/manual/en/iterator.next.php
          * @return void Any returned value is ignored.
          */
+        #[ReturnTypeWillChange]
         public function next()
         {
             next($this->_data);
@@ -370,6 +376,7 @@
          * @link http://php.net/manual/en/iterator.key.php
          * @return mixed scalar on success, or null on failure.
          */
+        #[ReturnTypeWillChange]
         public function key()
         {
             return key($this->_data);
@@ -383,6 +390,7 @@
          * @return boolean The return value will be casted to boolean and then evaluated.
          *       Returns true on success or false on failure.
          */
+        #[ReturnTypeWillChange]
         public function valid()
         {
             $key = key($this->_data);
@@ -397,6 +405,7 @@
          * @link http://php.net/manual/en/iterator.rewind.php
          * @return void Any returned value is ignored.
          */
+        #[ReturnTypeWillChange]
         public function rewind()
         {
             reset($this->_data);
@@ -412,6 +421,7 @@
          *       <p>
          *       The return value is cast to an integer.
          */
+        #[ReturnTypeWillChange]
         public function count()
         {
             return count($this->_data);

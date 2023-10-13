@@ -12,7 +12,6 @@
 
     class FS_User extends FS_Scope_Entity
     {
-
         #region Properties
 
         /**
@@ -58,6 +57,18 @@
         public function is_verified()
         {
             return (isset($this->is_verified) && true === $this->is_verified);
+        }
+
+        /**
+         * @author Leo Fajardo (@leorw)
+         * @since 2.4.2
+         *
+         * @return bool
+         */
+        public function is_beta()
+        {
+            // Return `false` since this is just for backward compatibility.
+            return false;
         }
 
         public static function get_type()

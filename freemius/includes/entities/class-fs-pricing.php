@@ -12,7 +12,6 @@
 
     class FS_Pricing extends FS_Entity
     {
-
         #region Properties
 
         /**
