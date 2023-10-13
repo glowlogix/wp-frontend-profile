@@ -6,15 +6,15 @@
      * @since       1.0.5
      */
 
-    if (! defined('ABSPATH')) {
+    if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
 
     /**
      * Class FS_Plugin_License
      */
-    class FS_Plugin_License extends FS_Entity
-    {
+    class FS_Plugin_License extends FS_Entity {
+
         #region Properties
 
         /**
@@ -105,9 +105,8 @@
         /**
          * @param stdClass|bool $license
          */
-        public function __construct($license = false)
-        {
-            parent::__construct($license);
+        function __construct( $license = false ) {
+            parent::__construct( $license );
         }
 
         /**
@@ -115,8 +114,7 @@
          *
          * @return string
          */
-        public static function get_type()
-        {
+        static function get_type() {
             return 'license';
         }
 
@@ -128,17 +126,16 @@
          *
          * @return int
          */
-        public function left()
-        {
-            if (! $this->is_features_enabled()) {
+        function left() {
+            if ( ! $this->is_features_enabled() ) {
                 return 0;
             }
 
-            if ($this->is_unlimited()) {
+            if ( $this->is_unlimited() ) {
                 return 999;
             }
 
-            return ($this->quota - $this->activated - ($this->is_free_localhost ? 0 : $this->activated_local));
+            return ( $this->quota - $this->activated - ( $this->is_free_localhost ? 0 : $this->activated_local ) );
         }
 
         /**
@@ -149,9 +146,8 @@
          *
          * @return bool
          */
-        public function is_single_site()
-        {
-            return (is_numeric($this->quota) && 1 == $this->quota);
+        function is_single_site() {
+            return ( is_numeric( $this->quota ) && 1 == $this->quota );
         }
 
         /**
@@ -160,9 +156,8 @@
          *
          * @return bool
          */
-        public function is_expired()
-        {
-            return ! $this->is_lifetime() && (strtotime($this->expiration) < WP_FS__SCRIPT_START_TIME);
+        function is_expired() {
+            return ! $this->is_lifetime() && ( strtotime( $this->expiration ) < WP_FS__SCRIPT_START_TIME );
         }
 
         /**
@@ -173,8 +168,7 @@
          *
          * @return bool
          */
-        public function is_valid()
-        {
+        function is_valid() {
             return ! $this->is_expired();
         }
 
@@ -184,9 +178,8 @@
          *
          * @return bool
          */
-        public function is_lifetime()
-        {
-            return is_null($this->expiration);
+        function is_lifetime() {
+            return is_null( $this->expiration );
         }
 
         /**
@@ -195,9 +188,8 @@
          *
          * @return bool
          */
-        public function is_unlimited()
-        {
-            return is_null($this->quota);
+        function is_unlimited() {
+            return is_null( $this->quota );
         }
 
         /**
@@ -210,18 +202,17 @@
          *
          * @return bool
          */
-        public function is_utilized($is_localhost = null)
-        {
-            if (is_null($is_localhost)) {
+        function is_utilized( $is_localhost = null ) {
+            if ( is_null( $is_localhost ) ) {
                 $is_localhost = WP_FS__IS_LOCALHOST_FOR_SERVER;
             }
 
-            if ($this->is_unlimited()) {
+            if ( $this->is_unlimited() ) {
                 return false;
             }
 
-            return ! ($this->is_free_localhost && $is_localhost) &&
-                   ($this->quota <= $this->activated + ($this->is_free_localhost ? 0 : $this->activated_local));
+            return ! ( $this->is_free_localhost && $is_localhost ) &&
+                   ( $this->quota <= $this->activated + ( $this->is_free_localhost ? 0 : $this->activated_local ) );
         }
 
         /**
@@ -234,9 +225,8 @@
          *
          * @return bool
          */
-        public function can_activate($is_localhost = null)
-        {
-            return ! $this->is_utilized($is_localhost) && $this->is_features_enabled();
+        function can_activate( $is_localhost = null ) {
+            return ! $this->is_utilized( $is_localhost ) && $this->is_features_enabled();
         }
 
         /**
@@ -250,9 +240,8 @@
          *
          * @return bool
          */
-        public function can_activate_bulk($production_count, $localhost_count)
-        {
-            if ($this->is_unlimited()) {
+        function can_activate_bulk( $production_count, $localhost_count ) {
+            if ( $this->is_unlimited() ) {
                 return true;
             }
 
@@ -261,7 +250,7 @@
              * possible to activate on ALL of them, do the activation. If it's not possible to activate on ALL of them,
              * do NOT activate on any of them.
              */
-            return ($this->quota >= $this->activated + $production_count + ($this->is_free_localhost ? 0 : $this->activated_local + $localhost_count));
+            return ( $this->quota >= $this->activated + $production_count + ( $this->is_free_localhost ? 0 : $this->activated_local + $localhost_count ) );
         }
 
         /**
@@ -270,9 +259,8 @@
          *
          * @return bool
          */
-        public function is_active()
-        {
-            return (! $this->is_cancelled);
+        function is_active() {
+            return ( ! $this->is_cancelled );
         }
 
         /**
@@ -286,9 +274,8 @@
          *
          * @return bool
          */
-        public function is_features_enabled()
-        {
-            return $this->is_active() && (! $this->is_block_features || ! $this->is_expired());
+        function is_features_enabled() {
+            return $this->is_active() && ( ! $this->is_block_features || ! $this->is_expired() );
         }
 
         /**
@@ -301,17 +288,15 @@
          *
          * @return bool
          */
-        public function is_first_payment_pending()
-        {
-            return (WP_FS__TIME_24_HOURS_IN_SEC >= strtotime($this->expiration) - strtotime($this->created));
+        function is_first_payment_pending() {
+            return ( WP_FS__TIME_24_HOURS_IN_SEC >= strtotime( $this->expiration ) - strtotime( $this->created ) );
         }
 
         /**
          * @return int
          */
-        public function total_activations()
-        {
-            return ($this->activated + $this->activated_local);
+        function total_activations() {
+            return ( $this->activated + $this->activated_local );
         }
 
         /**
@@ -320,9 +305,8 @@
          *
          * @return string
          */
-        public function get_html_escaped_masked_secret_key()
-        {
-            return self::mask_secret_key_for_html($this->secret_key);
+        function get_html_escaped_masked_secret_key() {
+            return self::mask_secret_key_for_html( $this->secret_key );
         }
 
         /**
@@ -333,15 +317,14 @@
          *
          * @return string
          */
-        public static function mask_secret_key_for_html($secret_key)
-        {
+        static function mask_secret_key_for_html( $secret_key ) {
             return (
                 // Initial 6 chars - sk_ABC
-                htmlspecialchars(substr($secret_key, 0, 6)) .
+                htmlspecialchars( substr( $secret_key, 0, 6 ) ) .
                 // Masking
-                str_pad('', (strlen($secret_key) - 9) * 6, '&bull;') .
+                str_pad( '', ( strlen( $secret_key ) - 9 ) * 6, '&bull;' ) .
                 // Last 3 chars.
-                htmlspecialchars(substr($secret_key, - 3))
+                htmlspecialchars( substr( $secret_key, - 3 ) )
             );
         }
     }

@@ -1,17 +1,17 @@
 <?php
-    /**
-     * @package     Freemius
-     * @copyright   Copyright (c) 2015, Freemius, Inc.
-     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-     * @since       1.2.3
-     */
+	/**
+	 * @package     Freemius
+	 * @copyright   Copyright (c) 2015, Freemius, Inc.
+	 * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+	 * @since       1.2.3
+	 */
 
-    if (! defined('ABSPATH')) {
-        exit;
-    }
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	}
 
-    class FS_AffiliateTerms extends FS_Scope_Entity
-    {
+	class FS_AffiliateTerms extends FS_Scope_Entity {
+
         #region Properties
 
         /**
@@ -59,12 +59,12 @@
          * @var string Required default target link, e.g.: pricing page.
          */
         public $default_url;
-        /**
-         * @var string One of the following: 'all', 'new_customer', 'new_user'.
-         *             If 'all' - reward for any user type.
-         *             If 'new_customer' - reward only for new customers.
-         *             If 'new_user' - reward only for new users.
-         */
+		/**
+		 * @var string One of the following: 'all', 'new_customer', 'new_user'.
+		 *             If 'all' - reward for any user type.
+		 *             If 'new_customer' - reward only for new customers.
+		 *             If 'new_user' - reward only for new users.
+		 */
         public $reward_customer_type;
         /**
          * @var int Defaults to `0` (affiliate only on directly affiliated links). `null` if an affiliate will get
@@ -84,6 +84,10 @@
          * @var bool If `true`, allow referrals from any site.
          */
         public $is_any_site_allowed;
+        /**
+         * @var string $plugin_title Title of the plugin. This is used in case we are showing affiliate form for a Bundle instead of the `plugin` in context.
+         */
+        public $plugin_title;
 
         #endregion Properties
 
@@ -92,11 +96,11 @@
          *
          * @return string
          */
-        public function get_formatted_commission()
+        function get_formatted_commission()
         {
-            return ('dollar' === $this->commission_type) ?
-                ('$' . $this->commission) :
-                ($this->commission . '%');
+            return ( 'dollar' === $this->commission_type ) ?
+                ( '$' . $this->commission ) :
+                ( $this->commission . '%' );
         }
 
         /**
@@ -104,9 +108,8 @@
          *
          * @return bool
          */
-        public function has_lifetime_commission()
-        {
-            return (0 !== $this->future_payments_days);
+        function has_lifetime_commission() {
+            return ( 0 !== $this->future_payments_days );
         }
 
         /**
@@ -114,9 +117,8 @@
          *
          * @return bool
          */
-        public function is_session_cookie()
-        {
-            return (0 == $this->cookie_days);
+        function is_session_cookie() {
+            return ( 0 == $this->cookie_days );
         }
 
         /**
@@ -124,8 +126,7 @@
          *
          * @return bool
          */
-        public function has_renewals_commission()
-        {
-            return (is_null($this->commission_renewals_days) || $this->commission_renewals_days > 0);
+        function has_renewals_commission() {
+            return ( is_null( $this->commission_renewals_days ) || $this->commission_renewals_days > 0 );
         }
     }

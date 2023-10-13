@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package wp-front-end-profile
  * Feilds for user.
@@ -16,7 +17,7 @@ defined('ABSPATH') || exit;
 function wpfep_save_fields($tabs, $user_id)
 {
     /* check the nonce */
-    if (! isset($_POST['wpfep_nonce_name']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_nonce_name'])), 'wpfep_nonce_action')) {
+    if (!isset($_POST['wpfep_nonce_name']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_nonce_name'])), 'wpfep_nonce_action')) {
         return;
     }
 
@@ -67,6 +68,8 @@ function wpfep_save_fields($tabs, $user_id)
         $registered_fields = array_merge($registered_fields, $tab_fields);
     }
 
+    $email_exists = false; // Flag variable to track email existence
+
     /* set an array of registered keys */
     $registered_keys = wp_list_pluck($registered_fields, 'id');
 
@@ -79,13 +82,20 @@ function wpfep_save_fields($tabs, $user_id)
          */
         foreach ($tab_data as $key => $value) {
 
+            if ($key === 'user_email') {
+                $existing_user = email_exists($value);
+                if ($existing_user && $existing_user !== $user_id) {
+                    $email_exists = true; // Set the flag to true if email exists
+                }
+            }
+
             /* if the key is the save submit - move to next in array */
             if ('wpfep_save' == $key || 'wpfep_nonce_action' == $key) {
                 continue;
             }
 
             /* if the key is not in our list of registered keys - move to next in array */
-            if (! in_array($key, $registered_keys)) {
+            if (!in_array($key, $registered_keys)) {
                 continue;
             }
 
@@ -112,7 +122,7 @@ function wpfep_save_fields($tabs, $user_id)
                 /* lookup field options by key */
                 $registered_field_key = array_search($key, array_column($registered_fields, 'id'));
                 /* sanitize user input based on field type */
-                switch ($registered_fields[ $registered_field_key ]['type']) {
+                switch ($registered_fields[$registered_field_key]['type']) {
                     case 'wysiwyg':
                         $value = wp_filter_post_kses($value);
                         break;
@@ -147,8 +157,8 @@ function wpfep_save_fields($tabs, $user_id)
                 }
 
                 /* update the user meta data */
-                if (isset($registered_fields[ $registered_field_key ]['taxonomy'])) {
-                    $meta = wp_set_object_terms($user_id, $value, $registered_fields[ $registered_field_key ]['taxonomy'], false);
+                if (isset($registered_fields[$registered_field_key]['taxonomy'])) {
+                    $meta = wp_set_object_terms($user_id, $value, $registered_fields[$registered_field_key]['taxonomy'], false);
                 } else {
                     $meta = update_user_meta($user_id, $key, $value);
                 }
@@ -176,39 +186,49 @@ function wpfep_save_fields($tabs, $user_id)
     /* check if we have an messages to output */
 
     if (empty($messages)) {
-        ?>
-		<div class="messages">
-		<?php
+?>
+        <div class="messages">
+            <?php
 
-        /* lets loop through the messages stored */
-        foreach ($messages as $message) {
-            /* output the message */
-            echo wp_kses(
-                $message,
-                array(
+            /* lets loop through the messages stored */
+            foreach ($messages as $message) {
+                /* output the message */
+                echo wp_kses(
+                    $message,
+                    array(
 
-                    'p' => array(
-                        'class' => array(),
-                    ),
-                )
-            );
-        } ?>
-		</div><!-- // messages -->
-		<?php
+                        'p' => array(
+                            'class' => array(),
+                        ),
+                    )
+                );
+            } ?>
+        </div><!-- // messages -->
+    <?php
+    }
+    // Check the flag variable and display error message if necessary
+    if ($email_exists) { ?>
+        <div class="messages">
+            <p class="error"><?php esc_html_e('Email already exists. Please choose a different email address.', 'wpfep'); ?></p>
+        </div>
+    <?php
+
     } else {
-        ?>
-		<div class="messages"><p class="updated"><?php esc_html_e('Yours profile was updated successfully!', 'wpfep'); ?></p></div>
+    ?>
+        <div class="messages">
+            <p class="updated"><?php esc_html_e('Yours profile was updated successfully!', 'wpfep'); ?></p>
+        </div>
 
-		<?php
+    <?php
     } ?>
-	<script type="text/javascript">
-			jQuery(document).ready(function(){
-				jQuery('html, body').animate({
-				scrollTop: jQuery("div.wpfep-wrapper").offset().top
-			}, 1000);
-			});
-	</script>
-	<?php
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('html, body').animate({
+                scrollTop: jQuery("div.wpfep-wrapper").offset().top
+            }, 1000);
+        });
+    </script>
+    <?php
 }
 
 add_action('wpfep_before_tabs', 'wpfep_save_fields', 5, 2);
@@ -228,7 +248,7 @@ function wpfep_save_password($tabs, $user_id)
     $messages = array();
 
     /* get the posted data from the password tab */
-    if (! isset($_POST['password']) || ! wp_verify_nonce($_POST['wpfep_nonce_name'], 'wpfep_nonce_action')) {
+    if (!isset($_POST['password']) || !wp_verify_nonce($_POST['wpfep_nonce_name'], 'wpfep_nonce_action')) {
         return;
     }
     $data = (isset($_POST['password'])) ? $_POST['password'] : '';
@@ -310,43 +330,44 @@ function wpfep_save_password($tabs, $user_id)
         if ('off' != $password_change_mail) {
             wp_mail($user->user_email, $subject, $message);
         } ?>
-		<style type="text/css">
-			.wpfep-wrapper .tab-content, .wpfep-wrapper ul#wpfep-tabs {
-				display: none !important;
-			}
-		</style>
-		<?php
+        <style type="text/css">
+            .wpfep-wrapper .tab-content,
+            .wpfep-wrapper ul#wpfep-tabs {
+                display: none !important;
+            }
+        </style>
+    <?php
         /* messages not empty therefore password failed */
     } else {
-        ?>
-		<div class="messages">
-		<?php
+    ?>
+        <div class="messages">
+            <?php
 
-        /* lets loop through the messages stored */
-        foreach ($messages as $message) {
+            /* lets loop through the messages stored */
+            foreach ($messages as $message) {
 
-            /* output the message */
-            echo wp_kses(
-                $message,
-                array(
+                /* output the message */
+                echo wp_kses(
+                    $message,
+                    array(
 
-                    'p' => array(
-                        'class' => array(),
-                    ),
-                )
-            );
-        } ?>
-		</div><!-- // messages -->
-		<?php
+                        'p' => array(
+                            'class' => array(),
+                        ),
+                    )
+                );
+            } ?>
+        </div><!-- // messages -->
+    <?php
     } ?>
-	<script type="text/javascript">
-			jQuery(document).ready(function(){
-			jQuery('html, body').animate({
-			scrollTop: jQuery("div.wpfep-wrapper").offset().top
-			}, 1000);
-			});
-	</script>
-	<?php
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('html, body').animate({
+                scrollTop: jQuery("div.wpfep-wrapper").offset().top
+            }, 1000);
+        });
+    </script>
+<?php
 }
 
 add_action('wpfep_before_tabs', 'wpfep_save_password', 10, 2);
