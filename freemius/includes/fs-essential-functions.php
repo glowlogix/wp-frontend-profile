@@ -400,8 +400,8 @@
                 if (! $is_module_active || ! $is_sdk_exists) {
                     unset($fs_active_plugins->plugins[ $sdk_relative_path ]);
 
-                    // No need to store the data since it will be stored in fs_update_sdk_newest_version()
-                    // or explicitly with update_option().
+                // No need to store the data since it will be stored in fs_update_sdk_newest_version()
+                // or explicitly with update_option().
                 } else {
                     $newest_sdk_data = $data;
                     $newest_sdk_path = $sdk_relative_path;
