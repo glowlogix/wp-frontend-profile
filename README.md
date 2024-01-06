@@ -40,7 +40,6 @@ See [FAQs](https://github.com/glowlogix/wp-frontend-profile/wiki/Frequently-Aske
 *	Profile Page `[wpfep-profile]`
 *	Edit Profile `[wpfep]`
 *	Register Page `[wpfep-register]`
-*	Register Page with Role `[wpfep-register role="subscriber"]`
 *	Login Page `[wpfep-login]`
 
 ## Installation
