@@ -74,19 +74,8 @@ if (! class_exists('WPFEP_Registration')) {
          *
          * @return string
          */
-        public function registration_form($atts)
+        public function registration_form()
         {
-            $atts = shortcode_atts(
-                array(
-                    'role' => '',
-                ),
-                $atts
-            );
-
-            $userrole = $atts['role'];
-
-            $roleencoded = $userrole;
-
             ob_start();
 
             if (is_user_logged_in()) {
@@ -101,7 +90,6 @@ if (! class_exists('WPFEP_Registration')) {
 
                 $args = array(
                     'action_url' => wpfep_get_option('register_page', 'wpfep_pages', false),
-                    'userrole'   => $roleencoded,
                 );
                 wpfep_load_template('registration.php', $args);
             }
@@ -220,13 +208,6 @@ if (! class_exists('WPFEP_Registration')) {
                 } else {
                     $user_web = '';
                 }
-                if (isset($_POST['role'])) {
-                    $user_role = sanitize_text_field(wp_unslash($_POST['role']));
-                } elseif (isset($_POST['urhidden']) && 'administrator' == $_POST['urhidden']) {
-                    $user_role = '';
-                } else {
-                    $user_role = (isset($_POST['urhidden']) ? sanitize_text_field(wp_unslash($_POST['urhidden'])) : '');
-                }
                 if (isset($_POST['g-recaptcha-response'])) {
                     if (empty($_POST['g-recaptcha-response'])) {
                         $this->registration_errors[] = __('reCaptcha is required', 'wpfep');
@@ -265,9 +246,6 @@ if (! class_exists('WPFEP_Registration')) {
                 $userdata['user_pass']   = sanitize_text_field(wp_unslash($_POST['pwd1']));
                 $userdata['description'] = $desc;
                 $userdata['user_url']    = $user_web;
-                if (get_role($user_role)) {
-                    $userdata['role'] = $user_role;
-                }
                 $send_link_activation         = wpfep_get_option('user_behave', 'wpfep_profile');
                 $manually_register            = wpfep_get_option('admin_can_register_user_manually', 'wpfep_profile', 'on');
                 $manually_approve_user        = wpfep_get_option('admin_manually_approve', 'wpfep_profile', 'on');
