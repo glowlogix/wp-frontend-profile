@@ -403,7 +403,6 @@
 
                 // No need to store the data since it will be stored in fs_update_sdk_newest_version()
                 // or explicitly with update_option().
-
                 } else {
                     $newest_sdk_data = $data;
                     $newest_sdk_path = $sdk_relative_path;
