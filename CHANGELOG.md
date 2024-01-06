@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.2] - 2023-01-06
+- Tested with WordPress version 6.4.2
+- fix logout issue from frontend #123
+- Fix vulnerable to privilege escalation #124
+
 ## [1.3.1] - 2023-10-14
 - Tested with WordPress version 6.3.2 #121
 - Update Freemius SDK version #121
