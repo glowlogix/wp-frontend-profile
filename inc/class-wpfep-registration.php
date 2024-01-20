@@ -105,12 +105,14 @@ if (! class_exists('WPFEP_Registration')) {
         public function process_registration()
         {
             if (! empty($_POST['wpfep_registration']) && ! empty($_POST['_wpnonce'])) {
-                $userdata = array();
-
                 if (isset($_POST['_wpnonce'])) {
-                    wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_registration_action');
+                    $nonce_action = 'wpfep_registration_action';
+                    if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), $nonce_action)) {
+                        wp_die();
+                    }
                 }
 
+                $userdata = array();
                 $validation_error = new WP_Error();
                 $validation_error = apply_filters('wpfep_process_registration_errors', $validation_error, sanitize_text_field(wp_unslash(isset($_POST['wpfep_reg_email']))), sanitize_text_field(wp_unslash(isset($_POST['wpfep_reg_uname']))), sanitize_text_field(wp_unslash(isset($_POST['pwd1']))), sanitize_text_field(wp_unslash(isset($_POST['pwd2']))));
 
@@ -427,15 +429,25 @@ if (! class_exists('WPFEP_Registration')) {
          */
         public function get_post_value($key)
         {
+            // Check if the nonce is set in the POST request
             if (isset($_POST['_wpnonce'])) {
-                wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_registration_action');
+                // Verify the nonce
+                $nonce_verified = wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_registration_action');
+
+                if (!$nonce_verified) {
+                    return '';
+                }
             }
-            if (isset($_POST[ $key ])) {
-                return esc_attr(sanitize_text_field(wp_unslash($_POST[ $key ])));
+
+            // Check if the key is set in the POST request
+            if (isset($_POST[$key])) {
+                return esc_attr(sanitize_text_field(wp_unslash($_POST[$key])));
             }
 
             return '';
         }
+
+
 
         /**
          * Show messages on the form.

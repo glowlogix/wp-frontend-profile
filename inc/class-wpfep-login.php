@@ -259,11 +259,11 @@ if (! class_exists('WPFEP_Login')) {
         public function process_login()
         {
             if (! empty($_POST['wpfep_login']) && ! empty($_POST['_wpnonce'])) {
+                if (!wp_verify_nonce(sanitize_key($_POST['_wpnonce']), 'wpfep_login_action')) {
+                    wp_die();
+                }
                 $creds                 = array();
                 $manually_approve_user = wpfep_get_option('admin_manually_approve', 'wpfep_profile', 'on');
-                if (isset($_POST['_wpnonce'])) {
-                    wp_verify_nonce(sanitize_key($_POST['_wpnonce']), 'wpfep_login_action');
-                }
 
                 $validation_error = new WP_Error();
                 $validation_error = apply_filters('wpfep_process_login_errors', $validation_error, sanitize_text_field(wp_unslash(isset($_POST['log']))), sanitize_text_field(wp_unslash(isset($_POST['pwd']))));
@@ -346,7 +346,6 @@ if (! class_exists('WPFEP_Login')) {
 
                 if (is_wp_error($user)) {
                     $this->login_errors[] = $user->get_error_message();
-
                     return;
                 } else {
                     $redirect = $this->login_redirect();
@@ -365,9 +364,14 @@ if (! class_exists('WPFEP_Login')) {
         {
             $redirect_to = wpfep_get_option('redirect_after_login_page', 'wpfep_profile', false);
 
-            if ('previous_page' == $redirect_to && ! empty($_POST['redirect_to'])) {
-                return esc_url(wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['redirect_to']))));
+            if ('previous_page' == $redirect_to && !empty($_POST['redirect_to'])) {
+                if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_login_action')) {
+                    return esc_url($_POST['redirect_to']);
+                } else {
+                    return home_url();
+                }
             }
+
 
             $redirect = get_permalink($redirect_to);
 
@@ -407,12 +411,14 @@ if (! class_exists('WPFEP_Login')) {
 
             // process lost password form.
             if (isset($_POST['user_login']) && isset($_POST['_wpnonce'])) {
-                wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass');
-
-                if ($this->retrieve_password()) {
-                    $url = add_query_arg(array( 'checkemail' => 'confirm' ), $this->get_login_url());
-                    wp_redirect($url);
-                    exit;
+                if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
+                    if ($this->retrieve_password()) {
+                        $url = add_query_arg(array('checkemail' => 'confirm'), $this->get_login_url());
+                        wp_redirect($url);
+                        exit;
+                    }
+                } else {
+                    wp_die();
                 }
             }
 
@@ -426,70 +432,71 @@ if (! class_exists('WPFEP_Login')) {
                     $args['key']   = $_POST['key'];
                     $args['login'] = sanitize_text_field(wp_unslash($_POST['login']));
 
-                    wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_reset_pass');
-
-                    if (empty($_POST['pass1']) || empty($_POST['pass2'])) {
-                        $this->login_errors[] = __('Please enter your password.', 'wpfep');
-
-                        return;
-                    }
-
-                    if ($_POST['pass1'] !== $_POST['pass2']) {
-                        $this->login_errors[] = __('Passwords do not match.', 'wpfep');
-
-                        return;
-                    }
-                    $enable_strong_pwd = wpfep_get_option('strong_password', 'wpfep_general');
-                    if ('off' != $enable_strong_pwd) {
-                        /* get the length of the password entered */
-                        $password    = $_POST['pass1'];
-                        $pass_length = strlen($password);
-
-                        /* check the password match the correct length */
-                        if ($pass_length < 12) {
-                            /* add message indicating length issue!! */
-
-                            $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Please make sure your password is a minimum of 12  characters long', 'wpfep');
-
+                    if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_reset_pass')) {
+                        if (empty($_POST['pass1']) || empty($_POST['pass2'])) {
+                            $this->login_errors[] = __('Please enter your password.', 'wpfep');
                             return;
                         }
 
-                        /**
-                         * Match the password against a regex of complexity
-                         * at least 1 upper, 1 lower case letter and 1 number.
-                         */
-                        $pass_complexity = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/', $password);
-
-                        /* check whether the password passed the regex check of complexity */
-                        if (false == $pass_complexity) {
-                            /* add message indicating complexity issue */
-                            $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep');
-
+                        if ($_POST['pass1'] !== $_POST['pass2']) {
+                            $this->login_errors[] = __('Passwords do not match.', 'wpfep');
                             return;
                         }
-                    }
 
-                    $errors = new WP_Error();
+                        $enable_strong_pwd = wpfep_get_option('strong_password', 'wpfep_general');
 
-                    do_action('validate_password_reset', $errors, $user);
+                        if ('off' != $enable_strong_pwd) {
+                            /* get the length of the password entered */
+                            $password    = $_POST['pass1'];
+                            $pass_length = strlen($password);
 
-                    if ($errors->get_error_messages()) {
-                        foreach ($errors->get_error_messages() as $error) {
-                            $this->login_errors[] = $error;
+                            /* check the password match the correct length */
+                            if ($pass_length < 12) {
+                                /* add message indicating length issue!! */
+                                $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Please make sure your password is a minimum of 12 characters long', 'wpfep');
+                                return;
+                            }
+
+                            /**
+                             * Match the password against a regex of complexity
+                             * at least 1 upper, 1 lower case letter and 1 number.
+                             */
+                            $pass_complexity = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d,.;:]).+$/', $password);
+
+                            /* check whether the password passed the regex check of complexity */
+                            if (false == $pass_complexity) {
+                                /* add message indicating complexity issue */
+                                $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Your password must contain at least 1 uppercase, 1 lowercase letter and at least 1 number.', 'wpfep');
+                                return;
+                            }
                         }
 
+                        $errors = new WP_Error();
+
+                        do_action('validate_password_reset', $errors, $user);
+
+                        if ($errors->get_error_messages()) {
+                            foreach ($errors->get_error_messages() as $error) {
+                                $this->login_errors[] = $error;
+                            }
+                            return;
+                        }
+
+                        if (! $this->login_errors) {
+                            $this->reset_password($user, $_POST['pass1']);
+
+                            do_action('wpfep_customer_reset_password', $user);
+
+                            wp_redirect(add_query_arg('reset', 'true', remove_query_arg(array('key', 'login'))));
+                            exit;
+                        }
+                    } else {
+                        // Nonce is not valid, handle the error or exit
+                        $this->login_errors[] = __('Invalid nonce.', 'wpfep');
                         return;
-                    }
-
-                    if (! $this->login_errors) {
-                        $this->reset_password($user, $_POST['pass1']);
-
-                        do_action('wpfep_customer_reset_password', $user);
-
-                        wp_redirect(add_query_arg('reset', 'true', remove_query_arg(array( 'key', 'login' ))));
-                        exit;
                     }
                 }
+
             }
         }
 
@@ -504,23 +511,18 @@ if (! class_exists('WPFEP_Login')) {
         {
             global $wpdb, $wp_hasher;
 
-            if (isset($_POST['_wpnonce'])) {
-                wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass');
+            if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
                 if (empty($_POST['user_login'])) {
                     $this->login_errors[] = __('Enter a username or e-mail address.', 'wpfep');
-
                     return;
                 } elseif (strpos(sanitize_text_field(wp_unslash($_POST['user_login'])), '@') && apply_filters('wpfep_get_username_from_email', true)) {
                     $user_data = get_user_by('email', sanitize_text_field(wp_unslash($_POST['user_login'])));
-
                     if (empty($user_data)) {
                         $this->login_errors[] = __('There is no user registered with that email address.', 'wpfep');
-
                         return;
                     }
                 } else {
                     $login = sanitize_text_field(wp_unslash($_POST['user_login']));
-
                     $user_data = get_user_by('login', $login);
                 }
             }
@@ -533,7 +535,6 @@ if (! class_exists('WPFEP_Login')) {
 
             if (! $user_data) {
                 $this->login_errors[] = __('Invalid username or e-mail.', 'wpfep');
-
                 return false;
             }
 
