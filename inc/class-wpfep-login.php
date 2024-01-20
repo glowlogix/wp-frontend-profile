@@ -496,7 +496,6 @@ if (! class_exists('WPFEP_Login')) {
                         return;
                     }
                 }
-
             }
         }
 
