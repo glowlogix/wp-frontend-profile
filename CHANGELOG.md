@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.3] - 2023-01-29
+- Fix WP nonce verification issue   #130
+
 ## [1.3.2] - 2023-01-06
 - Tested with WordPress version 6.4.2
 - fix logout issue from frontend #123
@@ -74,9 +77,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [1.2.0] - 2020-04-04
 ### Added
-- Implement Add/Edit/Remove/Clone Role #36 #37 #39 #38 
-- Implement Assign Capabilities to Roles #44 
-- Implement Unassign Capabilities of Role #45 
+- Implement Add/Edit/Remove/Clone Role #36 #37 #39 #38
+- Implement Assign Capabilities to Roles #44
+- Implement Unassign Capabilities of Role #45
 - Implement Shortcode Role Assignment #35
 
 ### Fixed
