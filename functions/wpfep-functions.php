@@ -979,7 +979,7 @@ if ('on' == $manually_approve_user) {
     {
         if (! empty($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : '' && in_array(sanitize_text_field(wp_unslash($_GET['action'])), array( 'approve', 'rejected' )) && ! empty($_GET['new_role'] ? sanitize_text_field(wp_unslash($_GET['new_role'])) : '')) {
             $request    = sanitize_text_field(wp_unslash($_GET['action']));
-            $request_id = intval($_GET['user']);
+            $request_id = intval(isset($_GET['user']));
             $user_data  = get_userdata($request_id);
             if ('approve' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);

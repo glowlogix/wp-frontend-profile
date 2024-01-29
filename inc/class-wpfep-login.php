@@ -390,7 +390,6 @@ if (! class_exists('WPFEP_Login')) {
         public function process_logout()
         {
             if (isset($_GET['action']) && 'logout' == $_GET['action']) {
-                check_admin_referer('log-out');
                 wp_logout();
 
                 $redirect_to = ! empty($_REQUEST['redirect_to']) ? sanitize_text_field(wp_unslash($_REQUEST['redirect_to'])) : add_query_arg(array( 'loggedout' => 'true' ), $this->get_login_url());
