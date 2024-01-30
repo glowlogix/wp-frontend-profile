@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  * Main class for WP Frontend Profile.
  */
 if (! defined('WPFEP_VERSION')) {
-    define('WPFEP_VERSION', '1.3.1');
+    define('WPFEP_VERSION', '1.3.3');
 }
 if (! defined('WPFEP_PATH')) {
     define('WPFEP_PATH', plugin_dir_path(__FILE__));
