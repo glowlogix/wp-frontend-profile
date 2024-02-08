@@ -567,13 +567,16 @@ function wpfep_decryption($id)
  */
 function wpfep_hide_review_ask()
 {
-    if (isset($_POST['_wpnonce'])) {
-        wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_feedback_action');
+    if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_feedback_action')) {
+        $ask_review_date = isset($_POST['Ask_Review_Date']) ? sanitize_text_field(wp_unslash($_POST['Ask_Review_Date'])) : '';
+
+        if (get_option('wpfep_Ask_Review_Date') < time() + 3600 * 24 * $ask_review_date) {
+            update_option('wpfep_Ask_Review_Date', time() + 3600 * 24 * $ask_review_date);
+        }
+    } else {
+        wp_die();
     }
-    $ask_review_date = isset($_POST['Ask_Review_Date']) ? sanitize_text_field(wp_unslash($_POST['Ask_Review_Date'])) : '';
-    if (get_option('wpfep_Ask_Review_Date') < time() + 3600 * 24 * $ask_review_date) {
-        update_option('wpfep_Ask_Review_Date', time() + 3600 * 24 * $ask_review_date);
-    }
+
     die();
 }
 add_action('wp_ajax_wpfep_hide_review_ask', 'wpfep_hide_review_ask');
@@ -583,19 +586,20 @@ add_action('wp_ajax_wpfep_hide_review_ask', 'wpfep_hide_review_ask');
  */
 function wpfep_send_feedback()
 {
-    if (isset($_POST['_wpnonce'])) {
-        wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_feedback_action');
+    if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_feedback_action')) {
+        $headers   = 'Content-type: text/html;charset=utf-8' . "\r\n";
+        $feedback  = 'Feedback: <br>';
+        $feedback .= isset($_POST['Feedback']) ? sanitize_text_field(wp_unslash($_POST['Feedback'])) : '';
+        $feedback .= '<br /><br /> site url: <a href=' . site_url() . '>' . site_url() . '</a>';
+        $feedback .= '<br />Email Address: ';
+        $feedback .= isset($_POST['EmailAddress']) ? sanitize_text_field(wp_unslash($_POST['EmailAddress'])) : '';
+        wp_mail('support@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $feedback, $headers);
+    } else {
+        wp_die();
     }
-    $headers   = 'Content-type: text/html;charset=utf-8' . "\r\n";
-    $feedback  = 'Feedback: <br>';
-    $feedback .= isset($_POST['Feedback']) ? sanitize_text_field(wp_unslash($_POST['Feedback'])) : '';
-    $feedback .= '<br /><br /> site url: <a href=' . site_url() . '>' . site_url() . '</a>';
-    $feedback .= '<br />Email Address: ';
-    $feedback .= isset($_POST['EmailAddress']) ? sanitize_text_field(wp_unslash($_POST['EmailAddress'])) : '';
-    wp_mail('support@glowlogix.com', 'WP Frontend Profile Plugin Feedback', $feedback, $headers);
-    die();
 }
 add_action('wp_ajax_wpfep_send_feedback', 'wpfep_send_feedback');
+
 
 /**
  * Wpfep_let_to_num function.
@@ -975,7 +979,7 @@ if ('on' == $manually_approve_user) {
     {
         if (! empty($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : '' && in_array(sanitize_text_field(wp_unslash($_GET['action'])), array( 'approve', 'rejected' )) && ! empty($_GET['new_role'] ? sanitize_text_field(wp_unslash($_GET['new_role'])) : '')) {
             $request    = sanitize_text_field(wp_unslash($_GET['action']));
-            $request_id = intval(isset($_GET['user']));
+            $request_id = intval($_GET['user']);
             $user_data  = get_userdata($request_id);
             if ('approve' == $request) {
                 update_user_meta($request_id, 'wpfep_user_status', $request);

@@ -5,7 +5,7 @@ Donate link: https://www.glowlogix.com
 Tags: profile, users, user meta, register, login
 Requires at least: 4.0.1
 Tested up to: 6.4.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Requires PHP: 5.2.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,7 +72,7 @@ Tabs can be added using the `wpfep_tabs` filter provided. Below is an example of
 `
 <?php
 function wpmark_add_tab( $tabs ) {
-	
+
 	/* add our tab to the tabs array */
 	$tabs[] = array(
 		'id' => 'wpmark_tab',
@@ -80,10 +80,10 @@ function wpmark_add_tab( $tabs ) {
 		'tab_class' => 'testing-tab',
 		'content_class' => 'testing-content',
 	);
-	
+
 	/* return all the tabs */
 	return $tabs;
-	
+
 }
 
 add_filter( 'wpfep_tabs', 'wpmark_add_tab', 30 );
@@ -99,7 +99,7 @@ Fields can be added to a tab using a dynamic filter named `wpfep_fields_$tab_id`
 `
 <?php
 function wpmark_add_tab_fields( $fields ) {
-	
+
 	$fields[] = array(
 		'id' => 'testing_field',
 		'label' => 'Testing',
@@ -107,7 +107,7 @@ function wpmark_add_tab_fields( $fields ) {
 		'type' => 'text',
 		'classes' => 'testing',
 	);
-	
+
 	return $fields;
 
 }
@@ -123,10 +123,10 @@ Yes there are two field IDs reserved which are `user_email` and `user_url`. This
 == Screenshots ==
 
 1. WP frontend profile edit page.
-2. WP frontend profile register page. 
-3. WP frontend profile login page. 
+2. WP frontend profile register page.
+3. WP frontend profile login page.
 4. WP frontend profile setting area.
-5. WP frontend profile tool area. 
+5. WP frontend profile tool area.
 6. WP frontend profile system status area.
 
 == Changelog ==
