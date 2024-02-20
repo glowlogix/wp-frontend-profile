@@ -259,9 +259,10 @@ if (! class_exists('WPFEP_Login')) {
         public function process_login()
         {
             if (! empty($_POST['wpfep_login']) && ! empty($_POST['_wpnonce'])) {
-                if (!wp_verify_nonce(sanitize_key($_POST['_wpnonce']), 'wpfep_login_action')) {
+                if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_key($_POST['_wpnonce']), 'wpfep_login_action')) {
                     wp_die();
                 }
+
                 $creds                 = array();
                 $manually_approve_user = wpfep_get_option('admin_manually_approve', 'wpfep_profile', 'on');
 
@@ -368,7 +369,7 @@ if (! class_exists('WPFEP_Login')) {
                 if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_login_action')) {
                     return esc_url($_POST['redirect_to']);
                 } else {
-                    return home_url();
+                    wp_die();
                 }
             }
 
@@ -411,17 +412,16 @@ if (! class_exists('WPFEP_Login')) {
             }
 
             // process lost password form.
-            if (isset($_POST['user_login']) && isset($_POST['_wpnonce'])) {
-                if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
-                    if ($this->retrieve_password()) {
-                        $url = add_query_arg(array('checkemail' => 'confirm'), $this->get_login_url());
-                        wp_redirect($url);
-                        exit;
-                    }
-                } else {
-                    wp_die();
+            if (!isset($_POST['user_login']) || !isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
+                wp_die();
+            } else {
+                if ($this->retrieve_password()) {
+                    $url = add_query_arg(array('checkemail' => 'confirm'), $this->get_login_url());
+                    wp_redirect($url);
+                    exit;
                 }
             }
+
 
             // process reset password form.
             if (isset($_POST['pass1']) && isset($_POST['pass2']) && isset($_POST['key']) && isset($_POST['login']) && isset($_POST['_wpnonce'])) {
@@ -511,7 +511,9 @@ if (! class_exists('WPFEP_Login')) {
         {
             global $wpdb, $wp_hasher;
 
-            if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
+                wp_die();
+            } else {
                 if (empty($_POST['user_login'])) {
                     $this->login_errors[] = __('Enter a username or e-mail address.', 'wpfep');
                     return;
@@ -526,6 +528,7 @@ if (! class_exists('WPFEP_Login')) {
                     $user_data = get_user_by('login', $login);
                 }
             }
+
 
             do_action('lostpassword_post');
 
