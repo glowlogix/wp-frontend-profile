@@ -369,7 +369,7 @@ if (! class_exists('WPFEP_Login')) {
                 if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_login_action')) {
                     return esc_url($_POST['redirect_to']);
                 } else {
-                    wp_die();
+                    return home_url();
                 }
             }
 
