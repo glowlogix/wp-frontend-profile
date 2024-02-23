@@ -435,8 +435,7 @@ if (! class_exists('WPFEP_Login')) {
 
                     if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_reset_pass')) {
                         wp_die();
-                    }
-                    else {
+                    } else {
                         if (empty($_POST['pass1']) || empty($_POST['pass2'])) {
                             $this->login_errors[] = __('Please enter your password.', 'wpfep');
                             return;
