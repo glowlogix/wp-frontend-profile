@@ -105,11 +105,10 @@ if (! class_exists('WPFEP_Registration')) {
         public function process_registration()
         {
             if (! empty($_POST['wpfep_registration']) && ! empty($_POST['_wpnonce'])) {
-                if (isset($_POST['_wpnonce'])) {
-                    $nonce_action = 'wpfep_registration_action';
-                    if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), $nonce_action)) {
-                        wp_die();
-                    }
+                $nonce_action = 'wpfep_registration_action';
+
+                if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), $nonce_action)) {
+                    wp_die();
                 }
 
                 $userdata = array();
@@ -430,14 +429,12 @@ if (! class_exists('WPFEP_Registration')) {
         public function get_post_value($key)
         {
             // Check if the nonce is set in the POST request
-            if (isset($_POST['_wpnonce'])) {
-                // Verify the nonce
-                $nonce_verified = wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_registration_action');
+            $nonce_action = 'wpfep_registration_action';
 
-                if (!$nonce_verified) {
-                    return '';
-                }
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), $nonce_action)) {
+                return '';
             }
+
 
             // Check if the key is set in the POST request
             if (isset($_POST[$key])) {

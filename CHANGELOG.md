@@ -4,10 +4,14 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
-## [1.3.3] - 2023-01-29
+## [1.3.4] - 2024-02-23
+- Tested with WordPress version 6.4.4 #132
+- Fix nonce bypass issue
+
+## [1.3.3] - 2024-01-29
 - Fix WP nonce verification issue   #130
 
-## [1.3.2] - 2023-01-06
+## [1.3.2] - 2024-01-06
 - Tested with WordPress version 6.4.2
 - fix logout issue from frontend #123
 - Fix vulnerable to privilege escalation #124
