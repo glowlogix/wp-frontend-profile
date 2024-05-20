@@ -27,9 +27,13 @@ jQuery( document ).ready(function() {
     jQuery('.wpfep-main-dashboard-review-ask').css('display', 'block');
 
     jQuery('.wpfep-main-dashboard-review-ask').on('click', function(event) {
-        if (jQuery(event.srcElement).hasClass('notice-dismiss')) {
-            var data = 'Ask_Review_Date=3&action=wpfep_hide_review_ask';
-            jQuery.post(ajaxurl, data, function() {});
+        if (jQuery(event.target).hasClass('notice-dismiss')) {
+            var data = {
+                'Ask_Review_Date': 3,
+                'action': 'wpfep_hide_review_ask',
+                '_wpnonce': wpfep_ajax.nonce
+            };
+            jQuery.post(wpfep_ajax.ajax_url, data, function() { });
         }
     });
 
@@ -43,8 +47,12 @@ jQuery( document ).ready(function() {
         jQuery('.wpfep-review-ask-not-really').addClass('wpfep-hidden');
         jQuery('.wpfep-review-ask-yes').addClass('wpfep-hidden');
 
-        var data = 'Ask_Review_Date=7&action=wpfep_hide_review_ask';
-        jQuery.post(ajaxurl, data, function() {});
+        var data = {
+            'Ask_Review_Date': 7,
+            'action': 'wpfep_hide_review_ask',
+            '_wpnonce': wpfep_ajax.nonce
+        };
+        jQuery.post(wpfep_ajax.ajax_url, data, function() {});
     });
 
     jQuery('.wpfep-review-ask-not-really').on('click', function() {
@@ -54,13 +62,21 @@ jQuery( document ).ready(function() {
         jQuery('.wpfep-review-ask-feedback-form').removeClass('wpfep-hidden');
         jQuery('.wpfep-review-ask-actions').addClass('wpfep-hidden');
 
-        var data = 'Ask_Review_Date=1000&action=wpfep_hide_review_ask';
-        jQuery.post(ajaxurl, data, function() {});
+        var data = {
+            'Ask_Review_Date': 1000,
+            'action': 'wpfep_hide_review_ask',
+            '_wpnonce': wpfep_ajax.nonce
+        };
+        jQuery.post(wpfep_ajax.ajax_url, data, function() {});
     });
 
     jQuery('.wpfep-review-ask-no-thanks').on('click', function() {
-        var data = 'Ask_Review_Date=1000&action=wpfep_hide_review_ask';
-        jQuery.post(ajaxurl, data, function() {});
+        var data = {
+            'Ask_Review_Date': 1000,
+            'action': 'wpfep_hide_review_ask',
+            '_wpnonce': wpfep_ajax.nonce
+        };
+        jQuery.post(wpfep_ajax.ajax_url, data, function() {});
 
         jQuery('.wpfep-main-dashboard-review-ask').css('display', 'none');
     });
@@ -69,8 +85,12 @@ jQuery( document ).ready(function() {
         jQuery('.wpfep-review-ask-feedback-text').addClass('wpfep-hidden');
         jQuery('.wpfep-review-ask-thank-you-text').removeClass('wpfep-hidden');
 
-        var data = 'Ask_Review_Date=1000&action=wpfep_hide_review_ask';
-        jQuery.post(ajaxurl, data, function() {});
+        var data = {
+            'Ask_Review_Date': 1000,
+            'action': 'wpfep_hide_review_ask',
+            '_wpnonce': wpfep_ajax.nonce
+        };
+        jQuery.post(wpfep_ajax.ajax_url, data, function() {});
     });
 
     jQuery('.wpfep-review-ask-send-feedback').on('click', function() {
@@ -80,16 +100,25 @@ jQuery( document ).ready(function() {
             alert('Feedback is required.');
         }
         else{
-            var data = 'Feedback=' + Feedback + '&EmailAddress=' + EmailAddress + '&action=wpfep_send_feedback';
-            jQuery.post(ajaxurl, data, function() {});
+            var data = {
+                'Feedback': Feedback,
+                'EmailAddress': EmailAddress,
+                'action': 'wpfep_send_feedback',
+                '_wpnonce': wpfep_ajax.nonce
+            };
+            jQuery.post(wpfep_ajax.ajax_url, data, function() {});
 
-            var data = 'Ask_Review_Date=1000&action=wpfep_hide_review_ask';
-            jQuery.post(ajaxurl, data, function() {});
+            var data = {
+                'Ask_Review_Date': 1000,
+                'action': 'wpfep_hide_review_ask',
+                '_wpnonce': wpfep_ajax.nonce
+            };
+            jQuery.post(wpfep_ajax.ajax_url, data, function() {});
 
             jQuery('.wpfep-review-ask-feedback-form').addClass('wpfep-hidden');
             jQuery('.wpfep-review-ask-review-text').addClass('wpfep-hidden');
             jQuery('.wpfep-review-ask-thank-you-text').removeClass('wpfep-hidden');
-            jQuery('.wpfep-main-dashboard-review-ask').delay( 1000 ).fadeOut();
+            jQuery('.wpfep-main-dashboard-review-ask').delay(1000).fadeOut();
         }
     });
 });

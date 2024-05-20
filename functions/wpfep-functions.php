@@ -1008,3 +1008,13 @@ if ('on' == $manually_approve_user) {
     }
     add_action('load-users.php', 'update_action');
 }
+function wpfep_enqueue_custom_scripts() {
+    wp_enqueue_script('your-script-handle', plugin_dir_url(__FILE__) . '../assets/js/admin.js', array('jquery'), null, true);
+
+    // Localize the script with new data
+    wp_localize_script('your-script-handle', 'wpfep_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('wpfep_feedback_action')
+    ));
+}
+add_action('admin_enqueue_scripts', 'wpfep_enqueue_custom_scripts');

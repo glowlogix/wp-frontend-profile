@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.5] - 2024-05-20
+- Tested with WordPress version 6.5.4 #134
+- Fix Password Reset Link #128
+- Fix Wordpress Imminent #134
+- Fix Feedback Issue #135
+- Fix Delete Issue #136
+
 ## [1.3.4] - 2024-02-23
 - Tested with WordPress version 6.4.4 #132
 - Fix nonce bypass issue
