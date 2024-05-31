@@ -4,7 +4,7 @@ Contributors: glowlogix, wpmarkuk
 Donate link: https://www.glowlogix.com
 Tags: profile, users, user meta, register, login
 Requires at least: 4.0.1
-Tested up to: 6.5.2
+Tested up to: 6.5.4
 Stable tag: 1.3.5
 Requires PHP: 5.2.17
 License: GPLv2 or later
