@@ -6,12 +6,12 @@
      * @since       1.0.0
      */
 
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
-    class FS_Payment extends FS_Entity {
-
+    class FS_Payment extends FS_Entity
+    {
         #region Properties
 
         /**
@@ -89,11 +89,13 @@
         /**
          * @param object|bool $payment
          */
-        function __construct( $payment = false ) {
-            parent::__construct( $payment );
+        public function __construct($payment = false)
+        {
+            parent::__construct($payment);
         }
 
-        static function get_type() {
+        public static function get_type()
+        {
             return 'payment';
         }
 
@@ -103,8 +105,9 @@
          *
          * @return bool
          */
-        function is_refund() {
-            return ( parent::is_valid_id( $this->bound_payment_id ) && 0 > $this->gross );
+        public function is_refund()
+        {
+            return (parent::is_valid_id($this->bound_payment_id) && 0 > $this->gross);
         }
 
         /**
@@ -115,8 +118,9 @@
          *
          * @return bool
          */
-        function is_migrated() {
-            return ( 0 != $this->source );
+        public function is_migrated()
+        {
+            return (0 != $this->source);
         }
 
         /**
@@ -130,13 +134,13 @@
          *
          * @return string
          */
-        function formatted_gross()
+        public function formatted_gross()
         {
             return (
-                ( $this->gross < 0 ? '-' : '' ) .
+                ($this->gross < 0 ? '-' : '') .
                 $this->get_symbol() .
-                number_format( abs( $this->gross ), 2, '.', ',' ) . ' ' .
-                strtoupper( $this->currency )
+                number_format(abs($this->gross), 2, '.', ',') . ' ' .
+                strtoupper($this->currency)
             );
         }
 
@@ -145,7 +149,7 @@
          *
          * @var array<string,string>
          */
-        static $CURRENCY_2_SYMBOL;
+        public static $CURRENCY_2_SYMBOL;
 
         /**
          * @author Leo Fajardo (@leorw)
@@ -153,8 +157,9 @@
          *
          * @return string
          */
-        private function get_symbol() {
-            if ( ! isset( self::$CURRENCY_2_SYMBOL ) ) {
+        private function get_symbol()
+        {
+            if (! isset(self::$CURRENCY_2_SYMBOL)) {
                 // Lazy load.
                 self::$CURRENCY_2_SYMBOL = array(
                     self::CURRENCY_USD => '$',
