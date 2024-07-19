@@ -6,7 +6,7 @@
      * @since       2.1.0
      */
 
-    if (! defined('ABSPATH')) {
+    if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
 
@@ -15,8 +15,7 @@
     /**
      * Class FS_User_Lock
      */
-    class FS_User_Lock
-    {
+    class FS_User_Lock {
         /**
          * @var FS_Lock
          */
@@ -37,9 +36,8 @@
          *
          * @return FS_User_Lock
          */
-        public static function instance()
-        {
-            if (! isset(self::$_instance)) {
+        static function instance() {
+            if ( ! isset( self::$_instance ) ) {
                 self::$_instance = new self();
             }
 
@@ -48,11 +46,10 @@
 
         #endregion
 
-        private function __construct()
-        {
+        private function __construct() {
             $current_user_id = Freemius::get_current_wp_user_id();
 
-            $this->_lock = new FS_Lock("locked_{$current_user_id}");
+            $this->_lock = new FS_Lock( "locked_{$current_user_id}" );
         }
 
         /**
@@ -65,9 +62,8 @@
          *
          * @return bool TRUE if successfully acquired lock.
          */
-        public function try_lock($expiration = 0)
-        {
-            return $this->_lock->try_lock($expiration);
+        function try_lock( $expiration = 0 ) {
+            return $this->_lock->try_lock( $expiration );
         }
 
         /**
@@ -78,9 +74,8 @@
          *
          * @param int $expiration
          */
-        public function lock($expiration = 0)
-        {
-            $this->_lock->lock($expiration);
+        function lock( $expiration = 0 ) {
+            $this->_lock->lock( $expiration );
         }
 
         /**
@@ -89,8 +84,7 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.1.0
          */
-        public function unlock()
-        {
+        function unlock() {
             $this->_lock->unlock();
         }
     }

@@ -1,25 +1,24 @@
 <?php
-    /**
-     * @package     Freemius
-     * @copyright   Copyright (c) 2018, Freemius, Inc.
-     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-     * @since       2.0.0
-     */
+	/**
+	 * @package     Freemius
+	 * @copyright   Copyright (c) 2018, Freemius, Inc.
+	 * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+	 * @since       2.0.0
+	 */
 
-    if (! defined('ABSPATH')) {
-        exit;
-    }
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	}
 
-    class FS_Plugin_Tag extends FS_Entity
-    {
+	class FS_Plugin_Tag extends FS_Entity {
         /**
          * @var string
          */
-        public $version;
+		public $version;
         /**
          * @var string
          */
-        public $url;
+		public $url;
         /**
          * @var string
          */
@@ -45,15 +44,13 @@
          */
         public $release_mode;
 
-        public function __construct($tag = false)
-        {
-            parent::__construct($tag);
-        }
+		function __construct( $tag = false ) {
+			parent::__construct( $tag );
+		}
 
-        public static function get_type()
-        {
-            return 'tag';
-        }
+		static function get_type() {
+			return 'tag';
+		}
 
         /**
          * @author Leo Fajardo (@leorw)
@@ -61,8 +58,7 @@
          *
          * @return bool
          */
-        public function is_beta()
-        {
-            return ('beta' === $this->release_mode);
+		function is_beta() {
+		    return ( 'beta' === $this->release_mode );
         }
-    }
+	}

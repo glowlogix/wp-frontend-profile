@@ -6,7 +6,7 @@
      * @since       2.5.1
      */
 
-    if (! defined('ABSPATH')) {
+    if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
 
@@ -16,8 +16,7 @@
      * @author Vova Feldman (@svovaf)
      * @since  2.5.1
      */
-    class FS_Lock
-    {
+    class FS_Lock {
         /**
          * @var int Random ID representing the current PHP thread.
          */
@@ -30,16 +29,15 @@
         /**
          * @param string $lock_id
          */
-        public function __construct($lock_id)
-        {
-            if (! fs_starts_with($lock_id, WP_FS___OPTION_PREFIX)) {
+        function __construct( $lock_id ) {
+            if ( ! fs_starts_with( $lock_id, WP_FS___OPTION_PREFIX ) ) {
                 $lock_id = WP_FS___OPTION_PREFIX . $lock_id;
             }
 
             $this->_lock_id = $lock_id;
 
-            if (! isset(self::$_thread_id)) {
-                self::$_thread_id = mt_rand(0, 32000);
+            if ( ! isset( self::$_thread_id ) ) {
+                self::$_thread_id = mt_rand( 0, 32000 );
             }
         }
 
@@ -50,16 +48,15 @@
          *
          * @return bool TRUE if successfully acquired lock.
          */
-        public function try_lock($expiration = 0)
-        {
-            if ($this->is_locked()) {
+        function try_lock( $expiration = 0 ) {
+            if ( $this->is_locked() ) {
                 // Already locked.
                 return false;
             }
 
-            set_site_transient($this->_lock_id, self::$_thread_id, $expiration);
+            set_site_transient( $this->_lock_id, self::$_thread_id, $expiration );
 
-            if ($this->has_lock()) {
+            if ( $this->has_lock() ) {
                 $this->lock($expiration);
 
                 return true;
@@ -76,9 +73,8 @@
          *
          * @param int $expiration
          */
-        public function lock($expiration = 0)
-        {
-            set_site_transient($this->_lock_id, true, $expiration);
+        function lock( $expiration = 0 ) {
+            set_site_transient( $this->_lock_id, true, $expiration );
         }
 
         /**
@@ -89,9 +85,8 @@
          *
          * @return bool
          */
-        public function is_locked()
-        {
-            return (false !== get_site_transient($this->_lock_id));
+        function is_locked() {
+            return ( false !== get_site_transient( $this->_lock_id ) );
         }
 
         /**
@@ -100,9 +95,8 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.1.0
          */
-        public function unlock()
-        {
-            delete_site_transient($this->_lock_id);
+        function unlock() {
+            delete_site_transient( $this->_lock_id );
         }
 
         /**
@@ -110,8 +104,7 @@
          *
          * @return bool
          */
-        protected function has_lock()
-        {
-            return (self::$_thread_id == get_site_transient($this->_lock_id));
+        protected function has_lock() {
+            return ( self::$_thread_id == get_site_transient( $this->_lock_id ) );
         }
     }

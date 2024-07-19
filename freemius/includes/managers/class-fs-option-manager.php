@@ -6,7 +6,7 @@
      * @since       1.0.3
      */
 
-    if (! defined('ABSPATH')) {
+    if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
 
@@ -19,8 +19,7 @@
      *
      * Class Freemius_Option_Manager
      */
-    class FS_Option_Manager
-    {
+    class FS_Option_Manager {
         /**
          * @var string
          */
@@ -74,28 +73,28 @@
             $network_level_or_blog_id = false,
             $autoload = null
         ) {
-            $id = strtolower($id);
+            $id = strtolower( $id );
 
-            $this->_logger = FS_Logger::get_logger(WP_FS__SLUG . '_opt_mngr_' . $id, WP_FS__DEBUG_SDK, WP_FS__ECHO_DEBUG_SDK);
+            $this->_logger = FS_Logger::get_logger( WP_FS__SLUG . '_opt_mngr_' . $id, WP_FS__DEBUG_SDK, WP_FS__ECHO_DEBUG_SDK );
 
             $this->_logger->entrance();
-            $this->_logger->log('id = ' . $id);
+            $this->_logger->log( 'id = ' . $id );
 
             $this->_id = $id;
 
             $this->_autoload = $autoload;
 
-            if (is_multisite()) {
-                $this->_is_network_storage = (true === $network_level_or_blog_id);
+            if ( is_multisite() ) {
+                $this->_is_network_storage = ( true === $network_level_or_blog_id );
 
-                if (is_numeric($network_level_or_blog_id)) {
+                if ( is_numeric( $network_level_or_blog_id ) ) {
                     $this->_blog_id = $network_level_or_blog_id;
                 }
             } else {
                 $this->_is_network_storage = false;
             }
 
-            if ($load) {
+            if ( $load ) {
                 $this->load();
             }
         }
@@ -111,18 +110,18 @@
          *
          * @return \FS_Option_Manager
          */
-        public static function get_manager(
+        static function get_manager(
             $id,
             $load = false,
             $network_level_or_blog_id = false,
             $autoload = null
         ) {
-            $key = strtolower($id);
+            $key = strtolower( $id );
 
-            if (is_multisite()) {
-                if (true === $network_level_or_blog_id) {
+            if ( is_multisite() ) {
+                if ( true === $network_level_or_blog_id ) {
                     $key .= ':ms';
-                } elseif (is_numeric($network_level_or_blog_id) && $network_level_or_blog_id > 0) {
+                } else if ( is_numeric( $network_level_or_blog_id ) && $network_level_or_blog_id > 0 ) {
                     $key .= ":{$network_level_or_blog_id}";
                 } else {
                     $network_level_or_blog_id = get_current_blog_id();
@@ -131,7 +130,7 @@
                 }
             }
 
-            if (! isset(self::$_MANAGERS[ $key ])) {
+            if ( ! isset( self::$_MANAGERS[ $key ] ) ) {
                 self::$_MANAGERS[ $key ] = new FS_Option_Manager(
                     $id,
                     $load,
@@ -139,7 +138,7 @@
                     $autoload
                 );
             } // If load required but not yet loaded, load.
-            elseif ($load && ! self::$_MANAGERS[ $key ]->is_loaded()) {
+            else if ( $load && ! self::$_MANAGERS[ $key ]->is_loaded() ) {
                 self::$_MANAGERS[ $key ]->load();
             }
 
@@ -152,36 +151,35 @@
          *
          * @param bool $flush
          */
-        public function load($flush = false)
-        {
+        function load( $flush = false ) {
             $this->_logger->entrance();
 
-            if (! $flush && isset($this->_options)) {
+            if ( ! $flush && isset( $this->_options ) ) {
                 return;
             }
 
-            if (isset($this->_options)) {
+            if ( isset( $this->_options ) ) {
                 // Clear prev options.
                 $this->clear();
             }
 
             $option_name = $this->get_option_manager_name();
 
-            if ($this->_is_network_storage) {
-                $this->_options = get_site_option($option_name);
-            } elseif ($this->_blog_id > 0) {
-                $this->_options = get_blog_option($this->_blog_id, $option_name);
+            if ( $this->_is_network_storage ) {
+                $this->_options = get_site_option( $option_name );
+            } else if ( $this->_blog_id > 0 ) {
+                $this->_options = get_blog_option( $this->_blog_id, $option_name );
             } else {
-                $this->_options = get_option($option_name);
+                $this->_options = get_option( $option_name );
             }
 
-            if (is_string($this->_options)) {
-                $this->_options = json_decode($this->_options);
+            if ( is_string( $this->_options ) ) {
+                $this->_options = json_decode( $this->_options );
             }
 
-            //					$this->_logger->info('get_option = ' . var_export($this->_options, true));
+//					$this->_logger->info('get_option = ' . var_export($this->_options, true));
 
-            if (false === $this->_options) {
+            if ( false === $this->_options ) {
                 $this->clear();
             }
         }
@@ -192,9 +190,8 @@
          *
          * @return bool
          */
-        public function is_loaded()
-        {
-            return isset($this->_options);
+        function is_loaded() {
+            return isset( $this->_options );
         }
 
         /**
@@ -203,9 +200,8 @@
          *
          * @return bool
          */
-        public function is_empty()
-        {
-            return ($this->is_loaded() && false === $this->_options);
+        function is_empty() {
+            return ( $this->is_loaded() && false === $this->_options );
         }
 
         /**
@@ -214,13 +210,12 @@
          *
          * @param bool $flush
          */
-        public function clear($flush = false)
-        {
+        function clear( $flush = false ) {
             $this->_logger->entrance();
 
             $this->_options = array();
 
-            if ($flush) {
+            if ( $flush ) {
                 $this->store();
             }
         }
@@ -231,16 +226,15 @@
          * @author Vova Feldman (@svovaf)
          * @since  1.0.9
          */
-        public function delete()
-        {
+        function delete() {
             $option_name = $this->get_option_manager_name();
 
-            if ($this->_is_network_storage) {
-                delete_site_option($option_name);
-            } elseif ($this->_blog_id > 0) {
-                delete_blog_option($this->_blog_id, $option_name);
+            if ( $this->_is_network_storage ) {
+                delete_site_option( $option_name );
+            } else if ( $this->_blog_id > 0 ) {
+                delete_blog_option( $this->_blog_id, $option_name );
             } else {
-                delete_option($option_name);
+                delete_option( $option_name );
             }
         }
 
@@ -253,13 +247,12 @@
          *
          * @return bool
          */
-        public function has_option($option, $flush = false)
-        {
-            if (! $this->is_loaded() || $flush) {
-                $this->load($flush);
+        function has_option( $option, $flush = false ) {
+            if ( ! $this->is_loaded() || $flush ) {
+                $this->load( $flush );
             }
 
-            return array_key_exists($option, $this->_options);
+            return array_key_exists( $option, $this->_options );
         }
 
         /**
@@ -272,20 +265,19 @@
          *
          * @return mixed
          */
-        public function get_option($option, $default = null, $flush = false)
-        {
-            $this->_logger->entrance('option = ' . $option);
+        function get_option( $option, $default = null, $flush = false ) {
+            $this->_logger->entrance( 'option = ' . $option );
 
-            if (! $this->is_loaded() || $flush) {
-                $this->load($flush);
+            if ( ! $this->is_loaded() || $flush ) {
+                $this->load( $flush );
             }
 
-            if (is_array($this->_options)) {
-                $value = isset($this->_options[ $option ]) ?
+            if ( is_array( $this->_options ) ) {
+                $value = isset( $this->_options[ $option ] ) ?
                     $this->_options[ $option ] :
                     $default;
-            } elseif (is_object($this->_options)) {
-                $value = isset($this->_options->{$option}) ?
+            } else if ( is_object( $this->_options ) ) {
+                $value = isset( $this->_options->{$option} ) ?
                     $this->_options->{$option} :
                     $default;
             } else {
@@ -313,7 +305,7 @@
              *
              * @author Vova Feldman
              */
-            return is_object($value) ? clone $value : $value;
+            return is_object( $value ) ? clone $value : $value;
         }
 
         /**
@@ -324,11 +316,10 @@
          * @param mixed  $value
          * @param bool   $flush
          */
-        public function set_option($option, $value, $flush = false)
-        {
-            $this->_logger->entrance('option = ' . $option);
+        function set_option( $option, $value, $flush = false ) {
+            $this->_logger->entrance( 'option = ' . $option );
 
-            if (! $this->is_loaded()) {
+            if ( ! $this->is_loaded() ) {
                 $this->clear();
             }
 
@@ -354,15 +345,15 @@
              *
              * @author Vova Feldman
              */
-            $copy = is_object($value) ? clone $value : $value;
+            $copy = is_object( $value ) ? clone $value : $value;
 
-            if (is_array($this->_options)) {
+            if ( is_array( $this->_options ) ) {
                 $this->_options[ $option ] = $copy;
-            } elseif (is_object($this->_options)) {
+            } else if ( is_object( $this->_options ) ) {
                 $this->_options->{$option} = $copy;
             }
 
-            if ($flush) {
+            if ( $flush ) {
                 $this->store();
             }
         }
@@ -376,25 +367,25 @@
          * @param string $option
          * @param bool   $flush
          */
-        public function unset_option($option, $flush = false)
-        {
-            $this->_logger->entrance('option = ' . $option);
+        function unset_option( $option, $flush = false ) {
+            $this->_logger->entrance( 'option = ' . $option );
 
-            if (is_array($this->_options)) {
-                if (! isset($this->_options[ $option ])) {
+            if ( is_array( $this->_options ) ) {
+                if ( ! isset( $this->_options[ $option ] ) ) {
                     return;
                 }
 
-                unset($this->_options[ $option ]);
-            } elseif (is_object($this->_options)) {
-                if (! isset($this->_options->{$option})) {
+                unset( $this->_options[ $option ] );
+
+            } else if ( is_object( $this->_options ) ) {
+                if ( ! isset( $this->_options->{$option} ) ) {
                     return;
                 }
 
-                unset($this->_options->{$option});
+                unset( $this->_options->{$option} );
             }
 
-            if ($flush) {
+            if ( $flush ) {
                 $this->store();
             }
         }
@@ -405,23 +396,22 @@
          * @author Vova Feldman (@svovaf)
          * @since  1.0.3
          */
-        public function store()
-        {
+        function store() {
             $this->_logger->entrance();
 
             $option_name = $this->get_option_manager_name();
 
-            if ($this->_logger->is_on()) {
-                $this->_logger->info($option_name . ' = ' . var_export($this->_options, true));
+            if ( $this->_logger->is_on() ) {
+                $this->_logger->info( $option_name . ' = ' . var_export( $this->_options, true ) );
             }
 
             // Update DB.
-            if ($this->_is_network_storage) {
-                update_site_option($option_name, $this->_options);
-            } elseif ($this->_blog_id > 0) {
-                update_blog_option($this->_blog_id, $option_name, $this->_options);
+            if ( $this->_is_network_storage ) {
+                update_site_option( $option_name, $this->_options );
+            } else if ( $this->_blog_id > 0 ) {
+                update_blog_option( $this->_blog_id, $option_name, $this->_options );
             } else {
-                update_option($option_name, $this->_options, $this->_autoload);
+                update_option( $option_name, $this->_options, $this->_autoload );
             }
         }
 
@@ -433,12 +423,11 @@
          *
          * @return string[]
          */
-        public function get_options_keys()
-        {
-            if (is_array($this->_options)) {
-                return array_keys($this->_options);
-            } elseif (is_object($this->_options)) {
-                return array_keys(get_object_vars($this->_options));
+        function get_options_keys() {
+            if ( is_array( $this->_options ) ) {
+                return array_keys( $this->_options );
+            } else if ( is_object( $this->_options ) ) {
+                return array_keys( get_object_vars( $this->_options ) );
             }
 
             return array();
@@ -454,17 +443,16 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.0.0
          */
-        public function migrate_to_network()
-        {
+        function migrate_to_network() {
             $site_options = FS_Option_Manager::get_manager($this->_id, true, false);
 
-            $options = is_object($site_options->_options) ?
-                get_object_vars($site_options->_options) :
+            $options = is_object( $site_options->_options ) ?
+                get_object_vars( $site_options->_options ) :
                 $site_options->_options;
 
-            if (! empty($options)) {
-                foreach ($options as $key => $val) {
-                    $this->set_option($key, $val, false);
+            if ( ! empty( $options ) ) {
+                foreach ( $options as $key => $val ) {
+                    $this->set_option( $key, $val, false );
                 }
 
                 $this->store();
@@ -480,8 +468,7 @@
         /**
          * @return string
          */
-        private function get_option_manager_name()
-        {
+        private function get_option_manager_name() {
             return $this->_id;
         }
 
