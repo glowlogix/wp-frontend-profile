@@ -6,7 +6,7 @@
      * @since       1.2.3
      */
 
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
@@ -15,7 +15,8 @@
      *
      * A wrapper class for handling network level and single site level options.
      */
-    class FS_Options {
+    class FS_Options
+    {
         /**
          * @var string
          */
@@ -63,9 +64,10 @@
          *
          * @return FS_Options
          */
-        static function instance( $id, $load = false ) {
-            if ( ! isset( self::$_instances[ $id ] ) ) {
-                self::$_instances[ $id ] = new FS_Options( $id, $load );
+        public static function instance($id, $load = false)
+        {
+            if (! isset(self::$_instances[ $id ])) {
+                self::$_instances[ $id ] = new FS_Options($id, $load);
             }
 
             return self::$_instances[ $id ];
@@ -78,16 +80,17 @@
          * @param string $id
          * @param bool   $load
          */
-        private function __construct( $id, $load = false ) {
+        private function __construct($id, $load = false)
+        {
             $this->_id           = $id;
             $this->_is_multisite = is_multisite();
 
-            if ( $this->_is_multisite ) {
+            if ($this->_is_multisite) {
                 $this->_blog_id         = get_current_blog_id();
-                $this->_network_options = FS_Option_Manager::get_manager( $id, $load, true );
+                $this->_network_options = FS_Option_Manager::get_manager($id, $load, true);
             }
 
-            $this->_options = FS_Option_Manager::get_manager( $id, $load, $this->_blog_id );
+            $this->_options = FS_Option_Manager::get_manager($id, $load, $this->_blog_id);
         }
 
         /**
@@ -98,10 +101,11 @@
          *
          * @param $blog_id
          */
-        function set_site_blog_context( $blog_id ) {
+        public function set_site_blog_context($blog_id)
+        {
             $this->_blog_id = $blog_id;
 
-            $this->_options = FS_Option_Manager::get_manager( $this->_id, false, $this->_blog_id );
+            $this->_options = FS_Option_Manager::get_manager($this->_id, false, $this->_blog_id);
         }
 
         /**
@@ -113,14 +117,15 @@
          *
          * @return mixed
          */
-        function get_option( $option, $default = null, $network_level_or_blog_id = null ) {
-            if ( $this->should_use_network_storage( $option, $network_level_or_blog_id ) ) {
-                return $this->_network_options->get_option( $option, $default );
+        public function get_option($option, $default = null, $network_level_or_blog_id = null)
+        {
+            if ($this->should_use_network_storage($option, $network_level_or_blog_id)) {
+                return $this->_network_options->get_option($option, $default);
             }
 
-            $site_options = $this->get_site_options( $network_level_or_blog_id );
+            $site_options = $this->get_site_options($network_level_or_blog_id);
 
-            return $site_options->get_option( $option, $default );
+            return $site_options->get_option($option, $default);
         }
 
         /**
@@ -132,12 +137,13 @@
          * @param bool          $flush
          * @param null|bool|int $network_level_or_blog_id When an integer, use the given blog storage. When `true` use the multisite storage (if there's a network). When `false`, use the current context blog storage. When `null`, the decision which storage to use (MS vs. Current S) will be handled internally and determined based on the $option (based on self::$_SITE_LEVEL_PARAMS).
          */
-        function set_option( $option, $value, $flush = false, $network_level_or_blog_id = null ) {
-            if ( $this->should_use_network_storage( $option, $network_level_or_blog_id ) ) {
-                $this->_network_options->set_option( $option, $value, $flush );
+        public function set_option($option, $value, $flush = false, $network_level_or_blog_id = null)
+        {
+            if ($this->should_use_network_storage($option, $network_level_or_blog_id)) {
+                $this->_network_options->set_option($option, $value, $flush);
             } else {
-                $site_options = $this->get_site_options( $network_level_or_blog_id );
-                $site_options->set_option( $option, $value, $flush );
+                $site_options = $this->get_site_options($network_level_or_blog_id);
+                $site_options->set_option($option, $value, $flush);
             }
         }
 
@@ -149,12 +155,13 @@
          * @param bool          $flush
          * @param null|bool|int $network_level_or_blog_id When an integer, use the given blog storage. When `true` use the multisite storage (if there's a network). When `false`, use the current context blog storage. When `null`, the decision which storage to use (MS vs. Current S) will be handled internally and determined based on the $option (based on self::$_SITE_LEVEL_PARAMS).
          */
-        function unset_option( $option, $flush = false, $network_level_or_blog_id = null ) {
-            if ( $this->should_use_network_storage( $option, $network_level_or_blog_id ) ) {
-                $this->_network_options->unset_option( $option, $flush );
+        public function unset_option($option, $flush = false, $network_level_or_blog_id = null)
+        {
+            if ($this->should_use_network_storage($option, $network_level_or_blog_id)) {
+                $this->_network_options->unset_option($option, $flush);
             } else {
-                $site_options = $this->get_site_options( $network_level_or_blog_id );
-                $site_options->unset_option( $option, $flush );
+                $site_options = $this->get_site_options($network_level_or_blog_id);
+                $site_options->unset_option($option, $flush);
             }
         }
 
@@ -165,11 +172,12 @@
          * @param bool $flush
          * @param bool $network_level
          */
-        function load( $flush = false, $network_level = true ) {
-            if ( $this->_is_multisite && $network_level ) {
-                $this->_network_options->load( $flush );
+        public function load($flush = false, $network_level = true)
+        {
+            if ($this->_is_multisite && $network_level) {
+                $this->_network_options->load($flush);
             } else {
-                $this->_options->load( $flush );
+                $this->_options->load($flush);
             }
         }
 
@@ -179,18 +187,19 @@
          *
          * @param null|bool|int $network_level_or_blog_id When an integer, use the given blog storage. When `true` use the multisite storage (if there's a network). When `false`, use the current context blog storage. When `null`, store both network storage and the current context blog storage.
          */
-        function store( $network_level_or_blog_id = null ) {
-            if ( ! $this->_is_multisite ||
+        public function store($network_level_or_blog_id = null)
+        {
+            if (! $this->_is_multisite ||
                  false === $network_level_or_blog_id ||
                  0 == $network_level_or_blog_id ||
-                 is_null( $network_level_or_blog_id )
+                 is_null($network_level_or_blog_id)
             ) {
-                $site_options = $this->get_site_options( $network_level_or_blog_id );
+                $site_options = $this->get_site_options($network_level_or_blog_id);
                 $site_options->store();
             }
 
-            if ( $this->_is_multisite &&
-                 ( is_null( $network_level_or_blog_id ) || true === $network_level_or_blog_id )
+            if ($this->_is_multisite &&
+                 (is_null($network_level_or_blog_id) || true === $network_level_or_blog_id)
             ) {
                 $this->_network_options->store();
             }
@@ -203,20 +212,21 @@
          * @param int|null|bool $network_level_or_blog_id
          * @param bool          $flush
          */
-        function clear( $network_level_or_blog_id = null, $flush = false ) {
-            if ( ! $this->_is_multisite ||
+        public function clear($network_level_or_blog_id = null, $flush = false)
+        {
+            if (! $this->_is_multisite ||
                  false === $network_level_or_blog_id ||
-                 is_null( $network_level_or_blog_id ) ||
-                 is_numeric( $network_level_or_blog_id )
+                 is_null($network_level_or_blog_id) ||
+                 is_numeric($network_level_or_blog_id)
             ) {
-                $site_options = $this->get_site_options( $network_level_or_blog_id );
-                $site_options->clear( $flush );
+                $site_options = $this->get_site_options($network_level_or_blog_id);
+                $site_options->clear($flush);
             }
 
-            if ( $this->_is_multisite &&
-                 ( true === $network_level_or_blog_id || is_null( $network_level_or_blog_id ) )
+            if ($this->_is_multisite &&
+                 (true === $network_level_or_blog_id || is_null($network_level_or_blog_id))
             ) {
-                $this->_network_options->clear( $flush );
+                $this->_network_options->clear($flush);
             }
         }
 
@@ -232,19 +242,20 @@
          *
          * @param int $blog_id
          */
-        function migrate_to_network( $blog_id = 0 ) {
-            if ( ! $this->_is_multisite ) {
+        public function migrate_to_network($blog_id = 0)
+        {
+            if (! $this->_is_multisite) {
                 return;
             }
 
             $updated = false;
 
-            $site_options = $this->get_site_options( $blog_id );
+            $site_options = $this->get_site_options($blog_id);
 
             $keys = $site_options->get_options_keys();
 
-            foreach ( $keys as $option ) {
-                if ( $this->is_site_option( $option ) ||
+            foreach ($keys as $option) {
+                if ($this->is_site_option($option) ||
                      // Don't move admin notices to the network storage.
                     in_array($option, array(
                         // Don't move admin notices to the network storage.
@@ -260,43 +271,43 @@
                 $option_updated = false;
 
                 // Migrate option to the network storage.
-                $site_option = $site_options->get_option( $option );
+                $site_option = $site_options->get_option($option);
 
-                if ( ! $this->_network_options->has_option( $option ) ) {
+                if (! $this->_network_options->has_option($option)) {
                     // Option not set on the network level, so just set it.
-                    $this->_network_options->set_option( $option, $site_option, false );
+                    $this->_network_options->set_option($option, $site_option, false);
 
                     $option_updated = true;
                 } else {
                     // Option already set on the network level, so we need to merge it inelegantly.
-                    $network_option = $this->_network_options->get_option( $option );
+                    $network_option = $this->_network_options->get_option($option);
 
-                    if ( is_array( $network_option ) && is_array( $site_option ) ) {
+                    if (is_array($network_option) && is_array($site_option)) {
                         // Option is an array.
-                        foreach ( $site_option as $key => $value ) {
-                            if ( ! isset( $network_option[ $key ] ) ) {
+                        foreach ($site_option as $key => $value) {
+                            if (! isset($network_option[ $key ])) {
                                 $network_option[ $key ] = $value;
 
                                 $option_updated = true;
-                            } else if ( is_array( $network_option[ $key ] ) && is_array( $value ) ) {
-                                if ( empty( $network_option[ $key ] ) ) {
+                            } elseif (is_array($network_option[ $key ]) && is_array($value)) {
+                                if (empty($network_option[ $key ])) {
                                     $network_option[ $key ] = $value;
 
                                     $option_updated = true;
-                                } else if ( empty( $value ) ) {
+                                } elseif (empty($value)) {
                                     // Do nothing.
                                 } else {
                                     reset($value);
                                     $first_key = key($value);
-                                    if ( $value[$first_key] instanceof FS_Entity ) {
+                                    if ($value[$first_key] instanceof FS_Entity) {
                                         // Merge entities by IDs.
                                         $network_entities_ids = array();
-                                        foreach ( $network_option[ $key ] as $entity ) {
+                                        foreach ($network_option[ $key ] as $entity) {
                                             $network_entities_ids[ $entity->id ] = true;
                                         }
 
-                                        foreach ( $value as $entity ) {
-                                            if ( ! isset( $network_entities_ids[ $entity->id ] ) ) {
+                                        foreach ($value as $entity) {
+                                            if (! isset($network_entities_ids[ $entity->id ])) {
                                                 $network_option[ $key ][] = $entity;
 
                                                 $option_updated = true;
@@ -308,8 +319,8 @@
                         }
                     }
 
-                    if ( $option_updated ) {
-                        $this->_network_options->set_option( $option, $network_option, false );
+                    if ($option_updated) {
+                        $this->_network_options->set_option($option, $network_option, false);
                     }
                 }
 
@@ -326,12 +337,12 @@
                  */
 //                    $site_options->unset_option($option, false);
 
-                if ( $option_updated ) {
+                if ($option_updated) {
                     $updated = true;
                 }
             }
 
-            if ( ! $updated ) {
+            if (! $updated) {
                 return;
             }
 
@@ -351,7 +362,8 @@
          * @author Vova Feldman (@svovaf)
          * @since  2.0.0
          */
-        private static function load_site_options_map() {
+        private static function load_site_options_map()
+        {
             self::$_SITE_OPTIONS_MAP = array(
                 'sites'          => true,
                 'theme_sites'    => true,
@@ -368,16 +380,17 @@
          *
          * @return bool
          */
-        private function is_site_option( $option ) {
-            if ( WP_FS__ACCOUNTS_OPTION_NAME != $this->_id ) {
+        private function is_site_option($option)
+        {
+            if (WP_FS__ACCOUNTS_OPTION_NAME != $this->_id) {
                 return false;
             }
 
-            if ( ! isset( self::$_SITE_OPTIONS_MAP ) ) {
+            if (! isset(self::$_SITE_OPTIONS_MAP)) {
                 self::load_site_options_map();
             }
 
-            return isset( self::$_SITE_OPTIONS_MAP[ $option ] );
+            return isset(self::$_SITE_OPTIONS_MAP[ $option ]);
         }
 
         /**
@@ -388,12 +401,13 @@
          *
          * @return FS_Option_Manager
          */
-        private function get_site_options( $blog_id = 0 ) {
-            if ( 0 == $blog_id || $blog_id == $this->_blog_id ) {
+        private function get_site_options($blog_id = 0)
+        {
+            if (0 == $blog_id || $blog_id == $this->_blog_id) {
                 return $this->_options;
             }
 
-            return FS_Option_Manager::get_manager( $this->_id, true, $blog_id );
+            return FS_Option_Manager::get_manager($this->_id, true, $blog_id);
         }
 
         /**
@@ -407,24 +421,25 @@
          *
          * @return bool
          */
-        private function should_use_network_storage( $option, $network_level_or_blog_id = null ) {
-            if ( ! $this->_is_multisite ) {
+        private function should_use_network_storage($option, $network_level_or_blog_id = null)
+        {
+            if (! $this->_is_multisite) {
                 // Not a multisite environment.
                 return false;
             }
 
-            if ( is_numeric( $network_level_or_blog_id ) ) {
+            if (is_numeric($network_level_or_blog_id)) {
                 // Explicitly asked to use a specified blog storage.
                 return false;
             }
 
-            if ( is_bool( $network_level_or_blog_id ) ) {
+            if (is_bool($network_level_or_blog_id)) {
                 // Explicitly specified whether should use the network or blog level storage.
                 return $network_level_or_blog_id;
             }
 
             // Determine which storage to use based on the option.
-            return ! $this->is_site_option( $option );
+            return ! $this->is_site_option($option);
         }
 
         #endregion

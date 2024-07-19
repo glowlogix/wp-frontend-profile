@@ -28,16 +28,17 @@ if (! defined('WPFEP_PLUGIN_URL')) {
 
 require_once WPFEP_PATH . '/inc/class-wp-frontend-profile.php';
 
-if ( ! function_exists( 'wfep_fs' ) ) {
+if (! function_exists('wfep_fs')) {
     // Create a helper function for easy SDK access.
-    function wfep_fs() {
+    function wfep_fs()
+    {
         global $wfep_fs;
 
-        if ( ! isset( $wfep_fs ) ) {
+        if (! isset($wfep_fs)) {
             // Include Freemius SDK.
             require_once dirname(__FILE__) . '/freemius/start.php';
 
-            $wfep_fs = fs_dynamic_init( array(
+            $wfep_fs = fs_dynamic_init(array(
                 'id'                  => '5837',
                 'slug'                => 'wp-front-end-profile',
                 'premium_slug'        => 'wp-frontend-profile-premium',
@@ -57,7 +58,7 @@ if ( ! function_exists( 'wfep_fs' ) ) {
                     'slug'           => 'wpfep-settings_dashboard',
                     'support'        => false,
                 ),
-            ) );
+            ));
         }
 
         return $wfep_fs;
@@ -66,7 +67,7 @@ if ( ! function_exists( 'wfep_fs' ) ) {
     // Init Freemius.
     wfep_fs();
     // Signal that SDK was initiated.
-    do_action( 'wfep_fs_loaded' );
+    do_action('wfep_fs_loaded');
 }
 
 /**

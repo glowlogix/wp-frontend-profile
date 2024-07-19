@@ -5,17 +5,18 @@
      * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
      * @since       2.5.10
      */
-    if ( ! defined( 'ABSPATH' ) ) {
+    if (! defined('ABSPATH')) {
         exit;
     }
 
-    if ( ! function_exists( 'fs_html_get_allowed_kses_list' ) ) {
+    if (! function_exists('fs_html_get_allowed_kses_list')) {
         /**
          * Get the allowed KSES list for sanitizing HTML output on the template files.
          *
          * @return array
          */
-        function fs_html_get_allowed_kses_list() {
+        function fs_html_get_allowed_kses_list()
+        {
             $common_attributes = array(
                 'class'  => true,
                 'style'  => true,
@@ -69,7 +70,7 @@
         }
     }
 
-    if ( ! function_exists( 'fs_html_get_classname' ) ) {
+    if (! function_exists('fs_html_get_classname')) {
         /**
          * Gets an HTML class attribute value.
          *
@@ -77,16 +78,17 @@
          *
          * @return string
          */
-        function fs_html_get_classname( $classes ) {
-            if ( is_array( $classes ) ) {
-                $classes = implode( ' ', $classes );
+        function fs_html_get_classname($classes)
+        {
+            if (is_array($classes)) {
+                $classes = implode(' ', $classes);
             }
 
-            return esc_attr( $classes );
+            return esc_attr($classes);
         }
     }
 
-    if ( ! function_exists( 'fs_html_get_attributes' ) ) {
+    if (! function_exists('fs_html_get_attributes')) {
         /**
          * Gets a properly escaped HTML attributes string from an associative array.
          *
@@ -94,14 +96,15 @@
          *
          * @return string
          */
-        function fs_html_get_attributes( $attributes ) {
+        function fs_html_get_attributes($attributes)
+        {
             $attribute_string = '';
 
-            foreach ( $attributes as $key => $value ) {
+            foreach ($attributes as $key => $value) {
                 $attribute_string .= sprintf(
                     ' %1$s="%2$s"',
-                    esc_attr( $key ),
-                    esc_attr( $value )
+                    esc_attr($key),
+                    esc_attr($value)
                 );
             }
 
@@ -109,7 +112,7 @@
         }
     }
 
-    if ( ! function_exists( 'fs_html_get_sanitized_html' ) ) {
+    if (! function_exists('fs_html_get_sanitized_html')) {
         /**
          * Get sanitized HTML for template files.
          *
@@ -118,7 +121,8 @@
          * @return string
          * @since 2.5.10
          */
-        function fs_html_get_sanitized_html( $raw_html ) {
-            return wp_kses( $raw_html, fs_html_get_allowed_kses_list() );
+        function fs_html_get_sanitized_html($raw_html)
+        {
+            return wp_kses($raw_html, fs_html_get_allowed_kses_list());
         }
     }
