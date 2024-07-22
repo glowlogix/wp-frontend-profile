@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.6] - 2024-07-19
+- Tested with WordPress version 6.7 #138
+- User can be register with different roles #127
+- Update Fremius SDK #142
+- Fix WPFP profile page rendering Issue. #141
+
 ## [1.3.5] - 2024-05-20
 - Tested with WordPress version 6.5.4 #134
 - Fix Password Reset Link #128

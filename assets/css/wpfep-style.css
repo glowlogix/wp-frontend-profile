@@ -1,58 +1,58 @@
 /* tab styles
 -------------------------------------------------------------- */
 ul.wpfep-tabs {
-	border-bottom-color: #ccc;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	padding-bottom: 0;
-	font-size: 23px;
-	font-weight: 400;
-	line-height: 29px;
-	margin-bottom: 16px;
-	list-style-type: none;
+    border-bottom-color: #ccc;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding-bottom: 0;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 29px;
+    margin-bottom: 16px;
+    list-style-type: none;
 }
 ul#wpfep-tabs {
-	padding: 0;
-	margin-bottom: 16px;
-	margin-left: 0;
+    padding: 0;
+    margin-bottom: 16px;
+    margin-left: 0;
 }
 ul.wpfep-tabs li {
-	display: inline-block;
-	margin: 0 3px -1px 0;
+    display: inline-block;
+    margin: 0 3px -1px 0;
 }
 ul.wpfep-tabs li a {
-	padding: 4px 15px 6px;
-	font-size: 18px;
-	vertical-align: top;
-	border-width: 1px;
-	color: #555;
-	border-color: #ccc;
-	text-decoration: none;
-	display: block;
-	border-style: solid;
-	background: #e4e4e4;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
+    padding: 4px 15px 6px;
+    font-size: 18px;
+    vertical-align: top;
+    border-width: 1px;
+    color: #555;
+    border-color: #ccc;
+    text-decoration: none;
+    display: block;
+    border-style: solid;
+    background: #e4e4e4;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 ul.wpfep-tabs li.highlight a {
-	background-color: #922540;
-	color: #FFFFFF;
-	border-color: #84273e;
+    background-color: #922540;
+    color: #FFFFFF;
+    border-color: #84273e;
 }
 ul.wpfep-tabs li a.active {
-	color: #000;
-	border-bottom-color: #F1F1F1;
-	background-color: #F1F1F1;
+    color: #000;
+    border-bottom-color: #F1F1F1;
+    background-color: #F1F1F1;
 }
 ul.wpfep-tabs li.highlight a.active {
-	background-color: #C95874;
-	color: #FFFFFF;
+    background-color: #C95874;
+    color: #FFFFFF;
 }
 p.forgetmenot label {
     display: inline;
 }
 .wpfep_user_details h5:before{
-	content: none;
+    content: none;
 }
 .wpfep-wrapper p.updated {
     display: block !important;
@@ -63,81 +63,81 @@ p.forgetmenot label {
     width: 100%;
 }
 .wpfep_editing_disabled{
-	color: red;
+    color: red;
 }
 .wpfep-field {
-	margin-bottom: 24px;
+    margin-bottom: 24px;
 }
 .wpfep-field label {
-	display: block;
-	font-size: 1.6rem;
-	margin-bottom: 4px;
+    display: block;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
 }
 .wpfep-select-field label,
 .wpfep-checkbox-field label {
-	display: inline;
-	margin-right: 10px;
+    display: inline;
+    margin-right: 10px;
 }
 label.wpfep_save_description {
-	display: none;
+    display: none;
 }
 .wpfep-field input,
 .wpfep-textarea-field textarea {
-	margin-bottom: 4px;
-	padding: 5px;
-	font-size: 1.4rem;
-	color: #666666;
+    margin-bottom: 4px;
+    padding: 5px;
+    font-size: 1.4rem;
+    color: #666666;
 }
 .wpfep-field input[type="text"],
 .wpfep-field input[type="email"],
 .wpfep-field input[type="password"],
 .wpfep-textarea-field textarea {
-	width: 100%;
+    width: 100%;
 }
 .wpfep-field p.description {
-	font-size: 1.2rem;
-	font-style: italic;
-	color: #999999;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #999999;
 }
 .wpfep-select-field p.description,
 .wpfep-checkbox-field p.description {
-	display: inline;
+    display: inline;
 }
 .wpfep-select-field select {
-	border: 1px solid #ddd;
-	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
-	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
-	background-color: #fff;
-	color: #333;
-	outline: 0;
-	-webkit-transition: .05s border-color ease-in-out;
-	transition: .05s border-color ease-in-out;
-	padding: 2px;
-	line-height: 28px;
-	height: 28px;
-	vertical-align: middle;
-	font-size: 1.5rem;
-	margin-right: 10px;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    background-color: #fff;
+    color: #333;
+    outline: 0;
+    -webkit-transition: .05s border-color ease-in-out;
+    transition: .05s border-color ease-in-out;
+    padding: 2px;
+    line-height: 28px;
+    height: 28px;
+    vertical-align: middle;
+    font-size: 1.5rem;
+    margin-right: 10px;
 }
 .wpfep-field textarea.wp-editor-area,
 .wpfep-field .quicktags-toolbar {
-	border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
 }
 .wpfep-field textarea.wp-editor-area {
-	border-top: none;
+    border-top: none;
 }
 .wpfep-field .quicktags-toolbar {
-	border-bottom: none;
+    border-bottom: none;
 }
 p.error,
 p.updated {
-	background-color: #F2F2F2;
-	padding: 10px;
-	padding-left: 14px;
-	border-left: 3px solid #7ad03a;
+    background-color: #F2F2F2;
+    padding: 10px;
+    padding-left: 14px;
+    border-left: 3px solid #7ad03a;
 }
 p.error {
-	border-left: 3px solid #990000;
+    border-left: 3px solid #990000;
 }
 .wpfep-login-alert,.wpfep-message {
     background: #fcf8e3;
@@ -151,7 +151,7 @@ p.error {
     font-size: 13px;
 }
 .wpfep-success{
-	padding: 6px 9px;
+    padding: 6px 9px;
     margin: 0 auto 25px;
     display: block;
     width: 100%;
@@ -169,7 +169,7 @@ p.error {
     border: 1px solid #C00;
 }
 .wpfep-required {
-	color :red;
+    color :red;
 }
 .wpfep-registration-form ul li {
     margin: 0;
@@ -203,73 +203,85 @@ li.wpfep-form-field.wpfep-default-user-bio label {
     list-style: none;
 }
 ul.wpfep-profile-item-ul {
-    border: 1px solid #e6e6e6;
+    /* border: 1px solid #e6e6e6; */
 }
 .wpfep-lg-3{
-	box-shadow: 0px 0px 5px 0px #ddd;
+    box-shadow: 0px 0px 5px 0px #ddd;
 }
 .wpfep-pagination ul.page-numbers li{
-	list-style-type: none;
+    list-style-type: none;
     margin: 0;
     padding: 0;
     display: inline-block;
 }
 .wpfep-pagination {
-	padding-top: 20px;
+    padding-top: 20px;
 }
 .wpfep-profile-items, .wpfep-profile-sidebar{
-	margin-bottom: 10px;
+    margin-bottom: 10px;
+    height: 476px;
+    box-shadow: 0px 0px 5px 0px #ddd;
 }
 .wpfep_user_details h5 {
     font-weight: 400;
     font-size: 0.83em;
 }
 @media screen and (min-width: 64em){
-	.wpfep-columns{
-		width: 100%;
-	    float: left;
-	    padding-left: .625rem;
-	    padding-right: .625rem;
-	}
-	.wpfep-lg-3{
-		width: 25%;
-		padding-left: .9375rem;
-    	padding-right: .9375rem;
-    	
-	}
-	.wpfep-lg-9 {
-    	width: 75%;
-	}
-	ul.wpfep-profile-item-ul {
-	    padding: 25px;
-	    margin: 0;
-	}
-	.wpfep-pagination ul.page-numbers li{
-		list-style-type: none;
-	    margin: 0;
-	    padding: 0;
-	    display: inline-block;
-	}
-	.wpfep-pagination {
-    	padding-top: 20px;
-	}
+    .wpfep-columns{
+        width: 100%;
+        float: left;
+        padding-left: .625rem;
+        padding-right: .625rem;
+    }
+    .wpfep-lg-3{
+        height: 500px;
+        margin-left: -250px!important;
+        width: 33%!important;
+        padding-left: .9375rem;
+        padding-right: .9375rem;
+        
+    }
+    .wpfep-lg-9 {
+        width: 75%;
+    }
+    ul.wpfep-profile-item-ul {
+        padding: 25px;
+        margin: 0;
+    }
+    .wpfep-pagination ul.page-numbers li{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+    .wpfep-pagination {
+        padding-top: 20px;
+    }
+    .wpfep-profile-items{
+        min-height:500px!important;
+        /* background-color: #183a97; */
+    }
 }
 @media only screen and (max-width: 1024px) {
-	.wpfep-profile-sidebar>img {
-	    border-radius: 50%;
-	    margin: 0 auto;
-	    display: block;
-	    width: 140px !important;
-	}
-	ul.wpfep-profile-item-ul {
-	    margin-bottom: 0;
-	}
-	.wpfep_user_details {
-	    padding: 15px;
-	}
-	ul.wpfep-profile-item-ul {
-	    padding: 15px;
-	}
+    .wpfep-profile-sidebar>img {
+        border-radius: 50%;
+        margin: 0 auto;
+        display: block;
+        width: 140px !important;
+    }
+    ul.wpfep-profile-item-ul {
+        margin-bottom: 0;
+    }
+    .wpfep_user_details {
+        padding: 15px;
+    }
+    ul.wpfep-profile-item-ul {
+        padding: 15px;
+    }
+    .wpfep-profile-items{
+        height: auto;
+    }
+    
 }
 @media only screen and (min-width: 320px){
 .wpfep-fields .g-recaptcha {
@@ -286,7 +298,11 @@ ul.wpfep-profile-item-ul {
     margin: 0px;
     padding: 0px;
 }
-	}
+.wpfep-profile-items{
+    
+    height: auto;
+}
+}
 .wpfep-default-role :checked {
     border: 3px solid #0586BE;
     -webkit-appearance: none;
