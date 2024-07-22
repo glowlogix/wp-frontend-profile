@@ -107,8 +107,7 @@ if (! class_exists('WPFEP_Registration')) {
             $wp_general_options = get_option('wpfep_general');
             
             if ($wp_general_options && isset($wp_general_options['wpfep_new_user_role'])) {
-            $default_user_role = $wp_general_options['wpfep_new_user_role'];
-            
+                $default_user_role = $wp_general_options['wpfep_new_user_role'];
             } else {
                 $default_user_role="subscriber";
             }
