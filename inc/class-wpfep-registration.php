@@ -104,6 +104,14 @@ if (! class_exists('WPFEP_Registration')) {
          */
         public function process_registration()
         {
+            $wp_general_options = get_option('wpfep_general');
+            
+            if ($wp_general_options && isset($wp_general_options['wpfep_new_user_role'])) {
+            $default_user_role = $wp_general_options['wpfep_new_user_role'];
+            
+            } else {
+                $default_user_role="subscriber";
+            }
             if (! empty($_POST['wpfep_registration']) && ! empty($_POST['_wpnonce'])) {
                 $nonce_action = 'wpfep_registration_action';
 
@@ -247,6 +255,7 @@ if (! class_exists('WPFEP_Registration')) {
                 $userdata['user_pass']   = sanitize_text_field(wp_unslash($_POST['pwd1']));
                 $userdata['description'] = $desc;
                 $userdata['user_url']    = $user_web;
+                $userdata['role'] = $default_user_role; // Set the user's role
                 $send_link_activation         = wpfep_get_option('user_behave', 'wpfep_profile');
                 $manually_register            = wpfep_get_option('admin_can_register_user_manually', 'wpfep_profile', 'on');
                 $manually_approve_user        = wpfep_get_option('admin_manually_approve', 'wpfep_profile', 'on');

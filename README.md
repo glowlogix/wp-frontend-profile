@@ -11,6 +11,7 @@ WP Frontend Profile gives you the ability to add a extensible user profile secti
 *	Frontend user profile
 *	Frontend user registration
 *	Frontend user login
+*   User can be register with different roles
 *	User emails
 *	Developer friendly with dozens of actions and filters
 *   Added Login Widget

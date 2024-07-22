@@ -140,12 +140,11 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                             'default'  => array('administrator', 'editor', 'author', 'contributor', 'subscriber'),
                         ),
                         array(
-                            'name'    => 'role_editor',
-                            'label'   => __('Role', 'wpfep'),
-                            'desc'    => __('Select to enable or disabled user add role feature.', 'wpfep'),
-                            'type'    => 'checkbox',
-                            'default' => 'off',
-
+                            'name'    => 'wpfep_new_user_role',
+                            'label'   => __('User Registration Role', 'wpfep'),
+                            'desc'    => __('Select role for new register users.', 'wpfep'),
+                            'type'    => 'select',
+                            'options' => wp_roles()->get_names(),
                         ),
                         array(
                             'name'    => 'strong_password',
