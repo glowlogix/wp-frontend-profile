@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.7] - 2024-09-09
+- hcaptcha authentication method.
+
 ## [1.3.6] - 2024-07-19
 - Tested with WordPress version 6.7 #138
 - User can be register with different roles #127
