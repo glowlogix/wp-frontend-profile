@@ -47,6 +47,7 @@ if (! class_exists('WPFEP_Settings_API')) {
             wp_enqueue_script('wp-color-picker');
             wp_enqueue_script('jquery-ui-tooltip');
             wp_enqueue_script('wpfep_admin', plugins_url('/assets/js/admin.js', dirname(__FILE__)), array( 'jquery' ), WPFEP_VERSION, false);
+            wp_enqueue_script('wpfep_admin_setting', plugins_url('/assets/js/settings.js', dirname(__FILE__)), ['jquery'], WPFEP_VERSION, false);
             wp_enqueue_script('jquery');
         }
 

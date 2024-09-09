@@ -298,6 +298,31 @@ if (! class_exists('WPFEP_Login')) {
                         WPFEP_Captcha_Recaptcha::captcha_verification();
                     }
                 }
+                if (isset($_POST['g-hcaptcha-response'])) {
+                    if (empty($_POST['g-hcaptcha-response'])) {
+                        $this->login_errors[] = __('Empty hCaptcha Field', 'wp-front-end-profile');
+
+                        return;
+                    } else {
+                        $no_captcha = 1;
+                        $invisible_captcha = 0;
+
+                        WPFEP_Captcha_hcaptcha::captcha_verification();
+                    }
+                }
+
+                if (isset($_POST['g-hcaptcha-response'])) {
+                    if (empty($_POST['g-hcaptcha-response'])) {
+                        $this->login_errors[] = __('Empty reCaptcha Field', 'wp-front-end-profile');
+
+                        return;
+                    } else {
+                        $no_captcha = 1;
+                        $invisible_captcha = 0;
+
+                        WPFEP_Captcha_hCaptcha::captcha_verification();
+                    }
+                }
                 $user = '';
                 if (is_email(sanitize_text_field(wp_unslash($_POST['log']))) && apply_filters('wpfep_get_username_from_email', true)) {
                     $user = get_user_by('email', sanitize_text_field(wp_unslash($_POST['log'])));
@@ -305,7 +330,10 @@ if (! class_exists('WPFEP_Login')) {
                     $user = get_user_by('login', sanitize_text_field(wp_unslash($_POST['log'])));
                 }
                 $user_behave = wpfep_get_option('user_behave', 'wpfep_profile');
-                $user_meta   = get_user_meta($user->ID, 'wpfep_user_status', true);
+                $user_meta=null;
+                if (is_object($user) && isset($user->ID)) {
+                    $user_meta = get_user_meta($user->ID, 'wpfep_user_status', true);
+                }
                 if (('activate_mail' == $user_behave) && (('Yes' != get_user_meta($user->ID, 'verify', true)) || (get_user_meta($user->ID, 'has_to_be_activated', true) == false))) {
                     $this->login_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Please verify your account.', 'wpfep');
 

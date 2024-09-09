@@ -87,6 +87,7 @@ if (! class_exists('WP_Frontend_Profile')) {
                 require_once WPFEP_PATH . '/inc/class-wpfep-login.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-captcha-recaptcha.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-captcha-hcaptcha.php';
             }
         }
 
