@@ -76,12 +76,11 @@ if (!class_exists('WPFEP_Captcha_hCaptcha')) {
 
             $wpfep_general_options = get_option('wpfep_general');
             if ($wpfep_general_options && isset($wpfep_general_options['hcaptcha_public'])) {
-            self::$site_key = $wpfep_general_options['hcaptcha_public'];
+                self::$site_key = $wpfep_general_options['hcaptcha_public'];
             
-            echo '<div class="h-captcha" data-sitekey="' . esc_attr(self::$site_key) . '"></div>';
-            } 
-            else {
-            echo "Site Key Not Found";
+                echo '<div class="h-captcha" data-sitekey="' . esc_attr(self::$site_key) . '"></div>';
+            } else {
+                echo "Site Key Not Found";
             }
         }
 
