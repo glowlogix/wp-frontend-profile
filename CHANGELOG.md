@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.8] - 2024-09-10
+- Fix stable tag issue.
+- hcaptcha authentication method.
+
 ## [1.3.7] - 2024-09-09
 - hcaptcha authentication method.
 
