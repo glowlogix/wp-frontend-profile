@@ -53,6 +53,14 @@ defined('ABSPATH') || exit;
 				</div>
 			</p>
 		<?php } ?>
+		<?php $hcaptcha = wpfep_get_option('enable_hcaptcha_login', 'wpfep_general'); ?>
+        <?php if ('on' == $hcaptcha) { ?>
+            <p>
+                <div class="wpfep-fields">
+                    <?php WPFEP_Captcha_hCaptcha::display_captcha(); ?>
+                </div>
+            </p>
+        <?php } ?>
 		<p class="forgetmenot">
 			<input name="rememberme" type="checkbox" id="wpfep-rememberme" value="forever" />
 			<label for="wpfep-rememberme"><?php esc_attr_e('Remember Me', 'wpfep'); ?></label>

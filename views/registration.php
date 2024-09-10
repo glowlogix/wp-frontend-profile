@@ -85,6 +85,15 @@ $register_obj  = WPFEP_Registration::init();
 						<?php WPFEP_Captcha_Recaptcha::display_captcha(); ?>
 					</div>
 				<?php } ?>
+
+				<?php $hcaptcha = wpfep_get_option('enable_hcaptcha_registration', 'wpfep_general'); ?>
+                <?php if ('on' == $hcaptcha) { ?>
+                <p>
+                <div class="wpfep-fields">
+                    <?php WPFEP_Captcha_hCaptcha::display_captcha(); ?>
+                </div>
+                </p>
+                <?php } ?>
 			</li>
 			<li class="wpfep-submit">
 				<input type="submit" name="wp-submit" id="wp-submit" value="<?php esc_attr_e('Register', 'wpfep'); ?>" />

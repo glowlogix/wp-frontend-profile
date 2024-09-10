@@ -164,6 +164,7 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                         ),
                         array(
                             'name'    => 'enable_captcha_login',
+                            'id'    => 'enable_captcha_login',
                             'label'   => __('reCAPTCHA Login Form', 'wpfep'),
                             'desc'    => __('Check to enable reCAPTCHA in login form.', 'wpfep'),
                             'type'    => 'checkbox',
@@ -176,6 +177,29 @@ if (!class_exists('WPFEP_Admin_Settings')) {
                             'type'    => 'checkbox',
                             'default' => 'off',
                         ),
+                        array(
+                            'name'  => 'hcaptcha_public',
+                            'id'    => 'hcaptcha_public',
+                            'label' => __('hCAPTCHA Site Key', 'wpfep'),
+                        ),
+                        array(
+                            'name'  => 'hcaptcha_private',
+                            'label' => __('hCAPTCHA Secret Key', 'wpfep'),
+                        ),
+                        array(
+                            'name'    => 'enable_hcaptcha_login',
+                            'label'   => __('hCAPTCHA Login Form', 'wpfep'),
+                            'desc'    => __('Check to enable hCAPTCHA in login form.', 'wpfep'),
+                            'type'    => 'checkbox',
+                            'default' => 'off',
+                        ),
+                        array(
+                            'name'    => 'enable_hcaptcha_registration',
+                            'label'   => __('hCAPTCHA Registration Form', 'wpfep'),
+                            'desc'    => __('Check to enable hCAPTCHA in registration form', 'wpfep'),
+                            'type'    => 'checkbox',
+                            'default' => 'off',
+                        ),                        
                         array(
                             'name'    => 'wpfep_remove_data_on_uninstall',
                             'label'   => __('Remove Data on Uninstall?', 'wpfep'),
