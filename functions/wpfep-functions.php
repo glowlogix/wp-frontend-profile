@@ -984,26 +984,50 @@ if ('on' == $manually_approve_user) {
      */
     function update_action()
     {
-        if (! empty($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : '' && in_array(sanitize_text_field(wp_unslash($_GET['action'])), array( 'approve', 'rejected' )) && ! empty($_GET['new_role'] ? sanitize_text_field(wp_unslash($_GET['new_role'])) : '')) {
-            $request    = sanitize_text_field(wp_unslash($_GET['action']));
-            $request_id = intval($_GET['user']);
-            $user_data  = get_userdata($request_id);
-            if ('approve' == $request) {
-                update_user_meta($request_id, 'wpfep_user_status', $request);
-                $subject  = 'Approval notification';
-                $message  = 'Your account is approved by admin.' . "\r\n\r\n";
-                $message .= 'Now you can log in to your account.' . "\r\n\r\n";
-                $message .= 'Thank you' . "\r\n\r\n";
-                wp_mail($user_data->user_email, $subject, $message);
-            }
-            if ('rejected' == $request) {
-                update_user_meta($request_id, 'wpfep_user_status', $request);
-                $subject  = 'Denied notification';
-                $message  = 'Your account is denied by admin.' . "\r\n\r\n";
-                $message .= 'Now you cannot Log In to your account.' . "\r\n\r\n";
-                $message .= 'Thank you' . "\r\n\r\n";
-                wp_mail($user_data->user_email, $subject, $message);
-            }
+        // Ensure expected parameters exist
+        if ( empty($_GET['action']) || empty($_GET['user']) ) {
+            return;
+        }
+
+        $action = sanitize_text_field(wp_unslash($_GET['action']));
+        $user_id = intval(wp_unslash($_GET['user']));
+
+        // Only allow our two actions
+        if ( ! in_array($action, array('approve', 'rejected'), true) ) {
+            return;
+        }
+
+        // Verify nonce that is added via wp_nonce_url(..., 'new-user-approve') in the action links
+        if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'new-user-approve') ) {
+            wp_die('Nonce verification failed.');
+        }
+
+        // Ensure the current user has the capability to approve/reject users
+        if ( ! current_user_can('promote_users') ) {
+            wp_die('You do not have permission to perform this action.');
+        }
+
+        $user_data = get_userdata($user_id);
+        if ( ! $user_data ) {
+            return;
+        }
+
+        if ('approve' === $action) {
+            update_user_meta($user_id, 'wpfep_user_status', $action);
+            $subject  = 'Approval notification';
+            $message  = 'Your account is approved by admin.' . "\r\n\r\n";
+            $message .= 'Now you can log in to your account.' . "\r\n\r\n";
+            $message .= 'Thank you' . "\r\n\r\n";
+            wp_mail($user_data->user_email, $subject, $message);
+        }
+
+        if ('rejected' === $action) {
+            update_user_meta($user_id, 'wpfep_user_status', $action);
+            $subject  = 'Denied notification';
+            $message  = 'Your account is denied by admin.' . "\r\n\r\n";
+            $message .= 'Now you cannot Log In to your account.' . "\r\n\r\n";
+            $message .= 'Thank you' . "\r\n\r\n";
+            wp_mail($user_data->user_email, $subject, $message);
         }
     }
     add_action('load-users.php', 'update_action');
