@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+## [1.3.9] - 2026-02-21
+- Fix security isse for approve/reject users.
+
 ## [1.3.8] - 2024-09-10
 - Fix stable tag issue.
 - hcaptcha authentication method.
