@@ -31,7 +31,9 @@ $register_obj  = WPFEP_Registration::init();
 <?php echo esc_html($register_obj->show_errors()); ?>
 <?php echo esc_html($register_obj->show_messages()); ?>
 
-<form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
+<div class="wpfep-form-bg-wrapper">
+    <div class="wpfep-form-box">
+<<form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
 		<ul>
 			<li class="wpfep-form-field wpfep-default-first-name">
 				<label for="wpfep_reg_fname"><?php esc_attr_e('First Name', 'wpfep'); ?>
@@ -105,3 +107,5 @@ $register_obj  = WPFEP_Registration::init();
 			<?php do_action('wpfep_reg_form_bottom'); ?>
 		</ul>
 	</form>
+    </div>
+</div>

@@ -7,7 +7,8 @@
 
 defined('ABSPATH') || exit;
 ?>
-<div class="login" id="wpfep-login-form">
+<div class="wpfep-form-bg-wrapper">
+    <div class="wpfep-form-box">
 
 	<?php WPFEP_Login::init()->show_errors(); ?>
 	<?php WPFEP_Login::init()->show_messages(); ?>
@@ -40,4 +41,5 @@ defined('ABSPATH') || exit;
 
 		<?php wp_nonce_field('wpfep_reset_pass'); ?>
 	</form>
+    </div>
 </div>

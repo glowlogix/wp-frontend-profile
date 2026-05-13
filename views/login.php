@@ -7,7 +7,8 @@
 
 defined('ABSPATH') || exit;
 ?>
-<div class="login" id="wpfep-login-form">
+<div class="wpfep-form-bg-wrapper">
+    <div class="wpfep-form-box">
 
 	<?php
 
@@ -77,6 +78,8 @@ defined('ABSPATH') || exit;
 			<?php do_action('wpfep_login_form_bottom'); ?>
 		</p>
 	</form>
+    </div>
+</div>
 
 	<?php
     $lostpass = $login_obj->lost_password_links();
