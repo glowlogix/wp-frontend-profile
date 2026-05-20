@@ -30,6 +30,9 @@ function wpfep_register_scripts()
     if (true == $tab_js_output) {
         wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), 'jquery', array(), true);
     }
+
+    /* small password show/hide toggle */
+    wp_enqueue_script('wpfep_password_toggle', plugins_url('/assets/js/password-toggle.js', dirname(__FILE__)), 'jquery', array(), true);
 }
 add_action('wp_enqueue_scripts', 'wpfep_register_scripts');
 

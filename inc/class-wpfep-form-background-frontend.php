@@ -54,10 +54,13 @@ class WPFEP_Form_Background_Frontend {
                     content: '';
                     position: fixed;
                     inset: 0;
-                    background: url('{$bg_image}') no-repeat center center;
+                    background-image: url('{$bg_image}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
                     background-size: cover;
+                    background-attachment: fixed;
                     filter: blur({$blur}px);
-                    transform: scale(1.05);
+                    transform: none;
                     z-index: -2;
                 }
             ";
@@ -77,7 +80,7 @@ class WPFEP_Form_Background_Frontend {
             ";
         }
 
-        $css .= "
+        $css .= <<<CSS
             body::after {
                 content: '';
                 position: fixed;
@@ -101,15 +104,97 @@ class WPFEP_Form_Background_Frontend {
                 z-index: 2;
             }
 
-            .wpfep-form-box {
-                max-width: 500px;
-                margin: auto;
-                background: rgba(255, 255, 255, 0.95);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                padding: 30px;
-                border-radius: 10px;
+            .wpfep-form-bg-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                padding: 50px 20px;
             }
-        ";
+
+            .wpfep-form-box {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 38px;
+                background: rgba(255, 255, 255, 0.65) !important;
+                border: 1px solid rgba(255, 255, 255, 0.45) !important;
+                border-radius: 24px;
+                box-shadow: 0 38px 100px rgba(0, 0, 0, 0.18) !important;
+                backdrop-filter: blur(18px);
+                overflow: hidden;
+            }
+
+            .wpfep-form-box ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .wpfep-form-box input[type="text"],
+            .wpfep-form-box input[type="password"],
+            .wpfep-form-box input[type="email"],
+            .wpfep-form-box textarea {
+                width: 100%;
+                display: block;
+                padding: 14px 16px;
+                border: 1px solid rgba(0, 0, 0, 0.12);
+                border-radius: 10px;
+                margin-bottom: 18px;
+                font-size: 1rem;
+                color: #2b2b2b;
+                background: #ffffff;
+                box-sizing: border-box;
+            }
+
+            .wpfep-form-box input::placeholder,
+            .wpfep-form-box textarea::placeholder {
+                color: #999999;
+            }
+
+            .wpfep-form-box label,
+            .wpfep-form-box .wpfep-field label {
+                font-weight: 600;
+                color: #333333;
+                margin-bottom: 8px;
+                display: block;
+            }
+
+            .wpfep-form-box input[type="submit"],
+            .wpfep-form-box button,
+            .wpfep-form-box .button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 140px;
+                padding: 14px 26px;
+                background: linear-gradient(135deg, var(--wpfep-primary) 0%, var(--wpfep-accent) 100%);
+                color: #ffffff;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background 0.2s ease, transform 0.2s ease;
+                text-decoration: none;
+            }
+
+            .wpfep-form-box input[type="submit"]:hover,
+            .wpfep-form-box button:hover,
+            .wpfep-form-box .button:hover {
+                background: linear-gradient(135deg, var(--wpfep-primary-dark) 0%, var(--wpfep-primary) 100%);
+                transform: translateY(-1px);
+            }
+
+            .wpfep-form-box a {
+                color: #1f6feb;
+                text-decoration: none;
+            }
+
+            .wpfep-form-box a:hover {
+                text-decoration: underline;
+            }
+        CSS;
 
         if (!empty($css)) {
             wp_add_inline_style('wpfep_styles', $css);

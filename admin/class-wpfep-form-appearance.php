@@ -96,12 +96,12 @@ class WPFEP_Form_Appearance {
                     </td>
                 </tr>
 
-                <!-- PRESET -->
+                <!-- GRADIENT PRESET -->
                 <tr>
-                    <th>Preset</th>
+                    <th>Gradient Preset</th>
                     <td>
                         <select id="bg-preset">
-                            <option value="">Select Preset</option>
+                            <option value="">Select Gradient</option>
                             <option value="light">Light Gradient</option>
                             <option value="dark">Dark Gradient</option>
                             <option value="minimal">Minimal Gradient</option>
@@ -111,7 +111,21 @@ class WPFEP_Form_Appearance {
                             <option value="mint">Mint</option>
                             <option value="warm">Warm Glow</option>
                         </select>
-                        <p class="description">Choose a ready-made gradient sample. The value field will update automatically.</p>
+                        <p class="description">Choose a ready-made gradient. The value field will update automatically.</p>
+                    </td>
+                </tr>
+
+                <!-- WALLPAPER PRESET -->
+                <tr>
+                    <th>Wallpaper</th>
+                    <td>
+                        <select id="bg-wallpaper">
+                            <option value="">Select Wallpaper</option>
+                            <option value="mountains">Mountains</option>
+                            <option value="city">City</option>
+                            <option value="abstract">Abstract</option>
+                        </select>
+                        <p class="description">Choose a wallpaper background. The image URL field will update automatically.</p>
                     </td>
                 </tr>
 
@@ -180,7 +194,7 @@ class WPFEP_Form_Appearance {
                 <tr>
                     <th>Live Preview</th>
                     <td>
-                        <div id="bg-preview" style="height:200px;border:1px solid #ccc;"></div>
+                        <div id="bg-preview" style="height:350px;border:1px solid #ccc;"></div>
                     </td>
                 </tr>
 
@@ -192,6 +206,55 @@ class WPFEP_Form_Appearance {
 
         <script>
             jQuery(function($){
+
+                const presetValues = {
+                    dark: { type: 'gradient', value: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)' },
+                    light: { type: 'gradient', value: 'linear-gradient(135deg, #ffffff 0%, #d6e7ff 100%)' },
+                    minimal: { type: 'gradient', value: 'linear-gradient(135deg, #f8f8f8 0%, #e8e7e8 100%)' },
+                    sunset: { type: 'gradient', value: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)' },
+                    ocean: { type: 'gradient', value: 'linear-gradient(135deg, #2b5876 0%, #4e4376 100%)' },
+                    purple: { type: 'gradient', value: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' },
+                    mint: { type: 'gradient', value: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
+                    warm: { type: 'gradient', value: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)' }
+                };
+
+                const wallpaperValues = {
+                    mountains: { type: 'image', value: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80' },
+                    city: { type: 'image', value: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80' },
+                    abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80' }
+                };
+
+                function setPresetFromValue() {
+                    const value = $('#bg-value').val().trim();
+                    if ($('#bg-type').val() !== 'gradient') {
+                        $('#bg-preset').val('');
+                        return;
+                    }
+                    let found = '';
+                    $.each(presetValues, function(key, preset) {
+                        if (preset.value === value) {
+                            found = key;
+                            return false;
+                        }
+                    });
+                    $('#bg-preset').val(found);
+                }
+
+                function setWallpaperFromValue() {
+                    const value = $('#bg-value').val().trim();
+                    if ($('#bg-type').val() !== 'image') {
+                        $('#bg-wallpaper').val('');
+                        return;
+                    }
+                    let found = '';
+                    $.each(wallpaperValues, function(key, preset) {
+                        if (preset.value === value) {
+                            found = key;
+                            return false;
+                        }
+                    });
+                    $('#bg-wallpaper').val(found);
+                }
 
                 function updatePreview() {
 
@@ -237,60 +300,40 @@ class WPFEP_Form_Appearance {
 
                     $('#blur-value').text(blur + 'px');
                     $('#opacity-value').text(opacity);
+                    setPresetFromValue();
+                    setWallpaperFromValue();
                 }
 
-                $('#bg-type, #bg-value, #bg-blur, #bg-overlay-opacity').on('input change', updatePreview);
+                $('#bg-type, #bg-value, #bg-blur, #bg-overlay-opacity').on('input change', function() {
+                    updatePreview();
+                });
 
                 updatePreview();
+                setPresetFromValue();
+                setWallpaperFromValue();
 
                 // PRESETS
                 $('#bg-preset').on('change', function(){
+                    let key = $(this).val();
+                    if (!key) return;
+                    let preset = presetValues[key];
+                    if (!preset) return;
+                    $('#bg-type').val(preset.type);
+                    $('#bg-value').val(preset.value);
+                    $('#bg-wallpaper').val('');
+                    updatePreview();
+                });
 
-                    let val = $(this).val();
-
-                    if(val === 'dark'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)');
-                    }
-
-                    if(val === 'light'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #ffffff 0%, #d6e7ff 100%)');
-                    }
-
-                    if(val === 'minimal'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%)');
-                    }
-
-                    if(val === 'sunset'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)');
-                    }
-
-                    if(val === 'ocean'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #2b5876 0%, #4e4376 100%)');
-                    }
-
-                    if(val === 'purple'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)');
-                    }
-
-                    if(val === 'mint'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)');
-                    }
-
-                    if(val === 'warm'){
-                        $('#bg-type').val('gradient');
-                        $('#bg-value').val('linear-gradient(135deg, #f6d365 0%, #fda085 100%)');
-                    }
-
-                    if(val !== ''){
-                        updatePreview();
-                    }
+                // WALLPAPERS
+                $('#bg-wallpaper').on('change', function(){
+                    let key = $(this).val();
+                    if (!key) return;
+                    let preset = wallpaperValues[key];
+                    if (!preset) return;
+                    $('#bg-type').val(preset.type);
+                    $('#bg-value').val(preset.value);
+                    $('#bg-preset').val('');
+                    updatePreview();
                 });
 
                 // UPLOAD IMAGE

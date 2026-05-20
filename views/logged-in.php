@@ -29,9 +29,11 @@ if (current_user_can('administrator') && 'on' === $manually_register && is_page(
     $register_obj  = WPFEP_Registration::init();
     $login_obj     = WPFEP_Login::init(); ?>
 
-	<?php echo esc_html($register_obj->show_errors()); ?>
-	<?php echo esc_html($register_obj->show_messages()); ?>
-	<form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
+<div class="wpfep-form-bg-wrapper">
+    <div class="wpfep-form-box">
+        <?php echo esc_html($register_obj->show_errors()); ?>
+        <?php echo esc_html($register_obj->show_messages()); ?>
+        <form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
 		<ul>
 			<li class="wpfep-form-field wpfep-default-first-name">
 				<label for="wpfep_reg_fname"><?php esc_attr_e('First Name', 'wpfep'); ?>
@@ -89,12 +91,19 @@ if (current_user_can('administrator') && 'on' === $manually_register && is_page(
 			<?php do_action('wpfep_reg_form_bottom'); ?>
 		</ul>
 	</form>
+    </div>
+</div>
 	<?php
 } elseif (is_user_logged_in() === true) {
                         ?>
-	<div class="wpfep-user-loggedin">
-	<p class="alert" id="wpfep_register_pre_form_message">
-	<?php printf(__("You are currently logged in. You don't need another account. %s", 'wpfep'), wp_loginout('', false)) . '</p>'; ?>
-	</div>
+<div class="wpfep-form-bg-wrapper">
+    <div class="wpfep-form-box">
+        <div class="wpfep-user-loggedin">
+            <p class="alert" id="wpfep_register_pre_form_message">
+                <?php printf(__("You are currently logged in. You don't need another account. %s", 'wpfep'), wp_loginout('', false)); ?>
+            </p>
+        </div>
+    </div>
+</div>
 <?php
                     } ?>

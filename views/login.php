@@ -9,6 +9,10 @@ defined('ABSPATH') || exit;
 ?>
 <div class="wpfep-form-bg-wrapper">
     <div class="wpfep-form-box">
+        <div class="wpfep-form-header">
+            <h2><?php esc_html_e('Welcome Back', 'wpfep'); ?></h2>
+            <p class="wpfep-form-subtitle"><?php esc_html_e('Sign in to continue to your account.', 'wpfep'); ?></p>
+        </div>
 
 	<?php
 
@@ -77,11 +81,7 @@ defined('ABSPATH') || exit;
 		<p>
 			<?php do_action('wpfep_login_form_bottom'); ?>
 		</p>
-	</form>
-    </div>
-</div>
-
-	<?php
+        <?php
     $lostpass = $login_obj->lost_password_links();
             echo wp_kses(
                 $lostpass,
@@ -95,4 +95,7 @@ defined('ABSPATH') || exit;
                 )
             );
             ?>
+	</form>
+    </div>
+</div>
 </div>
