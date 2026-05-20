@@ -1,9 +1,9 @@
 :root {
-    --wpfep-primary: #ff1568;
-    /* main pink */
-    --wpfep-primary-dark: #d30f57;
-    /* darker pink */
-    --wpfep-accent: #ff6aa1;
+    --wpfep-primary: #0f766e;
+    /* main teal */
+    --wpfep-primary-dark: #115e59;
+    /* darker teal */
+    --wpfep-accent: #14b8a6;
     /* accent */
     --wpfep-text: #1f2d3d;
 }
@@ -49,9 +49,9 @@ ul.wpfep-tabs li a {
 }
 
 ul.wpfep-tabs li.highlight a {
-    background-color: #922540;
+    background-color: #0f766e;
     color: #FFFFFF;
-    border-color: #84273e;
+    border-color: #115e59;
 }
 
 ul.wpfep-tabs li a.active {
@@ -61,7 +61,7 @@ ul.wpfep-tabs li a.active {
 }
 
 ul.wpfep-tabs li.highlight a.active {
-    background-color: #C95874;
+    background-color: #14b8a6;
     color: #FFFFFF;
 }
 
@@ -647,7 +647,7 @@ label.wpfep-showform-custom {
 
 .wpfep-password-toggle:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(235, 142, 175, 0);
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0);
 }
 
 .wpfep-password-toggle svg {

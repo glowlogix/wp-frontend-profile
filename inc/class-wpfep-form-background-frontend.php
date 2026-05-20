@@ -45,7 +45,14 @@ class WPFEP_Form_Background_Frontend {
         }
 
         $type = $options['type'] ?? '';
-        $css = '';
+        $theme = $this->get_button_theme($type, $bg_value);
+        $css = "
+            :root {
+                --wpfep-primary: {$theme['primary']};
+                --wpfep-primary-dark: {$theme['primary_dark']};
+                --wpfep-accent: {$theme['accent']};
+            }
+        ";
 
         if ($type === 'image') {
             $bg_image = esc_url($bg_value);
@@ -187,7 +194,7 @@ class WPFEP_Form_Background_Frontend {
             }
 
             .wpfep-form-box a {
-                color: #1f6feb;
+                color: var(--wpfep-primary);
                 text-decoration: none;
             }
 
@@ -199,5 +206,116 @@ class WPFEP_Form_Background_Frontend {
         if (!empty($css)) {
             wp_add_inline_style('wpfep_styles', $css);
         }
+    }
+
+    /**
+     * Choose form button colors from the selected background value.
+     *
+     * @param string $type Background type.
+     * @param string $value Background value.
+     *
+     * @return array
+     */
+    private function get_button_theme($type, $value) {
+        $default = [
+            'primary'      => '#0f766e',
+            'primary_dark' => '#115e59',
+            'accent'       => '#14b8a6',
+        ];
+
+        if ('image' === $type) {
+            $image_themes = [
+                '1501785888041-af3ef285b470' => [
+                    'primary'      => '#166534',
+                    'primary_dark' => '#14532d',
+                    'accent'       => '#22c55e',
+                ],
+                '1467269204594-9661b134dd2b' => [
+                    'primary'      => '#1d4ed8',
+                    'primary_dark' => '#1e40af',
+                    'accent'       => '#38bdf8',
+                ],
+                '1503264116251-35a269479413' => [
+                    'primary'      => '#4338ca',
+                    'primary_dark' => '#3730a3',
+                    'accent'       => '#818cf8',
+                ],
+            ];
+
+            foreach ($image_themes as $needle => $theme) {
+                if (false !== strpos($value, $needle)) {
+                    return $theme;
+                }
+            }
+
+            return $default;
+        }
+
+        $colors = $this->extract_hex_colors($value);
+
+        if (! empty($colors)) {
+            $primary = $colors[0];
+            $accent = isset($colors[1]) ? $colors[1] : $this->shift_hex_color($primary, 34);
+
+            return [
+                'primary'      => $primary,
+                'primary_dark' => $this->shift_hex_color($primary, -28),
+                'accent'       => $accent,
+            ];
+        }
+
+        return $default;
+    }
+
+    /**
+     * Extract hex colors from a CSS color or gradient value.
+     *
+     * @param string $value CSS value.
+     *
+     * @return array
+     */
+    private function extract_hex_colors($value) {
+        preg_match_all('/#(?:[0-9a-fA-F]{3}){1,2}\b/', $value, $matches);
+
+        if (empty($matches[0])) {
+            return [];
+        }
+
+        return array_map([$this, 'normalize_hex_color'], $matches[0]);
+    }
+
+    /**
+     * Convert short hex colors to full six-character hex values.
+     *
+     * @param string $color Hex color.
+     *
+     * @return string
+     */
+    private function normalize_hex_color($color) {
+        $color = ltrim($color, '#');
+
+        if (3 === strlen($color)) {
+            $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
+        }
+
+        return '#' . strtolower($color);
+    }
+
+    /**
+     * Lighten or darken a hex color.
+     *
+     * @param string $color Hex color.
+     * @param int    $amount Amount to shift each RGB channel.
+     *
+     * @return string
+     */
+    private function shift_hex_color($color, $amount) {
+        $color = ltrim($this->normalize_hex_color($color), '#');
+
+        $red = max(0, min(255, hexdec(substr($color, 0, 2)) + $amount));
+        $green = max(0, min(255, hexdec(substr($color, 2, 2)) + $amount));
+        $blue = max(0, min(255, hexdec(substr($color, 4, 2)) + $amount));
+
+        return sprintf('#%02x%02x%02x', $red, $green, $blue);
     }
 }

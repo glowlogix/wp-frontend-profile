@@ -809,7 +809,7 @@ if (! class_exists('WPFEP_Login')) {
         }
 
         /**
-         * Redirect user to page after log in.
+         * Redirect wp-login.php access to the frontend login/register pages.
          *
          * @since 1.0.0
          *
@@ -819,11 +819,37 @@ if (! class_exists('WPFEP_Login')) {
         {
             global $pagenow;
 
-            if (! is_admin() && 'wp-login.php' == $pagenow && isset($_GET['action']) && 'register' == $_GET['action']) {
-                $reg_page = get_permalink(wpfep_get_option('register_page', 'wpfep_pages'));
-                wp_redirect($reg_page);
+            if (is_admin() || 'wp-login.php' !== $pagenow) {
+                return;
+            }
+
+            $login_page_id = wpfep_get_option('login_page', 'wpfep_pages');
+            if (! $login_page_id) {
+                return;
+            }
+
+            $login_url = get_permalink($login_page_id);
+            if (! $login_url) {
+                return;
+            }
+
+            $action = isset($_REQUEST['action']) ? sanitize_text_field(wp_unslash($_REQUEST['action'])) : '';
+
+            if ('register' === $action) {
+                $register_page_id = wpfep_get_option('register_page', 'wpfep_pages');
+                if ($register_page_id) {
+                    wp_safe_redirect(get_permalink($register_page_id));
+                    exit;
+                }
+            }
+
+            if (in_array($action, array('lostpassword', 'resetpass', 'rp', 'logout'), true)) {
+                wp_safe_redirect(add_query_arg('action', $action, $login_url));
                 exit;
             }
+
+            wp_safe_redirect($login_url);
+            exit;
         }
 
         /**
