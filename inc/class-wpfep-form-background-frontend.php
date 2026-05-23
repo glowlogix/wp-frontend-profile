@@ -240,6 +240,46 @@ class WPFEP_Form_Background_Frontend {
                     'primary_dark' => '#3730a3',
                     'accent'       => '#818cf8',
                 ],
+                '1497366754035-f200968a6e72' => [
+                    'primary'      => '#334155',
+                    'primary_dark' => '#1e293b',
+                    'accent'       => '#0ea5e9',
+                ],
+                '1500530855697-b586d89ba3ee' => [
+                    'primary'      => '#7c3aed',
+                    'primary_dark' => '#5b21b6',
+                    'accent'       => '#a78bfa',
+                ],
+                '1518005020951-eccb494ad742' => [
+                    'primary'      => '#0f766e',
+                    'primary_dark' => '#134e4a',
+                    'accent'       => '#2dd4bf',
+                ],
+                '1486406146926-c627a92ad1ab' => [
+                    'primary'      => '#1e40af',
+                    'primary_dark' => '#172554',
+                    'accent'       => '#60a5fa',
+                ],
+                '1448375240586-882707db888b' => [
+                    'primary'      => '#166534',
+                    'primary_dark' => '#14532d',
+                    'accent'       => '#84cc16',
+                ],
+                '1507525428034-b723cf961d3e' => [
+                    'primary'      => '#0369a1',
+                    'primary_dark' => '#075985',
+                    'accent'       => '#22d3ee',
+                ],
+                '1618005198919-d3d4b5a92ead' => [
+                    'primary'      => '#6d5d4f',
+                    'primary_dark' => '#4b4038',
+                    'accent'       => '#c4a484',
+                ],
+                '1557683316-973673baf926' => [
+                    'primary'      => '#be123c',
+                    'primary_dark' => '#881337',
+                    'accent'       => '#fb7185',
+                ],
             ];
 
             foreach ($image_themes as $needle => $theme) {

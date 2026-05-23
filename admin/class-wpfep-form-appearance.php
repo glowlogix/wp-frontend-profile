@@ -124,6 +124,14 @@ class WPFEP_Form_Appearance {
                             <option value="mountains">Mountains</option>
                             <option value="city">City</option>
                             <option value="abstract">Abstract</option>
+                            <option value="workspace">Modern Workspace</option>
+                            <option value="studio">Clean Studio</option>
+                            <option value="architecture">Glass Architecture</option>
+                            <option value="skyline">Business Skyline</option>
+                            <option value="forest">Calm Forest</option>
+                            <option value="coastal">Coastal Blue</option>
+                            <option value="marble">Soft Marble</option>
+                            <option value="neutral_abstract">Neutral Abstract</option>
                         </select>
                         <p class="description">Choose a wallpaper background. The image URL field will update automatically.</p>
                     </td>
@@ -221,7 +229,15 @@ class WPFEP_Form_Appearance {
                 const wallpaperValues = {
                     mountains: { type: 'image', value: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80' },
                     city: { type: 'image', value: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80' },
-                    abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80' }
+                    abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80' },
+                    workspace: { type: 'image', value: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80' },
+                    studio: { type: 'image', value: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80' },
+                    architecture: { type: 'image', value: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1600&q=80' },
+                    skyline: { type: 'image', value: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80' },
+                    forest: { type: 'image', value: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80' },
+                    coastal: { type: 'image', value: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80' },
+                    marble: { type: 'image', value: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1600&q=80' },
+                    neutral_abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1600&q=80' }
                 };
 
                 function setPresetFromValue() {
