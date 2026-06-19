@@ -280,6 +280,56 @@ class WPFEP_Form_Background_Frontend {
                     'primary_dark' => '#881337',
                     'accent'       => '#fb7185',
                 ],
+                '1497366216548-37526070297c' => [
+                    'primary'      => '#475569',
+                    'primary_dark' => '#334155',
+                    'accent'       => '#38bdf8',
+                ],
+                '1517502884422-41eaead166d4' => [
+                    'primary'      => '#1f2937',
+                    'primary_dark' => '#111827',
+                    'accent'       => '#60a5fa',
+                ],
+                '1497215842964-222b430dc094' => [
+                    'primary'      => '#0f766e',
+                    'primary_dark' => '#115e59',
+                    'accent'       => '#5eead4',
+                ],
+                '1519389950473-47ba0277781c' => [
+                    'primary'      => '#7c2d12',
+                    'primary_dark' => '#431407',
+                    'accent'       => '#fb923c',
+                ],
+                '1524758631624-e2822e304c36' => [
+                    'primary'      => '#374151',
+                    'primary_dark' => '#1f2937',
+                    'accent'       => '#a3e635',
+                ],
+                '1497366811353-6870744d04b2' => [
+                    'primary'      => '#312e81',
+                    'primary_dark' => '#1e1b4b',
+                    'accent'       => '#6366f1',
+                ],
+                '1494526585095-c41746248156' => [
+                    'primary'      => '#155e75',
+                    'primary_dark' => '#164e63',
+                    'accent'       => '#67e8f9',
+                ],
+                '1557682250-33bd709cbe85' => [
+                    'primary'      => '#6d28d9',
+                    'primary_dark' => '#4c1d95',
+                    'accent'       => '#c084fc',
+                ],
+                '1511818966892-d7d671e672a2' => [
+                    'primary'      => '#78350f',
+                    'primary_dark' => '#451a03',
+                    'accent'       => '#f59e0b',
+                ],
+                '1557682224-5b8590cd9ec5' => [
+                    'primary'      => '#0e7490',
+                    'primary_dark' => '#155e75',
+                    'accent'       => '#22d3ee',
+                ],
             ];
 
             foreach ($image_themes as $needle => $theme) {

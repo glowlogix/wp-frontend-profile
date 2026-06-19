@@ -132,6 +132,16 @@ class WPFEP_Form_Appearance {
                             <option value="coastal">Coastal Blue</option>
                             <option value="marble">Soft Marble</option>
                             <option value="neutral_abstract">Neutral Abstract</option>
+                            <option value="executive_office">Executive Office</option>
+                            <option value="conference">Conference Room</option>
+                            <option value="minimal_desk">Minimal Desk</option>
+                            <option value="creative_workspace">Creative Workspace</option>
+                            <option value="corporate_lobby">Corporate Lobby</option>
+                            <option value="dark_workspace">Dark Workspace</option>
+                            <option value="glass_tower">Glass Tower</option>
+                            <option value="soft_gradient_wall">Soft Gradient Wall</option>
+                            <option value="premium_lounge">Premium Lounge</option>
+                            <option value="calm_abstract">Calm Abstract</option>
                         </select>
                         <p class="description">Choose a wallpaper background. The image URL field will update automatically.</p>
                     </td>
@@ -237,7 +247,17 @@ class WPFEP_Form_Appearance {
                     forest: { type: 'image', value: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80' },
                     coastal: { type: 'image', value: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80' },
                     marble: { type: 'image', value: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=1600&q=80' },
-                    neutral_abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1600&q=80' }
+                    neutral_abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1600&q=80' },
+                    executive_office: { type: 'image', value: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80' },
+                    conference: { type: 'image', value: 'https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=1600&q=80' },
+                    minimal_desk: { type: 'image', value: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1600&q=80' },
+                    creative_workspace: { type: 'image', value: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80' },
+                    corporate_lobby: { type: 'image', value: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=80' },
+                    dark_workspace: { type: 'image', value: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80' },
+                    glass_tower: { type: 'image', value: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80' },
+                    soft_gradient_wall: { type: 'image', value: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=1600&q=80' },
+                    premium_lounge: { type: 'image', value: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1600&q=80' },
+                    calm_abstract: { type: 'image', value: 'https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?auto=format&fit=crop&w=1600&q=80' }
                 };
 
                 function setPresetFromValue() {
