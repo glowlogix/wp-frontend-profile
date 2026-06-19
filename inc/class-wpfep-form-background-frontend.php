@@ -2,14 +2,15 @@
 
 defined('ABSPATH') || exit;
 
-class WPFEP_Form_Background_Frontend {
-
-    public function __construct() {
+class WPFEP_Form_Background_Frontend
+{
+    public function __construct()
+    {
         add_action('wp_enqueue_scripts', [$this, 'apply_background']);
     }
 
-    public function apply_background() {
-
+    public function apply_background()
+    {
         $options = get_option('wpfep_form_background', []);
 
         if (empty($options['enable']) || $options['enable'] !== 'on') {
@@ -216,7 +217,8 @@ class WPFEP_Form_Background_Frontend {
      *
      * @return array
      */
-    private function get_button_theme($type, $value) {
+    private function get_button_theme($type, $value)
+    {
         $default = [
             'primary'      => '#0f766e',
             'primary_dark' => '#115e59',
@@ -364,7 +366,8 @@ class WPFEP_Form_Background_Frontend {
      *
      * @return array
      */
-    private function extract_hex_colors($value) {
+    private function extract_hex_colors($value)
+    {
         preg_match_all('/#(?:[0-9a-fA-F]{3}){1,2}\b/', $value, $matches);
 
         if (empty($matches[0])) {
@@ -381,7 +384,8 @@ class WPFEP_Form_Background_Frontend {
      *
      * @return string
      */
-    private function normalize_hex_color($color) {
+    private function normalize_hex_color($color)
+    {
         $color = ltrim($color, '#');
 
         if (3 === strlen($color)) {
@@ -399,7 +403,8 @@ class WPFEP_Form_Background_Frontend {
      *
      * @return string
      */
-    private function shift_hex_color($color, $amount) {
+    private function shift_hex_color($color, $amount)
+    {
         $color = ltrim($this->normalize_hex_color($color), '#');
 
         $red = max(0, min(255, hexdec(substr($color, 0, 2)) + $amount));
