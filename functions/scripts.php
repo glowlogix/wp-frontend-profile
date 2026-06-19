@@ -36,19 +36,23 @@ function wpfep_register_scripts()
 }
 add_action('wp_enqueue_scripts', 'wpfep_register_scripts');
 
-function wpfep_apply_form_background() {
-
+function wpfep_apply_form_background()
+{
     $options = get_option('wpfep_form_background');
     //error_log('Current Page ID: ' . $current_page_id);
 
 
-    if (empty($options)) return;
+    if (empty($options)) {
+        return;
+    }
 
     $type  = $options['type'] ?? '';
     $value = $options['value'] ?? '';
     $pages = $options['pages'] ?? [];
 
-    if (!$type || !$value || empty($pages)) return;
+    if (!$type || !$value || empty($pages)) {
+        return;
+    }
 
     $current_page_id = get_queried_object_id();
     $login_page    = wpfep_get_option('login_page', 'wpfep_pages');
@@ -67,7 +71,6 @@ function wpfep_apply_form_background() {
     }
 
     if ($current_page_id == $login_page) {
-
         if ($action === 'lostpassword' && in_array('lostpass', $pages)) {
             $apply = true;
         }
@@ -77,7 +80,9 @@ function wpfep_apply_form_background() {
         }
     }
 
-    if (!$apply) return;
+    if (!$apply) {
+        return;
+    }
 
     // sanitize
     if ($type === 'image') {
@@ -121,8 +126,8 @@ function wpfep_apply_form_background() {
 /**
  * Load background images from URL settings
  */
-function wpfep_load_url_background() {
-
+function wpfep_load_url_background()
+{
     $options = get_option('wpfep_form_background', array());
 
     if (empty($options['enable_form_background']) || 'off' === $options['enable_form_background']) {
@@ -149,7 +154,9 @@ function wpfep_load_url_background() {
         $bg_image = $options['profile_bg_image'];
     }
 
-    if (empty($bg_image)) return;
+    if (empty($bg_image)) {
+        return;
+    }
 
     $bg_image = esc_url($bg_image);
 
