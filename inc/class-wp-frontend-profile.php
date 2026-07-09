@@ -63,62 +63,32 @@ if (! class_exists('WP_Frontend_Profile')) {
          */
         public function includes()
         {
-            $base_dir       = __DIR__;
-            $functions_dir  = $base_dir . '/../functions/';
-            $admin_dir      = $base_dir . '/../admin/';
-
-            $scripts_file            = $functions_dir . 'scripts.php';
-            $default_fields_file     = $functions_dir . 'default-fields.php';
-            $tabs_file               = $functions_dir . 'tabs.php';
-            $wpfep_functions_file    = $functions_dir . 'wpfep-functions.php';
-            $save_fields_file        = $functions_dir . 'save-fields.php';
-            $shortcode_file          = $functions_dir . 'shortcode.php';
-            $feedback_file           = $functions_dir . 'feedback.php';
-            $gutenberg_block_file    = $functions_dir . 'wpfep-gutenberg-block.php';
-            $user_file               = $base_dir . '/class-wpfep-user.php';
-            $roles_editor_file       = $base_dir . '/class-wpfep-roles-editor.php';
-            $login_widget_file       = $base_dir . '/class-wpfep-login-widget.php';
-
-            require_once $scripts_file;
-            require_once $default_fields_file;
-            require_once $tabs_file;
-            require_once $wpfep_functions_file;
-            require_once $save_fields_file;
-            require_once $shortcode_file;
-            require_once $feedback_file;
-            require_once $gutenberg_block_file;
-            require_once $user_file;
-            require_once $roles_editor_file;
-            require_once $login_widget_file;
+            require_once __DIR__ . '/../functions/scripts.php';
+            require_once __DIR__ . '/../functions/default-fields.php';
+            require_once __DIR__ . '/../functions/tabs.php';
+            require_once __DIR__ . '/../functions/wpfep-functions.php';
+            require_once __DIR__ . '/../functions/save-fields.php';
+            require_once __DIR__ . '/../functions/shortcode.php';
+            require_once __DIR__ . '/../functions/feedback.php';
+            require_once __DIR__ . '/../functions/wpfep-gutenberg-block.php';
+            require_once __DIR__ . '/class-wpfep-user.php';
+            require_once __DIR__ . '/class-wpfep-roles-editor.php';
+            require_once __DIR__ . '/class-wpfep-login-widget.php';
 
             if (is_admin()) {
-                $admin_installer_file = $admin_dir . 'class-wpfep-admin-installer.php';
-                $admin_settings_file  = $admin_dir . 'class-wpfep-admin-settings.php';
-                $shortcodes_file      = $admin_dir . 'class-wpfep-shortcodes-button.php';
-                $admin_help_file      = $admin_dir . 'class-wpfep-admin-help.php';
-                $system_status_file   = $admin_dir . 'class-wpfep-system-status.php';
-                $form_appearance_file = $admin_dir . 'class-wpfep-form-appearance.php';
-
-                require_once $admin_installer_file;
-                require_once $admin_settings_file;
-                require_once $shortcodes_file;
-                require_once $admin_help_file;
-                require_once $system_status_file;
-                require_once $form_appearance_file;
+                require_once __DIR__ . '/../admin/class-wpfep-admin-installer.php';
+                require_once __DIR__ . '/../admin/class-wpfep-admin-settings.php';
+                require_once __DIR__ . '/../admin/class-wpfep-shortcodes-button.php';
+                require_once __DIR__ . '/../admin/class-wpfep-admin-help.php';
+                require_once __DIR__ . '/../admin/class-wpfep-system-status.php';
+                require_once __DIR__ . '/../admin/class-wpfep-form-appearance.php';
             } else {
-                $registration_file      = $base_dir . '/class-wpfep-registration.php';
-                $login_file             = $base_dir . '/class-wpfep-login.php';
-                $profile_file           = $base_dir . '/class-wpfep-profile.php';
-                $captcha_recaptcha_file = $base_dir . '/class-wpfep-captcha-recaptcha.php';
-                $captcha_hcaptcha_file  = $base_dir . '/class-wpfep-captcha-hcaptcha.php';
-                $form_background_file   = $base_dir . '/class-wpfep-form-background-frontend.php';
-
-                require_once $registration_file;
-                require_once $login_file;
-                require_once $profile_file;
-                require_once $captcha_recaptcha_file;
-                require_once $captcha_hcaptcha_file;
-                require_once $form_background_file;
+                require_once __DIR__ . '/class-wpfep-registration.php';
+                require_once __DIR__ . '/class-wpfep-login.php';
+                require_once __DIR__ . '/class-wpfep-profile.php';
+                require_once __DIR__ . '/class-wpfep-captcha-recaptcha.php';
+                require_once __DIR__ . '/class-wpfep-captcha-hcaptcha.php';
+                require_once __DIR__ . '/class-wpfep-form-background-frontend.php';
             }
         }
 
