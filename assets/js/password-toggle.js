@@ -3,8 +3,47 @@
  */
 (function ($) {
     $(function () {
-        var eye = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-        var eyeOff = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.45 21.45 0 0 1 5.06-6.06"/><path d="M1 1l22 22"/></svg>';
+        function createSvgIcon(isVisible) {
+            var namespace = 'http://www.w3.org/2000/svg';
+            var svg = document.createElementNS(namespace, 'svg');
+
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('width', '18');
+            svg.setAttribute('height', '18');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '1.6');
+            svg.setAttribute('stroke-linecap', 'round');
+            svg.setAttribute('stroke-linejoin', 'round');
+
+            if (isVisible) {
+                var hiddenPath = document.createElementNS(namespace, 'path');
+                hiddenPath.setAttribute('d', 'M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.45 21.45 0 0 1 5.06-6.06');
+                svg.appendChild(hiddenPath);
+
+                var slashPath = document.createElementNS(namespace, 'path');
+                slashPath.setAttribute('d', 'M1 1l22 22');
+                svg.appendChild(slashPath);
+
+                return svg;
+            }
+
+            var eyePath = document.createElementNS(namespace, 'path');
+            eyePath.setAttribute('d', 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z');
+            svg.appendChild(eyePath);
+
+            var circle = document.createElementNS(namespace, 'circle');
+            circle.setAttribute('cx', '12');
+            circle.setAttribute('cy', '12');
+            circle.setAttribute('r', '3');
+            svg.appendChild(circle);
+
+            return svg;
+        }
+
+        function setButtonIcon($button, isVisible) {
+            $button.empty().append(createSvgIcon(isVisible));
+        }
 
         $('.wpfep-form-box input[type="password"]').each(function () {
             var $input = $(this);
@@ -12,12 +51,19 @@
             if ($input.parent().hasClass('wpfep-input-wrap')) return;
 
             // wrap input for positioning
-            $input.wrap('<div class="wpfep-input-wrap"></div>');
+            var wrapper = document.createElement('div');
+            wrapper.className = 'wpfep-input-wrap';
+            $input.wrap(wrapper);
             var $wrap = $input.parent();
 
             // create toggle button
-            var $btn = $('<button type="button" class="wpfep-password-toggle" aria-label="Show password"></button>');
-            $btn.html(eye);
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'wpfep-password-toggle';
+            button.setAttribute('aria-label', 'Show password');
+
+            var $btn = $(button);
+            setButtonIcon($btn, false);
             $wrap.append($btn);
 
             $btn.on('click', function (e) {
@@ -26,12 +72,12 @@
                     $input.attr('type', 'text');
                     $btn.addClass('visible');
                     $btn.attr('aria-label', 'Hide password');
-                    $btn.html(eyeOff);
+                    setButtonIcon($btn, true);
                 } else {
                     $input.attr('type', 'password');
                     $btn.removeClass('visible');
                     $btn.attr('aria-label', 'Show password');
-                    $btn.html(eye);
+                    setButtonIcon($btn, false);
                 }
             });
         });

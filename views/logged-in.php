@@ -33,7 +33,7 @@ if (current_user_can('administrator') && 'on' === $manually_register && is_page(
     <div class="wpfep-form-box">
         <?php echo esc_html($register_obj->show_errors()); ?>
         <?php echo esc_html($register_obj->show_messages()); ?>
-        <form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
+        <form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_url($action_url); ?>" method="post">
 		<ul>
 			<li class="wpfep-form-field wpfep-default-first-name">
 				<label for="wpfep_reg_fname"><?php esc_attr_e('First Name', 'wpfep'); ?>

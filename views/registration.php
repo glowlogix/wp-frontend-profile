@@ -37,7 +37,7 @@ $register_obj  = WPFEP_Registration::init();
 			<h2><?php esc_html_e('Create your account', 'wpfep'); ?></h2>
 			<p class="wpfep-form-subtitle"><?php esc_html_e('Get started with a free profile and simple signup.', 'wpfep'); ?></p>
 		</div>
-        <form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_html($action_url); ?>" method="post">
+        <form name="wpfep_registration_form" class="wpfep-registration-form" id="wpfep_registration_form" action="<?php echo esc_url($action_url); ?>" method="post">
             <ul>
 			<li class="wpfep-form-field wpfep-default-first-name">
 				<label for="wpfep_reg_fname"><?php esc_attr_e('First Name', 'wpfep'); ?>

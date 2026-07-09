@@ -1,6 +1,8 @@
 <?php
 
-defined('ABSPATH') || exit;
+if (! defined('ABSPATH')) {
+    return;
+}
 
 class WPFEP_Form_Background_Frontend {
 
@@ -20,14 +22,11 @@ class WPFEP_Form_Background_Frontend {
 
         $login_page    = wpfep_get_option('login_page', 'wpfep_pages');
         $register_page = wpfep_get_option('register_page', 'wpfep_pages');
-        $profile_page  = wpfep_get_option('profile_page', 'wpfep_pages');
-        $edit_page     = wpfep_get_option('profile_edit_page', 'wpfep_pages');
-
         $bg_value = '';
-        $blur     = isset($options['blur']) ? intval($options['blur']) : 0;
+        $blur     = isset($options['blur']) ? (int) $options['blur'] : 0;
         $opacity  = isset($options['opacity']) ? floatval($options['opacity']) : 0.3;
 
-        $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+        $action = sanitize_text_field(wp_unslash((string) filter_input(INPUT_GET, 'action')));
 
         // Select value per page
         if ($current_page_id == $login_page && in_array('login', $options['pages'] ?? [])) {
@@ -371,7 +370,13 @@ class WPFEP_Form_Background_Frontend {
             return [];
         }
 
-        return array_map([$this, 'normalize_hex_color'], $matches[0]);
+        $colors = [];
+
+        foreach ($matches[0] as $color) {
+            $colors[] = $this->normalize_hex_color($color);
+        }
+
+        return $colors;
     }
 
     /**

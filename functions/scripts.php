@@ -20,7 +20,7 @@ function wpfep_register_scripts()
 
     /* if we should output styles - enqueue them */
     if (true == $style_output) {
-        wp_enqueue_style('wpfep_styles', plugins_url('/assets/css/wpfep-style.css', dirname(__FILE__)), array(), WPFEP_VERSION, 'all');
+        wp_enqueue_style('wpfep_styles', WPFEP_PLUGIN_URL . 'assets/css/wpfep-style.css', array(), WPFEP_VERSION, 'all');
     }
 
     /* make a filter to allow turning off tab js */
@@ -28,11 +28,11 @@ function wpfep_register_scripts()
 
     /* if we turn ob tab js - enqueue them */
     if (true == $tab_js_output) {
-        wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), 'jquery', array(), true);
+        wp_enqueue_script('wpfep_tabs_js', WPFEP_PLUGIN_URL . 'assets/js/tabs.js', array( 'jquery' ), WPFEP_VERSION, true);
     }
 
     /* small password show/hide toggle */
-    wp_enqueue_script('wpfep_password_toggle', plugins_url('/assets/js/password-toggle.js', dirname(__FILE__)), 'jquery', array(), true);
+    wp_enqueue_script('wpfep_password_toggle', WPFEP_PLUGIN_URL . 'assets/js/password-toggle.js', array( 'jquery' ), WPFEP_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'wpfep_register_scripts');
 
@@ -56,7 +56,7 @@ function wpfep_apply_form_background() {
 
     $apply = false;
 
-    $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+    $action = sanitize_text_field(wp_unslash((string) filter_input(INPUT_GET, 'action')));
 
     if ($current_page_id == $login_page && in_array('login', $pages)) {
         $apply = true;
@@ -137,7 +137,7 @@ function wpfep_load_url_background() {
     $edit_page     = wpfep_get_option('profile_edit_page', 'wpfep_pages');
 
     $bg_image = '';
-    $blur     = isset($options['blur']) ? intval($options['blur']) : 0;
+    $blur     = isset($options['blur']) ? (int) $options['blur'] : 0;
     $opacity  = isset($options['opacity']) ? floatval($options['opacity']) : 0.3;
 
     // Select image per page

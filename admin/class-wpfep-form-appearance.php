@@ -1,6 +1,8 @@
 <?php
 
-defined('ABSPATH') || exit;
+if (! defined('ABSPATH')) {
+    return;
+}
 
 class WPFEP_Form_Appearance {
 
@@ -46,13 +48,17 @@ class WPFEP_Form_Appearance {
             $output['value'] = isset($input['value']) ? sanitize_text_field($input['value']) : '';
         }
         
-        $output['blur'] = isset($input['blur']) ? max(0, min(10, intval($input['blur']))) : 0;
+        $output['blur'] = isset($input['blur']) ? max(0, min(10, (int) $input['blur'])) : 0;
         $output['opacity'] = isset($input['opacity']) ? max(0, min(1, floatval($input['opacity']))) : 0.3;
         
         $pages = isset($input['pages']) && is_array($input['pages']) ? $input['pages'] : [];
-        $output['pages'] = array_filter($pages, function ($page) {
-            return in_array($page, ['login', 'register', 'lostpass', 'resetpass'], true);
-        });
+        $output['pages'] = [];
+
+        foreach ($pages as $page) {
+            if (in_array($page, ['login', 'register', 'lostpass', 'resetpass'], true)) {
+                $output['pages'][] = $page;
+            }
+        }
 
         return $output;
     }
@@ -165,7 +171,7 @@ class WPFEP_Form_Appearance {
                     <td>
                         <input type="text" id="bg-value"
                                name="wpfep_form_background[value]"
-                               value="<?php echo esc_attr($data['value'] ?? ''); ?>"
+                               value="<?php printf('%s', esc_attr($data['value'] ?? '')); ?>"
                                class="regular-text">
 
                         <button type="button" class="button" id="upload-bg-image">Upload Image</button>
@@ -178,8 +184,8 @@ class WPFEP_Form_Appearance {
                 <tr>
                     <th>Blur</th>
                     <td>
-                        <input type="range" id="bg-blur" name="wpfep_form_background[blur]" min="0" max="10" value="<?php echo esc_attr($data['blur'] ?? '0'); ?>">
-                        <span id="blur-value"><?php echo esc_attr($data['blur'] ?? '0'); ?>px</span>
+                        <input type="range" id="bg-blur" name="wpfep_form_background[blur]" min="0" max="10" value="<?php printf('%s', esc_attr($data['blur'] ?? '0')); ?>">
+                        <span id="blur-value"><?php printf('%s', esc_html($data['blur'] ?? '0')); ?>px</span>
                     </td>
                 </tr>
 
@@ -187,8 +193,8 @@ class WPFEP_Form_Appearance {
                 <tr>
                     <th>Overlay Opacity</th>
                     <td>
-                        <input type="range" id="bg-overlay-opacity" name="wpfep_form_background[opacity]" min="0" max="1" step="0.1" value="<?php echo esc_attr($data['opacity'] ?? '0.3'); ?>">
-                        <span id="opacity-value"><?php echo esc_attr($data['opacity'] ?? '0.3'); ?></span>
+                        <input type="range" id="bg-overlay-opacity" name="wpfep_form_background[opacity]" min="0" max="1" step="0.1" value="<?php printf('%s', esc_attr($data['opacity'] ?? '0.3')); ?>">
+                        <span id="opacity-value"><?php printf('%s', esc_html($data['opacity'] ?? '0.3')); ?></span>
                     </td>
                 </tr>
 
