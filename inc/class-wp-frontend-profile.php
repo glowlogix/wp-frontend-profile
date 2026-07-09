@@ -63,32 +63,32 @@ if (! class_exists('WP_Frontend_Profile')) {
          */
         public function includes()
         {
-            require_once __DIR__ . '/../functions/scripts.php';
-            require_once __DIR__ . '/../functions/default-fields.php';
-            require_once __DIR__ . '/../functions/tabs.php';
-            require_once __DIR__ . '/../functions/wpfep-functions.php';
-            require_once __DIR__ . '/../functions/save-fields.php';
-            require_once __DIR__ . '/../functions/shortcode.php';
-            require_once __DIR__ . '/../functions/feedback.php';
-            require_once __DIR__ . '/../functions/wpfep-gutenberg-block.php';
-            require_once __DIR__ . '/class-wpfep-user.php';
-            require_once __DIR__ . '/class-wpfep-roles-editor.php';
-            require_once __DIR__ . '/class-wpfep-login-widget.php';
+            require_once WPFEP_PATH . '/functions/scripts.php';
+            require_once WPFEP_PATH . '/functions/default-fields.php';
+            require_once WPFEP_PATH . '/functions/tabs.php';
+            require_once WPFEP_PATH . '/functions/wpfep-functions.php';
+            require_once WPFEP_PATH . '/functions/save-fields.php';
+            require_once WPFEP_PATH . '/functions/shortcode.php';
+            require_once WPFEP_PATH . '/functions/feedback.php';
+            require_once WPFEP_PATH . '/functions/wpfep-gutenberg-block.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-user.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-roles-editor.php';
+            require_once WPFEP_PATH . '/inc/class-wpfep-login-widget.php';
 
             if (is_admin()) {
-                require_once __DIR__ . '/../admin/class-wpfep-admin-installer.php';
-                require_once __DIR__ . '/../admin/class-wpfep-admin-settings.php';
-                require_once __DIR__ . '/../admin/class-wpfep-shortcodes-button.php';
-                require_once __DIR__ . '/../admin/class-wpfep-admin-help.php';
-                require_once __DIR__ . '/../admin/class-wpfep-system-status.php';
-                require_once __DIR__ . '/../admin/class-wpfep-form-appearance.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-admin-installer.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-admin-settings.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-shortcodes-button.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-admin-help.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-system-status.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-form-appearance.php';
             } else {
-                require_once __DIR__ . '/class-wpfep-registration.php';
-                require_once __DIR__ . '/class-wpfep-login.php';
-                require_once __DIR__ . '/class-wpfep-profile.php';
-                require_once __DIR__ . '/class-wpfep-captcha-recaptcha.php';
-                require_once __DIR__ . '/class-wpfep-captcha-hcaptcha.php';
-                require_once __DIR__ . '/class-wpfep-form-background-frontend.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-registration.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-login.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-captcha-recaptcha.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-captcha-hcaptcha.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-form-background-frontend.php';
             }
         }
 
