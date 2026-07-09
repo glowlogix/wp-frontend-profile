@@ -82,14 +82,14 @@ if (! class_exists('WP_Frontend_Profile')) {
                 require_once WPFEP_PATH . '/admin/class-wpfep-shortcodes-button.php';
                 require_once WPFEP_PATH . '/admin/class-wpfep-admin-help.php';
                 require_once WPFEP_PATH . '/admin/class-wpfep-system-status.php';
-                include_once WPFEP_PATH . '/admin/class-wpfep-form-appearance.php';
+                require_once __DIR__ . '/admin/class-wpfep-form-appearance.php';
             } else {
                 require_once WPFEP_PATH . '/inc/class-wpfep-registration.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-login.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-captcha-recaptcha.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-captcha-hcaptcha.php';
-                include_once WPFEP_PATH . '/inc/class-wpfep-form-background-frontend.php';
+                require_once __DIR__ . '/inc/class-wpfep-form-background-frontend.php';
             }
         }
 
