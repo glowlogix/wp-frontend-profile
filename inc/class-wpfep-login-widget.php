@@ -72,17 +72,25 @@ class wpfep_login_Widget extends WP_Widget
      */
     public function widget($args, $instance)
     {
-        extract($args);
+        $args = wp_parse_args(
+            $args,
+            array(
+                'before_widget' => '',
+                'after_widget'  => '',
+                'before_title'  => '',
+                'after_title'   => '',
+            )
+        );
         $title = apply_filters('wpfep_login_widget_title', (isset($instance['title']) ? $instance['title'] : ''));
-        echo wp_kses_post($before_widget);
+        echo wp_kses_post($args['before_widget']);
         if (! empty($title)) {
-            echo wp_kses_post($before_title) . esc_html($title) . wp_kses_post($after_title);
+            echo wp_kses_post($args['before_title']) . esc_html($title) . wp_kses_post($args['after_title']);
         }
         // The shortcode owns and escapes its complete form markup.
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo do_shortcode('[wpfep-login display="false"]');
         do_action('wpfep_login_widget_display', $args, $instance);
-        echo wp_kses_post($after_widget);
+        echo wp_kses_post($args['after_widget']);
     }
 }
 // Register the widget
