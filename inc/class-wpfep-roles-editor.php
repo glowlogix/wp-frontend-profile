@@ -211,7 +211,11 @@ class WPFEP_Roles_Editor
 
         check_ajax_referer('wpfep-re-ajax-nonce', 'security');
 
-        $role = get_role(sanitize_text_field($_POST['role']));
+        if (!isset($_POST['role'])) {
+            wp_die();
+        }
+
+        $role = get_role($this->sanitize_role(sanitize_text_field(wp_unslash($_POST['role']))));
 
         if (isset($role) && ! empty($role->capabilities)) {
             $role_capabilities = $role->capabilities;
@@ -494,7 +498,8 @@ class WPFEP_Roles_Editor
 			</div>
 
 			<input type="hidden" id="wpfep-role-slug-hidden" name="wpfep-role-slug-hidden" value="">
-			<input type="hidden" name="wpfep-re-ajax-nonce" id="wpfep-re-ajax-nonce" value="<?php echo wp_create_nonce('wpfep-re-ajax-nonce'); ?>" />
+			<input type="hidden" name="wpfep-re-ajax-nonce" id="wpfep-re-ajax-nonce" value="<?php echo esc_attr(wp_create_nonce('wpfep-re-ajax-nonce')); ?>" />
+			<?php wp_nonce_field('wpfep_role_meta_action', 'wpfep_role_meta_nonce'); ?>
 		</div>
 
 		<?php
@@ -524,7 +529,7 @@ class WPFEP_Roles_Editor
 				<div class="misc-pub-section misc-pub-section-edit-slug">
 					<span>
 						<label for="wpfep-role-slug"><?php esc_html_e('Role Slug', 'wpfep'); ?>: </label>
-						<input type="text" id="wpfep-role-slug" value="<?php echo $current_screen->action == 'add' ? '' : $role_slug; ?>" <?php echo $current_screen->action == 'add' ? '' : 'disabled'; ?>>
+						<input type="text" id="wpfep-role-slug" value="<?php echo esc_attr($current_screen->action == 'add' ? '' : $role_slug); ?>" <?php echo $current_screen->action == 'add' ? '' : 'disabled'; ?>>
 					</span>
 				</div>
 			<?php
@@ -571,8 +576,11 @@ class WPFEP_Roles_Editor
             return;
         }
 
-        if (isset($_POST['wpfep-role-slug-hidden'])) {
-            $role_slug = trim($_POST['wpfep-role-slug-hidden']);
+        if (
+            isset($_POST['wpfep-role-slug-hidden'], $_POST['wpfep_role_meta_nonce']) &&
+            wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_role_meta_nonce'])), 'wpfep_role_meta_action')
+        ) {
+            $role_slug = trim(sanitize_text_field(wp_unslash($_POST['wpfep-role-slug-hidden'])));
             $role_slug = $this->sanitize_role($role_slug);
 
             update_post_meta($post_id, 'wpfep_role_slug', $role_slug);
@@ -587,32 +595,39 @@ class WPFEP_Roles_Editor
 
         check_ajax_referer('wpfep-re-ajax-nonce', 'security');
 
-        $role_slug = $this->sanitize_role($_POST['role']);
+        if (!isset($_POST['role'])) {
+            wp_die();
+        }
+
+        $role_slug = $this->sanitize_role(sanitize_text_field(wp_unslash($_POST['role'])));
 
         $role = get_role($role_slug);
 
         if ($role) {
             if (isset($_POST['new_capabilities'])) {
-                foreach ($_POST['new_capabilities'] as $key => $value) {
-                    $role->add_cap(sanitize_text_field($key));
+                $new_capabilities = array_map('sanitize_key', array_keys((array) wp_unslash($_POST['new_capabilities'])));
+                foreach ($new_capabilities as $capability) {
+                    $role->add_cap($capability);
                 }
             }
 
             if (isset($_POST['capabilities_to_delete'])) {
-                foreach ($_POST['capabilities_to_delete'] as $key => $value) {
-                    $role->remove_cap(sanitize_text_field($key));
+                $capabilities_to_delete = array_map('sanitize_key', array_keys((array) wp_unslash($_POST['capabilities_to_delete'])));
+                foreach ($capabilities_to_delete as $capability) {
+                    $role->remove_cap($capability);
                 }
             }
         } else {
             $capabilities = array();
 
             if (isset($_POST['all_capabilities'])) {
-                foreach ($_POST['all_capabilities'] as $key => $value) {
-                    $capabilities[ sanitize_text_field($key) ] = true;
+                $all_capabilities = array_map('sanitize_key', array_keys((array) wp_unslash($_POST['all_capabilities'])));
+                foreach ($all_capabilities as $capability) {
+                    $capabilities[$capability] = true;
                 }
             }
 
-            $role_display_name = sanitize_text_field($_POST['role_display_name']);
+            $role_display_name = isset($_POST['role_display_name']) ? sanitize_text_field(wp_unslash($_POST['role_display_name'])) : $role_slug;
 
             add_role($role_slug, $role_display_name, $capabilities);
         }
@@ -808,12 +823,16 @@ class WPFEP_Roles_Editor
 
         foreach ($wp_roles->role_names as $role_slug => $role_display_name) {
             $role = get_role($role_slug);
-            $role->remove_cap(sanitize_text_field($_POST['capability']));
+            $capability = isset($_POST['capability']) ? sanitize_key(wp_unslash($_POST['capability'])) : '';
+            if ('' === $capability) {
+                wp_die();
+            }
+            $role->remove_cap($capability);
         }
 
         $capabilities = get_option('wpfep_roles_editor_capabilities', 'not_set');
 
-        if ($capabilities != 'not_set' && ($key = array_search(sanitize_text_field($_POST['capability']), $capabilities['custom']['capabilities'])) !== false) {
+        if ($capabilities != 'not_set' && ($key = array_search($capability, $capabilities['custom']['capabilities'])) !== false) {
             unset($capabilities['custom']['capabilities'][ $key ]);
             $capabilities['custom']['capabilities'] = array_values($capabilities['custom']['capabilities']);
 
@@ -1248,7 +1267,7 @@ class WPFEP_Roles_Editor
         $user_roles = apply_filters('wpfep_default_user_roles', array( get_option('default_role') ));
 
         if (isset($_POST['createuser']) && ! empty($_POST['wpfep_re_user_roles'])) {
-            $user_roles = array_map(array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles']);
+            $user_roles = array_map(array( $this, 'sanitize_role' ), (array) wp_unslash($_POST['wpfep_re_user_roles']));
         }
 
         wp_nonce_field('new_user_roles', 'wpfep_re_new_user_roles_nonce');
@@ -1303,7 +1322,7 @@ class WPFEP_Roles_Editor
             return;
         }
 
-        if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
+        if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_re_new_user_roles_nonce'])), 'new_user_roles')) {
             return;
         }
 
@@ -1316,7 +1335,7 @@ class WPFEP_Roles_Editor
             return;
         }
 
-        if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce($_POST['wpfep_re_new_user_roles_nonce'], 'new_user_roles')) {
+        if (! isset($_POST['wpfep_re_new_user_roles_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_re_new_user_roles_nonce'])), 'new_user_roles')) {
             return;
         }
 
@@ -1327,10 +1346,18 @@ class WPFEP_Roles_Editor
 
     public function roles_update_user_new_and_edit($user)
     {
+        if (
+            !current_user_can('promote_users') ||
+            !isset($_POST['wpfep_re_new_user_roles_nonce']) ||
+            !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_re_new_user_roles_nonce'])), 'new_user_roles')
+        ) {
+            return;
+        }
+
         if (! empty($_POST['wpfep_re_user_roles'])) {
             $old_roles = (array) $user->roles;
 
-            $new_roles = array_map(array( $this, 'sanitize_role' ), $_POST['wpfep_re_user_roles']);
+            $new_roles = array_map(array( $this, 'sanitize_role' ), (array) wp_unslash($_POST['wpfep_re_user_roles']));
 
             foreach ($new_roles as $new_role) {
                 if (! in_array($new_role, (array) $user->roles)) {

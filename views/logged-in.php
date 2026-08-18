@@ -94,7 +94,8 @@ if (current_user_can('administrator') && 'on' === $manually_register && is_page(
                         ?>
 	<div class="wpfep-user-loggedin">
 	<p class="alert" id="wpfep_register_pre_form_message">
-	<?php printf(__("You are currently logged in. You don't need another account. %s", 'wpfep'), wp_loginout('', false)) . '</p>'; ?>
+	<?php echo wp_kses_post(sprintf(__("You are currently logged in. You don't need another account. %s", 'wpfep'), wp_loginout('', false))); ?>
+	</p>
 	</div>
 <?php
                     } ?>

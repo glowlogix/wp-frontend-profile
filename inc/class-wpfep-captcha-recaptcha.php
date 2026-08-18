@@ -94,18 +94,26 @@ if (! class_exists('WPFEP_Captcha_Recaptcha')) {
          */
         public static function captcha_verification()
         {
-            $response = isset($_POST['g-recaptcha-response']) ? wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['g-recaptcha-response']))) : '';
+            $response = isset($_POST['g-recaptcha-response']) ? sanitize_text_field(wp_unslash($_POST['g-recaptcha-response'])) : '';
             if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
-                $remote_ip = isset($_SERVER['HTTP_CLIENT_IP']) ? intval($_SERVER['HTTP_CLIENT_IP']) : '';
+                $remote_ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
             } elseif (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                $remote_ip = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? intval($_SERVER['HTTP_X_FORWARDED_FOR']) : '';
+                $forwarded_ips = explode(',', sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR'])));
+                $remote_ip     = trim($forwarded_ips[0]);
             } else {
-                $remote_ip = isset($_SERVER['REMOTE_ADDR']) ? intval($_SERVER['REMOTE_ADDR']) : '';
+                $remote_ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
             }
 
             // make a GET request to the Google reCAPTCHA Server.
-            $request = wp_remote_get(
-                'https://www.google.com/recaptcha/api/siteverify?secret=' . self::$secret_key . '&response=' . $response . '&remoteip=' . $remote_ip
+            $request = wp_remote_post(
+                'https://www.google.com/recaptcha/api/siteverify',
+                array(
+                    'body' => array(
+                        'secret'   => self::$secret_key,
+                        'response' => $response,
+                        'remoteip' => $remote_ip,
+                    ),
+                )
             );
 
             // get the request response body.

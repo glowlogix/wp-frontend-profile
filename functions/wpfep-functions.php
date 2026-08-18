@@ -316,9 +316,9 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 foreach ($options as $option) {
                     ?>
 
-					<input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo $option['value']; ?>" <?php checked($current_field_value, $option['value']); ?> <?php echo ($field['disabled'] == true) ? 'disabled' : ''; ?> />
+					<input type="checkbox" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" value="<?php echo esc_attr($option['value']); ?>" <?php checked($current_field_value, $option['value']); ?> <?php echo ($field['disabled'] == true) ? 'disabled' : ''; ?> />
 					<?php
-                    echo $option['name'];
+                    echo esc_html($option['name']);
                 }
 
                 /* break out of the switch statement */
@@ -353,9 +353,9 @@ function wpfep_field($field, $classes, $tab_id, $user_id)
                 /* if the type is set to a password input */
             case 'password':
                 ?>
-				<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="" placeholder="<?php echo __('New Password', 'wp-front-end-profile'); ?>" />
+				<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>]" id="<?php echo esc_attr($field['id']); ?>" class="regular-text" value="" placeholder="<?php echo esc_attr__('New Password', 'wp-front-end-profile'); ?>" />
 
-				<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>_check]" id="<?php echo esc_attr($field['id']); ?>_check" class="regular-text" value="" placeholder=" <?php echo __('Repeat New Password', 'wp-front-end-profile'); ?>" />
+				<input type="password" name="<?php echo esc_attr($tab_id); ?>[<?php echo esc_attr($field['id']); ?>_check]" id="<?php echo esc_attr($field['id']); ?>_check" class="regular-text" value="" placeholder="<?php echo esc_attr__('Repeat New Password', 'wp-front-end-profile'); ?>" />
 
 				<?php
 
@@ -394,7 +394,7 @@ function wpfep_tab_content_save($tab, $user_id)
     $profile_page_obj = $profile_page->get_profile_url(); ?>
 	<div class="wpfep-save">
 		<label class="wpfep_save_description"><?php echo esc_html__('Save this tabs updated fields.', 'wp-front-end-profile'); ?></label>
-		<input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="<?php echo __('Update'); ?> <?php echo esc_attr__($tab['label']); ?>" />
+		<input type="submit" class="wpfep_save" name="<?php echo esc_attr($tab['id']); ?>[wpfep_save]" value="<?php echo esc_attr(sprintf(__('Update %s'), $tab['label'])); ?>" />
 		<a class="btn" href="<?php echo esc_attr($profile_page_obj); ?>"><?php echo esc_html__('View Profile', 'wp-front-end-profile'); ?></a>
 	</div>
 	<?php
@@ -745,14 +745,11 @@ function wpfep_show_profile()
     }
     $user = wp_get_current_user();
     if (in_array('administrator', (array) $user->roles, true) && wpfep_get_option('admin_profile_edit', 'wpfep_profile', 'off') == 'off') {
-        if (current_user_can('manage_options')) {
-            ob_start();
-        }
         echo "<div class='wpfep_editing_disabled'>";
         printf(esc_html__('Frontend editing is disabled for administrators because of security risks.', 'wp-front-end-profile'));
         echo '</div>';
 
-        return ob_get_clean();
+        return;
     }
     /* if you're an admin - too risky to allow frontend editing */ ?>
 	<div class="wpfep-wrapper">

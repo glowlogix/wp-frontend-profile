@@ -85,6 +85,10 @@ if (! class_exists('WPFEP_Registration')) {
                         'user' => wp_get_current_user(),
                     )
                 );
+            } elseif (!get_option('users_can_register')) {
+                echo '<div class="wpfep-registration-closed">';
+                esc_html_e('User registration is currently disabled.', 'wpfep');
+                echo '</div>';
             } else {
                 $action = isset($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : 'register';
 
@@ -112,6 +116,12 @@ if (! class_exists('WPFEP_Registration')) {
                 $default_user_role="subscriber";
             }
             if (! empty($_POST['wpfep_registration']) && ! empty($_POST['_wpnonce'])) {
+                if (!get_option('users_can_register')) {
+                    $this->registration_errors[] = __('User registration is currently disabled.', 'wpfep');
+
+                    return;
+                }
+
                 $nonce_action = 'wpfep_registration_action';
 
                 if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), $nonce_action)) {
@@ -120,7 +130,11 @@ if (! class_exists('WPFEP_Registration')) {
 
                 $userdata = array();
                 $validation_error = new WP_Error();
-                $validation_error = apply_filters('wpfep_process_registration_errors', $validation_error, sanitize_text_field(wp_unslash(isset($_POST['wpfep_reg_email']))), sanitize_text_field(wp_unslash(isset($_POST['wpfep_reg_uname']))), sanitize_text_field(wp_unslash(isset($_POST['pwd1']))), sanitize_text_field(wp_unslash(isset($_POST['pwd2']))));
+                $registration_email    = isset($_POST['wpfep_reg_email']) ? sanitize_email(wp_unslash($_POST['wpfep_reg_email'])) : '';
+                $registration_username = isset($_POST['wpfep_reg_uname']) ? sanitize_user(wp_unslash($_POST['wpfep_reg_uname']), true) : '';
+                $registration_password = isset($_POST['pwd1']) ? wp_unslash($_POST['pwd1']) : '';
+                $password_confirmation = isset($_POST['pwd2']) ? wp_unslash($_POST['pwd2']) : '';
+                $validation_error = apply_filters('wpfep_process_registration_errors', $validation_error, $registration_email, $registration_username, $registration_password, $password_confirmation);
 
                 if ($validation_error->get_error_code()) {
                     $this->registration_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . $validation_error->get_error_message();
@@ -152,7 +166,7 @@ if (! class_exists('WPFEP_Registration')) {
                     return;
                 }
 
-                if ($_POST['pwd1'] != $_POST['pwd2']) {
+                if ($registration_password !== $password_confirmation) {
                     $this->registration_errors[] = '<strong>' . __('Error', 'wpfep') . ':</strong> ' . __('Passwords are not same.', 'wpfep');
 
                     return;
@@ -160,7 +174,7 @@ if (! class_exists('WPFEP_Registration')) {
                 $enable_strong_pwd = wpfep_get_option('strong_password', 'wpfep_general');
                 if ('off' !== $enable_strong_pwd) {
                     /* get the length of the password entered */
-                    $password    = isset($_POST['pwd1']) ? $_POST['pwd1'] : '';
+                    $password    = $registration_password;
                     $pass_length = strlen($password);
 
                     /* check the password match the correct length. */

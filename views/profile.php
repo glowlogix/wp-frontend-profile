@@ -74,7 +74,7 @@ if (! is_user_logged_in()) {
             $the_query = new WP_Query($args);
             ?>
             <ul class="wpfep-profile-item-ul">
-            <h4><?php esc_html('My Posts', 'wpfep'); ?></h4>
+            <h4><?php esc_html_e('My Posts', 'wpfep'); ?></h4>
             <?php
             // The Loop.
             if ($the_query->have_posts()) {
@@ -91,7 +91,7 @@ if (! is_user_logged_in()) {
                                 <div class="wpfep-profile-item-summary">
                                     <?php
                                     $excerpt = strip_shortcodes(wp_trim_words(get_the_excerpt(), 15, '...')); ?>
-                                    <p><?php esc_html($excerpt); ?></p>
+                                    <p><?php echo esc_html($excerpt); ?></p>
                                 </div>
                             </div>
                         </li>
@@ -102,7 +102,7 @@ if (! is_user_logged_in()) {
                 do_action('wpfep_profile_pagination', $the_query->max_num_pages);
             } else {
                 // no posts found.
-                echo '<p>' . esc_attr_e('Post not Found', 'wpfep') . '</p>';
+                echo '<p>' . esc_html__('Post not Found', 'wpfep') . '</p>';
             }
             ?>
         </ul>
