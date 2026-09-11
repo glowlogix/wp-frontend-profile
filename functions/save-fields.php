@@ -86,6 +86,7 @@ function wpfep_save_fields($tabs, $user_id)
                 $existing_user = email_exists($value);
                 if ($existing_user && $existing_user !== $user_id) {
                     $email_exists = true; // Set the flag to true if email exists
+                    continue;
                 }
             }
 
@@ -102,7 +103,7 @@ function wpfep_save_fields($tabs, $user_id)
             /* check whether the key is reserved - handled with wp_update_user */
 
             if (in_array($key, $reserved_ids)) {
-                $user_id = wp_update_user(
+                $updated_user_id = wp_update_user(
                     array(
                         'ID' => $user_id,
                         $key => $value,
@@ -110,7 +111,7 @@ function wpfep_save_fields($tabs, $user_id)
                 );
 
                 /* check for errors */
-                if (is_wp_error($user_id)) {
+                if (is_wp_error($updated_user_id)) {
 
                     /* update failed */
                     $messages['update_failed'] = '<p class="error">There was a problem with updating your profile.</p>';
@@ -159,15 +160,17 @@ function wpfep_save_fields($tabs, $user_id)
                 /* update the user meta data */
                 if (isset($registered_fields[$registered_field_key]['taxonomy'])) {
                     $meta = wp_set_object_terms($user_id, $value, $registered_fields[$registered_field_key]['taxonomy'], false);
+                    if (is_wp_error($meta)) {
+                        $messages['update_failed'] = '<p class="error">There was a problem with updating your profile.</p>';
+                    }
                 } else {
+                    $previous_value = get_user_meta($user_id, $key, true);
                     $meta = update_user_meta($user_id, $key, $value);
-                }
 
-                /* check the update was succesfull */
-                if (false == $meta) {
-
-                    /* update failed */
-                    $messages['update_failed'] = '<p class="error">There was a problem with updating your profile.</p>';
+                    /* A false return also means the value was already unchanged. */
+                    if (false === $meta && $previous_value !== $value) {
+                        $messages['update_failed'] = '<p class="error">There was a problem with updating your profile.</p>';
+                    }
                 }
             }
         } // end tab loop.
@@ -185,7 +188,7 @@ function wpfep_save_fields($tabs, $user_id)
 
     /* check if we have an messages to output */
 
-    if (empty($messages)) {
+    if (!empty($messages)) {
 ?>
         <div class="messages">
             <?php
@@ -213,7 +216,7 @@ function wpfep_save_fields($tabs, $user_id)
         </div>
     <?php
 
-    } else {
+    } elseif (empty($messages)) {
     ?>
         <div class="messages">
             <p class="updated"><?php esc_html_e('Yours profile was updated successfully!', 'wpfep'); ?></p>
@@ -248,17 +251,17 @@ function wpfep_save_password($tabs, $user_id)
     $messages = array();
 
     /* get the posted data from the password tab */
-    if (!isset($_POST['password']) || !wp_verify_nonce($_POST['wpfep_nonce_name'], 'wpfep_nonce_action')) {
+    if (!isset($_POST['password'], $_POST['wpfep_nonce_name']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpfep_nonce_name'])), 'wpfep_nonce_action')) {
         return;
     }
-    $data = (isset($_POST['password'])) ? $_POST['password'] : '';
+    $data = isset($_POST['password']) ? (array) wp_unslash($_POST['password']) : array();
     /* first lets check we have a password added to save */
     if (empty($data)) {
         return;
     }
     /* store both password for ease of access */
-    $password       = $data['user_pass'];
-    $password_check = $data['user_pass_check'];
+    $password       = isset($data['user_pass']) ? (string) $data['user_pass'] : '';
+    $password_check = isset($data['user_pass_check']) ? (string) $data['user_pass_check'] : '';
 
     /* now lets check the password match */
     if ($password != $password_check) {

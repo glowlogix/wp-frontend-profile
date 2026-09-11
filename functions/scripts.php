@@ -28,7 +28,7 @@ function wpfep_register_scripts()
 
     /* if we turn ob tab js - enqueue them */
     if (true == $tab_js_output) {
-        wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), 'jquery', array(), true);
+        wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), array( 'jquery' ), WPFEP_VERSION, true);
     }
 }
 add_action('wp_enqueue_scripts', 'wpfep_register_scripts');

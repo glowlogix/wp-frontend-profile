@@ -45,7 +45,7 @@ class wpfep_login_Widget extends WP_Widget
             $instance_title = $instance['title'];
         } ?>
 			<p>
-			<label for="<?php echo esc_html($field_id); ?>"><?php _e('Title:', 'wpfep'); ?></label>
+            <label for="<?php echo esc_attr($field_id); ?>"><?php esc_html_e('Title:', 'wpfep'); ?></label>
 			<input id="<?php echo esc_html($field_id); ?>" class="widefat" type="text" name="<?php echo esc_html($field_name); ?>" value="<?php echo esc_html($instance_title); ?>" style="width:100%;" />
 		</p>
 		<?php
@@ -72,15 +72,25 @@ class wpfep_login_Widget extends WP_Widget
      */
     public function widget($args, $instance)
     {
-        extract($args);
+        $args = wp_parse_args(
+            $args,
+            array(
+                'before_widget' => '',
+                'after_widget'  => '',
+                'before_title'  => '',
+                'after_title'   => '',
+            )
+        );
         $title = apply_filters('wpfep_login_widget_title', (isset($instance['title']) ? $instance['title'] : ''));
-        echo $before_widget;
+        echo wp_kses_post($args['before_widget']);
         if (! empty($title)) {
-            echo $before_title . $title . $after_title;
+            echo wp_kses_post($args['before_title']) . esc_html($title) . wp_kses_post($args['after_title']);
         }
+        // The shortcode owns and escapes its complete form markup.
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo do_shortcode('[wpfep-login display="false"]');
         do_action('wpfep_login_widget_display', $args, $instance);
-        echo $after_widget;
+        echo wp_kses_post($args['after_widget']);
     }
 }
 // Register the widget

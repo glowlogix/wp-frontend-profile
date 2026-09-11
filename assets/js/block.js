@@ -49,7 +49,7 @@ wp.blocks.registerBlockType('wpfep/frontend-profile', {
       ),
       
       el(
-         wp.editor.RichText,
+         wp.blockEditor.RichText,
          {
             tagName: 'p',
             onChange: updateContent,
@@ -69,7 +69,7 @@ save: function(props) {
          className: 'wpfep-guten-block'
       },
     
-      el( wp.editor.RichText.Content, {
+      el( wp.blockEditor.RichText.Content, {
          tagName: 'p',
          value: props.attributes.type
       })
