@@ -389,8 +389,8 @@ if (! class_exists('WPFEP_Login')) {
                     return;
                 } else {
                     $redirect = $this->login_redirect();
-                    wp_redirect(apply_filters('wpfep_login_redirect', $redirect, $user));
-                    return;
+                    wp_safe_redirect(apply_filters('wpfep_login_redirect', $redirect, $user));
+                    exit;
                 }
             }
         }
@@ -406,7 +406,7 @@ if (! class_exists('WPFEP_Login')) {
 
             if ('previous_page' == $redirect_to && !empty($_POST['redirect_to'])) {
                 if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_login_action')) {
-                    return esc_url($_POST['redirect_to']);
+                    return esc_url_raw(wp_unslash($_POST['redirect_to']));
                 } else {
                     return home_url();
                 }
@@ -455,8 +455,8 @@ if (! class_exists('WPFEP_Login')) {
                 if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_lost_pass')) {
                     if ($this->retrieve_password()) {
                         $url = add_query_arg(array('checkemail' => 'confirm'), $this->get_login_url());
-                        wp_redirect($url);
-                        return;
+                        wp_safe_redirect($url);
+                        exit;
                     }
                 } else {
                     wp_die();
@@ -466,11 +466,12 @@ if (! class_exists('WPFEP_Login')) {
             // process reset password form.
             if (isset($_POST['pass1']) && isset($_POST['pass2']) && isset($_POST['key']) && isset($_POST['login']) && isset($_POST['_wpnonce'])) {
                 // verify reset key again.
-                $user = $this->check_password_reset_key($_POST['key'], sanitize_text_field(wp_unslash($_POST['login'])));
+                $reset_key = sanitize_text_field(wp_unslash($_POST['key']));
+                $user      = $this->check_password_reset_key($reset_key, sanitize_text_field(wp_unslash($_POST['login'])));
 
                 if (is_object($user)) {
                     // save these values into the form again in case of errors.
-                    $args['key']   = $_POST['key'];
+                    $args['key']   = $reset_key;
                     $args['login'] = sanitize_text_field(wp_unslash($_POST['login']));
 
                     if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'wpfep_reset_pass')) {
@@ -481,7 +482,10 @@ if (! class_exists('WPFEP_Login')) {
                             return;
                         }
 
-                        if ($_POST['pass1'] !== $_POST['pass2']) {
+                        $password       = wp_unslash($_POST['pass1']);
+                        $password_check = wp_unslash($_POST['pass2']);
+
+                        if ($password !== $password_check) {
                             $this->login_errors[] = __('Passwords do not match.', 'wpfep');
                             return;
                         }
@@ -490,7 +494,6 @@ if (! class_exists('WPFEP_Login')) {
 
                         if ('off' != $enable_strong_pwd) {
                             /* get the length of the password entered */
-                            $password    = $_POST['pass1'];
                             $pass_length = strlen($password);
 
                             /* check the password match the correct length */
@@ -526,12 +529,12 @@ if (! class_exists('WPFEP_Login')) {
                         }
 
                         if (! $this->login_errors) {
-                            $this->reset_password($user, $_POST['pass1']);
+                            $this->reset_password($user, $password);
 
                             do_action('wpfep_customer_reset_password', $user);
 
-                            wp_redirect(add_query_arg('reset', 'true', remove_query_arg(array('key', 'login'))));
-                            return;
+                            wp_safe_redirect(add_query_arg('reset', 'true', remove_query_arg(array('key', 'login'))));
+                            exit;
                         }
                     }
                 }
@@ -714,7 +717,7 @@ if (! class_exists('WPFEP_Login')) {
                 return;
             }
 
-            $user_id           = intval($_GET['id']);
+            $user_id           = absint($_GET['id']);
             $user              = new wpfep_User($user_id);
             $wpfep_user_active = get_user_meta($user_id, '_wpfep_user_active', true);
             $wpfep_user_status = get_user_meta($user_id, 'wpfep_user_status', true);
@@ -753,7 +756,7 @@ if (! class_exists('WPFEP_Login')) {
             // show activation message.
             add_filter('wp_login_errors', array( $this, 'user_activation_message' ));
 
-            $password_info_email = isset($_GET['wpfep_password_info_email']) ? $_GET['wpfep_password_info_email'] : false;
+            $password_info_email = isset($_GET['wpfep_password_info_email']) ? sanitize_text_field(wp_unslash($_GET['wpfep_password_info_email'])) : false;
             $the_user            = get_user_by('id', $user_id);
             $user_email          = $the_user->user_email;
             $blogname            = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
@@ -841,6 +844,10 @@ if (! class_exists('WPFEP_Login')) {
             $login_url = get_permalink($login_page_id);
             if (! $login_url) {
                 return;
+            if (! is_admin() && 'wp-login.php' == $pagenow && isset($_GET['action']) && 'register' == $_GET['action']) {
+                $reg_page = get_permalink(wpfep_get_option('register_page', 'wpfep_pages'));
+                wp_safe_redirect($reg_page);
+                exit;
             }
 
             $action = isset($_REQUEST['action']) ? sanitize_text_field(wp_unslash($_REQUEST['action'])) : '';

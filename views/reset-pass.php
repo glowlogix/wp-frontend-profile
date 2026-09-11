@@ -31,11 +31,11 @@ defined('ABSPATH') || exit;
 			<input type="hidden" name="key" value="
 			<?php
             if (! empty($_REQUEST['key'])) {
-                echo esc_attr($_REQUEST['key']);
+                echo esc_attr(sanitize_text_field(wp_unslash($_REQUEST['key'])));
             }
             ?>
 			" />
-			<input type="hidden" name="login" id="user_login" value="<?php echo isset($_REQUEST['login']) ? esc_html(wp_unslash($_REQUEST['login'])) : ''; ?>" />
+			<input type="hidden" name="login" id="user_login" value="<?php echo isset($_REQUEST['login']) ? esc_attr(sanitize_user(wp_unslash($_REQUEST['login']))) : ''; ?>" />
 			<input type="hidden" name="wpfep_reset_password" value="true" />
 		</p>
 

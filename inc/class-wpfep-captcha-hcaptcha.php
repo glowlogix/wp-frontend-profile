@@ -92,7 +92,7 @@ if (!class_exists('WPFEP_Captcha_hCaptcha')) {
         public static function captcha_verification()
         {
             $response = isset($_POST['h-captcha-response']) ? sanitize_text_field(wp_unslash($_POST['h-captcha-response'])) : '';
-            $remote_ip = $_SERVER['REMOTE_ADDR'] ?? '';
+            $remote_ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
 
             $verify = wp_remote_post('https://hcaptcha.com/siteverify', [
                 'body' => [
