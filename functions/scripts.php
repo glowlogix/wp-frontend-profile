@@ -102,11 +102,11 @@ function wpfep_apply_form_background()
     }
 
     wp_enqueue_style(
-    'wpfep-form-background',
-    WPFEP_PLUGIN_URL . 'assets/css/form-background.css',
-    array('wpfep_styles'),
-    WPFEP_VERSION,
-    'all'
+        'wpfep-form-background',
+        WPFEP_PLUGIN_URL . 'assets/css/form-background.css',
+        array('wpfep_styles'),
+        WPFEP_VERSION,
+        'all'
     );
 
     $custom_css =  "
