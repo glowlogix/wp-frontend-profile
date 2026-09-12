@@ -844,10 +844,6 @@ if (! class_exists('WPFEP_Login')) {
             $login_url = get_permalink($login_page_id);
             if (! $login_url) {
                 return;
-            if (! is_admin() && 'wp-login.php' == $pagenow && isset($_GET['action']) && 'register' == $_GET['action']) {
-                $reg_page = get_permalink(wpfep_get_option('register_page', 'wpfep_pages'));
-                wp_safe_redirect($reg_page);
-                exit;
             }
 
             $action = isset($_REQUEST['action']) ? sanitize_text_field(wp_unslash($_REQUEST['action'])) : '';
