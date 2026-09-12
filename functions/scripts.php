@@ -39,8 +39,6 @@ add_action('wp_enqueue_scripts', 'wpfep_register_scripts');
 function wpfep_apply_form_background()
 {
     $options = get_option('wpfep_form_background');
-    //error_log('Current Page ID: ' . $current_page_id);
-
 
     if (empty($options)) {
         return;
@@ -103,24 +101,21 @@ function wpfep_apply_form_background()
         $css = $value;
     }
 
-    $custom_css = "
-        .wpfep-form-bg-wrapper {
-            {$css}
-            min-height: 100vh;
-            padding: 60px 20px;
-            position: relative;
-        }
+    wp_enqueue_style(
+    'wpfep-form-background',
+    WPFEP_PLUGIN_URL . 'assets/css/form-background.css',
+    array('wpfep_styles'),
+    WPFEP_VERSION,
+    'all'
+    );
 
-        .wpfep-form-box {
-            max-width: 500px;
-            margin: auto;
-            background: rgba(255,255,255,0.9);
-            padding: 30px;
-            border-radius: 10px;
-        }
-    ";
+    $custom_css =  "
+    .wpfep-form-bg-wrapper {
+        {$css}
+    }
+";
 
-    wp_add_inline_style('wpfep_styles', $custom_css);
+    wp_add_inline_style('wpfep-form-background', $custom_css);
 }
 
 /**
@@ -157,47 +152,23 @@ function wpfep_load_url_background()
     if (empty($bg_image)) {
         return;
     }
-
     $bg_image = esc_url($bg_image);
 
+    wp_enqueue_style(
+        'wpfep-form-background',
+        WPFEP_PLUGIN_URL . '/css/form-background.css',
+        array('wpfep_styles'),
+        WPFEP_VERSION
+    );
+
     $custom_css = "
-        .wpfep-wrapper,
-        #wpfep-login-form,
-        .wpfep-registration-form,
-        .wpfep-profile-template {
-            position: relative;
-            min-height: 100vh;
-            z-index: 1;
-        }
-
-        /* Background Layer */
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: url('{$bg_image}') no-repeat center center;
-            background-size: cover;
+            background-image: url('{$bg_image}');
             filter: blur({$blur}px);
-            transform: scale(1.05);
-            z-index: -2;
         }
-
-        /* Dark Overlay */
         body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
             background: rgba(0,0,0,{$opacity});
-            z-index: -1;
-        }
-
-        /* Form container */
-        .wpfep-form-bg-wrapper,
-        .wpfep-wrapper {
-            position: relative;
-            z-index: 2;
         }
     ";
-
-    wp_add_inline_style('wpfep_styles', $custom_css);
+    wp_add_inline_style('wpfep-form-background', $custom_css);
 }
