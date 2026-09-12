@@ -1,3 +1,13 @@
+:root {
+    --wpfep-primary: #0f766e;
+    /* main teal */
+    --wpfep-primary-dark: #115e59;
+    /* darker teal */
+    --wpfep-accent: #14b8a6;
+    /* accent */
+    --wpfep-text: #1f2d3d;
+}
+
 /* tab styles
 -------------------------------------------------------------- */
 ul.wpfep-tabs {
@@ -11,15 +21,18 @@ ul.wpfep-tabs {
     margin-bottom: 16px;
     list-style-type: none;
 }
+
 ul#wpfep-tabs {
     padding: 0;
     margin-bottom: 16px;
     margin-left: 0;
 }
+
 ul.wpfep-tabs li {
     display: inline-block;
     margin: 0 3px -1px 0;
 }
+
 ul.wpfep-tabs li a {
     padding: 4px 15px 6px;
     font-size: 18px;
@@ -34,53 +47,72 @@ ul.wpfep-tabs li a {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }
+
 ul.wpfep-tabs li.highlight a {
-    background-color: #922540;
+    background-color: #0f766e;
     color: #FFFFFF;
-    border-color: #84273e;
+    border-color: #115e59;
 }
+
 ul.wpfep-tabs li a.active {
     color: #000;
     border-bottom-color: #F1F1F1;
     background-color: #F1F1F1;
 }
+
 ul.wpfep-tabs li.highlight a.active {
-    background-color: #C95874;
+    background-color: #14b8a6;
     color: #FFFFFF;
 }
+
 p.forgetmenot label {
     display: inline;
 }
-.wpfep_user_details h5:before{
+
+.wpfep_user_details h5:before {
     content: none;
 }
+
 .wpfep-wrapper p.updated {
     display: block !important;
 }
+
 /* field styles
 -------------------------------------------------------------- */
-.wpfep-registration-form input[type="text"], .wpfep-registration-form input[type="email"], .wpfep-registration-form input[type="password"], .wpfep-login-form input[type="text"], .wpfep-login-form input[type="password"], #lostpasswordform input[type="text"], #resetpasswordform input[type="password"] {
+.wpfep-registration-form input[type="text"],
+.wpfep-registration-form input[type="email"],
+.wpfep-registration-form input[type="password"],
+.wpfep-login-form input[type="text"],
+.wpfep-login-form input[type="password"],
+#lostpasswordform input[type="text"],
+#resetpasswordform input[type="password"] {
     width: 100%;
 }
-.wpfep_editing_disabled{
+
+.wpfep_editing_disabled {
     color: red;
 }
+
 .wpfep-field {
     margin-bottom: 24px;
 }
+
 .wpfep-field label {
     display: block;
     font-size: 1.6rem;
     margin-bottom: 4px;
 }
+
 .wpfep-select-field label,
 .wpfep-checkbox-field label {
     display: inline;
     margin-right: 10px;
 }
+
 label.wpfep_save_description {
     display: none;
 }
+
 .wpfep-field input,
 .wpfep-textarea-field textarea {
     margin-bottom: 4px;
@@ -88,25 +120,29 @@ label.wpfep_save_description {
     font-size: 1.4rem;
     color: #666666;
 }
+
 .wpfep-field input[type="text"],
 .wpfep-field input[type="email"],
 .wpfep-field input[type="password"],
 .wpfep-textarea-field textarea {
     width: 100%;
 }
+
 .wpfep-field p.description {
     font-size: 1.2rem;
     font-style: italic;
     color: #999999;
 }
+
 .wpfep-select-field p.description,
 .wpfep-checkbox-field p.description {
     display: inline;
 }
+
 .wpfep-select-field select {
     border: 1px solid #ddd;
-    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .07);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .07);
     background-color: #fff;
     color: #333;
     outline: 0;
@@ -119,16 +155,20 @@ label.wpfep_save_description {
     font-size: 1.5rem;
     margin-right: 10px;
 }
+
 .wpfep-field textarea.wp-editor-area,
 .wpfep-field .quicktags-toolbar {
     border: 1px solid #CCCCCC;
 }
+
 .wpfep-field textarea.wp-editor-area {
     border-top: none;
 }
+
 .wpfep-field .quicktags-toolbar {
     border-bottom: none;
 }
+
 p.error,
 p.updated {
     background-color: #F2F2F2;
@@ -136,10 +176,13 @@ p.updated {
     padding-left: 14px;
     border-left: 3px solid #7ad03a;
 }
+
 p.error {
     border-left: 3px solid #990000;
 }
-.wpfep-login-alert,.wpfep-message {
+
+.wpfep-login-alert,
+.wpfep-message {
     background: #fcf8e3;
     border: 1px solid #faebcc;
     color: #8a6d3b;
@@ -150,7 +193,8 @@ p.error {
     border-radius: 3px;
     font-size: 13px;
 }
-.wpfep-success{
+
+.wpfep-success {
     padding: 6px 9px;
     margin: 0 auto 25px;
     display: block;
@@ -159,6 +203,7 @@ p.error {
     background: #e7f7d3;
     border: 1px solid #6c3;
 }
+
 .wpfep-error {
     padding: 6px 9px;
     margin: 0 auto 25px;
@@ -168,100 +213,299 @@ p.error {
     background: #ffebe8;
     border: 1px solid #C00;
 }
+
 .wpfep-required {
-    color :red;
+    color: red;
 }
+
 .wpfep-registration-form ul li {
     margin: 0;
     padding-bottom: 14px;
     list-style: none;
 }
 
+.wpfep-form-bg-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.wpfep-form-box {
+    width: 50%;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 38px;
+    background: rgba(255, 255, 255, 0.65) !important;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 38px 100px rgba(0, 0, 0, 0.16) !important;
+    backdrop-filter: blur(18px);
+}
+
+.wpfep-form-box ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wpfep-form-header {
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.wpfep-form-header h2 {
+    margin: 0 0 8px;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    color: #1f2d3d;
+}
+
+.wpfep-form-subtitle {
+    margin: 0;
+    color: #546478;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* logo above the card */
+.wpfep-form-logo {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 14px;
+    display: block;
+}
+
+.wpfep-form-logo img,
+.wpfep-default-logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    background: #fff;
+    padding: 8px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* input icons (user/email and password) */
+.wpfep-form-box input[id*="login"],
+.wpfep-form-box input[id*="email"] {
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 44px;
+}
+
+.wpfep-form-box input[id*="login"] {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2' fill='none' stroke='%231f2d3d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><circle cx='12' cy='7' r='4' fill='none' stroke='%231f2d3d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+.wpfep-form-box input[id*="email"] {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18'><path d='M4 4h16v16H4z' fill='none' stroke='%231f2d3d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/><path d='M22 6l-10 7L2 6' fill='none' stroke='%231f2d3d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+.wpfep-form-box input[type="password"] {
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 44px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z' fill='none' stroke='%231f2d3d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><circle cx='12' cy='12' r='3' fill='none' stroke='%231f2d3d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+.wpfep-form-box li {
+    margin-bottom: 18px;
+}
+
+.wpfep-form-box input[type="text"],
+.wpfep-form-box input[type="email"],
+.wpfep-form-box input[type="password"],
+.wpfep-form-box textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    font-size: 1rem;
+    background: #fff;
+    color: #232323;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wpfep-form-box input[type="text"]:focus,
+.wpfep-form-box input[type="email"]:focus,
+.wpfep-form-box input[type="password"]:focus,
+.wpfep-form-box textarea:focus {
+    border-color: #1f6feb;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(31, 111, 235, 0.08);
+    outline: none;
+}
+
+.wpfep-form-box input[type="submit"],
+.wpfep-form-box button,
+.wpfep-form-box .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    padding: 13px 22px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, var(--wpfep-primary) 0%, var(--wpfep-accent) 100%);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 12px 30px rgba(31, 111, 235, 0.18);
+}
+
+.wpfep-form-box input[type="submit"]:hover,
+.wpfep-form-box button:hover,
+.wpfep-form-box .button:hover {
+    background: linear-gradient(135deg, var(--wpfep-primary-dark) 0%, var(--wpfep-primary) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 16px 35px rgba(31, 111, 235, 0.22);
+}
+
+.wpfep-form-box input[type="submit"]:hover,
+.wpfep-form-box button:hover,
+.wpfep-form-box .button:hover {
+    transform: translateY(-1px);
+}
+
+.wpfep-form-box a {
+    color: var(--wpfep-primary);
+}
+
+.wpfep-form-box a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .wpfep-form-bg-wrapper {
+        padding: 30px 16px;
+    }
+
+    .wpfep-form-box {
+        padding: 26px;
+    }
+
+    .wpfep-form-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .wpfep-form-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
 li.wpfep-form-field.wpfep-default-user-bio label {
     vertical-align: top;
 }
+
 .wpfep-avatar img {
     width: 20%;
     height: auto;
     border-radius: 50%;
 }
-.wpfep-registration-form label,.wpfep-login-form label, #lostpasswordform label {
-   display: block;
+
+.wpfep-registration-form label,
+.wpfep-login-form label,
+#lostpasswordform label {
+    display: block;
 }
 
 /*Profile page*/
 .wpfep_user_details h5 {
     text-align: center;
 }
+
 .wpfep-profile-sidebar>img {
     border-radius: 50%;
     margin: 0 auto;
     display: block;
     width: 75%;
 }
+
 .wpfep-profile-item-ul li {
     list-style: none;
 }
+
 ul.wpfep-profile-item-ul {
     /* border: 1px solid #e6e6e6; */
 }
-.wpfep-lg-3{
+
+.wpfep-lg-3 {
     box-shadow: 0px 0px 5px 0px #ddd;
 }
-.wpfep-pagination ul.page-numbers li{
+
+.wpfep-pagination ul.page-numbers li {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: inline-block;
 }
+
 .wpfep-pagination {
     padding-top: 20px;
 }
-.wpfep-profile-items, .wpfep-profile-sidebar{
+
+.wpfep-profile-items,
+.wpfep-profile-sidebar {
     margin-bottom: 10px;
     height: 476px;
     box-shadow: 0px 0px 5px 0px #ddd;
 }
+
 .wpfep_user_details h5 {
     font-weight: 400;
     font-size: 0.83em;
 }
-@media screen and (min-width: 64em){
-    .wpfep-columns{
+
+@media screen and (min-width: 64em) {
+    .wpfep-columns {
         width: 100%;
         float: left;
         padding-left: .625rem;
         padding-right: .625rem;
     }
-    .wpfep-lg-3{
+
+    .wpfep-lg-3 {
         height: 500px;
-        margin-left: -250px!important;
-        width: 33%!important;
+        margin-left: -250px !important;
+        width: 33% !important;
         padding-left: .9375rem;
         padding-right: .9375rem;
-        
+
     }
+
     .wpfep-lg-9 {
         width: 75%;
     }
+
     ul.wpfep-profile-item-ul {
         padding: 25px;
         margin: 0;
     }
-    .wpfep-pagination ul.page-numbers li{
+
+    .wpfep-pagination ul.page-numbers li {
         list-style-type: none;
         margin: 0;
         padding: 0;
         display: inline-block;
     }
+
     .wpfep-pagination {
         padding-top: 20px;
     }
-    .wpfep-profile-items{
-        min-height:500px!important;
+
+    .wpfep-profile-items {
+        min-height: 500px !important;
         /* background-color: #183a97; */
     }
 }
+
 @media only screen and (max-width: 1024px) {
     .wpfep-profile-sidebar>img {
         border-radius: 50%;
@@ -269,50 +513,58 @@ ul.wpfep-profile-item-ul {
         display: block;
         width: 140px !important;
     }
+
     ul.wpfep-profile-item-ul {
         margin-bottom: 0;
     }
+
     .wpfep_user_details {
         padding: 15px;
     }
+
     ul.wpfep-profile-item-ul {
         padding: 15px;
     }
-    .wpfep-profile-items{
+
+    .wpfep-profile-items {
         height: auto;
     }
-    
-}
-@media only screen and (min-width: 320px){
-.wpfep-fields .g-recaptcha .h-captcha{
-    transform: scale(0.77);
-    -webkit-transform: scale(0.77);
-    transform-origin: 0 0;
-    -webkit-transform-origin: 0 0;
+
 }
 
-ul.wpfep-profile-item-ul {
-    margin: 0px;
+@media only screen and (min-width: 320px) {
+    .wpfep-fields .g-recaptcha .h-captcha {
+        transform: scale(0.77);
+        -webkit-transform: scale(0.77);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+    }
+
+    ul.wpfep-profile-item-ul {
+        margin: 0px;
+    }
+
+    #wpfep_registration_form ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .wpfep-profile-items {
+        height: auto;
+    }
 }
-#wpfep_registration_form ul {
-    margin: 0px;
-    padding: 0px;
-}
-.wpfep-profile-items{
-    
-    height: auto;
-}
-}
+
 .wpfep-default-role :checked {
     border: 3px solid #0586BE;
     -webkit-appearance: none;
 }
+
 .wpfep-custom-role :checked {
     border: 3px solid #0586BE;
     -webkit-appearance: none;
 }
-input.wpfep-showform-default{
 
+input.wpfep-showform-default {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -323,8 +575,8 @@ input.wpfep-showform-default{
     transition: 0.2s all linear;
     margin-right: 5px;
 }
-input.wpfep-showform-custom{
 
+input.wpfep-showform-custom {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -335,6 +587,7 @@ input.wpfep-showform-custom{
     transition: 0.2s all linear;
     margin-right: 5px;
 }
+
 select#wfp-user-role {
     font-size: 14px;
     line-height: 2;
@@ -351,9 +604,60 @@ select#wfp-user-role {
     padding: 7px;
     margin-bottom: 14px;
 }
+
 .wpfep-default-user-role label {
-   display: inline;
+    display: inline;
 }
+
 label.wpfep-showform-custom {
     margin-left: 15px;
+}
+
+/* wrapper for inputs when adding absolute-positioned controls */
+.wpfep-input-wrap {
+    position: relative;
+    display: block;
+}
+
+.wpfep-password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    width: 10px;
+    height: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1f2d3d;
+    padding: 2px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    line-height: 0;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: none;
+    margin: 0;
+}
+
+.wpfep-password-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0);
+}
+
+.wpfep-password-toggle svg {
+    display: block;
+}
+
+/* Prevent global .button hover/transform rules from moving the small toggle */
+.wpfep-form-box .wpfep-password-toggle,
+.wpfep-form-box .wpfep-password-toggle:hover,
+.wpfep-form-box .wpfep-password-toggle:active,
+.wpfep-form-box .wpfep-password-toggle:focus {
+    transform: translateY(-50%) !important;
 }

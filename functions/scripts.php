@@ -20,7 +20,7 @@ function wpfep_register_scripts()
 
     /* if we should output styles - enqueue them */
     if (true == $style_output) {
-        wp_enqueue_style('wpfep_styles', plugins_url('/assets/css/wpfep-style.css', dirname(__FILE__)), array(), WPFEP_VERSION, 'all');
+        wp_enqueue_style('wpfep_styles', WPFEP_PLUGIN_URL . 'assets/css/wpfep-style.css', array(), WPFEP_VERSION, 'all');
     }
 
     /* make a filter to allow turning off tab js */
@@ -30,5 +30,145 @@ function wpfep_register_scripts()
     if (true == $tab_js_output) {
         wp_enqueue_script('wpfep_tabs_js', plugins_url('/assets/js/tabs.js', dirname(__FILE__)), array( 'jquery' ), WPFEP_VERSION, true);
     }
+
+    /* small password show/hide toggle */
+    wp_enqueue_script('wpfep_password_toggle', WPFEP_PLUGIN_URL . 'assets/js/password-toggle.js', array( 'jquery' ), WPFEP_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'wpfep_register_scripts');
+
+function wpfep_apply_form_background()
+{
+    $options = get_option('wpfep_form_background');
+
+    if (empty($options)) {
+        return;
+    }
+
+    $type  = $options['type'] ?? '';
+    $value = $options['value'] ?? '';
+    $pages = $options['pages'] ?? [];
+
+    if (!$type || !$value || empty($pages)) {
+        return;
+    }
+
+    $current_page_id = get_queried_object_id();
+    $login_page    = wpfep_get_option('login_page', 'wpfep_pages');
+    $register_page = wpfep_get_option('register_page', 'wpfep_pages');
+
+    $apply = false;
+
+    $action = sanitize_text_field(wp_unslash((string) filter_input(INPUT_GET, 'action')));
+
+    if ($current_page_id == $login_page && in_array('login', $pages)) {
+        $apply = true;
+    }
+
+    if ($current_page_id == $register_page && in_array('register', $pages)) {
+        $apply = true;
+    }
+
+    if ($current_page_id == $login_page) {
+        if ($action === 'lostpassword' && in_array('lostpass', $pages)) {
+            $apply = true;
+        }
+
+        if (($action === 'rp' || $action === 'resetpass') && in_array('resetpass', $pages)) {
+            $apply = true;
+        }
+    }
+
+    if (!$apply) {
+        return;
+    }
+
+    // sanitize
+    if ($type === 'image') {
+        $value = esc_url($value);
+        $css = "background-image: url('{$value}'); background-size: cover; background-position: center;";
+    }
+
+    if ($type === 'color') {
+        $value = esc_attr($value);
+        $css = "background: {$value};";
+    }
+
+    if ($type === 'gradient') {
+        $css = $value;
+    }
+
+    if ($type === 'animation') {
+        $css = $value;
+    }
+
+    wp_enqueue_style(
+        'wpfep-form-background',
+        WPFEP_PLUGIN_URL . 'assets/css/form-background.css',
+        array('wpfep_styles'),
+        WPFEP_VERSION,
+        'all'
+    );
+
+    $custom_css =  "
+    .wpfep-form-bg-wrapper {
+        {$css}
+    }
+";
+
+    wp_add_inline_style('wpfep-form-background', $custom_css);
+}
+
+/**
+ * Load background images from URL settings
+ */
+function wpfep_load_url_background()
+{
+    $options = get_option('wpfep_form_background', array());
+
+    if (empty($options['enable_form_background']) || 'off' === $options['enable_form_background']) {
+        return;
+    }
+
+    $current_page_id = get_queried_object_id();
+
+    $login_page    = wpfep_get_option('login_page', 'wpfep_pages');
+    $register_page = wpfep_get_option('register_page', 'wpfep_pages');
+    $profile_page  = wpfep_get_option('profile_page', 'wpfep_pages');
+    $edit_page     = wpfep_get_option('profile_edit_page', 'wpfep_pages');
+
+    $bg_image = '';
+    $blur     = isset($options['blur']) ? (int) $options['blur'] : 0;
+    $opacity  = isset($options['opacity']) ? floatval($options['opacity']) : 0.3;
+
+    // Select image per page
+    if ($current_page_id == $login_page && !empty($options['login_bg_image'])) {
+        $bg_image = $options['login_bg_image'];
+    } elseif ($current_page_id == $register_page && !empty($options['register_bg_image'])) {
+        $bg_image = $options['register_bg_image'];
+    } elseif (($current_page_id == $profile_page || $current_page_id == $edit_page) && !empty($options['profile_bg_image'])) {
+        $bg_image = $options['profile_bg_image'];
+    }
+
+    if (empty($bg_image)) {
+        return;
+    }
+    $bg_image = esc_url($bg_image);
+
+    wp_enqueue_style(
+        'wpfep-form-background',
+        WPFEP_PLUGIN_URL . '/css/form-background.css',
+        array('wpfep_styles'),
+        WPFEP_VERSION
+    );
+
+    $custom_css = "
+        body::before {
+            background-image: url('{$bg_image}');
+            filter: blur({$blur}px);
+        }
+        body::after {
+            background: rgba(0,0,0,{$opacity});
+        }
+    ";
+    wp_add_inline_style('wpfep-form-background', $custom_css);
+}

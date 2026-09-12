@@ -55,7 +55,7 @@ if (! class_exists('WPFEP_Login')) {
             add_filter('login_url', array( $this, 'filter_login_url' ), 10, 2);
             add_filter('logout_url', array( $this, 'filter_logout_url' ), 10, 2);
             add_filter('lostpassword_url', array( $this, 'filter_lostpassword_url' ), 10, 2);
-            add_filter('authenticate', array( $this, 'successfully_authenticate' ), 30, 3);
+            add_filter('authenticate', array( $this, 'successfully_authenticate' ), 30, 1);
         }
 
         /**
@@ -149,6 +149,10 @@ if (! class_exists('WPFEP_Login')) {
          */
         public function filter_login_url($url, $redirect)
         {
+            if (! $this->get_login_url()) {
+                return $url;
+            }
+
             return $this->get_action_url('login', $redirect);
         }
 
@@ -162,6 +166,10 @@ if (! class_exists('WPFEP_Login')) {
          */
         public function filter_logout_url($url, $redirect)
         {
+            if (! $this->get_login_url()) {
+                return $url;
+            }
+
             return $this->get_action_url('logout', $redirect);
         }
 
@@ -175,6 +183,10 @@ if (! class_exists('WPFEP_Login')) {
          */
         public function filter_lostpassword_url($url, $redirect)
         {
+            if (! $this->get_login_url()) {
+                return $url;
+            }
+
             return $this->get_action_url('lostpassword', $redirect);
         }
 
@@ -423,7 +435,7 @@ if (! class_exists('WPFEP_Login')) {
 
                 $redirect_to = ! empty($_REQUEST['redirect_to']) ? sanitize_text_field(wp_unslash($_REQUEST['redirect_to'])) : add_query_arg(array( 'loggedout' => 'true' ), $this->get_login_url());
                 wp_safe_redirect($redirect_to);
-                exit();
+                return;
             }
         }
 
@@ -665,13 +677,11 @@ if (! class_exists('WPFEP_Login')) {
         /**
          * Successful authenticate when enable email verification in registration.
          *
-         * @param object $user     return user.
-         * @param string $username return username.
-         * @param string $password return password.
+         * @param object $user return user.
          *
          * @return object
          */
-        public function successfully_authenticate($user, $username, $password)
+        public function successfully_authenticate($user)
         {
             if (! is_wp_error($user)) {
                 if ($user->ID) {
@@ -812,7 +822,7 @@ if (! class_exists('WPFEP_Login')) {
         }
 
         /**
-         * Redirect user to page after log in.
+         * Redirect wp-login.php access to the frontend login/register pages.
          *
          * @since 1.0.0
          *
@@ -822,11 +832,37 @@ if (! class_exists('WPFEP_Login')) {
         {
             global $pagenow;
 
-            if (! is_admin() && 'wp-login.php' == $pagenow && isset($_GET['action']) && 'register' == $_GET['action']) {
-                $reg_page = get_permalink(wpfep_get_option('register_page', 'wpfep_pages'));
-                wp_safe_redirect($reg_page);
-                exit;
+            if (is_admin() || 'wp-login.php' !== $pagenow) {
+                return;
             }
+
+            $login_page_id = wpfep_get_option('login_page', 'wpfep_pages');
+            if (! $login_page_id) {
+                return;
+            }
+
+            $login_url = get_permalink($login_page_id);
+            if (! $login_url) {
+                return;
+            }
+
+            $action = isset($_REQUEST['action']) ? sanitize_text_field(wp_unslash($_REQUEST['action'])) : '';
+
+            if ('register' === $action) {
+                $register_page_id = wpfep_get_option('register_page', 'wpfep_pages');
+                if ($register_page_id) {
+                    wp_safe_redirect(get_permalink($register_page_id));
+                    return;
+                }
+            }
+
+            if (in_array($action, array('lostpassword', 'resetpass', 'rp', 'logout'), true)) {
+                wp_safe_redirect(add_query_arg('action', $action, $login_url));
+                return;
+            }
+
+            wp_safe_redirect($login_url);
+            return;
         }
 
         /**

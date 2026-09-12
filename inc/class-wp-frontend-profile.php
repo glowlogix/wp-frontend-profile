@@ -82,12 +82,14 @@ if (! class_exists('WP_Frontend_Profile')) {
                 require_once WPFEP_PATH . '/admin/class-wpfep-shortcodes-button.php';
                 require_once WPFEP_PATH . '/admin/class-wpfep-admin-help.php';
                 require_once WPFEP_PATH . '/admin/class-wpfep-system-status.php';
+                require_once WPFEP_PATH . '/admin/class-wpfep-form-appearance.php';
             } else {
                 require_once WPFEP_PATH . '/inc/class-wpfep-registration.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-login.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-captcha-recaptcha.php';
                 require_once WPFEP_PATH . '/inc/class-wpfep-captcha-hcaptcha.php';
+                require_once WPFEP_PATH . '/inc/class-wpfep-form-background-frontend.php';
             }
         }
 
@@ -102,11 +104,13 @@ if (! class_exists('WP_Frontend_Profile')) {
                 $this->container['settings']        = WPFEP_Admin_Settings::init();
                 $this->container['admin_installer'] = new WPFEP_Admin_Installer();
                 $this->container['System_Status']   = new Wpfep_System_Status();
+                $this->container['form_appearance'] = new WPFEP_Form_Appearance();
             } else {
                 $this->container['registration'] = WPFEP_Registration::init();
                 $this->container['login']        = WPFEP_Login::init();
                 $this->container['profile']      = WPFEP_Profile::init();
                 $this->container['captcha']      = WPFEP_Captcha_Recaptcha::initialize();
+                $this->container['form_bg_frontend'] = new WPFEP_Form_Background_Frontend();
             }
         }
 
