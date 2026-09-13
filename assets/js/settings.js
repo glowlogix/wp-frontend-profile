@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var recaptchaLogin = document.getElementById('wpfep_general[enable_captcha_login]');
     var recaptchaRegistration = document.getElementById('wpfep_general[enable_captcha_registration]');
     var hcaptchaLogin = document.getElementById('wpfep_general[enable_hcaptcha_login]');
     var hcaptchaRegistration = document.getElementById('wpfep_general[enable_hcaptcha_registration]');
 
-    
+
 
     function handleRecaptchaChange() {
         if (recaptchaLogin.checked || recaptchaRegistration.checked) {

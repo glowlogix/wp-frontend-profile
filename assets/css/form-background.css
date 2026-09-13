@@ -1,0 +1,46 @@
+.wpfep-wrapper,
+#wpfep-login-form,
+.wpfep-registration-form,
+.wpfep-profile-template {
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    transform: scale(1.05);
+    z-index: -2;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+.wpfep-form-bg-wrapper,
+.wpfep-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.wpfep-form-bg-wrapper {
+    min-height: 100vh;
+    padding: 60px 20px;
+    position: relative;
+}
+
+.wpfep-form-box {
+    max-width: 500px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+}
