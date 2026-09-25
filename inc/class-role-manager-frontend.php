@@ -33,6 +33,7 @@ class WPFEP_User_Role_Manager {
 		wp_localize_script( 'wpfep-role-manager', 'wpfepRoleManager', $this->get_script_data() );
 	}
 
+	
 	/** @return array<string, string> */
 	private function get_script_data() {
 		return array(
