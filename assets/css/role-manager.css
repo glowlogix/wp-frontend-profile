@@ -115,5 +115,7 @@
 		overflow-x: auto;
 	}
 
-	.wpfep-role-manager .wpfep-user-search-form { flex-wrap: wrap; }
+	.wpfep-role-manager .wpfep-user-search-form { 
+		flex-wrap: wrap; 
+	}
 }
