@@ -1,0 +1,119 @@
+/* Front-end role manager. Every selector is scoped to the shortcode output. */
+.wpfep-role-manager .wpfep-add-user-toggle,
+.wpfep-role-manager button {
+	background: #2271b1;
+	border: 1px solid #135e96;
+	border-radius: 4px;
+	box-shadow: none;
+	color: #fff;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.4;
+	padding: 8px 14px;
+	text-decoration: none;
+	transition: background-color .15s ease, border-color .15s ease;
+}
+
+.wpfep-role-manager .wpfep-add-user-toggle:hover,
+.wpfep-role-manager button:hover,
+.wpfep-role-manager .wpfep-add-user-toggle:focus,
+.wpfep-role-manager button:focus {
+	background: #135e96;
+	border-color: #0a4b78;
+	color: #fff;
+}
+
+.wpfep-role-manager .wpfep-add-user-toggle:focus,
+.wpfep-role-manager button:focus,
+.wpfep-role-manager input:focus,
+.wpfep-role-manager select:focus {
+	outline: 2px solid #72aee6;
+	outline-offset: 2px;
+}
+
+.wpfep-role-manager .wpfep-add-user-form {
+	border: 1px solid #ddd;
+	margin: 16px 0;
+	max-width: 420px;
+	padding: 16px;
+}
+
+.wpfep-role-manager .wpfep-add-user-form label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.wpfep-role-manager .wpfep-add-user-form input,
+.wpfep-role-manager .wpfep-add-user-form select {
+	box-sizing: border-box;
+	max-width: 100%;
+	width: 100%;
+}
+
+.wpfep-role-manager .wpfep-user-search-form {
+	display: flex;
+	gap: 8px;
+	margin: 16px 0;
+}
+
+.wpfep-role-manager .wpfep-user-search-form input {
+	border: 1px solid #8c8f94;
+	border-radius: 4px;
+	font-size: 14px;
+	min-height: 38px;
+	padding: 6px 10px;
+	max-width: 360px;
+	width: 100%;
+}
+
+.wpfep-role-manager .wpfep-user-search-form button {
+	padding: 6px 14px;
+}
+
+.wpfep-role-manager .wpfep-table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.wpfep-role-manager .wpfep-table th,
+.wpfep-role-manager .wpfep-table td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+	text-align: left;
+}
+
+.wpfep-role-manager .wpfep-role-badge {
+	background: #6c757d;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	padding: 4px 8px;
+}
+
+.wpfep-role-manager .wpfep-role-administrator { background: #e74c3c; }
+.wpfep-role-manager .wpfep-role-editor { background: #3498db; }
+.wpfep-role-manager .wpfep-role-author { background: #2ecc71; }
+.wpfep-role-manager .wpfep-role-contributor { background: #f39c12; }
+.wpfep-role-manager .wpfep-role-subscriber { background: #7f8c8d; }
+
+.wpfep-role-manager .wpfep-role-locked {
+	color: #646970;
+	font-weight: 600;
+}
+
+.wpfep-role-manager .wpfep-success { color: #008a20; }
+.wpfep-role-manager .wpfep-error { color: #b32d2e; }
+
+.wpfep-role-manager .wpfep-pagination { margin-top: 16px; }
+.wpfep-role-manager .wpfep-pagination .page-numbers { margin-right: 8px; }
+
+@media (max-width: 640px) {
+	.wpfep-role-manager .wpfep-table {
+		display: block;
+		overflow-x: auto;
+	}
+
+	.wpfep-role-manager .wpfep-user-search-form { flex-wrap: wrap; }
+}
