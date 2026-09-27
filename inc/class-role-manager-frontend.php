@@ -126,7 +126,7 @@ class WPFEP_User_Role_Manager {
 					</td></tr>
 				<?php endforeach; ?>
 			</tbody></table>
-			<?php if ( $total_pages > 1 ) : ?><nav class="wpfep-pagination" aria-label="<?php esc_attr_e( 'User pagination', 'wpfep' ); ?>"><?php echo wp_kses_post( paginate_links( array( 'base' => add_query_arg( 'wpfep_role_page', '%#%' ), 'format' => '', 'current' => $page_number, 'total' => $total_pages, 'add_args' => array( 'wpfep_user_search' => $search ) ) ) ); ?></nav><?php endif; ?>
+			<?php if ( $total_pages > 1 ) : ?><nav class="wpfep-pagination" aria-label="<?php esc_attr_e( 'User pagination', 'wpfep' ); ?>"><?php printf( '%s', wp_kses_post( paginate_links( array( 'base' => add_query_arg( 'wpfep_role_page', '%#%' ), 'format' => '', 'current' => $page_number, 'total' => $total_pages, 'add_args' => array( 'wpfep_user_search' => $search ) ) ) ) ); ?></nav><?php endif; ?>
 		</div>
 		<?php
 		return ob_get_clean();
