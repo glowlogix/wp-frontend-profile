@@ -75,6 +75,7 @@ if (! class_exists('WP_Frontend_Profile')) {
             require_once WPFEP_PATH . '/inc/class-wpfep-roles-editor.php';
             require_once WPFEP_PATH . '/inc/class-wpfep-login-widget.php';
             require_once WPFEP_PATH . '/inc/class-wpfep-profile.php';
+            require_once WPFEP_PATH . '/inc/class-role-manager-frontend.php';
 
             if (is_admin()) {
                 require_once WPFEP_PATH . '/admin/class-wpfep-admin-installer.php';
@@ -112,6 +113,7 @@ if (! class_exists('WP_Frontend_Profile')) {
                 $this->container['captcha']      = WPFEP_Captcha_Recaptcha::initialize();
                 $this->container['form_bg_frontend'] = new WPFEP_Form_Background_Frontend();
             }
+            $this->container['role_manager'] = new WPFEP_User_Role_Manager();
         }
 
         /**
