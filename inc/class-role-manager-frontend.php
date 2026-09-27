@@ -132,7 +132,11 @@ class WPFEP_User_Role_Manager {
 		return ob_get_clean();
 	}
 
-	/** Create a submitted front-end user. */
+	/**
+	 * Create a submitted front-end user.
+	 *
+	 * @SuppressWarnings(PHPMD.ExitExpression)
+	 */
 	public function create_user() {
 		if ( ! isset( $_POST['wpfep_create_frontend_user'] ) ) {
 			return;
@@ -160,7 +164,10 @@ class WPFEP_User_Role_Manager {
 		exit;
 	}
 
-	/** @param string $message Error message. */
+    /**
+ 	 * @param string $message Error message.
+ 	 * @SuppressWarnings(PHPMD.ExitExpression)
+ 	 */
 	private function redirect_with_error( $message ) {
 		wp_safe_redirect( add_query_arg( 'wpfep_user_error', rawurlencode( $message ), $this->get_redirect_url() ) );
 		exit;
