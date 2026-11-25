@@ -219,7 +219,7 @@ if (! class_exists('Wpfep_System_Status')) {
                         if ($environment['fsockopen_or_curl_enabled']) {
                             echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
                         } else {
-                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html_e('Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'wpfep') . '</mark>';
+                            echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__('Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'wpfep') . '</mark>';
                         } ?>
 						</td>
 					</tr>
