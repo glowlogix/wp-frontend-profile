@@ -930,7 +930,7 @@ if (! class_exists('WPFEP_Login')) {
             $message = apply_filters('retrieve_password_message', $message, $key, $user_login);
 
             if ($message && ! wp_mail($user_email, wp_specialchars_decode($title), $message)) {
-                wp_die(esc_html_e('The e-mail could not be sent.', 'wpfep') . "<br />\n" . esc_html_e('Possible reason: your host may have disabled the mail() function.', 'wpfep'));
+                wp_die(esc_html__('The e-mail could not be sent.', 'wpfep') . "<br />\n" . esc_html__('Possible reason: your host may have disabled the mail() function.', 'wpfep'));
             }
         }
 
